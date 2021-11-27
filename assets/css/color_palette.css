@@ -1,0 +1,14 @@
+:root,
+::after,
+::before {
+}
+
+[theme="default_light"],
+[theme="default_light"]::after,
+[theme="default_light"]::before {
+}
+
+[theme="default_dark"],
+[theme="default_dark"]::after,
+[theme="default_dark"]::before {
+}
