@@ -1,0 +1,36 @@
+@font-face { font-family: "IranYekanRegular"; src: url("~/assets/fonts/IranYekanRegular.ttf") format("truetype"); }
+
+*::-moz-selection { background: #414141; color: white; }
+*::selection { background: #414141; color: white; }
+
+*::-webkit-scrollbar-track {
+    background-color: transparent; border-radius: 0px;
+    -webkit-box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.01);
+}
+*::-webkit-scrollbar {
+    margin-inline-start: 0.25em;
+    width: 10px; height: 10px; border-radius: 0px;
+    -webkit-box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.01);
+}
+*::-webkit-scrollbar-track-piece { background-color: transparent; border-radius: 0px; }
+*::-webkit-scrollbar-thumb {
+    background: #ff6978; border-radius: 0px;
+    -webkit-box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+*,html{
+    scroll-behavior: smooth;
+    transition: all .15s;
+}
+
+.slidedown-enter-active, .slidedown-leave-active { transition: all 0.3s; }
+.slidedown-enter, .slidedown-leave-to { opacity: 0; transform: translateY(-30px); }
+
+.slideleft-enter-active,.slideleft-leave-active{ transition: all .3s; }
+.slideleft-enter,.slideleft-leave-to{ opacity: 0; transform: translateX(30px); }
+
+.fade-enter-active, .fade-leave-active{ transition: all .25s ease; }
+.fade-enter, .fade-leave-to{ opacity: 0; }
+
+.page-enter-active, .page-leave-active { transition: all 0.5s; }
+.page-enter, .page-leave-to { opacity: 0; }

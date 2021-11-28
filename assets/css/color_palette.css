@@ -1,6 +1,7 @@
 :root,
 ::after,
 ::before {
+    --header-nav-text-color: #fff;
 }
 
 [theme="default_light"],
