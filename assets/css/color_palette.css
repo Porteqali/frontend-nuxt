@@ -2,6 +2,11 @@
 ::after,
 ::before {
     --header-nav-text-color: #fff;
+    --header-nav-container-bg-color: #3f202088;
+
+    --search-box-bg-color: #fff;
+    --search-box-button-color: #fff;
+    --top-h1-color: #fff;
 }
 
 [theme="default_light"],
