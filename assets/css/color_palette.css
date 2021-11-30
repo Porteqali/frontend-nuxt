@@ -1,12 +1,28 @@
 :root,
 ::after,
 ::before {
+    --body-bg-color: #f2f6ff;
+
     --header-nav-text-color: #fff;
     --header-nav-container-bg-color: #3f202088;
 
     --search-box-bg-color: #fff;
     --search-box-button-color: #fff;
     --top-h1-color: #fff;
+
+    --cart-dropdown-price-color: #e3e8ff;
+    --view-cart-btn-bg-color: #3f202088;
+
+    --department-section-toggle-btn-border-color: #3913b8;
+    --department-section-toggle-btn-bg-color: #f2f6ff;
+    --department-section-toggle-btn-fill-bg-color: #b699ff;
+    --department-section-toggle-btn-fill-color: #fff;
+
+    --department-section-title-alt-text-bg-color: #3f202088;
+    --department-section-title-alt-text-color: #fff;
+
+    --department-section-course-tag-bg-color: #ff51b1;
+    --department-section-course-tag-color: #fff;
 }
 
 [theme="default_light"],
