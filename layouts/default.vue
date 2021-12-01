@@ -24,26 +24,40 @@ header {
     background-size: cover;
     padding-top: 480px;
     box-shadow: inset 0px 0px 40px 70px var(--body-bg-color);
+    z-index: 5;
 }
 footer {
     color: var(--header-nav-text-color);
     background-color: var(--header-nav-container-bg-color);
 }
+.go_up_btn {
+    margin-left: 10%;
+    z-index: 5;
+}
 </style>
 
 <template>
-    <div class="relative flex flex-col items-center justify-start h-screen overflow-x-hidden w-full px-8 lg:px-12" dir="rtl">
+    <div class="relative flex flex-col items-center justify-start h-screen overflow-x-hidden w-full px-4 md:px-8 lg:px-12" dir="rtl" ref="body" id="app">
         <header class="flex items-center justify-between gap-8 py-8 w-full max-w-screen-4xl z-20">
-            <div class="flex-shrink-0">
+            <nuxt-link to="/" class="flex-shrink-0">
                 <img src="/logo_white.png" alt="پرتقال" />
-            </div>
+            </nuxt-link>
             <Menu />
         </header>
 
+        <Background
+            :src="topBackground[$nuxt.$route.path].src"
+            :topOffset="topBackground[$nuxt.$route.path].topOffset"
+            :rightOffset="topBackground[$nuxt.$route.path].rightOffset"
+            :minWidth="topBackground[$nuxt.$route.path].minWidth"
+        />
+
         <Nuxt class="z-10" nuxt-child-key="default" />
 
-        <div class="footer_container w-full mb-0 -mt-96">
-            <!-- <img class="absolute w-max right-0" src="/backgrounds/Background.footer.png" alt="porteqali-background" /> -->
+        <div class="footer_container w-full -mt-96">
+            <button class="go_up_btn orange_gradient_v relative flex items-center justify-center rounded-xl p-6 -mb-8 mr-auto" @click="scrollUp()">
+                <img src="/icons/GoUp.svg" alt="GoUp" width="16" height="16" />
+            </button>
             <footer class="blur flex flex-col items-center gap-4 max-w-screen-4xl shadow-xl w-full rounded-2xl mb-4 p-4 lg:p-8 z-10">
                 <div class="flex flex-wrap items-center justify-evenly gap-16 w-full">
                     <div class="flex flex-col gap-4">
@@ -54,8 +68,9 @@ footer {
                             <li><nuxt-link to="#">درباره ما</nuxt-link></li>
                             <li><nuxt-link to="#">تماس با ما</nuxt-link></li>
                             <li><nuxt-link to="#">همکاری با ما</nuxt-link></li>
-                            <li><nuxt-link to="#">حریم خصوصی</nuxt-link></li>
                             <li><nuxt-link to="#">سوالات متداول</nuxt-link></li>
+                            <li><nuxt-link to="terms-and-conditions">قوانین و مقررات</nuxt-link></li>
+                            <li><nuxt-link to="privacy-policy">حریم خصوصی</nuxt-link></li>
                         </ul>
                     </div>
                     <div class="flex flex-col gap-6">
@@ -76,7 +91,7 @@ footer {
                         <div class="flex flex-col gap-2">
                             <h4 class="font-bold text-2xl">عضویت در خبرنامه</h4>
                             <div class="search_box flex items-center gap-4 p-2 rounded-xl shadow-lg">
-                                <input class="flex-grow outline-none bg-transparent w-60" type="text" placeholder="ایمیل خود را وارد کنید" />
+                                <input class="flex-grow outline-none bg-transparent w-40 md:w-60" type="text" placeholder="ایمیل خود را وارد کنید" />
                                 <button class="orange_gradient_v flex-shrink-0 p-2 md:px-8 rounded-xl shadow-lg flex items-center justify-center">
                                     <span>ثبت نام</span>
                                 </button>
@@ -95,13 +110,14 @@ footer {
                     </div>
                 </div>
                 <hr class="w-full max-w-screen-xl my-4 opacity-70" />
-                <p class="text-justify">کلیه حقوق مادی و معنوی این وبسایت متعلق به گروه آموزشی پرتقال است. ضوابط حاکم بر وبسایت پرتقال، مبتنی بر قوانین جاری جمهوری اسلامی ایران است.</p>
+                <p class="text-justify text-xs md:text-sm">
+                    کلیه حقوق مادی و معنوی این وبسایت متعلق به گروه آموزشی پرتقال است. ضوابط حاکم بر وبسایت پرتقال، مبتنی بر قوانین جاری جمهوری اسلامی ایران است.
+                </p>
                 <small dir="ltr">
-                    <pre>Porteqali.com All Rights Reserved. Copyright {{ new Date(Date.now()).getFullYear() }} ©</pre>
+                    <pre wrap="true">Porteqali.com All Rights Reserved. Copyright {{ new Date(Date.now()).getFullYear() }} ©</pre>
                 </small>
             </footer>
         </div>
-        <!-- <img class="absolute w-max right-0" src="/backgrounds/Background.footer.png" alt="porteqali-background" /> -->
     </div>
 </template>
 
@@ -118,8 +134,23 @@ export default {
         Menu,
     },
     data() {
-        return {};
+        return {
+            topBackground: {
+                "/": { src: "/backgrounds/Background.png", topOffset: 0, rightOffset: 0, minWidth: 2020 },
+                "/privacy-policy": { src: "/backgrounds/Background2.png", topOffset: -25, rightOffset: -10, minWidth: 2420 },
+                "/terms-and-conditions": { src: "/backgrounds/Background2.png", topOffset: -25, rightOffset: -10, minWidth: 2420 },
+            },
+        };
     },
-    mounted() {},
+    mounted() {
+        if (process.client && window) {
+            window.history.scrollRestoration = "auto";
+        }
+    },
+    methods: {
+        scrollUp() {
+            this.$refs.body.scrollTop = 0;
+        },
+    },
 };
 </script>

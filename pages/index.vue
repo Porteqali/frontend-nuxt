@@ -19,7 +19,7 @@
 
 <template>
     <main role="main" class="flex flex-col items-center gap-16 max-w-screen-4xl w-full">
-        <Background />
+        <!-- <Background src="/backgrounds/Background.png" :topOffset="0" :rightOffset="0" :minWidth="2020" /> -->
 
         <section class="relative flex flex-wrap justify-evenly gap-8 lg:gap-20" id="top">
             <div class="flex flex-col gap-10 mt-28">
@@ -77,7 +77,7 @@
                     <img src="/icons/Scan.svg" width="24" height="24" alt="Scan" />
                 </button>
             </div>
-            <img style="min-width: 500px;" src="/home/certificates.png" alt="porteqali-certificates" />
+            <img style="min-width: 500px" src="/home/certificates.png" alt="porteqali-certificates" />
         </section>
     </main>
 </template>
@@ -91,6 +91,11 @@ import TestimonialSection from "~/components/home/Testimonial.section";
 import FaqSection from "~/components/home/FAQ.section";
 
 export default {
+    scrollToTop: true,
+    head: {
+        title: "گروه آموزشی پرتقال",
+        meta: [{ hid: "description", name: "description", content: "" }],
+    },
     components: {
         Background,
         DepartmentSection,
