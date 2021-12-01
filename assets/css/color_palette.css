@@ -4,25 +4,33 @@
     --body-bg-color: #f2f6ff;
 
     --header-nav-text-color: #fff;
-    --header-nav-container-bg-color: #3f202088;
+    --header-nav-container-bg-color: #3f2020aa;
 
     --search-box-bg-color: #fff;
+    --search-box-color: #000;
     --search-box-button-color: #fff;
     --top-h1-color: #fff;
 
     --cart-dropdown-price-color: #e3e8ff;
-    --view-cart-btn-bg-color: #3f202088;
+    --view-cart-btn-bg-color: #3f2020aa;
 
     --department-section-toggle-btn-border-color: #3913b8;
     --department-section-toggle-btn-bg-color: #f2f6ff;
     --department-section-toggle-btn-fill-bg-color: #b699ff;
     --department-section-toggle-btn-fill-color: #fff;
 
-    --department-section-title-alt-text-bg-color: #3f202088;
+    --department-section-title-alt-text-bg-color: #3f2020aa;
     --department-section-title-alt-text-color: #fff;
 
     --department-section-course-tag-bg-color: #ff51b1;
     --department-section-course-tag-color: #fff;
+
+    --testimonial-section-card-bg-color: #3F0E47aa;
+    --testimonial-section-card-color: #fff;
+
+    --faq-section-card-bg-color: #fff;
+    --faq-section-card-color: #000;
+    --faq-section-card-title-color: #3913B8;
 }
 
 [theme="default_light"],

@@ -1,34 +1,4 @@
 <style scoped>
-.toggle_btn {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.75rem 1rem;
-    border: 2px solid var(--department-section-toggle-btn-border-color);
-    background-color: var(--department-section-toggle-btn-bg-color);
-    color: var(--department-section-toggle-btn-border-color);
-}
-.toggle_btn.fill {
-    background-color: var(--department-section-toggle-btn-fill-bg-color);
-    color: var(--department-section-toggle-btn-fill-color);
-}
-
-.title_alt_text {
-    display: none;
-    position: absolute !important;
-    z-index: 2;
-    opacity: 0;
-    top: -3rem;
-    background-color: var(--department-section-title-alt-text-bg-color);
-    color: var(--department-section-title-alt-text-color);
-    border-radius: 1rem;
-    padding: 0.5rem 1rem;
-}
-.title_alt:hover + .title_alt_text {
-    opacity: 1;
-    display: inline-block;
-}
-
 .more_courses_btn {
     background-color: var(--department-section-title-alt-text-bg-color);
     color: var(--department-section-title-alt-text-color);
@@ -47,30 +17,7 @@
 <template>
     <section class="relative flex flex-col gap-8 w-full" id="department">
         <div class="flex flex-wrap justify-between gap-8 w-full">
-            <div class="flex flex-wrap items-center gap-4">
-                <button class="toggle_btn rounded-full">
-                    <img src="/icons/FavouriteOutlineColor.purple.svg" width="24" height="24" alt="FavouriteOutlineColor" />
-                    <span>محبوب ها</span>
-                </button>
-                <button class="toggle_btn fill rounded-full">
-                    <img src="/icons/BookOpenOutlineColor.purple.svg" width="24" height="24" alt="BookOpenOutlineColor" />
-                    <span>جدیدترین ها</span>
-                </button>
-            </div>
-            <ul class="flex flex-wrap gap-4">
-                <li class="relative flex items-center justify-center">
-                    <img class="title_alt cursor-pointer" src="/misc/Figma.svg" width="48" height="48" alt="Figma" />
-                    <span class="blur title_alt_text">امنیت</span>
-                </li>
-                <li class="relative flex items-center justify-center">
-                    <img class="title_alt cursor-pointer" src="/misc/Figma.svg" width="48" height="48" alt="Figma" />
-                    <span class="blur title_alt_text">امنیت</span>
-                </li>
-                <li class="relative flex items-center justify-center">
-                    <img class="title_alt cursor-pointer" src="/misc/Figma.svg" width="48" height="48" alt="Figma" />
-                    <span class="blur title_alt_text">امنیت</span>
-                </li>
-            </ul>
+            <h2 class="font-bold text-4xl">دوره های پر مخاطب</h2>
         </div>
         <div v-swiper="coursesSwiperOptions" class="w-full max-w-screen-4xl select-none overflow-hidden p-4">
             <ul class="swiper-wrapper flex items-start">
@@ -123,7 +70,7 @@
 
 <script>
 export default {
-    name: "DepartmentSection",
+    name: "MostViewedCoursesSection",
     data() {
         return {
             courses: ["", "", "", "", "", "", ""],

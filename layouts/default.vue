@@ -16,30 +16,97 @@ body {
 header {
     color: var(--header-nav-text-color);
 }
+
+.footer_container {
+    background-image: url("/backgrounds/Background.footer.png");
+    background-position: 100% 0px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 480px;
+    box-shadow: inset 0px 0px 40px 70px var(--body-bg-color);
+}
+footer {
+    color: var(--header-nav-text-color);
+    background-color: var(--header-nav-container-bg-color);
+}
 </style>
 
 <template>
-    <div class="relative flex flex-col items-center h-screen overflow-x-hidden" dir="rtl">
-        <header class="flex items-center justify-between gap-8 p-8 w-full max-w-screen-4xl z-10">
+    <div class="relative flex flex-col items-center justify-start h-screen overflow-x-hidden w-full px-8 lg:px-12" dir="rtl">
+        <header class="flex items-center justify-between gap-8 py-8 w-full max-w-screen-4xl z-20">
             <div class="flex-shrink-0">
                 <img src="/logo_white.png" alt="پرتقال" />
             </div>
             <Menu />
         </header>
 
-        <Nuxt nuxt-child-key="default" />
+        <Nuxt class="z-10" nuxt-child-key="default" />
 
-        <div>
-            <footer></footer>
+        <div class="footer_container w-full mb-0 -mt-96">
+            <!-- <img class="absolute w-max right-0" src="/backgrounds/Background.footer.png" alt="porteqali-background" /> -->
+            <footer class="blur flex flex-col items-center gap-4 max-w-screen-4xl shadow-xl w-full rounded-2xl mb-4 p-4 lg:p-8 z-10">
+                <div class="flex flex-wrap items-center justify-evenly gap-16 w-full">
+                    <div class="flex flex-col gap-4">
+                        <h4 class="font-bold text-2xl">همراه پرتقال</h4>
+                        <ul class="flex flex-wrap flex-row lg:flex-col gap-6 lg:gap-2">
+                            <li><nuxt-link to="#">وبلاگ پرتقال</nuxt-link></li>
+                            <li><nuxt-link to="#">دپارتمان ها</nuxt-link></li>
+                            <li><nuxt-link to="#">درباره ما</nuxt-link></li>
+                            <li><nuxt-link to="#">تماس با ما</nuxt-link></li>
+                            <li><nuxt-link to="#">همکاری با ما</nuxt-link></li>
+                            <li><nuxt-link to="#">حریم خصوصی</nuxt-link></li>
+                            <li><nuxt-link to="#">سوالات متداول</nuxt-link></li>
+                        </ul>
+                    </div>
+                    <div class="flex flex-col gap-6">
+                        <img class="w-max" src="/logo_orange.png" height="50" alt="پرتقال" />
+                        <p class="max-w-screen-xs">
+                            لورم چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف
+                            بهبود ابزارهای کاربردی.می باشد، کتابهای زیادی در شصت و سه درصد گذشته
+                        </p>
+                        <div class="flex flex-col gap-2">
+                            <b class="text-xl">مشاوره تلفنی</b>
+                            <div class="flex items-center gap-1">
+                                <a class="text-xl lg:text-2xl" href="tel:229081212">229081212</a>
+                                <img src="/icons/Calling.orange.line.svg" alt="Calling" width="24" height="24" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-6">
+                        <div class="flex flex-col gap-2">
+                            <h4 class="font-bold text-2xl">عضویت در خبرنامه</h4>
+                            <div class="search_box flex items-center gap-4 p-2 rounded-xl shadow-lg">
+                                <input class="flex-grow outline-none bg-transparent w-60" type="text" placeholder="ایمیل خود را وارد کنید" />
+                                <button class="orange_gradient_v flex-shrink-0 p-2 md:px-8 rounded-xl shadow-lg flex items-center justify-center">
+                                    <span>ثبت نام</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-4">
+                            <span class="bg-white shadow-xl p-2 rounded-xl">
+                                <a target="_blank" rel="origin" href="https://trustseal.enamad.ir/?id=188225&Code=U2OkUKhLJGtzDqjP0Iq1">
+                                    <img src="https://Trustseal.eNamad.ir/logo.aspx?id=188225&Code=U2OkUKhLJGtzDqjP0Iq1" id="U2OkUKhLJGtzDqjP0Iq1" />
+                                </a>
+                            </span>
+                            <span class="bg-white shadow-xl p-2 rounded-xl">
+                                <img src="/misc/namad.png" alt="پروانه نشر دیجیتال" />
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <hr class="w-full max-w-screen-xl my-4 opacity-70" />
+                <p class="text-justify">کلیه حقوق مادی و معنوی این وبسایت متعلق به گروه آموزشی پرتقال است. ضوابط حاکم بر وبسایت پرتقال، مبتنی بر قوانین جاری جمهوری اسلامی ایران است.</p>
+                <small dir="ltr">
+                    <pre>Porteqali.com All Rights Reserved. Copyright {{ new Date(Date.now()).getFullYear() }} ©</pre>
+                </small>
+            </footer>
         </div>
-
-        <!-- <Backdrop :open.sync="backdropState" /> -->
+        <!-- <img class="absolute w-max right-0" src="/backgrounds/Background.footer.png" alt="porteqali-background" /> -->
     </div>
 </template>
 
 <script>
 import Menu from "~/components/header/Menu.vue";
-// import Backdrop from "~/components/Backdrop.vue";
 
 export default {
     name: "Default.layout",
@@ -49,15 +116,10 @@ export default {
     },
     components: {
         Menu,
-        // Backdrop,
     },
     data() {
-        return {
-            // backdropState: false,
-        };
+        return {};
     },
-    mounted() {
-        // window.addEventListener("backdrop:change", (e) => (this.backdropState = !!e.state));
-    },
+    mounted() {},
 };
 </script>
