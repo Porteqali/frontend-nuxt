@@ -46,18 +46,17 @@
                             <span>دپارتمان ها</span>
                             <DepartmentDropdown class="z-10" :open.sync="departmentsDropdownOpenState" />
                         </li>
-
                         <li class="flex items-center gap-1 md:py-4">
-                            <span>وبلاگ</span>
+                            <nuxt-link to="/blog">وبلاگ</nuxt-link>
                         </li>
                         <li class="flex items-center gap-1 md:py-4">
-                            <span>تماس با ما</span>
+                            <nuxt-link to="/contact-us">تماس با ما</nuxt-link>
                         </li>
                         <li class="flex items-center gap-1 md:py-4">
-                            <span>درباره ما</span>
+                            <nuxt-link to="/about-us">درباره ما</nuxt-link>
                         </li>
                         <li class="flex items-center gap-1 md:py-4">
-                            <span>از کجا شروع کنم؟</span>
+                            <nuxt-link to="/where-to-start">از کجا شروع کنم؟</nuxt-link>
                         </li>
                     </ul>
                 </nav>

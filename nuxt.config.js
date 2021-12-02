@@ -11,13 +11,16 @@ export default {
         link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
     },
 
+    loading: {
+        color: "orange",
+        height: "5px",
+    },
+
     // Global CSS: https://go.nuxtjs.dev/config-css
     css: ["~/assets/css/color_palette.css", "~/assets/css/main.css"],
 
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-    plugins: [
-        { src: "~/plugins/swiper.client.js", mode: "client" },
-    ],
+    plugins: [{ src: "~/plugins/swiper.client.js", mode: "client" }],
 
     // Auto import components: https://go.nuxtjs.dev/config-components
     components: true,

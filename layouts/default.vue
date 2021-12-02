@@ -18,7 +18,7 @@ header {
 }
 
 .footer_container {
-    background-image: url("/backgrounds/Background.footer.png");
+    background-image: url("/backgrounds/Background.footer.webp");
     background-position: 100% 0px;
     background-repeat: no-repeat;
     background-size: cover;
@@ -46,6 +46,7 @@ footer {
         </header>
 
         <Background
+            v-if="!!topBackground[$nuxt.$route.path]"
             :src="topBackground[$nuxt.$route.path].src"
             :topOffset="topBackground[$nuxt.$route.path].topOffset"
             :rightOffset="topBackground[$nuxt.$route.path].rightOffset"
@@ -63,14 +64,14 @@ footer {
                     <div class="flex flex-col gap-4">
                         <h4 class="font-bold text-2xl">همراه پرتقال</h4>
                         <ul class="flex flex-wrap flex-row lg:flex-col gap-6 lg:gap-2">
-                            <li><nuxt-link to="#">وبلاگ پرتقال</nuxt-link></li>
-                            <li><nuxt-link to="#">دپارتمان ها</nuxt-link></li>
-                            <li><nuxt-link to="#">درباره ما</nuxt-link></li>
-                            <li><nuxt-link to="#">تماس با ما</nuxt-link></li>
-                            <li><nuxt-link to="#">همکاری با ما</nuxt-link></li>
-                            <li><nuxt-link to="#">سوالات متداول</nuxt-link></li>
-                            <li><nuxt-link to="terms-and-conditions">قوانین و مقررات</nuxt-link></li>
-                            <li><nuxt-link to="privacy-policy">حریم خصوصی</nuxt-link></li>
+                            <li><nuxt-link to="/blog">وبلاگ پرتقال</nuxt-link></li>
+                            <li><nuxt-link to="/departments">دپارتمان ها</nuxt-link></li>
+                            <li><nuxt-link to="/about-us">درباره ما</nuxt-link></li>
+                            <li><nuxt-link to="/contact-us">تماس با ما</nuxt-link></li>
+                            <li><nuxt-link to="/work-with-us">همکاری با ما</nuxt-link></li>
+                            <li><nuxt-link to="/faq">سوالات متداول</nuxt-link></li>
+                            <li><nuxt-link to="/terms-and-conditions">قوانین و مقررات</nuxt-link></li>
+                            <li><nuxt-link to="/privacy-policy">حریم خصوصی</nuxt-link></li>
                         </ul>
                     </div>
                     <div class="flex flex-col gap-6">
@@ -136,9 +137,11 @@ export default {
     data() {
         return {
             topBackground: {
-                "/": { src: "/backgrounds/Background.png", topOffset: 0, rightOffset: 0, minWidth: 2020 },
-                "/privacy-policy": { src: "/backgrounds/Background2.png", topOffset: -25, rightOffset: -10, minWidth: 2420 },
-                "/terms-and-conditions": { src: "/backgrounds/Background2.png", topOffset: -25, rightOffset: -10, minWidth: 2420 },
+                "/": { src: "/backgrounds/Background.webp", topOffset: 0, rightOffset: 0, minWidth: 2020 },
+                "/privacy-policy": { src: "/backgrounds/Background2.webp", topOffset: -25, rightOffset: -10, minWidth: 2420 },
+                "/terms-and-conditions": { src: "/backgrounds/Background2.webp", topOffset: -25, rightOffset: -10, minWidth: 2420 },
+                "/about-us": { src: "/backgrounds/Background2.webp", topOffset: -25, rightOffset: -10, minWidth: 2420 },
+                "/contact-us": { src: "/backgrounds/Background2.webp", topOffset: -25, rightOffset: -10, minWidth: 2420 },
             },
         };
     },

@@ -45,9 +45,9 @@
         <MostViewedCoursesSection />
 
         <section class="flex flex-wrap-reverse items-center justify-evenly gap-8 lg:gap-20 w-full my-16" id="roadmap">
-            <img class="absolute w-auto right-0" src="/backgrounds/Background.side.png" alt="porteqali-background" style="max-height: 1920px; margin-top: 20%" />
+            <img class="absolute w-auto right-0" src="/backgrounds/Background.side.webp" alt="porteqali-background" style="max-height: 1920px; margin-top: 20%" />
             <div class="roadmap_vision_img rounded-xl shadow-lg p-4 blur z-10">
-                <img class="" src="/home/Vision&Missi.png" alt="porteqali-vision" />
+                <img class="" src="/pages/home/Vision&Missi.png" alt="porteqali-vision" />
             </div>
             <div class="flex flex-col gap-6 z-10">
                 <h2 class="text-3xl font-bold">دوست داری تو چه حوزه ی فعالیت کنی؟</h2>
@@ -77,7 +77,7 @@
                     <img src="/icons/Scan.svg" width="24" height="24" alt="Scan" />
                 </button>
             </div>
-            <img style="min-width: 500px" src="/home/certificates.png" alt="porteqali-certificates" />
+            <img src="/pages/home/certificates.webp" alt="porteqali-certificates" style="width: 500px;" />
         </section>
     </main>
 </template>
@@ -105,7 +105,7 @@ export default {
     },
     data() {
         return {
-            boyImg: ["/home/With a Dog (Man).png", "/home/video_call_man.png"],
+            boyImg: ["/pages/home/With a Dog (Man).png", "/pages/home/video_call_man.png"],
             boyImgIndex: 0,
         };
     },

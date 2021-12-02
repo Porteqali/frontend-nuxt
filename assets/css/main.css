@@ -1,3 +1,9 @@
+:root{
+    --topOffset: 0%;
+    --rightOffset: 0%;
+    --minWidth: 2020px;
+}
+
 @font-face { font-family: "IranYekanWebRegular"; src: url("~/assets/fonts/IranYekanWebRegular.ttf") format("truetype"); }
 @font-face { font-family: "IranYekanWebRegularFaNum"; src: url("~/assets/fonts/IranYekanWebRegularFaNum.woff") format("woff"); }
 @font-face { font-family: "KalamehWebRegular"; src: url("~/assets/fonts/KalamehWebRegular.woff2") format("woff2"); }
@@ -26,6 +32,10 @@
     scroll-behavior: smooth;
     transition: all .15s;
 }
+body{
+    text-shadow: 0px 1px 3px #00000044;
+}
+
 .kalameh { font-family: "KalamehWebRegular" !important; }
 .kalameh_bold { font-family: "KalamehWebBold" !important; }
 
@@ -53,7 +63,12 @@
     background: linear-gradient(142.39deg, #FF8537 0%, #FF51B1 100.15%);
 }
 .gray_gradient{
+    color: #fff;
     background: linear-gradient(154.49deg, rgba(121, 117, 131, 0.2) 5.35%, rgba(54, 53, 103, 0.2) 83.85%), rgba(49, 48, 54, 0.3);
+}
+.darkblue_gradient{
+    color: #fff;
+    background: linear-gradient(0deg, rgba(19, 40, 80, 0.8), rgba(19, 40, 80, 0.8));
 }
 
 .blur {
