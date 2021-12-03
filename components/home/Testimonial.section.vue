@@ -6,7 +6,7 @@
 </style>
 
 <template>
-    <section class="relative flex flex-col gap-8 w-full" id="department">
+    <section class="relative flex flex-col gap-8 w-full" id="testimonials">
         <div class="flex flex-wrap justify-between gap-8 w-full">
             <h2 class="font-bold text-4xl">نظرات دانشجویان پرتقال</h2>
         </div>

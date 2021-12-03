@@ -1,4 +1,4 @@
-<style></style>
+<style scoped></style>
 
 <template></template>
 

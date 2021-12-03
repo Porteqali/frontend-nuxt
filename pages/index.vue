@@ -1,4 +1,4 @@
-<style>
+<style scoped>
 .search_box {
     background-color: var(--search-box-bg-color);
     color: var(--search-box-color);

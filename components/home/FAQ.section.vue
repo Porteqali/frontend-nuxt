@@ -9,7 +9,7 @@
 </style>
 
 <template>
-    <section class="relative flex flex-col gap-8 w-full" id="department">
+    <section class="relative flex flex-col gap-8 w-full" id="faqs">
         <div class="flex flex-wrap justify-between gap-8 w-full">
             <h3 class="font-bold text-4xl">سوالات متداول</h3>
         </div>

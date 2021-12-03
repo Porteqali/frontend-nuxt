@@ -20,10 +20,12 @@ header {
 .footer_container {
     background-image: url("/backgrounds/Background.footer.webp");
     background-position: 100% 0px;
+    background-position: 100% 40px;
     background-repeat: no-repeat;
     background-size: cover;
     padding-top: 480px;
-    box-shadow: inset 0px 0px 40px 70px var(--body-bg-color);
+    /* box-shadow: inset 0px 0px 40px 70px var(--body-bg-color); */
+    box-shadow: inset 0px -200px 70px -50px var(--body-bg-color);
     z-index: 5;
 }
 footer {
@@ -33,6 +35,14 @@ footer {
 .go_up_btn {
     margin-left: 10%;
     z-index: 5;
+}
+
+.newsletter_box {
+    background-color: var(--search-box-bg-color);
+    color: var(--search-box-color);
+}
+.newsletter_box button {
+    color: var(--search-box-button-color);
 }
 </style>
 
@@ -59,7 +69,7 @@ footer {
             <button class="go_up_btn orange_gradient_v relative flex items-center justify-center rounded-xl p-6 -mb-8 mr-auto" @click="scrollUp()">
                 <img src="/icons/GoUp.svg" alt="GoUp" width="16" height="16" />
             </button>
-            <footer class="blur flex flex-col items-center gap-4 max-w-screen-4xl shadow-xl w-full rounded-2xl mb-4 p-4 lg:p-8 z-10">
+            <footer class="blur flex flex-col items-center gap-4 max-w-screen-4xl shadow-xl w-full rounded-3xl mb-4 p-4 lg:p-8 z-10">
                 <div class="flex flex-wrap items-center justify-evenly gap-16 w-full">
                     <div class="flex flex-col gap-4">
                         <h4 class="font-bold text-2xl">همراه پرتقال</h4>
@@ -69,7 +79,7 @@ footer {
                             <li><nuxt-link to="/about-us">درباره ما</nuxt-link></li>
                             <li><nuxt-link to="/contact-us">تماس با ما</nuxt-link></li>
                             <li><nuxt-link to="/work-with-us">همکاری با ما</nuxt-link></li>
-                            <li><nuxt-link to="/faq">سوالات متداول</nuxt-link></li>
+                            <li><nuxt-link to="/faqs">سوالات متداول</nuxt-link></li>
                             <li><nuxt-link to="/terms-and-conditions">قوانین و مقررات</nuxt-link></li>
                             <li><nuxt-link to="/privacy-policy">حریم خصوصی</nuxt-link></li>
                         </ul>
@@ -91,7 +101,7 @@ footer {
                     <div class="flex flex-col gap-6">
                         <div class="flex flex-col gap-2">
                             <h4 class="font-bold text-2xl">عضویت در خبرنامه</h4>
-                            <div class="search_box flex items-center gap-4 p-2 rounded-xl shadow-lg">
+                            <div class="newsletter_box flex items-center gap-4 p-2 rounded-xl shadow-lg">
                                 <input class="flex-grow outline-none bg-transparent w-40 md:w-60" type="text" placeholder="ایمیل خود را وارد کنید" />
                                 <button class="orange_gradient_v flex-shrink-0 p-2 md:px-8 rounded-xl shadow-lg flex items-center justify-center">
                                     <span>ثبت نام</span>
@@ -142,6 +152,7 @@ export default {
                 "/terms-and-conditions": { src: "/backgrounds/Background2.webp", topOffset: -25, rightOffset: -10, minWidth: 2420 },
                 "/about-us": { src: "/backgrounds/Background2.webp", topOffset: -25, rightOffset: -10, minWidth: 2420 },
                 "/contact-us": { src: "/backgrounds/Background2.webp", topOffset: -25, rightOffset: -10, minWidth: 2420 },
+                "/faqs": { src: "/backgrounds/Background5.webp", topOffset: -15, rightOffset: -10, minWidth: 2420 },
             },
         };
     },

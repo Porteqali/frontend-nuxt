@@ -1,4 +1,4 @@
-<style>
+<style scoped>
 #top {
     color: var(--top-h1-color);
     font-weight: 900;

@@ -15,7 +15,7 @@
 </style>
 
 <template>
-    <section class="relative flex flex-col gap-8 w-full" id="department">
+    <section class="relative flex flex-col gap-8 w-full" id="most-viewed-courses">
         <div class="flex flex-wrap justify-between gap-8 w-full">
             <h2 class="font-bold text-4xl">دوره های پر مخاطب</h2>
         </div>
