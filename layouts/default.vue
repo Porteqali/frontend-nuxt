@@ -152,6 +152,7 @@ export default {
                 "/terms-and-conditions": { src: "/backgrounds/Background2.webp", topOffset: -25, rightOffset: -10, minWidth: 2420 },
                 "/about-us": { src: "/backgrounds/Background2.webp", topOffset: -25, rightOffset: -10, minWidth: 2420 },
                 "/contact-us": { src: "/backgrounds/Background2.webp", topOffset: -25, rightOffset: -10, minWidth: 2420 },
+                "/work-with-us": { src: "/backgrounds/Background4.webp", topOffset: 0, rightOffset: 0, minWidth: 2220 },
                 "/faqs": { src: "/backgrounds/Background5.webp", topOffset: -15, rightOffset: -10, minWidth: 2420 },
             },
         };

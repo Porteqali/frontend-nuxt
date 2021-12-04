@@ -14,6 +14,7 @@
 .category_card {
     background-color: #000c7888;
     color: var(--top-h1-color);
+    cursor: pointer;
 }
 
 .card {
@@ -22,6 +23,10 @@
 }
 .card h4 {
     color: var(--faq-section-card-title-color);
+}
+.load_more_btn {
+    background-color: var(--department-section-title-alt-text-bg-color);
+    color: var(--department-section-title-alt-text-color);
 }
 </style>
 
@@ -39,8 +44,8 @@
                     <li>سوالات متداول</li>
                 </ul>
                 <div class="search_box flex items-center gap-4 p-2 rounded-xl shadow-lg">
-                    <input class="flex-grow outline-none bg-transparent w-64" type="text" placeholder="جستجو..." />
-                    <button class="orange_gradient_v flex-shrink-0 p-2 md:px-8 rounded-xl shadow-lg flex items-center justify-center">
+                    <input class="flex-grow outline-none bg-transparent w-64" type="text" v-model="searchQuery" placeholder="جستجو..." />
+                    <button class="orange_gradient_v flex-shrink-0 p-2 md:px-8 rounded-xl shadow-lg flex items-center justify-center" @click="search()">
                         <span class="hidden md:inline-block">جستجو</span>
                         <img class="flex-shrink-0 inline-block md:hidden" src="/icons/Search.svg" width="24" height="24" alt="Search" />
                     </button>
@@ -49,21 +54,37 @@
         </section>
 
         <ul class="flex flex-wrap justify-center gap-8 w-full max-w-screen-xl mx-auto -mt-52">
-            <li class="category_card blur flex flex-col items-center justify-center gap-4 p-8 px-16 rounded-2xl" @click="selectCategory()">
-                <img src="/pages/faqs/Book.svg" width="128" height="128" alt="Book" />
-                <strong class="text-2xl">آموزش</strong>
+            <li
+                class="category_card blur flex flex-col items-center justify-center gap-4 p-8 md:px-16 rounded-2xl"
+                :class="{ 'border-4 border-solid border-orange-300': selectedGroup == 'education' }"
+                @click="selectCategory('education')"
+            >
+                <img src="/pages/faqs/Book.svg" class="w-24 md:w-32" alt="Book" />
+                <strong class="text-lg md:text-2xl">آموزش</strong>
             </li>
-            <li class="category_card blur flex flex-col items-center justify-center gap-4 p-8 px-16 rounded-2xl" @click="selectCategory()">
-                <img src="/pages/faqs/Window.svg" width="128" height="128" alt="Window" />
-                <strong class="text-2xl">پشتیبانی</strong>
+            <li
+                class="category_card blur flex flex-col items-center justify-center gap-4 p-8 md:px-16 rounded-2xl"
+                :class="{ 'border-4 border-solid border-orange-300': selectedGroup == 'support' }"
+                @click="selectCategory('support')"
+            >
+                <img src="/pages/faqs/Window.svg" class="w-24 md:w-32" alt="Window" />
+                <strong class="text-lg md:text-2xl">پشتیبانی</strong>
             </li>
-            <li class="category_card blur flex flex-col items-center justify-center gap-4 p-8 px-16 rounded-2xl" @click="selectCategory()">
-                <img src="/pages/faqs/Mail.svg" width="128" height="128" alt="Mail" />
-                <strong class="text-2xl">همکاری</strong>
+            <li
+                class="category_card blur flex flex-col items-center justify-center gap-4 p-8 md:px-16 rounded-2xl"
+                :class="{ 'border-4 border-solid border-orange-300': selectedGroup == 'collab' }"
+                @click="selectCategory('collab')"
+            >
+                <img src="/pages/faqs/Mail.svg" class="w-24 md:w-32" alt="Mail" />
+                <strong class="text-lg md:text-2xl">همکاری</strong>
             </li>
-            <li class="category_card blur flex flex-col items-center justify-center gap-4 p-8 px-16 rounded-2xl" @click="selectCategory()">
-                <img src="/pages/faqs/Wallet.svg" width="128" height="128" alt="Wallet" />
-                <strong class="text-2xl">کارت اعتباری</strong>
+            <li
+                class="category_card blur flex flex-col items-center justify-center gap-4 p-8 md:px-16 rounded-2xl"
+                :class="{ 'border-4 border-solid border-orange-300': selectedGroup == 'wallet' }"
+                @click="selectCategory('wallet')"
+            >
+                <img src="/pages/faqs/Wallet.svg" class="w-24 md:w-32" alt="Wallet" />
+                <strong class="text-lg md:text-2xl">کارت اعتباری</strong>
             </li>
         </ul>
 
@@ -88,11 +109,26 @@
                     </transition>
                 </li>
             </ul>
+            <button
+                class="load_more_btn blur flex items-center gap-2 py-3 px-6 rounded-xl w-max"
+                v-if="!faqsLoading && faqsPage <= faqsPageTotal"
+                @click="getFaqs()"
+            >
+                <span>بارگذاری بیشتر</span>
+            </button>
+            <div class="flex items-center justify-center gap-16" v-if="faqsLoading">
+                <strong class="text-4xl">Loading</strong>
+            </div>
+            <div class="flex items-center justify-center gap-16" v-if="!faqsLoading && faqs.length == 0">
+                <strong class="text-4xl">موردی پیدا نشد!</strong>
+            </div>
         </section>
     </main>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
     head: {
         title: "سوالات متداول - گروه آموزشی پرتقال",
@@ -101,37 +137,75 @@ export default {
     components: {},
     data() {
         return {
-            faqs: [
-                {
-                    question: "آیا برای استفاده از دوره ها نیاز به ثبت نام در سایت دارم؟",
-                    answer: "بله ، برای استفاده از تمام خدمات سایت اعم از استفاده از دوره ، دانلود فایل های دوره و پرسش از استاد حتما باید در سایت ثبت نام کنید.",
-                    open: false,
-                },
-                {
-                    question: "بعد از ثبت نام با پیغام تایید حساب کاربری مواجه میشوم . آیا حتما باید حساب خود را تایید کنم؟",
-                    answer: "بله ، برای استفاده از تمام خدمات سایت اعم از استفاده از دوره ، دانلود فایل های دوره و پرسش از استاد حتما باید در سایت ثبت نام کنید.",
-                    open: false,
-                },
-                {
-                    question: "در صورت ثبت نام در دوره ، آموزش موردنظر تا چندروز قابل استفاده خواهد بود؟",
-                    answer: "بله ، برای استفاده از تمام خدمات سایت اعم از استفاده از دوره ، دانلود فایل های دوره و پرسش از استاد حتما باید در سایت ثبت نام کنید.",
-                    open: false,
-                },
-                {
-                    question: "چطوری میتونم دوره های آموزشی رو دانلود کنم؟",
-                    answer: "بله ، برای استفاده از تمام خدمات سایت اعم از استفاده از دوره ، دانلود فایل های دوره و پرسش از استاد حتما باید در سایت ثبت نام کنید.",
-                    open: false,
-                },
-                {
-                    question: "اگر حین آموزش سوالی پیش بیاد چطوری میتونم به جوابش برسم؟",
-                    answer: "بله ، برای استفاده از تمام خدمات سایت اعم از استفاده از دوره ، دانلود فایل های دوره و پرسش از استاد حتما باید در سایت ثبت نام کنید.",
-                    open: false,
-                },
-            ],
+            searchQuery: "",
+            selectedGroup: "",
+
+            faqs: [],
+            faqsPage: 1,
+            faqsTotal: 0,
+            faqsPageTotal: 1,
+            faqsLoading: false,
         };
     },
+    async fetch() {
+        let headers = {};
+        if (process.server) headers = this.$nuxt.context.req.headers;
+
+        await this.getFaqs({ headers });
+    },
     methods: {
-        selectCategory() {},
+        async selectCategory(group) {
+            if (this.selectedGroup === group) {
+                this.selectedGroup = "";
+                return;
+            }
+            this.selectedGroup = group;
+
+            this.clearFaqs();
+            await this.getFaqs();
+        },
+
+        async search() {
+            this.clearFaqs();
+            await this.getFaqs();
+        },
+
+        async getFaqs(data = {}) {
+            if (this.faqsLoading || this.faqsPage > this.faqsPageTotal) return;
+            this.faqsLoading = true;
+
+            let url = `/api/faqs`;
+            let headers = {};
+            if (process.server) {
+                url = `${process.env.BASE_URL}${url}`;
+                headers = data.headers ? data.headers : {};
+            }
+
+            let params = [`page=${this.faqsPage}`, `search=${this.searchQuery}`, `group=${this.selectedGroup}`];
+            url = `${url}?${params.join("&")}`;
+
+            await axios
+                .get(url, { headers })
+                .then((results) => {
+                    const newFaqs = results.data.records.map((faq) => {
+                        return { ...faq, open: false };
+                    });
+                    this.faqs = [...this.faqs, ...newFaqs];
+
+                    this.faqsPage = results.data.page + 1;
+                    this.faqsTotal = results.data.total;
+                    this.faqsPageTotal = results.data.pageTotal;
+                })
+                .catch((e) => {})
+                .finally(() => (this.faqsLoading = false));
+        },
+
+        clearFaqs() {
+            this.faqs = [];
+            this.faqsPage = 1;
+            this.faqsTotal = 0;
+            this.faqsPageTotal = 1;
+        },
     },
 };
 </script>
