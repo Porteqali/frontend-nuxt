@@ -5,7 +5,7 @@
 }
 
 .course_card {
-    background-color: var(--department-section-title-alt-text-bg-color);
+    /* background-color: var(--department-section-title-alt-text-bg-color); */
     color: var(--department-section-title-alt-text-color);
 }
 .course_tag {
@@ -21,7 +21,11 @@
         </div>
         <div v-swiper="coursesSwiperOptions" class="w-full max-w-screen-4xl select-none overflow-hidden p-4">
             <ul class="swiper-wrapper flex items-start">
-                <li class="swiper-slide course_card shadow-lg flex flex-col gap-4 p-4 rounded-2xl max-w-screen-xs" v-for="(course, i) in courses" :key="i">
+                <li
+                    class="swiper-slide gray_gradient course_card shadow-lg flex flex-col gap-4 p-4 rounded-2xl max-w-screen-xs"
+                    v-for="(course, i) in courses"
+                    :key="i"
+                >
                     <div class="relative overflow-hidden rounded-xl w-full h-64">
                         <img class="absolute inset-0 object-cover" src="/misc/course.png" alt="course" draggable="false" />
                         <img class="absolute top-2 right-2" src="/misc/Figma.svg" width="32" height="32" alt="Figma" />

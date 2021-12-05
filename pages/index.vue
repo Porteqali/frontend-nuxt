@@ -45,7 +45,7 @@
         <MostViewedCoursesSection />
 
         <section class="flex flex-wrap-reverse items-center justify-evenly gap-8 lg:gap-20 w-full my-16" id="roadmap">
-            <img class="absolute w-auto right-0" src="/backgrounds/Background.side.webp" alt="porteqali-background" style="max-height: 1920px; margin-top: 20%" />
+            <img class="absolute w-auto right-0" src="/backgrounds/Background.side.png" alt="porteqali-background" style="max-height: 1920px; margin-top: 20%" />
             <div class="roadmap_vision_img rounded-xl shadow-lg p-4 blur z-10">
                 <img class="" src="/pages/home/Vision&Missi.png" alt="porteqali-vision" />
             </div>

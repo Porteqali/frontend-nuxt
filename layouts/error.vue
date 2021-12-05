@@ -43,8 +43,6 @@ export default {
     components: {
         Background,
     },
-    mounted() {
-        console.log(this.error);
-    },
+    mounted() {},
 };
 </script>

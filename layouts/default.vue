@@ -13,6 +13,17 @@ body {
     background-color: var(--body-bg-color);
 }
 
+.nuxt_main {
+    /* relative flex flex-col items-center justify-start overflow-x-hidden w-full */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: hidden;
+    width: 100%;
+}
+
 header {
     color: var(--header-nav-text-color);
 }
@@ -47,7 +58,7 @@ footer {
 </style>
 
 <template>
-    <div class="relative flex flex-col items-center justify-start h-screen overflow-x-hidden w-full px-4 md:px-8 lg:px-12" dir="rtl" ref="body" id="app">
+    <div class="nuxt_main px-4 md:px-8 lg:px-12" dir="rtl" ref="body" id="app">
         <header class="flex items-center justify-between gap-8 py-8 w-full max-w-screen-4xl z-20">
             <nuxt-link to="/" class="flex-shrink-0">
                 <img src="/logo_white.png" alt="پرتقال" />
@@ -56,11 +67,11 @@ footer {
         </header>
 
         <Background
-            v-if="!!topBackground[$nuxt.$route.path]"
-            :src="topBackground[$nuxt.$route.path].src"
-            :topOffset="topBackground[$nuxt.$route.path].topOffset"
-            :rightOffset="topBackground[$nuxt.$route.path].rightOffset"
-            :minWidth="topBackground[$nuxt.$route.path].minWidth"
+            v-if="!!topBackground[$nuxt.$route.matched[0].path]"
+            :src="topBackground[$nuxt.$route.matched[0].path].src"
+            :topOffset="topBackground[$nuxt.$route.matched[0].path].topOffset"
+            :rightOffset="topBackground[$nuxt.$route.matched[0].path].rightOffset"
+            :minWidth="topBackground[$nuxt.$route.matched[0].path].minWidth"
         />
 
         <Nuxt class="z-10" nuxt-child-key="default" />
@@ -110,7 +121,7 @@ footer {
                         </div>
                         <div class="flex flex-wrap gap-4">
                             <span class="bg-white shadow-xl p-2 rounded-xl">
-                                <a target="_blank" rel="origin" href="https://trustseal.enamad.ir/?id=188225&Code=U2OkUKhLJGtzDqjP0Iq1">
+                                <a target="_blank" rel="nofollow" href="https://trustseal.enamad.ir/?id=188225&Code=U2OkUKhLJGtzDqjP0Iq1">
                                     <img src="https://Trustseal.eNamad.ir/logo.aspx?id=188225&Code=U2OkUKhLJGtzDqjP0Iq1" id="U2OkUKhLJGtzDqjP0Iq1" />
                                 </a>
                             </span>
@@ -147,13 +158,14 @@ export default {
     data() {
         return {
             topBackground: {
-                "/": { src: "/backgrounds/Background.webp", topOffset: 0, rightOffset: 0, minWidth: 2020 },
-                "/privacy-policy": { src: "/backgrounds/Background2.webp", topOffset: -25, rightOffset: -10, minWidth: 2420 },
-                "/terms-and-conditions": { src: "/backgrounds/Background2.webp", topOffset: -25, rightOffset: -10, minWidth: 2420 },
-                "/about-us": { src: "/backgrounds/Background2.webp", topOffset: -25, rightOffset: -10, minWidth: 2420 },
-                "/contact-us": { src: "/backgrounds/Background2.webp", topOffset: -25, rightOffset: -10, minWidth: 2420 },
-                "/work-with-us": { src: "/backgrounds/Background4.webp", topOffset: 0, rightOffset: 0, minWidth: 2220 },
-                "/faqs": { src: "/backgrounds/Background5.webp", topOffset: -15, rightOffset: -10, minWidth: 2420 },
+                "": { src: "/backgrounds/Background.png", topOffset: 0, rightOffset: -10, minWidth: 2220 },
+                "/privacy-policy": { src: "/backgrounds/Background2.png", topOffset: -20, rightOffset: -15, minWidth: 2420 },
+                "/terms-and-conditions": { src: "/backgrounds/Background2.png", topOffset: -20, rightOffset: -15, minWidth: 2420 },
+                "/about-us": { src: "/backgrounds/Background2.png", topOffset: -20, rightOffset: -15, minWidth: 2420 },
+                "/contact-us": { src: "/backgrounds/Background2.png", topOffset: -20, rightOffset: -15, minWidth: 2420 },
+                "/work-with-us": { src: "/backgrounds/Background4.png", topOffset: 0, rightOffset: 0, minWidth: 2220 },
+                "/faqs": { src: "/backgrounds/Background5.png", topOffset: -15, rightOffset: -10, minWidth: 2420 },
+                "/blog/:page?": { src: "/backgrounds/Background3.png", topOffset: -30, rightOffset: -80, minWidth: 3220 },
             },
         };
     },
@@ -164,7 +176,9 @@ export default {
     },
     methods: {
         scrollUp() {
-            this.$refs.body.scrollTop = 0;
+            // this.$refs.body.scrollTop = 0;
+            // document.getElementsByTagName("body").scrollTop = 0;
+            window.scrollTo({ top: 0 });
         },
     },
 };
