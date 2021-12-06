@@ -76,7 +76,7 @@
         <div class="t_select_input" :class="inputClass">
             <div class="box shadow-lg" tabindex="0" @click="toggleMenu()" @blur="toggleMenu(false)">
                 <span name="placeholder" class="opacity-50 ml-4" v-if="placeholder && !selectedOption.value">{{ placeholder }}</span>
-                <span name="value" class="ml-4" v-if="selectedOption.name">{{ selectedOption.name }}</span>
+                <span name="value" class="ml-4" v-if="selectedOption.name && selectedOption.value">{{ selectedOption.name }}</span>
             </div>
             <transition name="slidedown" mode="out-in" appear>
                 <ol class="list" v-if="open">

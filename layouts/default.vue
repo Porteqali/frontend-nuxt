@@ -3,8 +3,8 @@ body {
     /* font-family: "IranYekanRegular"; */
     /* max-width: 1680px; */
     margin: 0 auto;
-    width: 100%;
-    height: 100vh;
+    width: 100vw;
+    /* height: 100vh; */
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
@@ -21,7 +21,7 @@ body {
     align-items: center;
     justify-content: flex-start;
     overflow: hidden;
-    width: 100%;
+    width: 100vw;
 }
 
 header {
@@ -166,6 +166,7 @@ export default {
                 "/work-with-us": { src: "/backgrounds/Background4.png", topOffset: 0, rightOffset: 0, minWidth: 2220 },
                 "/faqs": { src: "/backgrounds/Background5.png", topOffset: -15, rightOffset: -10, minWidth: 2420 },
                 "/blog/:page?": { src: "/backgrounds/Background3.png", topOffset: -30, rightOffset: -80, minWidth: 3220 },
+                "/blog": { src: "/backgrounds/Background3.png", topOffset: -30, rightOffset: -80, minWidth: 3220 },
             },
         };
     },
@@ -176,8 +177,6 @@ export default {
     },
     methods: {
         scrollUp() {
-            // this.$refs.body.scrollTop = 0;
-            // document.getElementsByTagName("body").scrollTop = 0;
             window.scrollTo({ top: 0 });
         },
     },
