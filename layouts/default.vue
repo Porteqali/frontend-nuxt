@@ -1,10 +1,7 @@
 <style>
 body {
-    /* font-family: "IranYekanRegular"; */
-    /* max-width: 1680px; */
     margin: 0 auto;
     width: 100vw;
-    /* height: 100vh; */
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
@@ -29,15 +26,17 @@ header {
 }
 
 .footer_container {
-    background-image: url("/backgrounds/Background.footer.webp");
-    background-position: 100% 0px;
-    background-position: 100% 40px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    padding-top: 480px;
-    /* box-shadow: inset 0px 0px 40px 70px var(--body-bg-color); */
-    box-shadow: inset 0px -200px 70px -50px var(--body-bg-color);
+    /* box-shadow: inset 0px -200px 70px -50px var(--body-bg-color); */
     z-index: 5;
+}
+.footer_bg {
+    bottom: -20%;
+    left: 0;
+    margin-right: -10%;
+    margin-bottom: 0;
+    min-width: 768px;
+    z-index: -1;
+    position: fixed;
 }
 footer {
     color: var(--header-nav-text-color);
@@ -61,13 +60,14 @@ footer {
     <div class="nuxt_main px-4 md:px-8 lg:px-12" dir="rtl" ref="body" id="app">
         <header class="flex items-center justify-between gap-8 py-8 w-full max-w-screen-4xl z-20">
             <nuxt-link to="/" class="flex-shrink-0">
-                <img src="/logo_white.png" alt="پرتقال" />
+                <img v-if="!!$nuxt.$route.matched[0] && !!topBackground[$nuxt.$route.matched[0].path]" src="/logo_white.png" alt="پرتقال" />
+                <img v-else src="/logo_orange.png" alt="پرتقال" />
             </nuxt-link>
             <Menu />
         </header>
 
         <Background
-            v-if="!!topBackground[$nuxt.$route.matched[0].path]"
+            v-if="!!$nuxt.$route.matched[0] && !!topBackground[$nuxt.$route.matched[0].path]"
             :src="topBackground[$nuxt.$route.matched[0].path].src"
             :topOffset="topBackground[$nuxt.$route.matched[0].path].topOffset"
             :rightOffset="topBackground[$nuxt.$route.matched[0].path].rightOffset"
@@ -76,7 +76,7 @@ footer {
 
         <Nuxt class="z-10" nuxt-child-key="default" />
 
-        <div class="footer_container w-full -mt-96">
+        <div class="footer_container w-full mt-32">
             <button class="go_up_btn orange_gradient_v relative flex items-center justify-center rounded-xl p-6 -mb-8 mr-auto" @click="scrollUp()">
                 <img src="/icons/GoUp.svg" alt="GoUp" width="16" height="16" />
             </button>
@@ -140,6 +140,8 @@ footer {
                 </small>
             </footer>
         </div>
+
+        <img class="footer_bg absolute w-full max-w-screen-4xl opacity-75" src="/backgrounds/Background.footer.webp" alt="Background.footer" />
     </div>
 </template>
 

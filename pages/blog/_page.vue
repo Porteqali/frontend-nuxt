@@ -38,7 +38,12 @@
                 <div class="flex items-center gap-1">
                     <img src="/icons/Filter.svg" alt="Filter" width="24" height="24" />
                     <span class="flex flex-shrink-0">مرتب سازی بر اساس</span>
-                    <Select :selectedOption.sync="selectedArticleOrder" @update:selectedOption="getArticles" :options="articleOrderOptions" placeholder="انتخاب کنید">
+                    <Select
+                        :selectedOption.sync="selectedArticleOrder"
+                        @update:selectedOption="getArticles"
+                        :options="articleOrderOptions"
+                        placeholder="انتخاب کنید"
+                    >
                         <template v-slot:option="{ option }">
                             <span :value="option.value">{{ option.name }}</span>
                         </template>
@@ -47,7 +52,12 @@
                 <div class="flex items-center gap-1">
                     <img src="/icons/Category.black.svg" alt="Category" width="24" height="24" />
                     <span class="flex flex-shrink-0">دسته بندی</span>
-                    <Select :selectedOption.sync="selectedArticleCategory" @update:selectedOption="getArticles" :options="articleCategoryOptions" placeholder="انتخاب کنید">
+                    <Select
+                        :selectedOption.sync="selectedArticleCategory"
+                        @update:selectedOption="getArticles"
+                        :options="articleCategoryOptions"
+                        placeholder="انتخاب کنید"
+                    >
                         <template v-slot:option="{ option }">
                             <span :value="option.value">{{ option.name }}</span>
                         </template>
@@ -55,17 +65,17 @@
                 </div>
             </div>
         </div>
-        <ul class="flex flex-wrap justify-center md:justify-start gap-12">
-            <li class="flex shadow-lg rounded-xl" v-for="(article, i) in articles" :key="i">
+        <ul class="flex flex-wrap justify-center md:justify-start gap-12" v-if="!articlesLoading">
+            <li class="flex w-full sm:max-w-xs shadow-lg rounded-xl" v-for="(article, i) in articles" :key="i">
                 <nuxt-link
-                    class="article_card flex flex-col gap-4 flex-grow p-4 rounded-xl w-full sm:max-w-xs"
+                    class="article_card blur flex flex-col gap-4 flex-grow p-4 rounded-2xl shadow-xl "
                     :to="`/article/${article.slug}`"
                     :title="article.title"
                 >
-                    <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full h-64">
-                        <img class="max-w-screen-sm w-full object-cover" src="/misc/course.png" alt="course" draggable="false" />
-                        <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2" v-if="!!article.category">
-                            {{ article.category.name }}
+                    <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full h-48">
+                        <img class="max-w-screen-sm w-full object-cover" src="/misc/course.png" alt="course" loading="lazy" />
+                        <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2" v-if="!!article.category[0]">
+                            {{ article.category[0].name }}
                         </span>
                     </div>
                     <h3 class="font-bold text-2xl max-w-screen-xs overflow-hidden overflow-ellipsis whitespace-nowrap">{{ article.title }}</h3>
@@ -86,7 +96,8 @@
                 </nuxt-link>
             </li>
         </ul>
-        <ul class="flex items-center gap-4">
+        <Loading v-else />
+        <ul class="flex items-center justify-center gap-4">
             <li>
                 <nuxt-link
                     class="flex items-center justify-center p-3 w-8 h-8 rounded-full"
@@ -100,7 +111,7 @@
             </li>
             <li v-for="(item, i) in articlesPages" :key="i">
                 <nuxt-link
-                    class="flex items-center justify-center p-3 w-8 h-8 rounded-full"
+                    class="flex items-center justify-center p-3 w-8 h-8 shadow-sm rounded-full"
                     :class="articlesPage == item ? 'bg-lightblue-300' : 'bg-indigo-100'"
                     :to="`${`/blog/:page?order=${selectedArticleOrder.value}&category=${selectedArticleCategory.value}`.replace(':page', item)}`"
                     v-if="item > 0"
@@ -127,9 +138,10 @@
 <script>
 import axios from "axios";
 import Select from "~/components/forms/Select.vue";
+import Loading from "~/components/Loading.vue";
 
 export default {
-    components: { Select },
+    components: { Select, Loading },
     data() {
         return {
             selectedArticleOrder: this.selectedArticleOrder || { name: "", value: "" },
@@ -139,9 +151,7 @@ export default {
                 "most-popular": { name: "محبوب ترین", value: "most-popular" },
             },
             selectedArticleCategory: this.selectedArticleCategory || { name: "", value: "" },
-            articleCategoryOptions: {
-                "": { name: "همه", value: "" },
-            },
+            articleCategoryOptions: this.articleCategoryOptions || { "": { name: "همه", value: "" } },
 
             articles: this.articles || [],
             articlesPages: this.articlesPages || [],
@@ -158,7 +168,7 @@ export default {
         const route = this.$nuxt.context.route;
         this.processRoute(route);
 
-        await Promise.all([this.getArticles({ headers })]);
+        await Promise.all([this.getArticles({ headers }), this.getAllCategories({ headers })]);
     },
     async beforeRouteUpdate(to, from, next) {
         if (to.params.page) this.$route.params.page = to.params.page;
@@ -170,6 +180,21 @@ export default {
         next();
     },
     methods: {
+        async getAllCategories(data = {}) {
+            let url = `/api/article-categories`;
+            let headers = {};
+            if (process.server) {
+                url = `${process.env.BASE_URL}${url}`;
+                headers = data.headers ? data.headers : {};
+            }
+            await axios
+                .get(url, { headers })
+                .then((results) => {
+                    this.articleCategoryOptions = { "": { name: "همه", value: "" }, ...results.data };
+                })
+                .catch((e) => {});
+        },
+
         async getArticles(data = {}) {
             if (this.articlesLoading || this.articlesPage > this.articlesPageTotal) return;
             this.articlesLoading = true;

@@ -66,7 +66,7 @@
 
         <FaqSection />
 
-        <section class="flex flex-wrap items-start justify-evenly gap-8 lg:gap-20 w-full my-16" id="certificate">
+        <section class="flex flex-wrap items-start justify-evenly gap-8 lg:gap-20 w-full mt-16" id="certificate">
             <div class="flex flex-col gap-6 mt-10 z-10">
                 <h2 class="text-3xl font-bold">حاضری برای خودت سرمایه گذاری کنی؟</h2>
                 <p class="max-w-screen-sm text-xl font-bold" style="line-height: 2.25rem">
@@ -79,6 +79,8 @@
             </div>
             <img src="/pages/home/certificates.webp" alt="porteqali-certificates" style="width: 500px;" />
         </section>
+
+        <BlogSection />
 
         <section class="flex flex-wrap items-start justify-evenly gap-8 lg:gap-20 w-full my-16" id="certificate">
             <div class="flex flex-col gap-6">
@@ -105,6 +107,7 @@ import DepartmentSection from "~/components/home/Department.section";
 import MostViewedCoursesSection from "~/components/home/MostViewedCourses.section";
 import TestimonialSection from "~/components/home/Testimonial.section";
 import FaqSection from "~/components/home/FAQ.section";
+import BlogSection from "~/components/home/Blog.section";
 
 export default {
     scrollToTop: true,
@@ -113,12 +116,13 @@ export default {
         meta: [{ hid: "description", name: "description", content: "" }],
     },
     components: {
-        Background,
-        DepartmentSection,
-        MostViewedCoursesSection,
-        TestimonialSection,
-        FaqSection,
-    },
+    Background,
+    DepartmentSection,
+    MostViewedCoursesSection,
+    TestimonialSection,
+    FaqSection,
+    BlogSection
+},
     data() {
         return {
             boyImg: ["/pages/home/With a Dog (Man).png", "/pages/home/video_call_man.png"],

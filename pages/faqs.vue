@@ -116,9 +116,7 @@
             >
                 <span>بارگذاری بیشتر</span>
             </button>
-            <div class="flex items-center justify-center gap-16" v-if="faqsLoading">
-                <strong class="text-4xl">Loading</strong>
-            </div>
+            <Loading v-if="faqsLoading" />
             <div class="flex items-center justify-center gap-16" v-if="!faqsLoading && faqs.length == 0">
                 <strong class="text-4xl">موردی پیدا نشد!</strong>
             </div>
@@ -128,13 +126,14 @@
 
 <script>
 import axios from "axios";
+import Loading from "~/components/Loading.vue";
 
 export default {
     head: {
         title: "سوالات متداول - گروه آموزشی پرتقال",
         meta: [{ hid: "description", name: "description", content: "" }],
     },
-    components: {},
+    components: { Loading },
     data() {
         return {
             searchQuery: "",

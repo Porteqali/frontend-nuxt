@@ -102,7 +102,7 @@
                                     <small>{{ popularArticle.likes }}</small>
                                 </span>
                             </div>
-                            <button class="gray_gradient flex items-center justify-center gap-4 shadow-md py-3 px-8 mt-auto mb-0 rounded-xl">مطالعه</button>
+                            <nuxt-link :to="`/article/${popularArticle.slug}`" class="gray_gradient flex items-center justify-center gap-4 shadow-md py-3 px-8 mt-auto mb-0 rounded-xl">مطالعه</nuxt-link>
                         </div>
                     </li>
                 </ul>

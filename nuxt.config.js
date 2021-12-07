@@ -11,6 +11,17 @@ export default {
         link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
     },
 
+    render: {
+        bundleRenderer: {
+            shouldPreload: (file, type) => {
+                return ["script", "style", "font"].includes(type);
+            },
+            shouldPrefetch: (file, type) => {
+                return ["script", "style", "font"].includes(type);
+            },
+        },
+    },
+
     loading: {
         color: "orange",
         height: "5px",
