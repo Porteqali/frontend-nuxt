@@ -73,9 +73,29 @@ body{
 
 .blur {
     position: relative; z-index: 2;
+
+    /* -webkit-backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    -webkit-transform: translate3d(0,0,0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000;
+    transform: translate3d(0,0,0);
+    transform: translateZ(0); */
 }
 .blur::before {
     content: ""; border-radius: inherit; z-index: -1;
     position: absolute; inset: 0;
     /* backdrop-filter: blur(15px); */
+}
+
+.skeleton{
+    background: linear-gradient(90deg, #ffffff22 0%, #cccccc99 50%, #ffffff22 100%);
+    background-size: 200% 200%;
+    animation: shimmer_skeleton 2s infinite;
+}
+@keyframes shimmer_skeleton {
+    0% { background-position: 0% 50%; }
+	50% { background-position: 100% 50%; }
+	100% { background-position: 0% 50%; }
 }

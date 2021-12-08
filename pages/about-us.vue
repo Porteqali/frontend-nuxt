@@ -109,7 +109,7 @@
             </div>
             <ul class="flex flex-wrap justify-center gap-6">
                 <li
-                    class="teacher_card flex flex-col items-center justify-start gap-4 p-8 md:p-16 w-full rounded-2xl shadow-2xl max-w-md"
+                    class="teacher_card flex flex-col items-center justify-start gap-4 p-8 md:p-16 w-full rounded-3xl shadow-2xl max-w-md"
                     :style="`background-image: url('${teacher.image}')`"
                     v-for="(teacher, i) in teachers"
                     :key="i"
@@ -120,7 +120,7 @@
                     <p class="opacity-75 text-center max-w-xs">{{ teacher.description }}</p>
                     <ul class="flex flex-wrap items-center gap-2">
                         <li v-for="(social, j) in teacher.social" :key="j">
-                            <a :href="social.link"><Icon class="w-8 h-8 bg-gray-200 rounded-full" folder="social" :name="social.name" /></a>
+                            <a :href="social.link"><Icon class="w-8 h-8 bg-gray-200" folder="social" :name="social.name" /></a>
                         </li>
                     </ul>
                 </li>

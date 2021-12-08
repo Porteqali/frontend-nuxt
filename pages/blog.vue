@@ -46,7 +46,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="top_article_card blur rounded-3xl p-8 ml-0 mr-auto">
+            <div class="top_article_card blur rounded-3xl p-8 ml-0 mr-auto" v-if="!topArticleLoading">
                 <div class="flex flex-col gap-4 max-w-xs">
                     <span class="text-blue-300" v-if="!!topArticle.category">{{ topArticle.category.name }}</span>
                     <h3 class="font-bold text-2xl">{{ topArticle.title }}</h3>
@@ -61,6 +61,21 @@
                     </nuxt-link>
                 </div>
             </div>
+            <div class="top_article_card blur rounded-3xl p-8 ml-0 mr-auto" v-else>
+                <div class="flex flex-col gap-4 max-w-xs">
+                    <div class="skeleton w-full h-4"></div>
+                    <div class="flex flex-col gap-2">
+                        <span class="skeleton w-full h-2"></span>
+                        <span class="skeleton w-full h-2"></span>
+                        <span class="skeleton w-4/12 h-2"></span>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <span class="skeleton w-full h-2"></span>
+                        <span class="skeleton w-full h-2"></span>
+                        <span class="skeleton w-4/12 h-2"></span>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <img class="-mb-24" src="/misc/dots.svg" alt="dots" />
@@ -73,36 +88,79 @@
                     <img src="/icons/ArrowLeft.line.svg" alt="ArrowLeft" />
                 </nuxt-link>
             </div>
-            <div v-swiper="popularArticlesSwiperOptions" class="w-full max-w-screen-4xl select-none overflow-hidden p-4">
-                <ul class="swiper-wrapper flex items-start">
+            <div v-if="!popularArticlesLoading">
+                <div v-swiper="popularArticlesSwiperOptions" class="w-full max-w-screen-4xl select-none overflow-hidden p-4">
+                    <ul class="swiper-wrapper flex items-start">
+                        <li
+                            class="swiper-slide article_card shadow-lg flex flex-col sm:flex-row gap-4 p-4 rounded-2xl max-w-screen-sm"
+                            v-for="(popularArticle, i) in popularArticles"
+                            :key="i"
+                        >
+                            <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full sm:w-64">
+                                <img class="max-w-screen-sm w-full sm:h-full object-cover" src="/misc/article.png" alt="course" draggable="false" />
+                                <span
+                                    class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2"
+                                    v-if="!!popularArticle.category"
+                                >
+                                    {{ popularArticle.category.name }}
+                                </span>
+                            </div>
+                            <div class="flex flex-col gap-6 pt-2">
+                                <h3 class="font-bold text-2xl max-w-xs overflow-hidden overflow-ellipsis whitespace-nowrap">{{ popularArticle.title }}</h3>
+                                <p class="max-w-xs opacity-75">{{ popularArticle.description }}</p>
+                                <div class="flex flex-wrap justify-between items-center gap-4">
+                                    <div class="flex items-start gap-2">
+                                        <img src="/misc/Figma.svg" alt="Figma" width="32" height="32" />
+                                        <div class="flex flex-col gap-1">
+                                            <small v-if="!!popularArticle.author">{{ `${popularArticle.author.name} ${popularArticle.author.family}` }}</small>
+                                            <small class="opacity-75">{{ new Date(popularArticle.publishedAt).toLocaleDateString("fa") }}</small>
+                                        </div>
+                                    </div>
+                                    <span class="flex items-end gap-1">
+                                        <img src="/icons/Heart.svg" alt="Heart" width="20" height="20" />
+                                        <small>{{ popularArticle.likes }}</small>
+                                    </span>
+                                </div>
+                                <nuxt-link
+                                    :to="`/article/${popularArticle.slug}`"
+                                    class="gray_gradient flex items-center justify-center gap-4 shadow-md py-3 px-8 mt-auto mb-0 rounded-xl"
+                                >
+                                    مطالعه
+                                </nuxt-link>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="w-full max-w-screen-4xl select-none overflow-hidden p-4" v-else>
+                <ul class="flex flex-col md:flex-row items-start gap-4 w-full">
                     <li
-                        class="swiper-slide article_card shadow-lg flex flex-col sm:flex-row gap-4 p-4 rounded-2xl max-w-screen-sm"
+                        class="article_card shadow-lg flex flex-col sm:flex-row gap-4 p-4 rounded-2xl w-full max-w-screen-sm"
                         v-for="(popularArticle, i) in popularArticles"
                         :key="i"
                     >
                         <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full sm:w-64">
                             <img class="max-w-screen-sm w-full sm:h-full object-cover" src="/misc/article.png" alt="course" draggable="false" />
-                            <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2" v-if="!!popularArticle.category">
-                                {{ popularArticle.category.name }}
+                            <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2">
+                                <span class="skeleton w-4/12 h-2"></span>
                             </span>
                         </div>
-                        <div class="flex flex-col gap-6 pt-2">
-                            <h3 class="font-bold text-2xl max-w-xs overflow-hidden overflow-ellipsis whitespace-nowrap">{{ popularArticle.title }}</h3>
-                            <p class="max-w-xs opacity-75">{{ popularArticle.description }}</p>
-                            <div class="flex flex-wrap justify-between items-center gap-4">
-                                <div class="flex items-start gap-2">
-                                    <img src="/misc/Figma.svg" alt="Figma" width="32" height="32" />
-                                    <div class="flex flex-col gap-1">
-                                        <small v-if="!!popularArticle.author">{{ `${popularArticle.author.name} ${popularArticle.author.family}` }}</small>
-                                        <small class="opacity-75">{{ new Date(popularArticle.publishedAt).toLocaleDateString("fa") }}</small>
-                                    </div>
-                                </div>
-                                <span class="flex items-end gap-1">
-                                    <img src="/icons/Heart.svg" alt="Heart" width="20" height="20" />
-                                    <small>{{ popularArticle.likes }}</small>
-                                </span>
+                        <div class="flex flex-col gap-6 pt-2 w-full max-w-sm">
+                            <h3 class="skeleton w-full h-4"></h3>
+                            <div class="flex flex-col gap-2">
+                                <span class="skeleton w-full h-2"></span>
+                                <span class="skeleton w-full h-2"></span>
+                                <span class="skeleton w-4/12 h-2"></span>
                             </div>
-                            <nuxt-link :to="`/article/${popularArticle.slug}`" class="gray_gradient flex items-center justify-center gap-4 shadow-md py-3 px-8 mt-auto mb-0 rounded-xl">مطالعه</nuxt-link>
+                            <div class="flex flex-col gap-2">
+                                <span class="skeleton w-full h-2"></span>
+                                <span class="skeleton w-full h-2"></span>
+                                <span class="skeleton w-4/12 h-2"></span>
+                            </div>
+                            <div class="flex items-start gap-2 w-full">
+                                <span class="skeleton w-10 h-10 rounded-full"></span>
+                                <span class="skeleton w-8 h-2"></span>
+                            </div>
                         </div>
                     </li>
                 </ul>
@@ -124,6 +182,7 @@ export default {
     components: {},
     data() {
         return {
+            topArticleLoading: false,
             topArticle: {
                 title: "نرم افزار اییوز چیست و چه کاربردی دارد؟",
                 description:
@@ -132,6 +191,7 @@ export default {
                 slug: "article-title",
             },
 
+            popularArticlesLoading: false,
             popularArticles: [{}, {}, {}],
             popularArticlesSwiperOptions: {
                 autoplay: false,
@@ -151,6 +211,9 @@ export default {
     },
     methods: {
         async getTopArticle(data = {}) {
+            if (this.topArticleLoading) return;
+            this.topArticleLoading = true;
+
             let url = `/api/top-article`;
             let headers = {};
             if (process.server) {
@@ -161,10 +224,14 @@ export default {
             await axios
                 .get(url, { headers })
                 .then((results) => (this.topArticle = results.data))
-                .catch((e) => {});
+                .catch((e) => {})
+                .finally(() => (this.topArticleLoading = false));
         },
 
         async getMostPopularArticles(data = {}) {
+            if (this.popularArticlesLoading) return;
+            this.popularArticlesLoading = true;
+
             let url = `/api/most-populars-articles`;
             let headers = {};
             if (process.server) {
@@ -175,7 +242,8 @@ export default {
             await axios
                 .get(url, { headers })
                 .then((results) => (this.popularArticles = results.data))
-                .catch((e) => {});
+                .catch((e) => {})
+                .finally(() => (this.popularArticlesLoading = false));
         },
     },
 };

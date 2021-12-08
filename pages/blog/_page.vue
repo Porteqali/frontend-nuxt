@@ -68,7 +68,7 @@
         <ul class="flex flex-wrap justify-center md:justify-start gap-12" v-if="!articlesLoading">
             <li class="flex w-full sm:max-w-xs shadow-lg rounded-xl" v-for="(article, i) in articles" :key="i">
                 <nuxt-link
-                    class="article_card blur flex flex-col gap-4 flex-grow p-4 rounded-2xl shadow-xl "
+                    class="article_card blur flex flex-col gap-4 flex-grow p-4 rounded-2xl shadow-xl w-full"
                     :to="`/article/${article.slug}`"
                     :title="article.title"
                 >
@@ -96,7 +96,31 @@
                 </nuxt-link>
             </li>
         </ul>
-        <Loading v-else />
+        <!-- <Loading v-else /> -->
+        <ul class="flex flex-wrap justify-center md:justify-start gap-12" v-else>
+            <li class="article_card blur flex flex-col gap-4 p-4 w-full sm:max-w-xs shadow-lg rounded-xl" v-for="(item, i) in articlesSkeleton" :key="i">
+                <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full h-48">
+                    <span class="skeleton flex max-w-screen-sm w-full h-48"></span>
+                    <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2">
+                        <span class="skeleton w-8 h-2"></span>
+                    </span>
+                </div>
+                <h3 class="skeleton w-full h-6"></h3>
+                <div class="flex flex-col gap-2 w-full">
+                    <span class="skeleton w-full h-2"></span>
+                    <span class="skeleton w-full h-2"></span>
+                    <span class="skeleton w-full h-2"></span>
+                    <span class="skeleton w-4/12 h-2"></span>
+                </div>
+                <div class="flex flex-wrap justify-between items-center gap-4">
+                    <div class="flex items-start gap-2">
+                        <div class="skeleton rounded-full w-8 h-8"></div>
+                        <span class="skeleton w-8"></span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
         <ul class="flex items-center justify-center gap-4">
             <li>
                 <nuxt-link
@@ -159,6 +183,7 @@ export default {
             articlesTotal: this.articlesTotal || 0,
             articlesPageTotal: this.articlesPageTotal || 1,
             articlesLoading: false,
+            articlesSkeleton: [0, 0, 0, 0, 0],
         };
     },
     async fetch() {

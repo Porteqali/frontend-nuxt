@@ -116,7 +116,19 @@
             >
                 <span>بارگذاری بیشتر</span>
             </button>
-            <Loading v-if="faqsLoading" />
+            <!-- <Loading v-if="faqsLoading" /> -->
+            <div v-if="faqsLoading">
+                <ul class="flex flex-col items-center gap-8">
+                    <li class="card shadow-xl flex items-center gap-8 p-8 w-full rounded-2xl max-w-screen-xl" v-for="(item, i) in faqsLoadingSkeleton" :key="i">
+                        <span class="flex items-center justify-center w-10 h-10 p-4 rounded-full bg-indigo-100">{{ i + 1 }}</span>
+                        <div class="flex flex-col gap-4 flex-grow w-full">
+                            <h4 class="skeleton w-full h-8" style="min-width: 1024px"></h4>
+                            <span class="skeleton w-8/12 h-4"></span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
             <div class="flex items-center justify-center gap-16" v-if="!faqsLoading && faqs.length == 0">
                 <strong class="text-4xl">موردی پیدا نشد!</strong>
             </div>
@@ -144,6 +156,7 @@ export default {
             faqsTotal: 0,
             faqsPageTotal: 1,
             faqsLoading: false,
+            faqsLoadingSkeleton: [0, 0, 0],
         };
     },
     async fetch() {

@@ -3,7 +3,7 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.75rem 1rem;
+    padding: 0.5rem 1rem;
     border: 2px solid var(--department-section-toggle-btn-border-color);
     background-color: var(--department-section-toggle-btn-bg-color);
     color: var(--department-section-toggle-btn-border-color);

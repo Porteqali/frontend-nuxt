@@ -13,7 +13,7 @@
         <div class="flex flex-wrap justify-between gap-8 w-full">
             <h3 class="font-bold text-4xl">سوالات متداول</h3>
         </div>
-        <ul class="flex flex-col items-center gap-8">
+        <ul class="flex flex-col items-center gap-8" v-if="!faqsLoading">
             <li
                 class="card shadow-xl flex items-center gap-8 p-8 w-full rounded-2xl max-w-screen-xl"
                 v-for="(faq, i) in faqs"
@@ -33,42 +33,64 @@
                 </transition>
             </li>
         </ul>
+        <div v-else>
+                <ul class="flex flex-col items-center gap-8">
+                    <li class="card shadow-xl flex items-center gap-8 p-8 w-full rounded-2xl max-w-screen-xl" v-for="(item, i) in faqsLoadingSkeleton" :key="i">
+                        <span class="flex items-center justify-center w-10 h-10 p-4 rounded-full bg-indigo-100">{{ i + 1 }}</span>
+                        <div class="flex flex-col gap-4 flex-grow w-full">
+                            <h4 class="skeleton w-full h-8" style="min-width: 1024px"></h4>
+                            <span class="skeleton w-8/12 h-4"></span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
     </section>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     name: "FaqSection",
     data() {
         return {
-            faqs: [
-                {
-                    question: "آیا برای استفاده از دوره ها نیاز به ثبت نام در سایت دارم؟",
-                    answer: "بله ، برای استفاده از تمام خدمات سایت اعم از استفاده از دوره ، دانلود فایل های دوره و پرسش از استاد حتما باید در سایت ثبت نام کنید.",
-                    open: false,
-                },
-                {
-                    question: "بعد از ثبت نام با پیغام تایید حساب کاربری مواجه میشوم . آیا حتما باید حساب خود را تایید کنم؟",
-                    answer: "بله ، برای استفاده از تمام خدمات سایت اعم از استفاده از دوره ، دانلود فایل های دوره و پرسش از استاد حتما باید در سایت ثبت نام کنید.",
-                    open: false,
-                },
-                {
-                    question: "در صورت ثبت نام در دوره ، آموزش موردنظر تا چندروز قابل استفاده خواهد بود؟",
-                    answer: "بله ، برای استفاده از تمام خدمات سایت اعم از استفاده از دوره ، دانلود فایل های دوره و پرسش از استاد حتما باید در سایت ثبت نام کنید.",
-                    open: false,
-                },
-                {
-                    question: "چطوری میتونم دوره های آموزشی رو دانلود کنم؟",
-                    answer: "بله ، برای استفاده از تمام خدمات سایت اعم از استفاده از دوره ، دانلود فایل های دوره و پرسش از استاد حتما باید در سایت ثبت نام کنید.",
-                    open: false,
-                },
-                {
-                    question: "اگر حین آموزش سوالی پیش بیاد چطوری میتونم به جوابش برسم؟",
-                    answer: "بله ، برای استفاده از تمام خدمات سایت اعم از استفاده از دوره ، دانلود فایل های دوره و پرسش از استاد حتما باید در سایت ثبت نام کنید.",
-                    open: false,
-                },
-            ],
+            faqs: [],
+            faqsLoading: false,
+            faqsLoadingSkeleton: [0, 0, 0],
         };
+    },
+    async fetch() {
+        let headers = {};
+        if (process.server) headers = this.$nuxt.context.req.headers;
+
+        await this.getFaqs({ headers });
+    },
+    methods: {
+        async getFaqs(data = {}) {
+            if (this.faqsLoading || this.faqsPage > this.faqsPageTotal) return;
+            this.faqsLoading = true;
+
+            let url = `/api/faqs`;
+            let headers = {};
+            if (process.server) {
+                url = `${process.env.BASE_URL}${url}`;
+                headers = data.headers ? data.headers : {};
+            }
+
+            let params = [`page=${this.faqsPage}`, `pp=5`];
+            url = `${url}?${params.join("&")}`;
+
+            await axios
+                .get(url, { headers })
+                .then((results) => {
+                    const newFaqs = results.data.records.map((faq) => {
+                        return { ...faq, open: false };
+                    });
+                    this.faqs = newFaqs;
+                })
+                .catch((e) => {})
+                .finally(() => (this.faqsLoading = false));
+        },
     },
 };
 </script>
