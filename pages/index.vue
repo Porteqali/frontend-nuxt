@@ -37,7 +37,8 @@
                     </button>
                 </div>
             </div>
-            <img ref="boyImg" :src="boyImg[boyImgIndex]" width="650px" alt="porteqali-online-learning-platform" @click="boyClick()" />
+            <!-- <img ref="boyImg" :src="boyImg[boyImgIndex]" width="768px" alt="porteqali-online-learning-platform" @click="boyClick()" /> -->
+            <img ref="boyImg" src="/pages/home/Video Call (Man).webp" width="768px" alt="porteqali-online-learning-platform" @click="boyClick()" />
         </section>
 
         <DepartmentSection />
@@ -125,7 +126,8 @@ export default {
 },
     data() {
         return {
-            boyImg: ["/pages/home/With a Dog (Man).png", "/pages/home/video_call_man.png"],
+            // boyImg: ["/pages/home/With a Dog (Man).png", "/pages/home/video_call_man.png"],
+            boyImg: ["/pages/home/Video Call (Man).webp", "/pages/home/video_call_man.png"],
             boyImgIndex: 0,
         };
     },

@@ -24,7 +24,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    backdrop-filter: blur(15px); 
+    backdrop-filter: blur(15px);
     border-radius: 2rem;
 }
 
@@ -107,7 +107,7 @@
             <div class="flex flex-wrap justify-between gap-8 w-full">
                 <h2 class="font-bold text-4xl">اساتید گروه آموزشی پرتقال</h2>
             </div>
-            <ul class="flex flex-wrap justify-center gap-6">
+            <ul class="flex flex-wrap justify-center gap-6" v-if="!teachersLoading">
                 <li
                     class="teacher_card flex flex-col items-center justify-start gap-4 p-8 md:p-16 w-full rounded-3xl shadow-2xl max-w-md"
                     :style="`background-image: url('${teacher.image}')`"
@@ -125,6 +125,22 @@
                     </ul>
                 </li>
             </ul>
+            <ul class="flex flex-wrap justify-center gap-6" v-else>
+                <li
+                    class="teacher_card flex flex-col items-center justify-start gap-4 p-8 md:p-16 w-full rounded-3xl shadow-2xl max-w-md"
+                    v-for="(teacher, i) in teachersSkeleton"
+                    :key="i"
+                >
+                    <span class="skeleton w-24 h-24 rounded-full shadow-md"></span>
+                    <small class="skeleton w-20 h-2 text-lightblue-400"></small>
+                    <div class="flex flex-col gap-2 w-full">
+                        <span class="skeleton w-full h-2"></span>
+                        <span class="skeleton w-full h-2"></span>
+                        <span class="skeleton w-full h-2"></span>
+                        <span class="skeleton w-4/12 h-2"></span>
+                    </div>
+                </li>
+            </ul>
             <div class="flex items-center justify-center w-full">
                 <button class="more_btn blur flex items-center gap-2 py-3 px-6 rounded-xl w-max">
                     <img src="/icons/BookOpenOutlineColor.orange.svg" width="24" height="24" alt="BookOpenOutlineColor" />
@@ -136,6 +152,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import Background from "~/components/Background";
 import Icon from "~/components/Icon.vue";
 
@@ -150,31 +167,35 @@ export default {
     },
     data() {
         return {
-            teachers: [
-                {
-                    image: "/misc/figma.svg",
-                    name: "سید احمد",
-                    family: "عباسی",
-                    title: "مدیرمحصول",
-                    description: "سید احمد عباسی هستم طراح رابط کاربری پرتقال",
-                    social: [
-                        { link: "#", name: "twitter" },
-                        { link: "#", name: "linkedin" },
-                    ],
-                },
-                {
-                    image: "/misc/figma.svg",
-                    name: "سید احمد",
-                    family: "عباسی",
-                    title: "مدیرمحصول",
-                    description: "سید احمد عباسی هستم طراح رابط کاربری پرتقالسید احمد عباسی هستم طراح رابط کاربری پرتقال",
-                    social: [
-                        { link: "#", name: "twitter" },
-                        { link: "#", name: "linkedin" },
-                    ],
-                },
-            ],
+            teachersLoading: false,
+            teachersSkeleton: [0, 0, 0],
+            teachers: this.teachers || [],
         };
+    },
+    async fetch() {
+        let headers = {};
+        if (process.server) headers = this.$nuxt.context.req.headers;
+
+        await Promise.all([this.getTeachers({ headers })]);
+    },
+    methods: {
+        async getTeachers(data = {}) {
+            if (this.teachersLoading) return;
+            this.teachersLoading = true;
+
+            let url = `/api/about-us/teachers`;
+            let headers = {};
+            if (process.server) {
+                url = `${process.env.BASE_URL}${url}`;
+                headers = data.headers ? data.headers : {};
+            }
+
+            await axios
+                .get(url, { headers })
+                .then((results) => (this.teachers = results.data))
+                .catch((e) => {})
+                .finally(() => (this.teachersLoading = false));
+        },
     },
 };
 </script>

@@ -66,7 +66,7 @@ app.all("/api/*", multer().fields([{ name: "files" }]), async (req, res) => {
         });
 });
 
-app.get("/files/*", async (req, res) => {
+app.get("/file/*", async (req, res) => {
     http.get(
         `${process.env.API_BASE_URL}${req.url}`,
         {
