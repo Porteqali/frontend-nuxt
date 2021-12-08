@@ -108,35 +108,61 @@ textarea {
                                 <img src="/icons/Location.orange.line.svg" alt="Calling" width="24" height="24" />
                                 <b class="font-bold text-xl">آدرس</b>
                             </h5>
-                            <span>به متنی آزمایشی و بی‌معنی در صنعت چاپ، صفحه‌آرایی و طراحی گرافیک گفته می‌شود.</span>
+                            <span>{{ contact_info.address }}</span>
                         </li>
                         <li class="flex flex-wrap items-center justify-between gap-4">
                             <h5 class="flex items-center gap-2">
                                 <img src="/icons/Calling.orange.line.svg" alt="Calling" width="24" height="24" />
                                 <b class="font-bold text-xl">شماره تلفن</b>
                             </h5>
-                            <span><a href="tel:021-56942823">021-56942823</a></span>
+                            <span>
+                                <a :href="`tel:${contact_info.tel}`">{{ contact_info.tel }}</a>
+                            </span>
                         </li>
                         <li class="flex flex-wrap items-center justify-between gap-4">
                             <h5 class="flex items-center gap-2">
                                 <img src="/icons/Message.orange.line.svg" alt="Calling" width="24" height="24" />
                                 <b class="font-bold text-xl">پست اکترونیک</b>
                             </h5>
-                            <span><a href="mailto:info@porteqali.com">info@porteqali.com</a></span>
+                            <span>
+                                <a href="mailto:info@porteqali.com">{{ contact_info.email }}</a>
+                            </span>
                         </li>
                         <li class="flex flex-wrap items-center justify-between gap-4">
                             <h5 class="flex items-center gap-2">
                                 <img src="/icons/Document.orange.line.svg" alt="Calling" width="24" height="24" />
                                 <b class="font-bold text-xl">کدپستی</b>
                             </h5>
-                            <span>1899713936</span>
+                            <span>{{ contact_info.post_code }}</span>
                         </li>
                     </ul>
                 </div>
             </div>
         </section>
-        <section class="flex flex-col items-start gap-8 w-full max-w-screen-lg">
-            <div class="bg-fuchsia-800 bg-opacity-50 rounded-3xl w-full h-80"></div>
+        <section class="flex flex-col items-start gap-8 w-full max-w-screen-lg" v-if="!!contact_info.location">
+            <client-only>
+                <div class="bg-fuchsia-800 bg-opacity-50 rounded-3xl shadow-xl overflow-hidden w-full h-72 md:h-96">
+                    <l-map
+                        class="m-0 w-full h-full"
+                        :zoom="parseInt(contact_info.location.z)"
+                        :center="[contact_info.location.lat, contact_info.location.lng]"
+                        :options="map.options"
+                    >
+                        <l-tile-layer :url="map.url" :options="map.url_options"></l-tile-layer>
+                        <l-control-zoom position="bottomleft"></l-control-zoom>
+                        <l-marker :lat-lng="[contact_info.location.lat, contact_info.location.lng]">
+                            <l-icon :icon-size="mapIcon.iconSize" :icon-anchor="mapIcon.iconAnchor" :icon-url="mapIcon.iconUrl"></l-icon>
+                        </l-marker>
+                    </l-map>
+                </div>
+                <a
+                    class="orange_gradient_h rounded-xl p-3 px-6 w-max shadow-lg"
+                    :href="`https://www.google.com/maps/@${contact_info.location.lat},${contact_info.location.lng},${contact_info.location.z}z`"
+                    target="_blank"
+                >
+                    نمایش روی نقشه
+                </a>
+            </client-only>
         </section>
     </main>
 </template>
@@ -145,12 +171,25 @@ textarea {
 import axios from "axios";
 import { mask } from "vue-the-mask";
 
+import "leaflet/dist/leaflet.css";
+let Vue2Leaflet = {};
+if (process.client) {
+    const { LMap, LTileLayer, LMarker, LIcon, LControlZoom } = require("vue2-leaflet");
+    Vue2Leaflet = { LMap, LTileLayer, LMarker, LIcon, LControlZoom };
+}
+
 export default {
     head: {
         title: "تماس با ما - گروه آموزشی پرتقال",
         meta: [{ hid: "description", name: "description", content: "" }],
     },
-    components: {},
+    components: {
+        "l-map": Vue2Leaflet.LMap,
+        "l-tile-layer": Vue2Leaflet.LTileLayer,
+        "l-marker": Vue2Leaflet.LMarker,
+        "l-icon": Vue2Leaflet.LIcon,
+        "l-control-zoom": Vue2Leaflet.LControlZoom,
+    },
     directives: { mask },
     data() {
         return {
@@ -165,9 +204,44 @@ export default {
             messageType: "succes",
 
             sending: false,
+
+            contact_info: {},
+            map: {
+                url: "https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}",
+                url_options: {
+                    maxZoom: 22,
+                    subdomains: ["mt0", "mt1", "mt2", "mt3"],
+                },
+                options: { zoomControl: false },
+            },
+            mapIcon: {
+                iconUrl: "/misc/pin.svg",
+                iconSize: [60, 60],
+                iconAnchor: [30, 60],
+            },
         };
     },
+    async fetch() {
+        let headers = {};
+        if (process.server) headers = this.$nuxt.context.req.headers;
+
+        await Promise.all([this.getContactInfo({ headers })]);
+    },
     methods: {
+        async getContactInfo(data = {}) {
+            let url = `/api/contact-info`;
+            let headers = {};
+            if (process.server) {
+                url = `${process.env.BASE_URL}${url}`;
+                headers = data.headers ? data.headers : {};
+            }
+
+            await axios
+                .get(url, { headers })
+                .then((results) => (this.contact_info = results.data))
+                .catch((e) => {});
+        },
+
         async send(e) {
             e.preventDefault();
             if (this.sending) return;

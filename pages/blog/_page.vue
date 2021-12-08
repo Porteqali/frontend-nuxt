@@ -202,6 +202,9 @@ export default {
 
         this.processRoute(to);
         await this.getArticles({});
+        if (typeof document !== "undefined") {
+            document.getElementById("articles").scrollIntoView();
+        }
         next();
     },
     methods: {
@@ -242,9 +245,6 @@ export default {
                     this.articlesTotal = results.data.total;
                     this.articlesPageTotal = results.data.pageTotal;
                     this.articlesPages = this.getPageList(this.articlesPageTotal, this.articlesPage, 7);
-                    if (typeof document !== "undefined") {
-                        document.getElementById("articles").scrollIntoView();
-                    }
                 })
                 .catch((e) => {})
                 .finally(() => (this.articlesLoading = false));
