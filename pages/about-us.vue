@@ -62,10 +62,10 @@
                         یادگیری در وب ایران که در گذشته تجربه کرده اید را کرده و لحظات و خاطرات آینده ساز و آرامش بخشی را با آموزش های ما تجربه کنید!
                     </p>
                 </div>
-                <img class="shadow-xl rounded-xl" src="/pages/about-us/img2.crop.png" alt="معرفی گروه آموزشی پرتقال" />
+                <img class="shadow-xl rounded-3xl" src="/pages/about-us/img2.crop.png" alt="معرفی گروه آموزشی پرتقال" />
             </div>
             <div class="flex flex-wrap-reverse items-center justify-evenly gap-8">
-                <img class="shadow-xl rounded-xl" src="/pages/about-us/img1.crop.png" alt="معرفی گروه آموزشی پرتقال" />
+                <img class="shadow-xl rounded-3xl" src="/pages/about-us/img1.crop.png" alt="معرفی گروه آموزشی پرتقال" />
                 <div class="flex flex-col gap-4">
                     <h2 class="text-2xl font-bold">معرفی گروه آموزشی پرتقال</h2>
                     <p class="max-w-screen-sm text-lg">
@@ -76,7 +76,7 @@
                 </div>
             </div>
             <div class="flex flex-col items-center justify-center w-full mx-auto">
-                <div class="bg-gray-700 bg-opacity-80 text-white blur flex flex-col lg:flex-row items-center rounded-2xl p-8 pb-16 w-max">
+                <div class="bg-gray-700 bg-opacity-80 text-white blur flex flex-col lg:flex-row items-center rounded-3xl p-8 pb-16 w-max">
                     <div class="flex flex-col gap-16 flex-shrink-0">
                         <h3 class="kalameh text-6xl font-extrabold">داستان پرتقال</h3>
                         <p class="text-2xl max-w-screen-xs text-justify">
@@ -87,15 +87,15 @@
                     <img class="lg:-mt-28 lg:-ml-24 m-0 w-6/12 lg:w-full" src="/pages/about-us/Saly.png" alt="Saly" />
                 </div>
                 <div class="flex flex-wrap items-center justify-center gap-8 w-full -mt-16 z-10">
-                    <div class="orange_gradient_h flex flex-col items-center justify-center gap-8 w-64 h-64 p-6 rounded-2xl shadow-xl">
+                    <div class="orange_gradient_h flex flex-col items-center justify-center gap-8 w-64 h-64 p-6 rounded-3xl shadow-xl">
                         <b class="counts text-4xl" dir="ltr">+4,000</b>
                         <span class="bg-white counts p-6 py-4 rounded-xl shadow-lg">دانشجو</span>
                     </div>
-                    <div class="orange_gradient_h flex flex-col items-center justify-center gap-8 w-64 h-64 p-6 rounded-2xl shadow-xl">
+                    <div class="orange_gradient_h flex flex-col items-center justify-center gap-8 w-64 h-64 p-6 rounded-3xl shadow-xl">
                         <b class="counts text-4xl" dir="ltr">+5,000</b>
                         <span class="bg-white counts p-6 py-4 rounded-xl shadow-lg">دقیقه ویدیو آموزشی</span>
                     </div>
-                    <div class="orange_gradient_h flex flex-col items-center justify-center gap-8 w-64 h-64 p-6 rounded-2xl shadow-xl">
+                    <div class="orange_gradient_h flex flex-col items-center justify-center gap-8 w-64 h-64 p-6 rounded-3xl shadow-xl">
                         <b class="counts text-4xl" dir="ltr">76</b>
                         <span class="bg-white counts p-6 py-4 rounded-xl shadow-lg">مدرس برتر</span>
                     </div>

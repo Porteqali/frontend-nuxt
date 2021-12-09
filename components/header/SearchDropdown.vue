@@ -64,17 +64,23 @@ ul li:hover {
                 <hr class="w-full opacity-50" />
             </div>
             <ul class="flex flex-col w-full">
-                <li class="flex items-center gap-2 p-3">
-                    <img src="/icons/Category.svg" width="24" height="24" alt="Category" />
-                    <span class="text-sm">دپارتمان ها</span>
+                <li class="">
+                    <nuxt-link class="flex items-center gap-2 p-3" to="/departments">
+                        <img src="/icons/Category.svg" width="24" height="24" alt="Category" />
+                        <span class="text-sm">دپارتمان ها</span>
+                    </nuxt-link>
                 </li>
-                <li class="flex items-center gap-2 p-3">
-                    <img src="/icons/Document.gray.svg" width="24" height="24" alt="Document" />
-                    <span class="text-sm">مقالات</span>
+                <li class="">
+                    <nuxt-link class="flex items-center gap-2 p-3" to="/blog">
+                        <img src="/icons/Document.gray.svg" width="24" height="24" alt="Document" />
+                        <span class="text-sm">مقالات</span>
+                    </nuxt-link>
                 </li>
-                <li class="flex items-center gap-2 p-3">
-                    <img src="/icons/Discovery.gray.svg" width="24" height="24" alt="Discovery" />
-                    <span class="text-sm">از کجا شروع کنم؟</span>
+                <li class="">
+                    <nuxt-link class="flex items-center gap-2 p-3" to="#">
+                        <img src="/icons/Discovery.gray.svg" width="24" height="24" alt="Discovery" />
+                        <span class="text-sm">از کجا شروع کنم؟</span>
+                    </nuxt-link>
                 </li>
             </ul>
         </div>

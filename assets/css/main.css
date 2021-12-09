@@ -99,3 +99,7 @@ body{
 	50% { background-position: 100% 50%; }
 	100% { background-position: 0% 50%; }
 }
+
+.swiper-pagination-bullet-active{
+    background-color: #FF8537 !important;
+}

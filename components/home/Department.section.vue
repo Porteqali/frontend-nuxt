@@ -35,7 +35,7 @@
 }
 
 .course_card {
-    /* background-color: var(--department-section-title-alt-text-bg-color); */
+    background-color: var(--department-section-title-alt-text-bg-color);
     color: var(--department-section-title-alt-text-color);
 }
 .course_tag {
@@ -75,7 +75,7 @@
         <div v-swiper="coursesSwiperOptions" class="w-full max-w-screen-4xl select-none overflow-hidden p-4">
             <ul class="swiper-wrapper flex items-start">
                 <li
-                    class="swiper-slide gray_gradient blur course_card shadow-lg flex flex-col gap-4 p-4 rounded-2xl max-w-screen-xs"
+                    class="swiper-slide gray_gradient blur course_card shadow-lg flex flex-col gap-4 p-4 rounded-3xl max-w-screen-xs ml-16"
                     v-for="(course, i) in courses"
                     :key="i"
                 >
@@ -115,6 +115,7 @@
                     </div>
                 </li>
             </ul>
+            <div class="flex justify-center mt-8 swiper-pagination2 swiper-pagination-bullets"></div>
         </div>
         <div class="flex items-center justify-center w-full">
             <button class="more_courses_btn blur flex items-center gap-2 py-3 px-6 rounded-xl w-max">
@@ -135,9 +136,10 @@ export default {
                 autoplay: false,
                 slidesPerView: "auto",
                 initialSlide: 0,
-                spaceBetween: 16,
+                // spaceBetween: 46,
                 loop: false,
                 freeMode: true,
+                pagination: ".swiper-pagination2",
             },
         };
     },

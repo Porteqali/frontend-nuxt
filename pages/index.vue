@@ -13,12 +13,12 @@
 }
 
 #roadmap .roadmap_vision_img {
-    background-color: var(--header-nav-container-bg-color);
+    /* background-color: var(--header-nav-container-bg-color); */
 }
 </style>
 
 <template>
-    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-4xl w-full">
+    <main role="main" class="flex flex-col items-center gap-24 lg:gap-32 max-w-screen-4xl w-full">
         <!-- <Background src="/backgrounds/Background.png" :topOffset="0" :rightOffset="0" :minWidth="2020" /> -->
 
         <section class="relative flex flex-wrap justify-evenly gap-8 lg:gap-20" id="top">
@@ -37,17 +37,17 @@
                     </button>
                 </div>
             </div>
-            <!-- <img ref="boyImg" :src="boyImg[boyImgIndex]" width="768px" alt="porteqali-online-learning-platform" @click="boyClick()" /> -->
-            <img ref="boyImg" src="/pages/home/Video Call (Man).webp" width="768px" alt="porteqali-online-learning-platform" @click="boyClick()" />
+            <!-- <img ref="boyImg" src="/pages/home/Video Call (Man).webp" width="768px" alt="porteqali-online-learning-platform" /> -->
+            <img ref="boyImg" src="/pages/home/1.png" width="768px" height="768" alt="porteqali-online-learning-platform" />
         </section>
 
         <DepartmentSection />
 
-        <MostViewedCoursesSection />
+        <!-- <MostViewedCoursesSection /> -->
 
         <section class="flex flex-wrap-reverse items-center justify-evenly gap-8 lg:gap-20 w-full my-16" id="roadmap">
             <img class="absolute w-auto right-0" src="/backgrounds/Background.side.png" alt="porteqali-background" style="max-height: 1920px; margin-top: 20%" />
-            <div class="roadmap_vision_img rounded-xl shadow-lg p-4 blur z-10">
+            <div class="roadmap_vision_img rounded-3xl shadow-lg p-4 blur z-10">
                 <img class="" src="/pages/home/Vision&Missi.png" alt="porteqali-vision" />
             </div>
             <div class="flex flex-col gap-6 z-10">
@@ -78,7 +78,7 @@
                     <img src="/icons/Scan.svg" width="24" height="24" alt="Scan" />
                 </button>
             </div>
-            <img src="/pages/home/certificates.webp" alt="porteqali-certificates" style="width: 500px;" />
+            <img src="/pages/home/certificates.webp" alt="porteqali-certificates" style="width: 500px" />
         </section>
 
         <BlogSection />
@@ -117,24 +117,18 @@ export default {
         meta: [{ hid: "description", name: "description", content: "" }],
     },
     components: {
-    Background,
-    DepartmentSection,
-    MostViewedCoursesSection,
-    TestimonialSection,
-    FaqSection,
-    BlogSection
-},
+        Background,
+        DepartmentSection,
+        MostViewedCoursesSection,
+        TestimonialSection,
+        FaqSection,
+        BlogSection,
+    },
     data() {
         return {
-            // boyImg: ["/pages/home/With a Dog (Man).png", "/pages/home/video_call_man.png"],
-            boyImg: ["/pages/home/Video Call (Man).webp", "/pages/home/video_call_man.png"],
-            boyImgIndex: 0,
+            topImageList: ["/pages/home/1.png", "/pages/home/2.png"],
         };
     },
-    methods: {
-        boyClick() {
-            this.boyImgIndex = this.boyImgIndex == 0 ? 1 : 0;
-        },
-    },
+    methods: {},
 };
 </script>

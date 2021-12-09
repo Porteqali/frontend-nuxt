@@ -30,13 +30,17 @@ header {
     z-index: 5;
 }
 .footer_bg {
-    bottom: -20%;
-    left: 0;
+    bottom: 0;
+    right: 10%;
+    width: 70%;
     margin-right: -10%;
     margin-bottom: 0;
     min-width: 768px;
     z-index: -1;
+    position: absolute;
+
     position: fixed;
+    left: 20%;
 }
 footer {
     color: var(--header-nav-text-color);
@@ -141,7 +145,7 @@ footer {
             </footer>
         </div>
 
-        <img class="footer_bg absolute w-full max-w-screen-4xl opacity-75" src="/backgrounds/Background.footer.webp" alt="Background.footer" />
+        <img class="footer_bg absolute opacity-75" src="/backgrounds/Background.footer.png" alt="Background.footer" />
     </div>
 </template>
 
@@ -154,6 +158,7 @@ export default {
         title: "گروه آموزشی پرتقال",
         meta: [{ hid: "description", name: "description", content: "گروه آموزشی پرتقال" }],
     },
+    props: ["error"],
     components: {
         Menu,
     },

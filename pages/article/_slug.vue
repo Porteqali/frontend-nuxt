@@ -227,7 +227,7 @@
             <div class="flex flex-wrap justify-between items-center gap-8 w-full">
                 <h4 class="font-bold text-4xl">محبوب ترین بلاگ ها</h4>
             </div>
-            <ul class="flex flex-wrap items-start justify-evenly gap-6">
+            <ul class="flex flex-wrap items-start justify-evenly gap-4">
                 <li class="flex w-full sm:max-w-xs shadow-lg rounded-xl" v-for="(popularArticle, i) in popularArticles" :key="i">
                     <nuxt-link
                         class="article_card blur flex flex-col gap-4 flex-grow p-4 rounded-2xl shadow-xl w-full sm:max-w-xs"

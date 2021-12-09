@@ -13,7 +13,7 @@
         <div v-swiper="testimonialsSwiperOptions" class="w-full max-w-screen-4xl select-none overflow-hidden p-4">
             <ul class="swiper-wrapper flex items-start">
                 <li
-                    class="swiper-slide blur card shadow-lg flex flex-col items-center gap-8 p-16 rounded-2xl max-w-screen-2sm z-10"
+                    class="swiper-slide blur card shadow-lg flex flex-col items-center gap-8 p-16 rounded-3xl max-w-screen-2sm z-10"
                     v-for="(testimonial, i) in testimonials"
                     :key="i"
                 >
@@ -45,7 +45,7 @@ export default {
                 autoplay: false,
                 slidesPerView: "auto",
                 initialSlide: 0,
-                spaceBetween: 16,
+                spaceBetween: 46,
                 loop: true,
                 freeMode: true,
             },
