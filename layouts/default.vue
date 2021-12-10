@@ -63,7 +63,7 @@ footer {
 <template>
     <div class="nuxt_main px-4 md:px-8 lg:px-12" dir="rtl" ref="body" id="app">
         <header class="flex items-center justify-between gap-8 py-8 w-full max-w-screen-4xl z-20">
-            <nuxt-link to="/" class="flex-shrink-0">
+            <nuxt-link title="پرتقال" to="/" class="flex-shrink-0">
                 <img v-if="!!$nuxt.$route.matched[0] && !!topBackground[$nuxt.$route.matched[0].path]" src="/logo_white.png" alt="پرتقال" />
                 <img v-else src="/logo_orange.png" alt="پرتقال" />
             </nuxt-link>
@@ -89,14 +89,14 @@ footer {
                     <div class="flex flex-col gap-4">
                         <h4 class="font-bold text-2xl">همراه پرتقال</h4>
                         <ul class="flex flex-wrap flex-row lg:flex-col gap-6 lg:gap-2">
-                            <li><nuxt-link to="/blog">وبلاگ پرتقال</nuxt-link></li>
-                            <li><nuxt-link to="/departments">دپارتمان ها</nuxt-link></li>
-                            <li><nuxt-link to="/about-us">درباره ما</nuxt-link></li>
-                            <li><nuxt-link to="/contact-us">تماس با ما</nuxt-link></li>
-                            <li><nuxt-link to="/work-with-us">همکاری با ما</nuxt-link></li>
-                            <li><nuxt-link to="/faqs">سوالات متداول</nuxt-link></li>
-                            <li><nuxt-link to="/terms-and-conditions">قوانین و مقررات</nuxt-link></li>
-                            <li><nuxt-link to="/privacy-policy">حریم خصوصی</nuxt-link></li>
+                            <li><nuxt-link title="وبلاگ پرتقال" to="/blog">وبلاگ پرتقال</nuxt-link></li>
+                            <li><nuxt-link title="دپارتمان ها" to="/departments">دپارتمان ها</nuxt-link></li>
+                            <li><nuxt-link title="درباره ما" to="/about-us">درباره ما</nuxt-link></li>
+                            <li><nuxt-link title="تماس با ما" to="/contact-us">تماس با ما</nuxt-link></li>
+                            <li><nuxt-link title="همکاری با ما" to="/work-with-us">همکاری با ما</nuxt-link></li>
+                            <li><nuxt-link title="سوالات متداول" to="/faqs">سوالات متداول</nuxt-link></li>
+                            <li><nuxt-link title="قوانین و مقررات" to="/terms-and-conditions">قوانین و مقررات</nuxt-link></li>
+                            <li><nuxt-link title="حریم خصوصی" to="/privacy-policy">حریم خصوصی</nuxt-link></li>
                         </ul>
                     </div>
                     <div class="flex flex-col gap-6">
@@ -108,7 +108,7 @@ footer {
                         <div class="flex flex-col gap-2">
                             <b class="text-xl">مشاوره تلفنی</b>
                             <div class="flex items-center gap-1">
-                                <a class="text-xl lg:text-2xl" href="tel:229081212">229081212</a>
+                                <a class="text-xl lg:text-2xl" :href="`tel:${contact_info.tel}`">{{contact_info.tel}}</a>
                                 <img src="/icons/Calling.orange.line.svg" alt="Calling" width="24" height="24" />
                             </div>
                         </div>
@@ -150,6 +150,7 @@ footer {
 </template>
 
 <script>
+import axios from 'axios';
 import Menu from "~/components/header/Menu.vue";
 
 export default {
@@ -175,7 +176,15 @@ export default {
                 "/blog/:page?": { src: "/backgrounds/Background3.png", topOffset: -30, rightOffset: -80, minWidth: 3220 },
                 "/blog": { src: "/backgrounds/Background3.png", topOffset: -30, rightOffset: -80, minWidth: 3220 },
             },
+
+            contact_info: this.contact_info || {},
         };
+    },
+    async fetch() {
+        let headers = {};
+        if (process.server) headers = this.$nuxt.context.req.headers;
+
+        await Promise.all([this.getContactInfo({ headers })]);
     },
     mounted() {
         if (process.client && window) {
@@ -185,6 +194,20 @@ export default {
     methods: {
         scrollUp() {
             window.scrollTo({ top: 0 });
+        },
+
+        async getContactInfo(data = {}) {
+            let url = `/api/contact-info`;
+            let headers = {};
+            if (process.server) {
+                url = `${process.env.BASE_URL}${url}`;
+                headers = data.headers ? data.headers : {};
+            }
+
+            await axios
+                .get(url, { headers })
+                .then((results) => (this.contact_info = results.data))
+                .catch((e) => {});
         },
     },
 };

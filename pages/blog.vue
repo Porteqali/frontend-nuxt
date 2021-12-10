@@ -40,7 +40,7 @@
                         <span class="kalameh_bold font-bold">وبلاگ</span>
                     </h1>
                     <ul class="flex items-center gap-2 font-light">
-                        <li><nuxt-link to="/">صفحه اصلی</nuxt-link></li>
+                        <li><nuxt-link title="صفحه اصلی" to="/">صفحه اصلی</nuxt-link></li>
                         <li>&gt;</li>
                         <li>وبلاگ</li>
                     </ul>
@@ -110,7 +110,7 @@
                                 <p class="max-w-xs opacity-75">{{ popularArticle.description }}</p>
                                 <div class="flex flex-wrap justify-between items-center gap-4">
                                     <div class="flex items-start gap-2">
-                                        <img src="/misc/Figma.svg" alt="Figma" width="32" height="32" />
+                                        <img :src="popularArticle.author.image" :alt="`${popularArticle.author.name} ${popularArticle.author.family}`" width="32" height="32" />
                                         <div class="flex flex-col gap-1">
                                             <small v-if="!!popularArticle.author">{{ `${popularArticle.author.name} ${popularArticle.author.family}` }}</small>
                                             <small class="opacity-75">{{ new Date(popularArticle.publishedAt).toLocaleDateString("fa") }}</small>
@@ -123,6 +123,7 @@
                                 </div>
                                 <nuxt-link
                                     :to="`/article/${popularArticle.slug}`"
+                                    :title="popularArticle.title"
                                     class="gray_gradient flex items-center justify-center gap-4 shadow-md py-3 px-8 mt-auto mb-0 rounded-xl"
                                 >
                                     مطالعه

@@ -38,7 +38,7 @@
                 </div>
             </div>
             <!-- <img ref="boyImg" src="/pages/home/Video Call (Man).webp" width="768px" alt="porteqali-online-learning-platform" /> -->
-            <img ref="boyImg" src="/pages/home/1.png" width="768px" height="768" alt="porteqali-online-learning-platform" />
+            <img class="boyImg" :src="topImageList[topImageIndex]" width="768px" height="768" alt="porteqali-online-learning-platform" @click="changeBoy()" />
         </section>
 
         <DepartmentSection />
@@ -83,21 +83,7 @@
 
         <BlogSection />
 
-        <section class="flex flex-wrap items-start justify-evenly gap-8 lg:gap-20 w-full my-16" id="certificate">
-            <div class="flex flex-col gap-6">
-                <h2 class="text-3xl font-bold">آخرین اخبار سایت</h2>
-                <p class="max-w-screen-sm text-xl font-bold" style="line-height: 2.25rem">
-                    دسترسی به همه دوره های آموزشی، دریافت گواهینامه های پایان دوره و خیلی امکانات دیگر را با پیشنهاد های عالی از پرتقال دریافت کن!
-                </p>
-                <a href="#" class="orange_gradient_h flex items-center gap-2 rounded-xl shadow-lg mt-10 p-4 w-max">
-                    <span>ورود به پورت پلاس</span>
-                    <!-- <img src="/icons/Scan.svg" width="24" height="24" alt="Scan" /> -->
-                </a>
-            </div>
-            <div class="w-full max-w-lg h-80 bg-gray-500 overflow-hidden shadow-lg rounded-2xl">
-                <video class="w-full h-full" src="" controls></video>
-            </div>
-        </section>
+        <NewsSection />
     </main>
 </template>
 
@@ -109,6 +95,7 @@ import MostViewedCoursesSection from "~/components/home/MostViewedCourses.sectio
 import TestimonialSection from "~/components/home/Testimonial.section";
 import FaqSection from "~/components/home/FAQ.section";
 import BlogSection from "~/components/home/Blog.section";
+import NewsSection from "~/components/home/News.section";
 
 export default {
     scrollToTop: true,
@@ -123,12 +110,18 @@ export default {
         TestimonialSection,
         FaqSection,
         BlogSection,
+        NewsSection,
     },
     data() {
         return {
-            topImageList: ["/pages/home/1.png", "/pages/home/2.png"],
+            topImageIndex: 0,
+            topImageList: ["/pages/home/1.png", "/pages/home/3.png"],
         };
     },
-    methods: {},
+    methods: {
+        changeBoy() {
+            this.topImageIndex = this.topImageIndex ? 0 : 1;
+        },
+    },
 };
 </script>

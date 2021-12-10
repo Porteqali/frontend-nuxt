@@ -39,7 +39,7 @@
                     <span class="kalameh_bold font-bold">سوالات متداول</span>
                 </h1>
                 <ul class="flex items-center gap-2 font-light">
-                    <li><nuxt-link to="/">صفحه اصلی</nuxt-link></li>
+                    <li><nuxt-link title="صفحه اصلی" to="/">صفحه اصلی</nuxt-link></li>
                     <li>&gt;</li>
                     <li>سوالات متداول</li>
                 </ul>
@@ -91,7 +91,7 @@
         <section class="flex flex-col items-center gap-8 w-full max-w-screen-xl">
             <ul class="flex flex-col items-center gap-8">
                 <li
-                    class="card shadow-xl flex items-center gap-8 p-8 w-full rounded-2xl max-w-screen-xl"
+                    class="card shadow-xl flex flex-wrap md:flex-nowrap items-center gap-8 p-8 w-full rounded-2xl max-w-screen-xl"
                     v-for="(faq, i) in faqs"
                     :key="i"
                     @click="faq.open = !faq.open"

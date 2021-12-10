@@ -78,8 +78,12 @@ app.get("/file/*", async (req, res) => {
             },
         },
         (response) => {
-            if (response.statusCode === 200) response.pipe(res);
-            else return res.status(404).end();
+            if (response.statusCode >= 200 && response.statusCode < 400) {
+                try {
+                    res.writeHead(response.statusCode, { ...response.headers });
+                    response.pipe(res);
+                } catch (e) {}
+            } else return res.status(404).end();
         },
     );
 });

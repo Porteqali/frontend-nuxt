@@ -92,9 +92,9 @@
             </header>
             <div class="mt-16 md:mt-8"></div>
             <ul class="flex flex-wrap items-center gap-2 font-light text-sm md:text-base">
-                <li class="flex-shrink-0"><nuxt-link to="/">صفحه اصلی</nuxt-link></li>
+                <li class="flex-shrink-0"><nuxt-link title="صفحه اصلی" to="/">صفحه اصلی</nuxt-link></li>
                 <li class="flex-shrink-0">&gt;</li>
-                <li class="flex-shrink-0"><nuxt-link to="/blog">وبلاگ</nuxt-link></li>
+                <li class="flex-shrink-0"><nuxt-link title="وبلاگ" to="/blog">وبلاگ</nuxt-link></li>
                 <li class="flex-shrink-0">&gt;</li>
                 <li class="flex-shrink-0" v-if="article && article.category">{{ article.category.name }}</li>
                 <li class="flex-shrink-0">&gt;</li>
@@ -207,7 +207,7 @@
                         <h4 class="text-2xl">آخرین مقالات</h4>
                         <ul class="article_card blur flex flex-col gap-6 rounded-2xl p-4 w-full sm:max-w-xs">
                             <li class="w-full" v-for="(item, i) in newArticles" :key="i">
-                                <nuxt-link class="w-full flex flex-wrap gap-4" :to="`/article/${item.slug}`">
+                                <nuxt-link class="w-full flex flex-wrap gap-4" :to="`/article/${item.slug}`" :title="item.title">
                                     <img class="w-20 h-20 rounded-xl object-cover" src="/misc/course.png" :alt="item.title" loading="lazy" />
                                     <div class="flex flex-wrap flex-col gap-2">
                                         <h3 class="max-w-screen-2xs">{{ item.title }}</h3>

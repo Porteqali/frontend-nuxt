@@ -15,14 +15,14 @@
                     <span class="kalameh_bold font-bold">قوانین و مقررات</span>
                 </h1>
                 <ul class="flex items-center gap-2 font-light">
-                    <li><nuxt-link to="/">صفحه اصلی</nuxt-link></li>
+                    <li><nuxt-link title="صفحه اصلی" to="/">صفحه اصلی</nuxt-link></li>
                     <li>&gt;</li>
                     <li>قوانین و مقررات</li>
                 </ul>
             </div>
         </section>
 
-        <article class="w-full min-h-screen p-8 mt-20 rounded-2xl max-w-screen-2xl shadow-2xl z-10 bg-white">
+        <article class="w-full min-h-screen p-8 mt-20 rounded-2xl max-w-screen-lg shadow-2xl z-10 bg-white">
             <p></p>
         </article>
     </main>

@@ -45,7 +45,7 @@
                     <span class="kalameh_bold font-bold">درباره ما</span>
                 </h1>
                 <ul class="flex items-center gap-2 font-light">
-                    <li><nuxt-link to="/">صفحه اصلی</nuxt-link></li>
+                    <li><nuxt-link title="صفحه اصلی" to="/">صفحه اصلی</nuxt-link></li>
                     <li>&gt;</li>
                     <li>درباره ما</li>
                 </ul>

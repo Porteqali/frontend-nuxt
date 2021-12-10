@@ -47,16 +47,16 @@
                             <DepartmentDropdown class="z-10" :open.sync="departmentsDropdownOpenState" />
                         </li>
                         <li class="flex items-center gap-1 md:py-4">
-                            <nuxt-link to="/blog">وبلاگ</nuxt-link>
+                            <nuxt-link title="blog" to="/blog">وبلاگ</nuxt-link>
                         </li>
                         <li class="flex items-center gap-1 md:py-4">
-                            <nuxt-link to="/contact-us">تماس با ما</nuxt-link>
+                            <nuxt-link title="contact-us" to="/contact-us">تماس با ما</nuxt-link>
                         </li>
                         <li class="flex items-center gap-1 md:py-4">
-                            <nuxt-link to="/about-us">درباره ما</nuxt-link>
+                            <nuxt-link title="about-us" to="/about-us">درباره ما</nuxt-link>
                         </li>
                         <li class="flex items-center gap-1 md:py-4">
-                            <nuxt-link to="/where-to-start">از کجا شروع کنم؟</nuxt-link>
+                            <nuxt-link title="where-to-start" to="/where-to-start">از کجا شروع کنم؟</nuxt-link>
                         </li>
                     </ul>
                 </nav>

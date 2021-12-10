@@ -65,19 +65,19 @@ ul li:hover {
             </div>
             <ul class="flex flex-col w-full">
                 <li class="">
-                    <nuxt-link class="flex items-center gap-2 p-3" to="/departments">
+                    <nuxt-link class="flex items-center gap-2 p-3" to="/departments" title="departments">
                         <img src="/icons/Category.svg" width="24" height="24" alt="Category" />
                         <span class="text-sm">دپارتمان ها</span>
                     </nuxt-link>
                 </li>
                 <li class="">
-                    <nuxt-link class="flex items-center gap-2 p-3" to="/blog">
+                    <nuxt-link class="flex items-center gap-2 p-3" to="/blog" title="blog">
                         <img src="/icons/Document.gray.svg" width="24" height="24" alt="Document" />
                         <span class="text-sm">مقالات</span>
                     </nuxt-link>
                 </li>
                 <li class="">
-                    <nuxt-link class="flex items-center gap-2 p-3" to="#">
+                    <nuxt-link class="flex items-center gap-2 p-3" to="#" title="#">
                         <img src="/icons/Discovery.gray.svg" width="24" height="24" alt="Discovery" />
                         <span class="text-sm">از کجا شروع کنم؟</span>
                     </nuxt-link>

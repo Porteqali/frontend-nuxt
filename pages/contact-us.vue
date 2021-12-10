@@ -24,7 +24,7 @@ textarea {
                     <span class="kalameh_bold font-bold">تماس با ما</span>
                 </h1>
                 <ul class="flex items-center gap-2 font-light">
-                    <li><nuxt-link to="/">صفحه اصلی</nuxt-link></li>
+                    <li><nuxt-link title="صفحه اصلی" to="/">صفحه اصلی</nuxt-link></li>
                     <li>&gt;</li>
                     <li>تماس با ما</li>
                 </ul>
@@ -94,7 +94,7 @@ textarea {
                     <div>
                         <p>
                             لطفا قبل از ارسال پیام،
-                            <nuxt-link to="/faqs" class="underline text-orange-700">سوالات متداول</nuxt-link>
+                            <nuxt-link title="سوالات متداول" to="/faqs" class="underline text-orange-700">سوالات متداول</nuxt-link>
                             را مطالعه نمایید
                         </p>
                         <p>در این قسمت امکان پاسخ به سوال شما وجود ندارد</p>
