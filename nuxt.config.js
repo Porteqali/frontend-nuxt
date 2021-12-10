@@ -42,6 +42,8 @@ export default {
 
     // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
     buildModules: [
+        "@nuxtjs/pwa",
+
         // https://go.nuxtjs.dev/tailwindcss
         "@nuxtjs/tailwindcss",
     ],
@@ -60,7 +62,29 @@ export default {
     // PWA module configuration: https://go.nuxtjs.dev/pwa
     pwa: {
         manifest: {
+            name: "Porteqali",
+            description: "",
             lang: "fa",
+            theme_color: "#ff7952",
+            dir: "rtl",
+        },
+        icon: {
+            source:"~static/icon.png",
+        },
+        meta: {
+            author: "porteqali",
+            description: "",
+            theme_color: "#ff7952",
+            lang: "fa",
+            ogSiteName: "porteqali.com",
+            ogDescription: "",
+            ogHost: "http://localhost",
+
+            twitterCard: "",
+            twitterSite: "porteqali.com",
+            twitterCreator: "porteqali",
+
+            nativeUI: true,
         },
     },
 
