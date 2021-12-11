@@ -31,6 +31,7 @@
     font-family: "IranYekanWebRegular","IranYekanWebRegularFaNum";
     scroll-behavior: smooth;
     transition: all .15s;
+    outline: none;
 }
 body{
     /* text-shadow: 0px 1px 3px #00000044; */
@@ -91,7 +92,7 @@ body{
 
 .skeleton{
     background: linear-gradient(90deg, #ffffff22 0%, #cccccc99 50%, #ffffff22 100%);
-    background-size: 200% 200%;
+    background-size: 200% 200%; border-radius: 6px;
     animation: shimmer_skeleton 2s infinite;
 }
 @keyframes shimmer_skeleton {

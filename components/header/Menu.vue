@@ -13,6 +13,10 @@
     background-color: var(--header-nav-container-bg-color);
 }
 
+.login_btn {
+    background-color: var(--header-nav-container-bg-color);
+}
+
 @media (min-width: 1024px) {
     .menu {
         display: flex !important;
@@ -69,13 +73,20 @@
                         <img src="/icons/Buy.svg" width="28" height="28" alt="Buy" />
                         <CartDropdown class="z-10" :open.sync="cartDropdownOpenState" />
                     </li>
-                    <li class="p-4 px-2" @mouseover="profileDropdownOpenState = true" @mouseleave="profileDropdownOpenState = false">
+                    <li class="-ml-6" v-if="!user.info.email">
+                        <button class="login_btn rounded-2xl p-2 px-4 hover:shadow-xl" @click="openLogin()">ورود | ثبت نام</button>
+                    </li>
+                    <li class="p-4 px-2" @mouseover="profileDropdownOpenState = true" @mouseleave="profileDropdownOpenState = false" v-else>
                         <img src="/icons/Profile.svg" width="28" height="28" alt="Profile" />
                         <ProfileDropdown class="z-10" :open.sync="profileDropdownOpenState" />
                     </li>
                 </ul>
             </div>
         </transition>
+
+        <Login :open.sync="loginOpenState" @register:open="openRegister()" />
+
+        <Register :open.sync="registerOpenState" @login:open="openLogin()" />
     </div>
 </template>
 
@@ -84,6 +95,8 @@ import DepartmentDropdown from "~/components/header/DepartmentDropdown";
 import SearchDropdown from "~/components/header/SearchDropdown";
 import CartDropdown from "~/components/header/CartDropdown";
 import ProfileDropdown from "~/components/header/ProfileDropdown";
+import Login from "~/components/Login";
+import Register from "~/components/Register";
 
 export default {
     components: {
@@ -91,6 +104,8 @@ export default {
         SearchDropdown,
         CartDropdown,
         ProfileDropdown,
+        Login,
+        Register,
     },
     data() {
         return {
@@ -100,9 +115,33 @@ export default {
             cartDropdownOpenState: false,
             profileDropdownOpenState: false,
             searchDropdownOpenState: false,
+
+            loginOpenState: false,
+            registerOpenState: false,
         };
     },
-    mounted() {},
-    methods: {},
+    async fetch() {
+        if (process.server) {
+            await this.$store.dispatch("user/getUserInfo", { headers: this.$nuxt.context.req.headers }).catch((e) => {});
+        }
+    },
+    mounted() {
+        this.$store.dispatch("user/refresh");
+    },
+    computed: {
+        user() {
+            return this.$store.state.user;
+        },
+    },
+    methods: {
+        openRegister() {
+            this.loginOpenState = false;
+            this.registerOpenState = true;
+        },
+        openLogin() {
+            this.loginOpenState = true;
+            this.registerOpenState = false;
+        },
+    },
 };
 </script>
