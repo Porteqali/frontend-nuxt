@@ -73,7 +73,7 @@
                         <img src="/icons/Buy.svg" width="28" height="28" alt="Buy" />
                         <CartDropdown class="z-10" :open.sync="cartDropdownOpenState" />
                     </li>
-                    <li class="-ml-6" v-if="!user.info.email">
+                    <li class="-ml-6" v-if="!user.info.email && !user.info.mobile">
                         <button class="login_btn rounded-2xl p-2 px-4 hover:shadow-xl" @click="openLogin()">ورود | ثبت نام</button>
                     </li>
                     <li class="p-4 px-2" @mouseover="profileDropdownOpenState = true" @mouseleave="profileDropdownOpenState = false" v-else>

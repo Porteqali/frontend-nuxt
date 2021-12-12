@@ -104,14 +104,16 @@ export default {
             await axios
                 .post(`/auth/login`, { username: this.username, password: this.password })
                 .then(async () => {
-                    this.updateOpenState(false);
                     await this.$store.dispatch("user/refresh");
                     await this.$store.dispatch("user/getUserInfo");
+                    this.updateOpenState(false);
                 })
                 .catch((e) => {
-                    if (typeof e.response !== "undefined") {
-                        this.errorTag = e.response.data.message[0].property;
-                        this.errorMsg = e.response.data.message[0].errors[0];
+                    if (typeof e.response !== "undefined" && e.response.data) {
+                        if (typeof e.response.data.message === "object") {
+                            this.errorTag = e.response.data.message[0].property;
+                            this.errorMsg = e.response.data.message[0].errors[0];
+                        }
                     }
                 })
                 .finally(() => {

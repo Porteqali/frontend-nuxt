@@ -12,10 +12,17 @@ const auth = async (req, res, url) => {
     await axios
         .post(`${process.env.API_BASE_URL}${url}`, { ...req.body }, { headers: { ...req.headers, server_secret: process.env.SERVER_SECRET, tt: Date.now() } })
         .then((results) => {
-            res.cookie("AuthToken", results.data.token, { sameSite: "strict", path: "/", httpOnly: true, secure: true, maxAge: tokenExpireTime * 1000 });
-            return res.end();
+            const returnResponse = { ...results.data };
+            if (!!results.data.token) {
+                res.cookie("AuthToken", results.data.token, { sameSite: "strict", path: "/", httpOnly: true, secure: true, maxAge: tokenExpireTime * 1000 });
+                delete returnResponse['token'], delete returnResponse['user'];
+            }
+            return res.json(returnResponse);
         })
         .catch((e) => {
+            if(!e.response){
+                console.log(e);
+            }
             return res.status(e.response.status).json(e.response.data);
         });
 };
@@ -24,6 +31,12 @@ app.post("/auth/login", async (req, res) => {
     await auth(req, res, "/auth/login");
 });
 
+app.post("/auth/send-code", async (req, res) => {
+    await auth(req, res, "/auth/send-code");
+});
+app.post("/auth/verify", async (req, res) => {
+    await auth(req, res, "/auth/verify");
+});
 app.post("/auth/register", async (req, res) => {
     await auth(req, res, "/auth/register");
 });

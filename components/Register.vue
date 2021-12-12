@@ -30,9 +30,9 @@
                                     :class="{ 'border-rose-400': errorTag == 'username' }"
                                 />
                             </div>
-                            <p class="rounded-lg p-2 bg-rose-50 text-rose-900 text-sm" v-if="errorMessage">
+                            <p class="rounded-lg p-2 bg-rose-50 text-rose-900 text-sm" v-if="errorMsg">
                                 <i class="fas fa-exclamation-square"></i>
-                                {{ errorMessage }}
+                                {{ errorMsg }}
                             </p>
                             <button
                                 type="submit"
@@ -46,9 +46,12 @@
                         <p class="text-sm opacity-75">با ثبت نام کلیه شرایط و قوانین پرتقال را میپذیرم.</p>
                     </div>
                     <div ref="stage2" key="stage2" v-else-if="page == 'stage2'" class="flex flex-col gap-6">
-                        <form class="flex flex-col gap-6" @submit="sendCode($event)">
+                        <form class="flex flex-col gap-6" @submit="verify($event)">
                             <div class="flex flex-col gap-2 w-full">
-                                <label class="">کد ارسال شده به "{{ username }}" را وارد کنید <span>{{ new Date(timeLeft * 1000).toISOString().substr(14, 5) }}</span></label>
+                                <label class="">
+                                    کد ارسال شده به "{{ username }}" را وارد کنید
+                                    <span v-if="timeLeft">{{ new Date(timeLeft * 1000).toISOString().substr(14, 5) }}</span>
+                                </label>
                                 <div class="flex items-center gap-2" @click="$refs.codeInput.focus()">
                                     <span class="bg-white flex items-center justify-center p-3 w-12 h-12 rounded-xl shadow-xl">{{ code.split("")[5] }}</span>
                                     <span class="bg-white flex items-center justify-center p-3 w-12 h-12 rounded-xl shadow-xl">{{ code.split("")[4] }}</span>
@@ -68,15 +71,15 @@
                             >
                                 <span>ارسال دوباره کد</span>
                             </button>
-                            <p class="rounded-lg p-2 bg-rose-50 text-rose-900 text-sm" v-if="errorMessage">
+                            <p class="rounded-lg p-2 bg-rose-50 text-rose-900 text-sm" v-if="errorMsg">
                                 <i class="fas fa-exclamation-square"></i>
-                                {{ errorMessage }}
+                                {{ errorMsg }}
                             </p>
                             <div class="flex items-center gap-2">
                                 <button
                                     class="orange_gradient_v flex items-center justify-center shadow-sm hover:shadow-md p-3 rounded-xl w-max"
                                     :class="{ 'opacity-60': loading }"
-                                    @click="changePage('stage1')"
+                                    @click="page = 'stage1'"
                                     type="button"
                                     v-if="!loading"
                                 >
@@ -93,7 +96,66 @@
                             </div>
                         </form>
                     </div>
-                    <div ref="stage3" key="stage3" v-else-if="page == 'stage3'" class="flex flex-col gap-6"></div>
+                    <div ref="stage3" key="stage3" v-else-if="page == 'stage3'" class="flex flex-col gap-6">
+                        <form class="flex flex-col gap-6" @submit="register($event)">
+                            <div class="flex items-center gap-2">
+                                <div class="flex flex-col gap-2 w-full">
+                                    <label class="">نام</label>
+                                    <input
+                                        type="text"
+                                        v-model="name"
+                                        name="name"
+                                        class="p-3 w-full rounded-xl shadow-xl"
+                                        :class="{ 'border-2 border-solid border-rose-400': errorTag == 'name' }"
+                                    />
+                                </div>
+                                <div class="flex flex-col gap-2 w-full">
+                                    <label class="">نام خانوادگی</label>
+                                    <input
+                                        type="text"
+                                        v-model="family"
+                                        name="family"
+                                        class="p-3 w-full rounded-xl shadow-xl"
+                                        :class="{ 'border-2 border-solid border-rose-400': errorTag == 'family' }"
+                                    />
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-2 w-full">
+                                <label class="">رمزعبور</label>
+                                <input
+                                    type="password"
+                                    v-model="password"
+                                    name="password"
+                                    class="p-3 w-full rounded-xl shadow-xl"
+                                    :class="{ 'border-2 border-solid border-rose-400': errorTag == 'password' }"
+                                />
+                            </div>
+                            <div class="flex flex-col gap-2 w-full">
+                                <label class="">تکرار رمزعبور</label>
+                                <input
+                                    type="password"
+                                    v-model="passwordConfirmation"
+                                    name="passwordConfirmation"
+                                    class="p-3 w-full rounded-xl shadow-xl"
+                                    :class="{ 'border-2 border-solid border-rose-400': errorTag == 'passwordConfirmation' }"
+                                />
+                            </div>
+                            <p class="rounded-lg p-2 bg-rose-50 text-rose-900 text-sm" v-if="errorMsg">
+                                <i class="fas fa-exclamation-square"></i>
+                                {{ errorMsg }}
+                            </p>
+                            <div class="flex items-center gap-2">
+                                <button
+                                    type="submit"
+                                    class="orange_gradient_h flex items-center justify-center shadow-sm hover:shadow-md p-3 text-xl rounded-xl w-full"
+                                    :class="{ 'opacity-60': loading }"
+                                >
+                                    <span v-if="!loading">تایید</span>
+                                    <Loading class="w-8 h-8" v-else />
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </transition>
 
                 <button class="text-sm opacity-75 mt-4 w-max" @click="openLogin()">
@@ -127,26 +189,28 @@ export default {
     data() {
         return {
             loading: false,
-            page: this.page || "stage1",
+            page: this.page || "stage3",
 
             username: "",
             code: "",
-            canResend: false,
-            timeLeft: 120,
-            timerInterval: null,
+            canResend: this.canResend || false,
+            timeLeft: 0,
 
             name: "",
             family: "",
             password: "",
             passwordConfirmation: "",
 
-            errorMessage: "",
+            errorMsg: "",
             errorTag: "",
         };
     },
     mounted() {
         setInterval(() => {
-            if (this.timeLeft) this.timeLeft = Math.max(0, this.timeLeft - 1);
+            if (this.timeLeft) {
+                this.timeLeft = Math.max(0, this.timeLeft - 1);
+                this.canResend = false;
+            } else this.canResend = true;
         }, 1000);
     },
     methods: {
@@ -158,22 +222,94 @@ export default {
             this.$emit("login:open");
         },
 
-        sendCode(e) {
+        async sendCode(e) {
+            if(e) e.preventDefault();
+            if (this.loading) return;
+            this.loading = true;
+
+            this.errorMsg = this.errorTag = "";
+
+            await axios
+                .post(`/auth/send-code`, { username: this.username })
+                .then((response) => {
+                    this.page = "stage2";
+                    this.timeLeft = response.data.expireIn;
+                })
+                .catch((e) => {
+                    if (typeof e.response !== "undefined" && e.response.data) {
+                        if (typeof e.response.data.message === "object") {
+                            this.errorTag = e.response.data.message[0].property;
+                            this.errorMsg = e.response.data.message[0].errors[0];
+                        }
+                    }
+                })
+                .finally(() => (this.loading = false));
+        },
+        async verify(e) {
             e.preventDefault();
-            // if (this.loading) return;
-            // this.loading = true;
+            if (this.loading) return;
+            this.loading = true;
 
-            this.page = "stage2";
+            this.errorMsg = this.errorTag = "";
 
-            // TODO
-            // send req to register
-            // get the token
-            // if it was ok then send req to get user info
-            // close the register and redirect to profile
+            await axios
+                .post(`/auth/verify`, { username: this.username, code: this.code })
+                .then(async (response) => {
+                    if (response.data.register) {
+                        this.page = "stage3";
+                        this.timeLeft = 0;
+                        this.name = this.family = this.password = this.passwordConfirmation = "";
+                    } else {
+                        await this.$store.dispatch("user/refresh");
+                        await this.$store.dispatch("user/getUserInfo");
+                        this.updateOpenState(false);
+                    }
+                })
+                .catch((e) => {
+                    if (typeof e.response !== "undefined" && e.response.data) {
+                        if (typeof e.response.data.message === "object") {
+                            this.errorTag = e.response.data.message[0].property;
+                            this.errorMsg = e.response.data.message[0].errors[0];
+                        }
+                    }
+                })
+                .finally(() => (this.loading = false));
+        },
+        async register(e) {
+            e.preventDefault();
+            if (this.loading) return;
+            this.loading = true;
+
+            this.errorMsg = this.errorTag = "";
+
+            await axios
+                .post(`/auth/register`, {
+                    username: this.username,
+                    code: this.code,
+                    name: this.name,
+                    family: this.family,
+                    password: this.password,
+                    passwordConfirmation: this.passwordConfirmation,
+                })
+                .then(async (response) => {
+                    await this.$store.dispatch("user/refresh");
+                    await this.$store.dispatch("user/getUserInfo");
+                    this.updateOpenState(false);
+                })
+                .catch((e) => {
+                    if (typeof e.response !== "undefined" && e.response.data) {
+                        if (typeof e.response.data.message === "object") {
+                            this.errorTag = e.response.data.message[0].property;
+                            this.errorMsg = e.response.data.message[0].errors[0];
+                        }
+                    }
+                })
+                .finally(() => (this.loading = false));
         },
 
-        changePage(page) {
-            this.page = page;
+        resend() {
+            if (!this.canResend) return;
+            this.sendCode();
         },
     },
 };
