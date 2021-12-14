@@ -37,9 +37,10 @@ const actions = {
         const refreshRate = 60 * 10; // 10 minutes
         await axios
             .post(`/auth/refresh`)
-            .then(() => {
-                let interval = setInterval(() => {
-                    axios.post(`/auth/refresh`).catch((error) => clearInterval(interval));
+            .then(async () => {
+                await dispatch("getUserInfo").catch((e) => {});
+                let interval = setInterval(async () => {
+                    await axios.post(`/auth/refresh`).catch((error) => clearInterval(interval));
                 }, refreshRate * 1000);
             })
             .catch((e) => {});
@@ -51,11 +52,7 @@ const actions = {
             name: "",
             family: "",
             email: "",
-            role: {
-                name: "",
-                permissions: [],
-            },
-            image: "",
+            permissions: [],
         });
     },
 };

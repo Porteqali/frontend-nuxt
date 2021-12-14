@@ -85,7 +85,6 @@
         </transition>
 
         <Login :open.sync="loginOpenState" @register:open="openRegister()" />
-
         <Register :open.sync="registerOpenState" @login:open="openLogin()" />
     </div>
 </template>
@@ -95,8 +94,8 @@ import DepartmentDropdown from "~/components/header/DepartmentDropdown";
 import SearchDropdown from "~/components/header/SearchDropdown";
 import CartDropdown from "~/components/header/CartDropdown";
 import ProfileDropdown from "~/components/header/ProfileDropdown";
-import Login from "~/components/Login";
-import Register from "~/components/Register";
+import Login from "~/components/auth/Login";
+import Register from "~/components/auth/Register";
 
 export default {
     components: {
@@ -121,9 +120,10 @@ export default {
         };
     },
     async fetch() {
-        if (process.server) {
-            await this.$store.dispatch("user/getUserInfo", { headers: this.$nuxt.context.req.headers }).catch((e) => {});
-        }
+        let headers = {};
+        if (process.server) headers = this.$nuxt.context.req.headers;
+
+        await this.$store.dispatch("user/getUserInfo", { headers }).catch((e) => {});
     },
     mounted() {
         this.$store.dispatch("user/refresh");

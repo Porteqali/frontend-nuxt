@@ -222,6 +222,7 @@
         </article>
 
         <!-- comments -->
+        <CommentSection :commentedOn="article._id" />
 
         <section class="relative flex flex-col gap-8 w-full mt-16" id="most-viewed-articles">
             <div class="flex flex-wrap justify-between items-center gap-8 w-full">
@@ -264,17 +265,20 @@
 
 <script>
 import axios from "axios";
+import CommentSection from "~/components/article/Comment.section";
 
 export default {
     head: {
         title: "وبلاگ - گروه آموزشی پرتقال",
         meta: [{ hid: "description", name: "description", content: "" }],
     },
+    components: {
+        CommentSection,
+    },
     data() {
         return {
             loadingArticle: false,
             articleSkeleton: [0, 0],
-
             article: this.article || {},
             newArticles: this.newArticles || [],
             similarArticles: this.similarArticles || [],
@@ -284,9 +288,7 @@ export default {
     async fetch() {
         let headers = {};
         if (process.server) headers = this.$nuxt.context.req.headers;
-
         const route = this.$nuxt.context.route;
-
         await Promise.all([this.getArticle({ headers }, route)]);
     },
     async beforeRouteUpdate(to, from, next) {
@@ -299,14 +301,12 @@ export default {
         async getArticle(data = {}, route) {
             if (this.loadingArticle) return;
             this.loadingArticle = true;
-
             let url = `/api/article/${route.params.slug}`;
             let headers = {};
             if (process.server) {
                 url = `${process.env.BASE_URL}${url}`;
                 headers = data.headers ? data.headers : {};
             }
-
             await axios
                 .get(url, { headers })
                 .then((results) => {
@@ -318,7 +318,6 @@ export default {
                 .catch((e) => {})
                 .finally(() => (this.loadingArticle = false));
         },
-
         like() {},
     },
 };

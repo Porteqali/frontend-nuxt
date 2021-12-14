@@ -6,10 +6,10 @@
             <div class="flex flex-col gap-6 max-w-xs w-full flex-shrink-0">
                 <h4 class="font-bold text-2xl">خوش آمدید.</h4>
 
-                <button class="bg-white shadow-sm hover:shadow-md p-3 rounded-xl flex justify-center items-center gap-2">
+                <a href="/auth/login/google" class="bg-white shadow-sm hover:shadow-md p-3 rounded-xl flex justify-center items-center gap-2">
                     <img class="w-6" src="/misc/google.svg" alt="google" />
                     <b>ورود با حساب گوگل</b>
-                </button>
+                </a>
 
                 <div class="flex justify-center items-center gap-4 w-full">
                     <span class="w-4/12 max-w-screen-2xs h-1 bg-gray-600 rounded-sm"></span>
@@ -64,8 +64,8 @@
 
 <script>
 import axios from "axios";
-import Dialog from "./Dialog";
-import Loading from "./Loading.vue";
+import Dialog from "../Dialog";
+import Loading from "../Loading";
 
 export default {
     name: "Login",
@@ -105,7 +105,7 @@ export default {
                 .post(`/auth/login`, { username: this.username, password: this.password })
                 .then(async () => {
                     await this.$store.dispatch("user/refresh");
-                    await this.$store.dispatch("user/getUserInfo");
+                    // await this.$store.dispatch("user/getUserInfo");
                     this.updateOpenState(false);
                 })
                 .catch((e) => {

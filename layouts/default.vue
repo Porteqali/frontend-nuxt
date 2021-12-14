@@ -39,7 +39,7 @@ header {
     z-index: -1;
     position: absolute;
 
-    position: fixed;
+    /* position: fixed; */
     left: 20%;
 }
 footer {
@@ -145,7 +145,7 @@ footer {
             </footer>
         </div>
 
-        <img class="footer_bg absolute opacity-75" src="/backgrounds/Background.footer.png" alt="Background.footer" />
+        <img class="footer_bg absolute opacity-75" src="/backgrounds/Background.footer2.png" alt="Background.footer" />
     </div>
 </template>
 

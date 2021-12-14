@@ -201,7 +201,7 @@ export default {
             text: "",
 
             message: "",
-            messageType: "succes",
+            messageType: "success",
 
             sending: false,
 

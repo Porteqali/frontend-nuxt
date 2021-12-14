@@ -40,10 +40,10 @@ ul li:hover {
                     </nuxt-link>
                 </li>
                 <li class="p-3">
-                    <nuxt-link to="#" class="flex items-center gap-2">
+                    <button class="flex items-center gap-2" @click="logout()">
                         <img src="/icons/Logout.blue.svg" width="24" height="24" alt="Logout" />
                         <span>خروج</span>
-                    </nuxt-link>
+                    </button>
                 </li>
             </ul>
         </div>
@@ -51,6 +51,7 @@ ul li:hover {
 </template>
 
 <script>
+import axios from "axios";
 export default {
     name: "ProfileDropdown",
     props: ["open"],
@@ -63,6 +64,11 @@ export default {
     methods: {
         updateOpenState(state) {
             this.$emit("update:open", state);
+        },
+
+        async logout() {
+            await axios.post(`/auth/logout`).catch((e) => {});
+            await this.$store.dispatch("user/logout");
         },
     },
 };
