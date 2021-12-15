@@ -17,8 +17,10 @@ ul li:hover {
 <template>
     <transition class="" name="slideup" appear>
         <div class="box blur rounded-3xl shadow-lg" v-show="open">
-            <div class="flex items-center justify-center p-4 w-full">
-                <img src="/header/avatar.svg" width="40" height="40" alt="avatar" />
+            <div class="flex flex-col items-center justify-center gap-2 p-4 w-full">
+                <img :src="user.info.image || `/header/avatar.svg`" class="w-10 h-10 object-contain" width="40" height="40" alt="avatar" />
+                <span>{{ `${user.info.name} ${user.info.family}` }}</span>
+                <hr class="w-full mx-auto border rounded-full border-lightblue-400" />
             </div>
             <ul class="flex flex-col p-6 pt-0 w-full">
                 <li class="p-3">
@@ -60,6 +62,11 @@ export default {
         return {
             loading: false,
         };
+    },
+    computed: {
+        user() {
+            return this.$store.state.user;
+        },
     },
     methods: {
         updateOpenState(state) {

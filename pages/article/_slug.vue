@@ -76,7 +76,8 @@
                             <meta itemprop="datePublished" :content="article.publishedAt" />
                         </div>
                         <span class="flex items-end gap-1 cursor-pointer" @click="like()">
-                            <img src="/icons/Heart.svg" alt="Heart" width="20" height="20" />
+                            <img src="/icons/Heart.svg" alt="Heart" width="20" height="20" v-if="!likedArticle" />
+                            <img src="/icons/Heart.bold.red.svg" alt="Heart" width="20" height="20" v-else />
                             <small>{{ article.likes }}</small>
                         </span>
                     </div>
@@ -283,6 +284,7 @@ export default {
             newArticles: this.newArticles || [],
             similarArticles: this.similarArticles || [],
             popularArticles: this.popularArticles || [],
+            likedArticle: this.likedArticle || false,
         };
     },
     async fetch() {
@@ -314,11 +316,22 @@ export default {
                     this.newArticles = results.data.newArticles;
                     this.similarArticles = results.data.similarArticles;
                     this.popularArticles = results.data.popularArticles;
+                    this.likedArticle = results.data.likedArticle;
                 })
                 .catch((e) => {})
                 .finally(() => (this.loadingArticle = false));
         },
-        like() {},
+
+        async like() {
+            this.likedArticle = !this.likedArticle;
+            await axios
+                .post(`/api/like-article/${this.$route.params.slug}`)
+                .then((results) => {
+                    this.likedArticle = results.data.likedArticle;
+                    this.article.likes = results.data.likeCount;
+                })
+                .catch((e) => {});
+        },
     },
 };
 </script>

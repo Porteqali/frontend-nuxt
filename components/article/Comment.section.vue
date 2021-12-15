@@ -25,7 +25,7 @@
                 <button
                     class="orange_gradient_h flex items-center justify-center gap-2 py-3 px-4 w-max rounded-xl hover:shadow-lg"
                     :class="{ 'opacity-50': sending }"
-                    type="submit"
+                    @click="sendComment($event)"
                 >
                     <div class="flex items-center justify-center gap-2" v-if="!sending">
                         <span class="font-bold">ارسال پیام</span>
@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 import Loading from "~/components/Loading";
 import Comment from "~/components/article/Comment";
 
@@ -69,76 +69,7 @@ export default {
             message: "",
             messageType: "success",
 
-            comments: this.comments || [
-                {
-                    _id: "1",
-                    author: [{
-                        image: "/misc/avatar.svg",
-                        name: "kasra",
-                        family: "keshoo",
-                    }],
-                    text: "In order to use the component you've just created, all you need to do is to import the root component where this functionality is required and pass in the data structure. For example, on the page your boss requested",
-                    date: "31231",
-                    comments: [
-                        {
-                            _id: "2",
-                            author: [{
-                                image: "/misc/avatar.svg",
-                                name: "kasra",
-                                family: "keshoo",
-                            }],
-                            text: "In order to use the component you've just ",
-                            date: "31231",
-                            comments: [
-                                {
-                                    _id: "3",
-                                    author: [{
-                                        image: "/misc/avatar.svg",
-                                        name: "kasra",
-                                        family: "keshoo",
-                                    }],
-                                    text: "In order to use the component you've just created, all you need to do is to import the root component where this functionality is required and pass in the data structure. For example, on the page your boss requested",
-                                    date: "31231",
-                                    comments: [],
-                                },
-                                {
-                                    _id: "4",
-                                    author: [{
-                                        image: "/misc/avatar.svg",
-                                        name: "kasra",
-                                        family: "keshoo",
-                                    }],
-                                    text: "In order to use the component you've just created, all you need to do is to import the root component where this functionality is required and pass in the data structure. For example, on the page your boss requested",
-                                    date: "31231",
-                                    comments: [],
-                                },
-                            ],
-                        },
-                        {
-                            _id: "5",
-                            author: [{
-                                image: "/misc/avatar.svg",
-                                name: "kasra",
-                                family: "keshoo",
-                            }],
-                            text: "In order to use the component you've just created, all you need to do is to import the root component where this functionality is required and pass in the data structure. For example, on the page your boss requested",
-                            date: "31231",
-                            comments: [],
-                        },
-                    ],
-                },
-                {
-                    _id: "6",
-                    author: [{
-                        image: "/misc/avatar.svg",
-                        name: "kasra",
-                        family: "keshoo",
-                    }],
-                    text: "In order to use the component you've just created, all you need to do is to import the root component where this functionality is required and pass in the data structure. For example, on the page your boss requested",
-                    date: "31231",
-                    comments: [],
-                },
-            ],
+            comments: this.comments || [],
             commentsPage: 1,
             commentsTotal: 0,
             commentsPageTotal: 1,
@@ -149,14 +80,14 @@ export default {
         let headers = {};
         if (process.server) headers = this.$nuxt.context.req.headers;
 
-        await this.getComments({ headers });
+        if (!!this.commentedOn) await this.getComments({ headers });
     },
     watch: {
         commentedOn(val) {
-            this.comments = [],
-            this.commentsPage = 1, 
-            this.commentsTotal = 0,
-            this.commentsPageTotal = 1,
+            this.comments = [];
+            this.commentsPage = 1;
+            this.commentsTotal = 0;
+            this.commentsPageTotal = 1;
             this.getComments();
         },
     },
@@ -194,6 +125,37 @@ export default {
                 })
                 .catch((e) => {})
                 .finally(() => (this.commentsLoading = false));
+        },
+
+        async sendComment(e) {
+            e.preventDefault();
+            if (this.sending) return;
+            this.sending = true;
+
+            this.message = "";
+
+            await axios
+                .post(`/api/comments/send`, {
+                    text: this.commentText,
+                    type: "article",
+                    commentedOn: this.commentedOn,
+                })
+                .then(() => {
+                    this.messageType = "success";
+                    this.message = "نظر شما ثبت شد و پس از تایید منتشر میشود.";
+                })
+                .catch((e) => {
+                    this.messageType = "error";
+                    if (typeof e.response !== "undefined" && e.response.data) {
+                        if (e.response.status == 401) this.message = "برای ارسال نظر ابتدا ثبت نام کنید یا وارد حساب کاربری خود شوید";
+                        if (typeof e.response.data.message === "object") {
+                            this.message = e.response.data.message[0].errors[0];
+                        }
+                    }
+                })
+                .finally(() => {
+                    this.sending = false;
+                });
         },
     },
 };

@@ -264,8 +264,11 @@ export default {
                 })
                 .catch((e) => {
                     this.messageType = "error";
-                    console.log(e.response.data);
-                    if (typeof e.response !== "undefined") this.message = e.response.data.message[0].errors[0];
+                    if (typeof e.response !== "undefined" && e.response.data) {
+                        if (typeof e.response.data.message === "object") {
+                            this.message = e.response.data.message[0].errors[0];
+                        }
+                    }
                 })
                 .finally(() => {
                     this.sending = false;
