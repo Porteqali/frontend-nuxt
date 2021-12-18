@@ -225,7 +225,7 @@
         <!-- comments -->
         <CommentSection :commentedOn="article._id" />
 
-        <section class="relative flex flex-col gap-8 w-full mt-16" id="most-viewed-articles">
+        <section class="relative flex flex-col gap-8 w-full max-w-screen-2xl mx-auto mt-16" id="most-viewed-articles">
             <div class="flex flex-wrap justify-between items-center gap-8 w-full">
                 <h4 class="font-bold text-4xl">محبوب ترین بلاگ ها</h4>
             </div>

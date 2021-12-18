@@ -84,7 +84,7 @@ footer {
             <button class="go_up_btn orange_gradient_v relative flex items-center justify-center rounded-xl p-6 -mb-8 mr-auto" @click="scrollUp()">
                 <img src="/icons/GoUp.svg" alt="GoUp" width="16" height="16" />
             </button>
-            <footer class="blur flex flex-col items-center gap-4 max-w-screen-4xl shadow-xl w-full rounded-3xl mb-4 p-4 lg:p-8 z-10">
+            <footer class="blur flex flex-col items-center gap-4 max-w-screen-4xl shadow-xl w-full rounded-3xl mx-auto mb-4 p-4 lg:p-8 z-10">
                 <div class="flex flex-wrap items-center justify-evenly gap-16 w-full">
                     <div class="flex flex-col gap-4">
                         <h4 class="font-bold text-2xl">همراه پرتقال</h4>
@@ -173,8 +173,12 @@ export default {
                 "/contact-us": { src: "/backgrounds/Background2.png", topOffset: -20, rightOffset: -15, minWidth: 2420 },
                 "/work-with-us": { src: "/backgrounds/Background4.png", topOffset: 0, rightOffset: 0, minWidth: 2220 },
                 "/faqs": { src: "/backgrounds/Background5.png", topOffset: -15, rightOffset: -10, minWidth: 2420 },
+
                 "/blog/:page?": { src: "/backgrounds/Background3.png", topOffset: -30, rightOffset: -80, minWidth: 3220 },
                 "/blog": { src: "/backgrounds/Background3.png", topOffset: -30, rightOffset: -80, minWidth: 3220 },
+
+                "/department/:page?": { src: "/backgrounds/Background7.png", topOffset: -2, rightOffset: -15, minWidth: 2020 },
+                "/department": { src: "/backgrounds/Background7.png", topOffset: -2, rightOffset: -15, minWidth: 2020 },
             },
 
             contact_info: this.contact_info || {},

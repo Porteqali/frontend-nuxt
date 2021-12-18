@@ -65,7 +65,7 @@ ul li:hover {
             </div>
             <ul class="flex flex-col w-full">
                 <li class="">
-                    <nuxt-link class="flex items-center gap-2 p-3" to="/departments" title="departments">
+                    <nuxt-link class="flex items-center gap-2 p-3" to="/department" title="departments">
                         <img src="/icons/Category.svg" width="24" height="24" alt="Category" />
                         <span class="text-sm">دپارتمان ها</span>
                     </nuxt-link>

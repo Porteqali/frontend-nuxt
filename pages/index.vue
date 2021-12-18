@@ -43,7 +43,7 @@
 
         <DepartmentSection />
 
-        <!-- <MostViewedCoursesSection /> -->
+        <MostViewedCoursesSection />
 
         <section class="flex flex-wrap-reverse items-center justify-evenly gap-8 lg:gap-20 w-full my-16" id="roadmap">
             <img class="absolute w-auto right-0" src="/backgrounds/Background.side.png" alt="porteqali-background" style="max-height: 1920px; margin-top: 20%" />

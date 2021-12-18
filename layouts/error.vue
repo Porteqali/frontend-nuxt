@@ -18,7 +18,7 @@
 
 <template>
     <main role="main" class="flex flex-col items-center gap-16 max-w-screen-4xl w-full">
-        <Background src="/backgrounds/Background.404.svg" :topOffset="5" :rightOffset="0" :minWidth="2320" />
+        <Background src="/backgrounds/Background.404.svg" :topOffset="30" :rightOffset="20" :minWidth="2320" />
         <section class="relative flex flex-col justify-center items-center z-10" id="top">
             <div class="flex flex-col items-center gap-10 mt-28">
                 <h1 class="flex flex-col gap-4 text-7xl">
