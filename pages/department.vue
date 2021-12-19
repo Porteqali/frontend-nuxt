@@ -64,37 +64,48 @@
             <div class="flex flex-wrap justify-between items-center gap-8 w-full">
                 <h2 class="font-bold text-4xl">پربازدیدترین دوره ها</h2>
             </div>
-            <div v-if="!newCoursesLoading">
+            <div v-if="!mostViewedCoursesLoading">
                 <ul class="flex flex-wrap items-center justify-evenly gap-6">
-                    <li class="top_course_cart shadow-lg flex flex-col sm:flex-row gap-4 p-4 rounded-2xl max-w-screen-sm" v-for="(course, i) in newCourses" :key="i">
+                    <li
+                        class="top_course_cart shadow-lg flex flex-col sm:flex-row gap-4 p-4 rounded-2xl max-w-screen-sm"
+                        v-for="(course, i) in mostViewedCourses"
+                        :key="i"
+                    >
                         <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full sm:w-64">
-                            <img class="max-w-screen-sm w-full sm:h-full object-cover" src="/misc/article.png" alt="course" draggable="false" />
+                            <img
+                                class="max-w-screen-sm w-full sm:h-full object-cover"
+                                :src="course.image ? course.image : `/misc/article.png`"
+                                :alt="course.name"
+                                draggable="false"
+                            />
                             <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 left-2">category</span>
                             <div class="absolute flex flex-col gap-2 top-2 right-2">
-                                <span class="w-10 h-10 rounded-full" title="department">
-                                    <img class="w-full h-full object-cover" src="/misc/Figma.svg" alt="department" />
+                                <span class="w-10 h-10 rounded-full" :title="course.groups[0].name">
+                                    <img class="w-full h-full object-cover" :src="course.groups[0].icon || `/misc/Figma.svg`" :alt="course.groups[0].name" />
                                 </span>
-                                <span class="w-10 h-10 rounded-full" title="teacher">
-                                    <img class="w-full h-full object-cover" src="/misc/Figma.svg" alt="teacher" />
+                                <span class="w-10 h-10 rounded-full" :title="`${course.teacher.name} ${course.teacher.family}`">
+                                    <img class="w-full h-full object-cover" :src="course.teacher.image" :alt="`${course.teacher.name} ${course.teacher.family}`" />
                                 </span>
                             </div>
-                            <div class="gray_gradient absolute bottom-0 flex flex-col gap-4 p-6">
-                                <h3 class="text-2xl">دوره آموزشی موشن گرافیک</h3>
-                                <span class="text-lightblue-300">20 ساعت آموزش - 20 ویدیو</span>
+                            <div class="gray_gradient absolute bottom-0 flex flex-col gap-4 p-6 w-full">
+                                <h3 class="text-2xl">{{ course.name }}</h3>
+                                <span class="text-lightblue-300">{{ `${course.totalTime} آموزش - ${course.topicsTotal} ویدیو` }}</span>
                             </div>
                         </div>
                         <div class="flex flex-col gap-6 pt-2 w-full">
                             <ul class="topics flex flex-col justify-between items-stretch gap-7 w-full">
-                                <li class="flex items-start gap-4 w-full" v-for="(topic, i) in topics" :key="i">
+                                <li class="flex items-start gap-4 w-full" v-for="(topic, i) in course.topics" :key="i">
                                     <span class="flex items-center justify-center flex-shrink-0 w-8 h-8 p-2 bg-indigo-100 text-indigo-800 rounded-full">
                                         {{ i + 1 }}
                                     </span>
                                     <div class="flex flex-wrap items-start justify-between gap-2 w-full">
                                         <div class="flex flex-col gap-1 flex-grow">
-                                            <strong class="overflow-hidden overflow-ellipsis whitespace-nowrap" style="max-width: 210px">name</strong>
+                                            <strong class="overflow-hidden overflow-ellipsis whitespace-nowrap" style="max-width: 210px">{{ topic.name }}</strong>
                                             <span class="relative w-full h-1 bg-indigo-100"><b class="absolute w-8/12 h-1 bg-indigo-800"></b></span>
                                         </div>
-                                        <small class="bg-indigo-100 text-indigo-800 py-1 p-2 rounded-md">10:09</small>
+                                        <small class="bg-indigo-100 text-indigo-800 py-1 p-2 rounded-md">
+                                            {{ `${topic.time.hours}:${topic.time.minutes}:${topic.time.seconds}` }}
+                                        </small>
                                     </div>
                                 </li>
                             </ul>
@@ -102,7 +113,43 @@
                     </li>
                 </ul>
             </div>
-            <div class="w-full max-w-screen-4xl select-none overflow-hidden p-4" v-else></div>
+            <ul class="flex flex-wrap items-center justify-evenly gap-6" v-else>
+                <li
+                    class="top_course_cart shadow-lg flex flex-col sm:flex-row gap-4 p-4 rounded-2xl max-w-screen-sm"
+                    v-for="(course, i) in mostViewedCourses"
+                    :key="i"
+                >
+                    <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full sm:w-64">
+                        <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 left-2">
+                            <span class="skeleton w-20 h-2"></span>
+                        </span>
+                        <div class="absolute flex flex-col gap-2 top-2 right-2">
+                            <span class="skeleton w-10 h-10 rounded-full"></span>
+                            <span class="skeleton w-10 h-10 rounded-full"></span>
+                        </div>
+                        <div class="gray_gradient absolute bottom-0 flex flex-col gap-4 p-6 w-full">
+                            <h3 class="skeleton w-10/12 h-4"></h3>
+                            <span class="skeleton w-full h-2"></span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-6 pt-2 w-full">
+                        <ul class="topics flex flex-col justify-between items-stretch gap-7 w-full">
+                            <li class="flex items-start gap-4 w-full" v-for="(topic, i) in mostViewedCoursesSkeletonTopic" :key="i">
+                                <span class="flex items-center justify-center flex-shrink-0 w-8 h-8 p-2 bg-indigo-100 text-indigo-800 rounded-full">
+                                    {{ i + 1 }}
+                                </span>
+                                <div class="flex flex-wrap items-start justify-between gap-2 w-full">
+                                    <div class="flex flex-col gap-1 flex-grow">
+                                        <strong class="skeleton w-full h-6" style="max-width: 210px"></strong>
+                                        <span class="relative w-full h-1 bg-indigo-100"><b class="absolute w-8/12 h-1 bg-indigo-800"></b></span>
+                                    </div>
+                                    <small class="skeleton w-8 h-3"></small>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
         </section>
 
         <Nuxt nuxt-child-key="department" />
@@ -120,32 +167,32 @@
                     >
                         <div
                             class="teacher_card relative flex flex-col items-center justify-center gap-4 flex-shrink-0 p-8 w-full sm:w-64 rounded-2xl shadow-lg max-w-md"
-                            :style="`background-image: url('/misc/Figma.svg')`"
+                            :style="`background-image: url('${teacher.image}')`"
                         >
-                            <img class="w-24 h-24 rounded-full shadow-md" src="/misc/Figma.svg" :alt="`tset test`" />
-                            <b class="text-2xl">{{ `سید احمد عباسی` }}</b>
-                            <small class="text-lightblue-400">{{ `مدیرمحصول` }}</small>
-                            <p class="opacity-75 text-center max-w-xs">{{ `لحظات و خاطرات آینده ساز و آرامش بخشی را با آموزش های ما تجربه کنید!` }}</p>
-                            <!-- <ul class="flex flex-wrap items-center gap-2">
+                            <img class="w-24 h-24 rounded-full shadow-md" :src="teacher.image" :alt="`${teacher.name} ${teacher.family}`" />
+                            <b class="text-2xl">{{ `${teacher.name} ${teacher.family}` }}</b>
+                            <small class="text-lightblue-400">{{ teacher.title }}</small>
+                            <p class="opacity-75 text-center max-w-xs">{{ teacher.description }}</p>
+                            <ul class="flex flex-wrap items-center gap-2">
                                 <li v-for="(social, j) in teacher.social" :key="j">
                                     <a :href="social.link"><Icon class="w-8 h-8 bg-gray-200" folder="social" :name="social.name" /></a>
                                 </li>
-                            </ul> -->
+                            </ul>
                         </div>
                         <div class="flex flex-col gap-6 pt-2 w-full">
-                            <span class="font-light opacity-60">3 دوره آموزشی - 30 ساعت آموزش</span>
+                            <span class="font-light opacity-60">{{ teacher.courseCount }} دوره آموزشی</span>
                             <ul class="topics flex flex-col justify-between items-stretch gap-7 w-full">
-                                <li class="flex items-start gap-4 w-full" v-for="(topic, i) in topTeacherCourses" :key="i">
+                                <li class="flex items-start gap-4 w-full" v-for="(course, i) in teacher.courses" :key="i">
                                     <span class="flex items-center justify-center flex-shrink-0 w-8 h-8 rounded-full">
-                                        <img class="w-full h-full object-cover" src="/misc/Figma.svg" alt="" />
+                                        <img class="w-full h-full object-cover" :src="course.groups[0].icon || `/misc/Figma.svg`" :alt="course.groups[0].name" />
                                     </span>
                                     <div class="flex flex-wrap items-start justify-between gap-2 w-full">
                                         <div class="flex flex-col gap-1 flex-grow">
-                                            <strong class="overflow-hidden overflow-ellipsis whitespace-nowrap" style="max-width: 210px">name</strong>
+                                            <strong class="overflow-hidden overflow-ellipsis whitespace-nowrap" style="max-width: 210px">{{ course.name }}</strong>
                                             <span class="relative w-full h-1 bg-indigo-100"><b class="absolute w-8/12 h-1 bg-indigo-800"></b></span>
-                                            <p>لحظات و خاطرات آینده ساز و آرامش بخشی را با آموزش های ما تجربه کنید!</p>
+                                            <p>{{ course.description.length > 60 ? course.description.substr(0, 60)+'...' : course.description }}</p>
                                         </div>
-                                        <small class="bg-indigo-100 text-indigo-800 py-1 p-2 rounded-md">3 ساعت</small>
+                                        <small class="bg-indigo-100 text-indigo-800 py-1 p-2 rounded-md">{{ course.totalTime }}</small>
                                     </div>
                                 </li>
                             </ul>
@@ -153,13 +200,13 @@
                     </li>
                 </ul>
             </div>
-            <div class="w-full max-w-screen-4xl select-none overflow-hidden p-4" v-else></div>
         </section>
     </main>
 </template>
 
 <script>
 import axios from "axios";
+import moment from "jalali-moment";
 
 export default {
     head: {
@@ -169,27 +216,27 @@ export default {
     components: {},
     data() {
         return {
-            newCoursesLoading: false,
-            newCourses: [{}, {}],
-            topics: [{}, {}, {}, {}, {}, {}],
+            mostViewedCoursesLoading: false,
+            mostViewedCourses: [{}, {}],
+            mostViewedCoursesSkeletonTopic: [{}, {}, {}, {}, {}, {}],
 
             topTeachersLoading: false,
             topTeachers: [{}, {}],
-            topTeacherCourses: [{}, {}, {}],
+            topTeacherSkeletonCourses: [{}, {}, {}],
         };
     },
     async fetch() {
         let headers = {};
         if (process.server) headers = this.$nuxt.context.req.headers;
 
-        // await Promise.all([this.getMostPopularArticles({ headers })]);
+        await Promise.all([this.getMostviewedCourses({ headers }), this.getTopTeachers({ headers })]);
     },
     methods: {
-        async getMostPopularArticles(data = {}) {
-            if (this.newCoursesLoading) return;
-            this.newCoursesLoading = true;
+        async getMostviewedCourses(data = {}) {
+            if (this.mostViewedCoursesLoading) return;
+            this.mostViewedCoursesLoading = true;
 
-            let url = `/api/most-populars-articles`;
+            let url = `/api/most-viewed-courses`;
             let headers = {};
             if (process.server) {
                 url = `${process.env.BASE_URL}${url}`;
@@ -198,9 +245,46 @@ export default {
 
             await axios
                 .get(url, { headers })
-                .then((results) => (this.newCourses = results.data))
+                .then((results) => {
+                    this.mostViewedCourses = results.data.map((course) => {
+                        // TODO : categoryTag = discount percentage | free | new | nothing
+                        let seconds = 0;
+                        course.topics.forEach((topic) => {
+                            seconds += parseInt(topic.time.hours) * 3600 + parseInt(topic.time.minutes) * 60 + parseInt(topic.time.seconds);
+                        });
+                        course.totalTime = moment
+                            .duration(seconds * 1000)
+                            .locale("fa")
+                            .humanize();
+                        course.topicsTotal = course.topics.length;
+                        course.topics.length = 6;
+                        return course;
+                    });
+                })
                 .catch((e) => {})
-                .finally(() => (this.newCoursesLoading = false));
+                .finally(() => (this.mostViewedCoursesLoading = false));
+        },
+
+        async getTopTeachers(data = {}) {
+            if (this.topTeachersLoading) return;
+            this.topTeachersLoading = true;
+
+            let url = `/api/top-teachers`;
+            let headers = {};
+            if (process.server) {
+                url = `${process.env.BASE_URL}${url}`;
+                headers = data.headers ? data.headers : {};
+            }
+
+            await axios
+                .get(url, { headers })
+                .then((results) => {
+                    this.topTeachers = results.data.map((teacher) => {
+                        return teacher;
+                    });
+                })
+                .catch((e) => {})
+                .finally(() => (this.topTeachersLoading = false));
         },
     },
 };

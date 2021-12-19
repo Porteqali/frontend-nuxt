@@ -116,7 +116,7 @@ export default {
     name: "DepartmentSection",
     data() {
         return {
-            courses: ["", "", "", "", "", "", ""],
+            courses: ["", "", "", "", "", "", "", "", "", ""],
         };
     },
 };
