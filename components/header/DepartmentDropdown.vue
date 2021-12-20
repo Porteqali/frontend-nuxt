@@ -1,7 +1,8 @@
 <style scoped>
 .box {
     position: absolute;
-    top: 3.25rem;
+    top: 3.75rem;
+    margin-right: -2rem;
     background-color: var(--header-nav-container-bg-color);
     color: var(--header-nav-text-color);
 }
@@ -21,7 +22,7 @@ ul li:hover {
         <div class="box blur rounded-3xl shadow-lg" v-show="open">
             <ul class="flex flex-col p-6 w-full">
                 <li class="" v-for="(department, i) in departments" :key="i">
-                    <nuxt-link class="w-full flex items-center gap-2 p-3" :to="`/department/${department.slug}`" :title="department.slug">
+                    <nuxt-link class="w-full flex items-center gap-2 p-3" :to="`/department?group=${department.slug}`" :title="department.slug">
                         <img :src="department.icon" class="w-8 h-8 rounded-full object-cover" :alt="department.name" />
                         <span>{{ department.name }}</span>
                     </nuxt-link>

@@ -2,6 +2,7 @@
 .article_card {
     background-color: #3f0e4780;
     color: var(--top-h1-color);
+    box-shadow: 0px 50px 100px rgba(0, 0, 0, 0.25);
 }
 .article_card img {
     max-height: 16rem;

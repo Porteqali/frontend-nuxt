@@ -65,14 +65,14 @@
                 </div>
             </div>
         </div>
-        <ul class="flex flex-wrap justify-center md:justify-start gap-12" v-if="!articlesLoading">
-            <li class="flex w-full sm:max-w-xs shadow-lg rounded-xl" v-for="(article, i) in articles" :key="i">
+        <ul class="grid gap-10" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr))" v-if="!articlesLoading">
+            <li class="flex w-full shadow-lg rounded-xl mx-auto" v-for="(article, i) in articles" :key="i">
                 <nuxt-link
                     class="article_card blur flex flex-col gap-4 flex-grow p-4 rounded-2xl shadow-xl w-full"
                     :to="`/article/${article.slug}`"
                     :title="article.title"
                 >
-                    <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full h-48">
+                    <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full h-64">
                         <img class="max-w-screen-sm w-full object-cover" src="/misc/course.png" alt="course" loading="lazy" />
                         <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2" v-if="!!article.category[0]">
                             {{ article.category[0].name }}
@@ -102,7 +102,6 @@
                 </nuxt-link>
             </li>
         </ul>
-        <!-- <Loading v-else /> -->
         <ul class="flex flex-wrap justify-center md:justify-start gap-4 2xl:gap-12" v-else>
             <li class="article_card blur flex flex-col gap-4 p-4 w-full sm:max-w-xs shadow-lg rounded-xl" v-for="(item, i) in articlesSkeleton" :key="i">
                 <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full h-48">

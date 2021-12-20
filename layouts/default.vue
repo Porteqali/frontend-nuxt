@@ -90,7 +90,7 @@ footer {
                         <h4 class="font-bold text-2xl">همراه پرتقال</h4>
                         <ul class="flex flex-wrap flex-row lg:flex-col gap-6 lg:gap-2">
                             <li><nuxt-link title="وبلاگ پرتقال" to="/blog">وبلاگ پرتقال</nuxt-link></li>
-                            <li><nuxt-link title="دپارتمان ها" to="/departments">دپارتمان ها</nuxt-link></li>
+                            <li><nuxt-link title="دپارتمان ها" to="/department">دپارتمان ها</nuxt-link></li>
                             <li><nuxt-link title="درباره ما" to="/about-us">درباره ما</nuxt-link></li>
                             <li><nuxt-link title="تماس با ما" to="/contact-us">تماس با ما</nuxt-link></li>
                             <li><nuxt-link title="همکاری با ما" to="/work-with-us">همکاری با ما</nuxt-link></li>

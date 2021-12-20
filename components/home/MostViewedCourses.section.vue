@@ -2,10 +2,12 @@
 .more_courses_btn {
     background-color: var(--department-section-title-alt-text-bg-color);
     color: var(--department-section-title-alt-text-color);
+    box-shadow: 0px 20px 40px rgba(144, 219, 255, 0.3);
 }
 
 .course_card {
     background-color: var(--department-section-title-alt-text-bg-color);
+    background: linear-gradient(154.49deg, rgba(121, 117, 131, 0.2) 5.35%, rgba(54, 53, 103, 0.2) 83.85%), rgba(49, 48, 54, 0.3);
     color: var(--department-section-title-alt-text-color);
 }
 .course_tag {
@@ -19,14 +21,14 @@
         <div class="flex flex-wrap justify-between gap-8 w-full">
             <h2 class="font-bold text-4xl">دوره های پر مخاطب</h2>
         </div>
-        <div v-swiper="coursesSwiperOptions" class="w-full max-w-screen-4xl select-none overflow-hidden p-4">
+        <div v-swiper="coursesSwiperOptions" class="w-full max-w-screen-4xl select-none overflow-hidden">
             <ul class="swiper-wrapper flex items-start">
                 <li
-                    class="swiper-slide gray_gradient blur course_card shadow-lg flex flex-col gap-4 p-4 rounded-3xl max-w-screen-xs ml-16"
+                    class="swiper-slide gray_gradient blur course_card shadow-lg flex flex-col gap-4 p-4 rounded-3xl max-w-sm ml-10"
                     v-for="(course, i) in courses"
                     :key="i"
                 >
-                    <div class="relative overflow-hidden rounded-xl w-full h-64">
+                    <div class="relative overflow-hidden rounded-xl w-full h-72">
                         <img class="absolute inset-0 object-cover" src="/misc/course.png" alt="course" draggable="false" />
                         <img class="absolute top-2 right-2" src="/misc/Figma.svg" width="32" height="32" alt="Figma" />
                         <span class="course_tag flex items-center justify-center p-4 w-auto h-16 rounded-xl absolute top-2 left-2">جدید</span>

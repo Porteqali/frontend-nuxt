@@ -13,7 +13,7 @@
 }
 
 #roadmap .roadmap_vision_img {
-    /* background-color: var(--header-nav-container-bg-color); */
+    background-color: var(--header-nav-container-bg-color);
 }
 </style>
 
@@ -47,9 +47,6 @@
 
         <section class="flex flex-wrap-reverse items-center justify-evenly gap-8 lg:gap-20 w-full my-16" id="roadmap">
             <img class="absolute w-auto right-0" src="/backgrounds/Background.side.png" alt="porteqali-background" style="max-height: 1920px; margin-top: 20%" />
-            <div class="roadmap_vision_img rounded-3xl shadow-lg p-4 blur z-10">
-                <img class="" src="/pages/home/Vision&Missi.png" alt="porteqali-vision" />
-            </div>
             <div class="flex flex-col gap-6 z-10">
                 <h2 class="text-3xl font-bold">دوست داری تو چه حوزه ی فعالیت کنی؟</h2>
                 <p class="max-w-screen-2sm text-lg">
@@ -60,6 +57,9 @@
                     <span>دوست داری چی یاد بگیری؟</span>
                     <img src="/icons/Discovery.gray.svg" width="24" height="24" alt="Search" />
                 </button>
+            </div>
+            <div class="roadmap_vision_img rounded-3xl shadow-lg p-4 blur z-10">
+                <img class="" src="/pages/home/Vision&Missi.png" alt="porteqali-vision" />
             </div>
         </section>
 

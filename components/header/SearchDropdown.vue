@@ -21,7 +21,7 @@ ul li:hover {
 
 @media (min-width: 768px) {
     .box {
-        top: 3.25rem;
+        top: 3.75rem;
     }
 }
 </style>

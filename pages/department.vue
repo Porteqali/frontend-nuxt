@@ -67,7 +67,7 @@
             <div v-if="!mostViewedCoursesLoading">
                 <ul class="flex flex-wrap items-center justify-evenly gap-6">
                     <li
-                        class="top_course_cart shadow-lg flex flex-col sm:flex-row gap-4 p-4 rounded-2xl max-w-screen-sm"
+                        class="top_course_cart shadow-lg flex flex-col sm:flex-row gap-4 p-4 rounded-2xl w-full max-w-screen-sm"
                         v-for="(course, i) in mostViewedCourses"
                         :key="i"
                     >
@@ -159,7 +159,7 @@
                 <h2 class="font-bold text-4xl">اساتید برتر</h2>
             </div>
             <div v-if="!topTeachersLoading">
-                <ul class="flex flex-wrap items-center justify-evenly gap-6">
+                <ul class="flex flex-wrap justify-evenly gap-6">
                     <li
                         class="top_course_cart shadow-lg flex flex-col sm:flex-row gap-4 p-4 rounded-2xl max-w-screen-sm"
                         v-for="(teacher, i) in topTeachers"
@@ -170,7 +170,7 @@
                             :style="`background-image: url('${teacher.image}')`"
                         >
                             <img class="w-24 h-24 rounded-full shadow-md" :src="teacher.image" :alt="`${teacher.name} ${teacher.family}`" />
-                            <b class="text-2xl">{{ `${teacher.name} ${teacher.family}` }}</b>
+                            <b class="text-2xl text-center">{{ `${teacher.name} ${teacher.family}` }}</b>
                             <small class="text-lightblue-400">{{ teacher.title }}</small>
                             <p class="opacity-75 text-center max-w-xs">{{ teacher.description }}</p>
                             <ul class="flex flex-wrap items-center gap-2">

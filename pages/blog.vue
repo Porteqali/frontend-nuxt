@@ -92,7 +92,7 @@
                 <div v-swiper="popularArticlesSwiperOptions" class="w-full max-w-screen-4xl select-none overflow-hidden p-4">
                     <ul class="swiper-wrapper flex items-start">
                         <li
-                            class="swiper-slide article_card shadow-lg flex flex-col sm:flex-row gap-4 p-4 rounded-2xl max-w-screen-sm"
+                            class="swiper-slide article_card shadow-lg flex flex-col sm:flex-row gap-4 p-4 rounded-2xl w-full max-w-screen-sm ml-4"
                             v-for="(popularArticle, i) in popularArticles"
                             :key="i"
                         >
@@ -105,12 +105,19 @@
                                     {{ popularArticle.category.name }}
                                 </span>
                             </div>
-                            <div class="flex flex-col gap-6 pt-2">
-                                <h3 class="font-bold text-2xl max-w-xs overflow-hidden overflow-ellipsis whitespace-nowrap">{{ popularArticle.title }}</h3>
+                            <div class="flex flex-col gap-6 pt-2 w-full">
+                                <h3 class="font-bold text-2xl w-full md:w-screen max-w-xs overflow-hidden overflow-ellipsis whitespace-nowrap">
+                                    {{ popularArticle.title }}
+                                </h3>
                                 <p class="max-w-xs opacity-75">{{ popularArticle.description }}</p>
                                 <div class="flex flex-wrap justify-between items-center gap-4">
                                     <div class="flex items-start gap-2">
-                                        <img :src="popularArticle.author.image" :alt="`${popularArticle.author.name} ${popularArticle.author.family}`" width="32" height="32" />
+                                        <img
+                                            :src="popularArticle.author.image"
+                                            :alt="`${popularArticle.author.name} ${popularArticle.author.family}`"
+                                            width="32"
+                                            height="32"
+                                        />
                                         <div class="flex flex-col gap-1">
                                             <small v-if="!!popularArticle.author">{{ `${popularArticle.author.name} ${popularArticle.author.family}` }}</small>
                                             <small class="opacity-75">{{ new Date(popularArticle.publishedAt).toLocaleDateString("fa") }}</small>
@@ -198,7 +205,7 @@ export default {
                 autoplay: false,
                 slidesPerView: "auto",
                 initialSlide: 0,
-                spaceBetween: 16,
+                // spaceBetween: 16,
                 loop: true,
                 freeMode: true,
             },

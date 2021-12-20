@@ -40,7 +40,7 @@
         <transition name="slidedown" appear>
             <div class="header_nav_container menu blur flex flex-wrap items-start md:items-center gap-1 lg:gap-8 p-8 py-0 rounded-3xl shadow-lg" v-show="open">
                 <nav>
-                    <ul class="flex flex-wrap md:flex-nowrap items-center gap-8 py-4 md:p-0">
+                    <ul class="flex flex-wrap md:flex-nowrap items-center gap-6 xl:gap-8 py-4 md:p-0">
                         <li
                             class="flex items-center gap-1 md:py-4 cursor-pointer"
                             @mouseover="departmentsDropdownOpenState = true"
