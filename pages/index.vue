@@ -78,7 +78,7 @@
                     <img src="/icons/Scan.svg" width="24" height="24" alt="Scan" />
                 </button>
             </div>
-            <img src="/pages/home/certificates.webp" alt="porteqali-certificates" style="width: 500px" />
+            <img src="/pages/home/certificates.webp" alt="porteqali-certificates" style="width: 620px" />
         </section>
 
         <BlogSection />

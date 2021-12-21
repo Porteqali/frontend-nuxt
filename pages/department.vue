@@ -21,6 +21,10 @@
     color: #e04ca5;
 }
 
+.most_viewed_courses_list {
+    grid-template-columns: repeat(auto-fit, minmax(640px, 1fr));
+}
+
 .teacher_card {
     background-color: rgba(19, 40, 80, 0.8);
     background-repeat: no-repeat;
@@ -65,9 +69,9 @@
                 <h2 class="font-bold text-4xl">پربازدیدترین دوره ها</h2>
             </div>
             <div v-if="!mostViewedCoursesLoading">
-                <ul class="flex flex-wrap items-center justify-evenly gap-6">
+                <ul class="most_viewed_courses_list md:grid flex flex-col gap-6">
                     <li
-                        class="top_course_cart shadow-lg flex flex-col sm:flex-row gap-4 p-4 rounded-2xl w-full max-w-screen-sm"
+                        class="top_course_cart shadow-lg flex flex-col sm:flex-row gap-4 p-4 rounded-2xl w-full max-w-2xl xl:max-w-full mx-auto"
                         v-for="(course, i) in mostViewedCourses"
                         :key="i"
                     >
@@ -100,7 +104,7 @@
                                     </span>
                                     <div class="flex flex-wrap items-start justify-between gap-2 w-full">
                                         <div class="flex flex-col gap-1 flex-grow">
-                                            <strong class="overflow-hidden overflow-ellipsis whitespace-nowrap" style="max-width: 210px">{{ topic.name }}</strong>
+                                            <strong class="overflow-hidden overflow-ellipsis whitespace-nowrap">{{ topic.name }}</strong>
                                             <span class="relative w-full h-1 bg-indigo-100"><b class="absolute w-8/12 h-1 bg-indigo-800"></b></span>
                                         </div>
                                         <small class="bg-indigo-100 text-indigo-800 py-1 p-2 rounded-md">
@@ -190,7 +194,7 @@
                                         <div class="flex flex-col gap-1 flex-grow">
                                             <strong class="overflow-hidden overflow-ellipsis whitespace-nowrap" style="max-width: 210px">{{ course.name }}</strong>
                                             <span class="relative w-full h-1 bg-indigo-100"><b class="absolute w-8/12 h-1 bg-indigo-800"></b></span>
-                                            <p>{{ course.description.length > 60 ? course.description.substr(0, 60)+'...' : course.description }}</p>
+                                            <p>{{ course.description.length > 60 ? course.description.substr(0, 60) + "..." : course.description }}</p>
                                         </div>
                                         <small class="bg-indigo-100 text-indigo-800 py-1 p-2 rounded-md">{{ course.totalTime }}</small>
                                     </div>
@@ -246,6 +250,7 @@ export default {
             await axios
                 .get(url, { headers })
                 .then((results) => {
+                    results.data.length = 2;
                     this.mostViewedCourses = results.data.map((course) => {
                         // TODO : categoryTag = discount percentage | free | new | nothing
                         let seconds = 0;

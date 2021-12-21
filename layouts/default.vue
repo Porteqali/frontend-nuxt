@@ -31,16 +31,17 @@ header {
 }
 .footer_bg {
     bottom: 0;
-    right: 10%;
+    /* right: 10%; */
     width: 70%;
     margin-right: -10%;
     margin-bottom: 0;
     min-width: 768px;
+    max-width: 1280px;
     z-index: -1;
     position: absolute;
 
     /* position: fixed; */
-    left: 20%;
+    /* left: 20%; */
 }
 footer {
     color: var(--header-nav-text-color);
@@ -171,6 +172,7 @@ export default {
                 "/terms-and-conditions": { src: "/backgrounds/Background2.png", topOffset: -20, rightOffset: -15, minWidth: 2420 },
                 "/about-us": { src: "/backgrounds/Background2.png", topOffset: -20, rightOffset: -15, minWidth: 2420 },
                 "/contact-us": { src: "/backgrounds/Background2.png", topOffset: -20, rightOffset: -15, minWidth: 2420 },
+                "/teachers": { src: "/backgrounds/Background2.png", topOffset: -20, rightOffset: -15, minWidth: 2420 },
                 "/work-with-us": { src: "/backgrounds/Background4.png", topOffset: 0, rightOffset: 0, minWidth: 2220 },
                 "/faqs": { src: "/backgrounds/Background5.png", topOffset: -15, rightOffset: -10, minWidth: 2420 },
 

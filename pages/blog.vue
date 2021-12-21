@@ -7,8 +7,8 @@
 .top_article_card {
     background-color: #000c7880;
     font-weight: initial;
-    width: 110vw;
-    margin-right: 10%;
+    width: 90vw;
+    margin-right: 20%;
     margin-left: -10vw;
 }
 .article_card {
@@ -89,7 +89,7 @@
                 </nuxt-link>
             </div>
             <div v-if="!popularArticlesLoading">
-                <div v-swiper="popularArticlesSwiperOptions" class="w-full max-w-screen-4xl select-none overflow-hidden p-4">
+                <div v-swiper="popularArticlesSwiperOptions" class="w-full max-w-screen-4xl select-none overflow-hidden">
                     <ul class="swiper-wrapper flex items-start">
                         <li
                             class="swiper-slide article_card shadow-lg flex flex-col sm:flex-row gap-4 p-4 rounded-2xl w-full max-w-screen-sm ml-4"
@@ -97,7 +97,7 @@
                             :key="i"
                         >
                             <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full sm:w-64">
-                                <img class="max-w-screen-sm w-full sm:h-full object-cover" src="/misc/article.png" alt="course" draggable="false" />
+                                <img class="max-w-screen-sm w-full sm:h-full object-cover" :src="popularArticle.image" alt="course" draggable="false" />
                                 <span
                                     class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2"
                                     v-if="!!popularArticle.category"
@@ -109,7 +109,7 @@
                                 <h3 class="font-bold text-2xl w-full md:w-screen max-w-xs overflow-hidden overflow-ellipsis whitespace-nowrap">
                                     {{ popularArticle.title }}
                                 </h3>
-                                <p class="max-w-xs opacity-75">{{ popularArticle.description }}</p>
+                                <p class="max-w-xs opacity-75 h-28 overflow-hidden">{{ popularArticle.description }}</p>
                                 <div class="flex flex-wrap justify-between items-center gap-4">
                                     <div class="flex items-start gap-2">
                                         <img

@@ -10,10 +10,10 @@
         <div class="flex flex-wrap justify-between gap-8 w-full">
             <h2 class="font-bold text-4xl">نظرات دانشجویان پرتقال</h2>
         </div>
-        <div v-swiper="testimonialsSwiperOptions" class="w-full max-w-screen-4xl select-none overflow-hidden p-4">
+        <div v-swiper="testimonialsSwiperOptions" class="w-full max-w-screen-4xl select-none overflow-hidden">
             <ul class="swiper-wrapper flex items-start">
                 <li
-                    class="swiper-slide blur card shadow-lg flex flex-col items-center gap-8 p-16 rounded-3xl max-w-screen-2sm z-10"
+                    class="swiper-slide blur card shadow-lg flex flex-col items-center gap-8 p-16 rounded-3xl max-w-screen-2sm z-10 ml-10"
                     v-for="(testimonial, i) in testimonials"
                     :key="i"
                 >
@@ -45,7 +45,7 @@ export default {
                 autoplay: false,
                 slidesPerView: "auto",
                 initialSlide: 0,
-                spaceBetween: 46,
+                // spaceBetween: 46,
                 loop: true,
                 freeMode: true,
             },

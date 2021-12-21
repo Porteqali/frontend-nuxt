@@ -142,10 +142,10 @@
                 </li>
             </ul>
             <div class="flex items-center justify-center w-full">
-                <button class="more_btn blur flex items-center gap-2 py-3 px-6 rounded-xl w-max">
+                <nuxt-link to="/teachers" class="more_btn blur flex items-center gap-2 py-3 px-6 rounded-xl w-max">
                     <img src="/icons/BookOpenOutlineColor.orange.svg" width="24" height="24" alt="BookOpenOutlineColor" />
                     <span>مشاهده همه مدرس ها</span>
-                </button>
+                </nuxt-link>
             </div>
         </section>
     </main>

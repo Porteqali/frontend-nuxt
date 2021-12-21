@@ -1,7 +1,7 @@
 <style>
 .video-js {
-    width: 100% !important;
-    height: 100% !important;
+    /* width: 100% !important;
+    height: 100% !important; */
 }
 </style>
 
@@ -29,15 +29,18 @@
                 <span class="skeleton w-12 h-2"></span>
             </a>
         </div>
-        <!-- <div class="w-full max-w-lg h-80 bg-gray-500 overflow-hidden shadow-lg rounded-2xl">
-            <video class="w-full h-full" src="" controls></video>
-        </div> -->
-        <div
-            class="video-player-box rounded-xl overflow-hidden w-full max-w-lg h-80"
+        <div class="video-js relative rounded-3xl overflow-hidden w-full max-w-xl h-64 lg:h-80">
+            <div class="vjs-big-play-button absolute cursor-pointer" v-show="videoPaused"></div>
+            <video class="w-full h-full" controls @play="videoPaused = false" @pause="videoPaused = true" v-if="!loading">
+                <source :src="playerOptions.sources[0].src" :type="playerOptions.sources[0].type" />
+            </video>
+        </div>
+        <!-- <div
+            class="video-player-box vjs-default-skin rounded-2xl overflow-hidden w-full max-w-xl h-64 lg:h-80"
             :playsinline="false"
             @statechanged="playerStateChanged($event)"
             v-video-player:myVideoPlayer="playerOptions"
-        ></div>
+        ></div> -->
     </section>
 </template>
 
@@ -50,7 +53,6 @@ export default {
             loading: false,
             newsInfo: this.newsInfo || {},
 
-            // videojs options
             playerOptions: this.playerOptions || {
                 muted: false,
                 language: "en",
@@ -62,8 +64,9 @@ export default {
                     //     src: "http://localhost:3000/file/private/4235ni432dbi324di2bjn423onf2.mp4",
                     // },
                 ],
-                // poster: "/static/images/author.jpg",
             },
+
+            videoPaused: true,
         };
     },
     async fetch() {
@@ -99,8 +102,9 @@ export default {
                 .finally(() => (this.loading = false));
         },
 
-        playerStateChanged(playerCurrentState) {
-            // console.log("player current update state", playerCurrentState);
+        playPause() {
+            if (this.$refs.videoPlayer.paused) this.$refs.videoPlayer.play();
+            else this.$refs.videoPlayer.pause();
         },
     },
 };

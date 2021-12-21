@@ -56,7 +56,7 @@
     <section class="relative flex flex-col gap-8 mt-4 w-full" id="article">
         <article class="flex flex-col gap-8 max-w-screen-xl w-full mx-auto">
             <header class="relative w-full" v-if="article">
-                <img class="article_img w-full h-64 md:h-96 object-contain shadow-lg rounded-2xl" src="/misc/singleCourse.png" :alt="article.title" loading="lazy" />
+                <img class="article_img w-full h-64 md:h-96 object-contain shadow-lg rounded-2xl" :src="article.image" :alt="article.title" loading="lazy" />
                 <meta itemprop="thumbnailUrl" content="/misc/singleCourse.png" />
 
                 <div

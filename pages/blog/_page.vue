@@ -73,7 +73,7 @@
                     :title="article.title"
                 >
                     <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full h-64">
-                        <img class="max-w-screen-sm w-full object-cover" src="/misc/course.png" alt="course" loading="lazy" />
+                        <img class="max-w-screen-sm w-full object-cover" :src="article.image" alt="course" loading="lazy" />
                         <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2" v-if="!!article.category[0]">
                             {{ article.category[0].name }}
                         </span>

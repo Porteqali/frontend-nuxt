@@ -25,40 +25,40 @@
             <ul class="swiper-wrapper flex items-start">
                 <li
                     class="swiper-slide gray_gradient blur course_card shadow-lg flex flex-col gap-4 p-4 rounded-3xl max-w-sm ml-10"
-                    v-for="(course, i) in courses"
+                    v-for="(course, i) in mostViewedCourses"
                     :key="i"
                 >
-                    <div class="relative overflow-hidden rounded-xl w-full h-72">
-                        <img class="absolute inset-0 object-cover" src="/misc/course.png" alt="course" draggable="false" />
-                        <img class="absolute top-2 right-2" src="/misc/Figma.svg" width="32" height="32" alt="Figma" />
+                    <div class="relative overflow-hidden rounded-xl shadow-lg w-full h-72">
+                        <img class="absolute inset-0 object-cover" :src="course.image || `/misc/course.png`" alt="course" draggable="false" />
+                        <img class="absolute top-2 right-2" :src="course.groups[0].icon" width="32" height="32" alt="Figma" />
                         <span class="course_tag flex items-center justify-center p-4 w-auto h-16 rounded-xl absolute top-2 left-2">جدید</span>
                     </div>
                     <div class="flex flex-col gap-4">
-                        <h3 class="font-bold text-xl overflow-hidden overflow-ellipsis whitespace-nowrap">آموزش طراحی سایت</h3>
+                        <h3 class="font-bold text-xl overflow-hidden overflow-ellipsis whitespace-nowrap">{{ course.name }}</h3>
                         <div class="flex items-center gap-2">
-                            <img src="/misc/Figma.svg" alt="Figma" width="40" height="40" />
-                            <span>محمد گودرزی</span>
+                            <img :src="course.teacher.image" alt="Figma" width="40" height="40" />
+                            <span>{{ `${course.teacher.name} ${course.teacher.family}` }}</span>
                         </div>
                         <div class="flex flex-wrap justify-between gap-4">
                             <span class="flex items-end gap-1">
                                 <img src="/icons/TimeCircle.line.svg" alt="TimeCircle" width="20" height="20" />
-                                <small>05:11:29</small>
+                                <small>{{ course.totalTime }}</small>
                             </span>
                             <span class="flex items-end gap-1">
                                 <img src="/icons/User.line.svg" alt="User" width="20" height="20" />
-                                <small>425</small>
+                                <small>{{ course.buyCount }}</small>
                             </span>
                             <span class="flex items-end gap-1">
                                 <img src="/icons/Star.line.svg" alt="Star" width="20" height="20" />
-                                <small>4 از 10 امتیاز</small>
+                                <small>{{ course.score.toFixed(1) }} از 8 امتیاز</small>
                             </span>
                         </div>
                         <button class="orange_gradient_h flex items-center justify-center gap-4 py-4 px-8 rounded-xl">
-                            <span>
-                                <b class="text-3xl">50</b>
-                                <span>هزار</span>
+                            <span v-if="course.price">
+                                <b class="text-3xl">{{ new Intl.NumberFormat("fa").format(course.price) }}</b>
                                 تومان
                             </span>
+                            <span class="text-xl" v-else>رایگان</span>
                             <img src="/icons/Buy.svg" alt="Buy" width="24" height="24" />
                         </button>
                     </div>
@@ -76,11 +76,16 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
     name: "MostViewedCoursesSection",
     data() {
         return {
-            courses: ["", "", "", "", "", "", ""],
+            mostViewedCoursesLoading: false,
+            mostViewedCourses: [],
+            mostViewedCoursesSkeletonTopic: [{}, {}, {}, {}, {}, {}],
+
             coursesSwiperOptions: {
                 autoplay: false,
                 slidesPerView: "auto",
@@ -91,6 +96,42 @@ export default {
                 pagination: ".swiper-pagination2",
             },
         };
+    },
+    async fetch() {
+        let headers = {};
+        if (process.server) headers = this.$nuxt.context.req.headers;
+
+        await Promise.all([this.getMostviewedCourses({ headers })]);
+    },
+    methods: {
+        async getMostviewedCourses(data = {}) {
+            if (this.mostViewedCoursesLoading) return;
+            this.mostViewedCoursesLoading = true;
+
+            let url = `/api/most-viewed-courses`;
+            let headers = {};
+            if (process.server) {
+                url = `${process.env.BASE_URL}${url}`;
+                headers = data.headers ? data.headers : {};
+            }
+
+            await axios
+                .get(url, { headers })
+                .then((results) => {
+                    this.mostViewedCourses = results.data.map((course) => {
+                        // TODO : categoryTag = discount percentage | free | new | nothing
+                        let seconds = 0;
+                        course.topics.forEach((topic) => {
+                            seconds += parseInt(topic.time.hours) * 3600 + parseInt(topic.time.minutes) * 60 + parseInt(topic.time.seconds);
+                        });
+                        course.totalTime = new Date(seconds * 1000).toUTCString().match(/(\d\d:\d\d:\d\d)/)[0];
+                        course.topics.length = 0;
+                        return course;
+                    });
+                })
+                .catch((e) => {})
+                .finally(() => (this.mostViewedCoursesLoading = false));
+        },
     },
 };
 </script>

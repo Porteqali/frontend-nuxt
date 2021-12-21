@@ -13,6 +13,11 @@
     color: var(--department-section-toggle-btn-fill-color);
 }
 
+.group_selected {
+    border: 5px solid var(--department-section-toggle-btn-fill-bg-color);
+    padding: 2px;
+    border-radius: 50%;
+}
 .title_alt_text {
     display: none;
     position: absolute !important;
@@ -50,27 +55,25 @@
     <section class="relative flex flex-col gap-8 w-full" id="department">
         <div class="flex flex-wrap justify-between gap-8 w-full">
             <div class="flex flex-wrap items-center gap-4">
-                <button class="toggle_btn rounded-full">
+                <button class="toggle_btn rounded-full" :class="{ fill: order == 'most-popular' }" @click="orderChanged('most-popular')">
                     <img src="/icons/FavouriteOutlineColor.purple.svg" width="24" height="24" alt="FavouriteOutlineColor" />
                     <span>محبوب ها</span>
                 </button>
-                <button class="toggle_btn fill rounded-full">
+                <button class="toggle_btn rounded-full" :class="{ fill: order == 'newest' }" @click="orderChanged('newest')">
                     <img src="/icons/BookOpenOutlineColor.purple.svg" width="24" height="24" alt="BookOpenOutlineColor" />
                     <span>جدیدترین ها</span>
                 </button>
             </div>
             <ul class="flex flex-wrap gap-4">
-                <li class="relative flex items-center justify-center">
-                    <img class="title_alt cursor-pointer" src="/misc/Figma.svg" width="48" height="48" alt="Figma" />
-                    <span class="blur title_alt_text">امنیت</span>
-                </li>
-                <li class="relative flex items-center justify-center">
-                    <img class="title_alt cursor-pointer" src="/misc/Figma.svg" width="48" height="48" alt="Figma" />
-                    <span class="blur title_alt_text">امنیت</span>
-                </li>
-                <li class="relative flex items-center justify-center">
-                    <img class="title_alt cursor-pointer" src="/misc/Figma.svg" width="48" height="48" alt="Figma" />
-                    <span class="blur title_alt_text">امنیت</span>
+                <li
+                    class="relative flex items-center justify-center"
+                    :class="{ group_selected: group.slug == department.slug }"
+                    v-for="(department, i) in departments"
+                    :key="i"
+                    @click="groupChanged(department.slug)"
+                >
+                    <img class="title_alt cursor-pointer" :src="department.icon" width="48" height="48" :alt="department.slug" />
+                    <span class="blur title_alt_text w-max">{{ department.name }}</span>
                 </li>
             </ul>
         </div>
@@ -81,37 +84,37 @@
                     v-for="(course, i) in courses"
                     :key="i"
                 >
-                    <div class="relative overflow-hidden rounded-xl w-full h-72">
-                        <img class="absolute inset-0 object-cover" src="/misc/course.png" alt="course" draggable="false" />
-                        <img class="absolute top-2 right-2" src="/misc/Figma.svg" width="32" height="32" alt="Figma" />
+                    <div class="relative overflow-hidden rounded-xl shadow-lg w-full h-72">
+                        <img class="absolute inset-0 object-cover" :src="course.image || `/misc/course.png`" alt="course" draggable="false" />
+                        <img class="absolute top-2 right-2" :src="course.groups[0].icon" width="32" height="32" alt="Figma" />
                         <span class="course_tag flex items-center justify-center p-4 w-auto h-16 rounded-xl absolute top-2 left-2">جدید</span>
                     </div>
                     <div class="flex flex-col gap-4">
-                        <h3 class="font-bold text-xl overflow-hidden overflow-ellipsis whitespace-nowrap">آموزش طراحی سایت</h3>
+                        <h3 class="font-bold text-xl overflow-hidden overflow-ellipsis whitespace-nowrap">{{ course.name }}</h3>
                         <div class="flex items-center gap-2">
-                            <img src="/misc/Figma.svg" alt="Figma" width="40" height="40" />
-                            <span>محمد گودرزی</span>
+                            <img :src="course.teacher[0].image" alt="Figma" width="40" height="40" />
+                            <span>{{ `${course.teacher[0].name} ${course.teacher[0].family}` }}</span>
                         </div>
                         <div class="flex flex-wrap justify-between gap-4">
                             <span class="flex items-end gap-1">
                                 <img src="/icons/TimeCircle.line.svg" alt="TimeCircle" width="20" height="20" />
-                                <small>05:11:29</small>
+                                <small>{{ course.totalTime }}</small>
                             </span>
                             <span class="flex items-end gap-1">
                                 <img src="/icons/User.line.svg" alt="User" width="20" height="20" />
-                                <small>425</small>
+                                <small>{{ course.buyCount }}</small>
                             </span>
                             <span class="flex items-end gap-1">
                                 <img src="/icons/Star.line.svg" alt="Star" width="20" height="20" />
-                                <small>4 از 10 امتیاز</small>
+                                <small>{{ course.score.toFixed(1) }} از 8 امتیاز</small>
                             </span>
                         </div>
                         <button class="orange_gradient_h flex items-center justify-center gap-4 py-4 px-8 rounded-xl">
-                            <span>
-                                <b class="text-3xl">50</b>
-                                <span>هزار</span>
+                            <span v-if="course.price">
+                                <b class="text-3xl">{{ new Intl.NumberFormat("fa").format(course.price) }}</b>
                                 تومان
                             </span>
+                            <span class="text-xl" v-else>رایگان</span>
                             <img src="/icons/Buy.svg" alt="Buy" width="24" height="24" />
                         </button>
                     </div>
@@ -129,11 +132,34 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
     name: "DepartmentSection",
     data() {
         return {
-            courses: ["", "", "", "", "", "", ""],
+            departments: {
+                network: { name: "امنیت شبکه", slug: "network", icon: "/misc/Figma.svg" },
+                languages: { name: "زبان های خارجی", slug: "languages", icon: "/misc/Figma.svg" },
+                graphic: { name: "طراحی گرافیک", slug: "graphic", icon: "/misc/Figma.svg" },
+                university: { name: "دروس دانشگاهی", slug: "university", icon: "/misc/Figma.svg" },
+                programming: { name: "برنامه نویسی", slug: "programming", icon: "/misc/Figma.svg" },
+                "web-design": { name: "طراحی وب", slug: "web-design", icon: "/misc/Figma.svg" },
+                business: { name: "کسب و کار", slug: "business", icon: "/misc/Figma.svg" },
+                free: { name: "دوره های رایگان", slug: "free", icon: "/misc/Figma.svg" },
+            },
+
+            search: this.search || "",
+            order: this.order || "newest", // newest | most-popular
+            group: this.group || { name: "", slug: "" },
+
+            courses: this.courses || [],
+            coursesPage: this.coursesPage || 1,
+            coursesTotal: this.coursesTotal || 0,
+            coursesPageTotal: this.coursesPageTotal || 1,
+            coursesLoading: false,
+            coursesSkeleton: [0, 0, 0, 0, 0, 0, 0, 0],
+
             coursesSwiperOptions: {
                 autoplay: false,
                 slidesPerView: "auto",
@@ -144,6 +170,67 @@ export default {
                 pagination: ".swiper-pagination2",
             },
         };
+    },
+    async fetch() {
+        let headers = {};
+        if (process.server) headers = this.$nuxt.context.req.headers;
+
+        await Promise.all([this.getCourses({ headers })]);
+    },
+    methods: {
+        searchSubmit(e) {
+            e.preventDefault();
+            this.clearCourses();
+            this.getCourses();
+        },
+        orderChanged(order) {
+            if (this.coursesLoading) return;
+            this.order = order;
+            this.clearCourses();
+            this.getCourses();
+        },
+        groupChanged(group) {
+            if (this.coursesLoading) return;
+
+            if (this.group.slug === group) this.group = { name: "", slug: "" };
+            else this.group = this.departments[group];
+
+            this.clearCourses();
+            this.getCourses();
+        },
+
+        async getCourses(data = {}) {
+            if (this.coursesLoading || this.coursesPage > this.coursesPageTotal) return;
+            this.coursesLoading = true;
+
+            let url = `/api/courses`;
+            let headers = {};
+            if (process.server) {
+                url = `${process.env.BASE_URL}${url}`;
+                headers = data.headers ? data.headers : {};
+            }
+
+            let params = [`page=${this.coursesPages}`, `search=${this.search}`, `order=${this.order}`, `group=${this.group.slug}`];
+            url = `${url}?${params.join("&")}`;
+
+            await axios
+                .get(url, { headers })
+                .then((results) => {
+                    this.courses = results.data.records;
+                    this.coursesPage = results.data.page;
+                    this.coursesTotal = results.data.total;
+                    this.coursesPageTotal = results.data.pageTotal;
+                })
+                .catch((e) => {})
+                .finally(() => (this.coursesLoading = false));
+        },
+
+        clearCourses() {
+            this.courses = [];
+            this.coursesPage = 1;
+            this.coursesTotal = 0;
+            this.coursesPageTotal = 1;
+        },
     },
 };
 </script>

@@ -34,7 +34,7 @@
             <div class="flex flex-wrap justify-center w-full gap-8">
                 <div class="article_card blur shadow-xl flex flex-col sm:flex-row gap-4 p-4 rounded-2xl w-full sm:max-w-screen-sm">
                     <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full sm:w-64">
-                        <img class="max-w-screen-sm w-full sm:h-full object-cover" src="/misc/article.png" alt="course" loading="lazy" />
+                        <img class="max-w-screen-sm w-full sm:h-full object-cover" :src="articles[0].image" alt="course" loading="lazy" />
                         <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2" v-if="!!articles[0].category[0]">
                             {{ articles[0].category[0].name }}
                         </span>
@@ -75,7 +75,7 @@
                     :title="articles[1].title"
                 >
                     <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full h-48">
-                        <img class="max-w-screen-sm w-full object-cover" src="/misc/course.png" alt="course" loading="lazy" />
+                        <img class="max-w-screen-sm w-full object-cover" :src="articles[1].image" alt="course" loading="lazy" />
                         <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2" v-if="!!articles[1].category[0]">
                             {{ articles[1].category[0].name }}
                         </span>
@@ -107,7 +107,7 @@
                     :title="articles[2].title"
                 >
                     <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full h-48">
-                        <img class="max-w-screen-sm w-full object-cover" src="/misc/course.png" alt="course" loading="lazy" />
+                        <img class="max-w-screen-sm w-full object-cover" :src="articles[2].image" alt="course" loading="lazy" />
                         <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2" v-if="!!articles[2].category[0]">
                             {{ articles[2].category[0].name }}
                         </span>
@@ -141,7 +141,7 @@
                     :title="articles[3].title"
                 >
                     <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full h-48">
-                        <img class="max-w-screen-sm w-full object-cover" src="/misc/course.png" alt="course" loading="lazy" />
+                        <img class="max-w-screen-sm w-full object-cover" :src="articles[3].image" alt="course" loading="lazy" />
                         <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2" v-if="!!articles[3].category[0]">
                             {{ articles[3].category[0].name }}
                         </span>
@@ -173,7 +173,7 @@
                     :title="articles[4].title"
                 >
                     <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full h-48">
-                        <img class="max-w-screen-sm w-full object-cover" src="/misc/course.png" alt="course" loading="lazy" />
+                        <img class="max-w-screen-sm w-full object-cover" :src="articles[4].image" alt="course" loading="lazy" />
                         <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2" v-if="!!articles[4].category[0]">
                             {{ articles[4].category[0].name }}
                         </span>
@@ -201,7 +201,7 @@
                 </nuxt-link>
                 <div class="article_card blur shadow-xl flex flex-col sm:flex-row gap-4 p-4 rounded-2xl w-full sm:max-w-screen-sm">
                     <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full sm:w-64">
-                        <img class="max-w-screen-sm w-full sm:h-full object-cover" src="/misc/article.png" alt="course" loading="lazy" />
+                        <img class="max-w-screen-sm w-full sm:h-full object-cover" :src="articles[5].image" alt="course" loading="lazy" />
                         <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2" v-if="!!articles[5].category[0]">
                             {{ articles[5].category[0].name }}
                         </span>
