@@ -125,8 +125,9 @@ export default {
 
         await this.$store.dispatch("user/getUserInfo", { headers }).catch((e) => {});
     },
-    mounted() {
-        this.$store.dispatch("user/refresh");
+    async mounted() {
+        // await this.$store.dispatch("user/getUserInfo").catch((e) => {});
+        await this.$store.dispatch("user/refresh");
     },
     computed: {
         user() {

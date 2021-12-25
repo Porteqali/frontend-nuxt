@@ -87,7 +87,7 @@ footer {
             </button>
             <footer class="blur flex flex-col items-center gap-4 max-w-screen-4xl shadow-xl w-full rounded-3xl mx-auto mb-4 p-4 lg:p-8 z-10">
                 <div class="flex flex-wrap items-center justify-evenly gap-16 w-full">
-                    <div class="flex flex-col gap-4">
+                    <div class="flex flex-col gap-4 p-6 lg:p-0">
                         <h4 class="font-bold text-2xl">همراه پرتقال</h4>
                         <ul class="flex flex-wrap flex-row lg:flex-col gap-6 lg:gap-2">
                             <li><nuxt-link title="وبلاگ پرتقال" to="/blog">وبلاگ پرتقال</nuxt-link></li>
@@ -190,7 +190,7 @@ export default {
         let headers = {};
         if (process.server) headers = this.$nuxt.context.req.headers;
 
-        await Promise.all([this.getContactInfo({ headers })]);
+        // await Promise.all([this.getContactInfo({ headers })]);
     },
     mounted() {
         if (process.client && window) {

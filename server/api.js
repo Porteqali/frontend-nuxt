@@ -47,6 +47,7 @@ app.all("/api/*", multer().fields([{ name: "files" }]), async (req, res) => {
             method: req.method,
             url: `${process.env.API_BASE_URL}${req.url}`.replace("/api/", "/"),
             data: data,
+            timeout: 30 * 1000,
             // headers: { ...req.headers, "content-type": "application/json", "x-forwarded-for": ip, server_secret: process.env.SERVER_SECRET, tt: Date.now() },
             headers: { ...req.headers, ...formdataHeaders, "x-forwarded-for": ip, server_secret: process.env.SERVER_SECRET, tt: Date.now() },
             // maxContentLength: Infinity,

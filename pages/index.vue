@@ -28,14 +28,14 @@
                     <span class="kalameh_bold font-bold">همه جا،</span>
                     <span class="kalameh_bold font-bold">آموزش ببینید</span>
                 </h1>
-                <div class="search_box flex items-center gap-4 p-2 rounded-xl shadow-lg">
+                <form class="search_box flex items-center gap-4 p-2 rounded-xl shadow-lg" @submit="goToSearchPage($event)">
                     <img class="flex-shrink-0 mr-2 hidden md:inline-block" src="/icons/Search.black.svg" width="24" height="24" alt="Search" />
-                    <input class="flex-grow outline-none bg-transparent w-64" type="text" placeholder="دوست داری چی یاد بگیری؟" />
-                    <button class="orange_gradient_v flex-shrink-0 p-2 md:px-8 rounded-xl shadow-lg flex items-center justify-center">
+                    <input class="flex-grow outline-none bg-transparent w-64" v-model="search" type="text" placeholder="دوست داری چی یاد بگیری؟" />
+                    <button type="submit" class="orange_gradient_v flex-shrink-0 p-2 md:px-8 rounded-xl shadow-lg flex items-center justify-center">
                         <span class="hidden md:inline-block">جستجو</span>
                         <img class="flex-shrink-0 inline-block md:hidden" src="/icons/Search.svg" width="24" height="24" alt="Search" />
                     </button>
-                </div>
+                </form>
             </div>
             <!-- <img ref="boyImg" src="/pages/home/Video Call (Man).webp" width="768px" alt="porteqali-online-learning-platform" /> -->
             <img class="boyImg" :src="topImageList[topImageIndex]" width="768px" height="768" alt="porteqali-online-learning-platform" @click="changeBoy()" />
@@ -114,6 +114,8 @@ export default {
     },
     data() {
         return {
+            search: "",
+
             topImageIndex: 0,
             topImageList: ["/pages/home/1.png", "/pages/home/3.png"],
         };
@@ -121,6 +123,11 @@ export default {
     methods: {
         changeBoy() {
             this.topImageIndex = this.topImageIndex ? 0 : 1;
+        },
+
+        goToSearchPage(e) {
+            e.preventDefault();
+            this.$router.push(`/search/${this.search}`);
         },
     },
 };

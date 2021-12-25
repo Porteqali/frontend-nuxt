@@ -24,7 +24,7 @@ const actions = {
         }
 
         await axios
-            .get(url, { headers })
+            .get(url, { headers, timeout: 30 * 1000 })
             .then((results) => {
                 commit("setInfo", results.data);
             })
@@ -36,14 +36,16 @@ const actions = {
     async refresh({ commit, dispatch }, data = {}) {
         const refreshRate = 60 * 10; // 10 minutes
         await axios
-            .post(`/auth/refresh`)
+            .post(`/auth/refresh`, null, { timeout: 30 * 1000 })
             .then(async () => {
                 await dispatch("getUserInfo").catch((e) => {});
                 let interval = setInterval(async () => {
                     await axios.post(`/auth/refresh`).catch((error) => clearInterval(interval));
                 }, refreshRate * 1000);
             })
-            .catch((e) => {});
+            .catch((e) => {
+                console.log(e);
+            });
     },
 
     logout({ commit }, data = {}) {
