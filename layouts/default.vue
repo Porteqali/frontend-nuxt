@@ -51,14 +51,6 @@ footer {
     margin-left: 10%;
     z-index: 5;
 }
-
-.newsletter_box {
-    background-color: var(--search-box-bg-color);
-    color: var(--search-box-color);
-}
-.newsletter_box button {
-    color: var(--search-box-button-color);
-}
 </style>
 
 <template>
@@ -109,21 +101,13 @@ footer {
                         <div class="flex flex-col gap-2">
                             <b class="text-xl">مشاوره تلفنی</b>
                             <div class="flex items-center gap-1">
-                                <a class="text-xl lg:text-2xl" :href="`tel:${contact_info.tel}`">{{contact_info.tel}}</a>
+                                <a class="text-xl lg:text-2xl" :href="`tel:${contact_info.tel}`">{{ contact_info.tel }}</a>
                                 <img src="/icons/Calling.orange.line.svg" alt="Calling" width="24" height="24" />
                             </div>
                         </div>
                     </div>
                     <div class="flex flex-col gap-6">
-                        <div class="flex flex-col gap-2">
-                            <h4 class="font-bold text-2xl">عضویت در خبرنامه</h4>
-                            <div class="newsletter_box flex items-center gap-4 p-2 rounded-xl shadow-lg">
-                                <input class="flex-grow outline-none bg-transparent w-40 md:w-60" type="text" placeholder="ایمیل خود را وارد کنید" />
-                                <button class="orange_gradient_v flex-shrink-0 p-2 md:px-8 rounded-xl shadow-lg flex items-center justify-center">
-                                    <span>ثبت نام</span>
-                                </button>
-                            </div>
-                        </div>
+                        <Newsletter />
                         <div class="flex flex-wrap gap-4">
                             <span class="bg-white shadow-xl p-2 rounded-xl">
                                 <a target="_blank" rel="nofollow" href="https://trustseal.enamad.ir/?id=188225&Code=U2OkUKhLJGtzDqjP0Iq1">
@@ -151,8 +135,9 @@ footer {
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 import Menu from "~/components/header/Menu.vue";
+import Newsletter from "~/components/footer/Newsletter.vue";
 
 export default {
     name: "Default.layout",
@@ -162,8 +147,9 @@ export default {
     },
     props: ["error"],
     components: {
-        Menu,
-    },
+    Menu,
+    Newsletter
+},
     data() {
         return {
             topBackground: {
