@@ -6,7 +6,7 @@
 </style>
 
 <template>
-    <section class="relative flex flex-col gap-8 w-full" id="testimonials">
+    <section class="relative flex flex-col gap-8 w-full" id="testimonials" v-if="!testimonialsLoading && testimonials.length > 0">
         <div class="flex flex-wrap justify-between gap-8 w-full">
             <h2 class="font-bold text-4xl">نظرات دانشجویان پرتقال</h2>
         </div>
@@ -19,14 +19,19 @@
                 >
                     <img class="mr-auto" src="/misc/comma.svg" alt="comma" width="34" />
                     <p class="">
-                        اطلاعات رو بهتون میده،توی اینستا میخونم، اونجا قبلا خوندم، از بیس، یعنی من هرچی توی یوتیوب میبینم، هرچی اطلاعات دوره iu و xu که وااقعا کامله
-                        به نظرم
+                        {{ testimonial.comment }}
                     </p>
                     <div class="flex items-center gap-3">
-                        <img class="border-2 border-solid border-orange-500 rounded-full" src="/misc/Figma.svg" alt="Figma" width="78" height="78" />
+                        <img
+                            class="border-2 border-solid border-orange-500 rounded-full"
+                            :src="testimonial.image"
+                            :alt="testimonial.fullname"
+                            width="78"
+                            height="78"
+                        />
                         <div class="flex flex-col gap-2">
-                            <b class="text-xl">محمد گودرزی</b>
-                            <span class="text-pink-300">برنامه نویس</span>
+                            <b class="text-xl">{{ testimonial.fullname }}</b>
+                            <span class="text-pink-300">{{ testimonial.title }}</span>
                         </div>
                     </div>
                 </li>
@@ -36,10 +41,12 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
     name: "TestimonialSection",
     data() {
         return {
+            testimonialsLoading: false,
             testimonials: ["", "", "", "", "", "", ""],
             testimonialsSwiperOptions: {
                 autoplay: false,
@@ -50,6 +57,33 @@ export default {
                 freeMode: true,
             },
         };
+    },
+    async fetch() {
+        let headers = {};
+        if (process.server) headers = this.$nuxt.context.req.headers;
+
+        await Promise.all([this.getTestimonials({ headers })]);
+    },
+    methods: {
+        async getTestimonials(data = {}) {
+            if (this.testimonialsLoading) return;
+            this.testimonialsLoading = true;
+
+            let url = `/api/testimonials?showFor=user`;
+            let headers = {};
+            if (process.server) {
+                url = `${process.env.BASE_URL}${url}`;
+                headers = data.headers ? data.headers : {};
+            }
+
+            await axios
+                .get(url, { headers })
+                .then((results) => {
+                    this.testimonials = results.data.records;
+                })
+                .catch((e) => {})
+                .finally(() => (this.testimonialsLoading = false));
+        },
     },
 };
 </script>

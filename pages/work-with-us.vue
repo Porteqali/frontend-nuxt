@@ -128,16 +128,16 @@ textarea {
                 </form>
                 <div class="flex flex-col gap-4">
                     <h3 class="text-2xl text-center font-bold">نظر مدرسین پرتقال</h3>
-                    <div class="card w-full max-w-md rounded-3xl p-8">
-                        <div v-swiper="commentsSwiperOptions" class="w-full max-w-md select-none overflow-hidden">
-                            <ul class="swiper-wrapper flex items-start">
-                                <li class="swiper-slide flex flex-wrap items-center gap-4 p-4 max-w-sm w-full" v-for="(comment, i) in comments" :key="i">
-                                    <img class="w-28 h-28 rounded-full" :src="comment.image" :alt="`${comment.name} ${comment.family}`" />
+                    <div class="card w-full max-w-md rounded-3xl p-8" v-if="!testimonialsLoading && testimonials.length > 0">
+                        <div v-swiper="testimonialsSwiperOptions" class="w-full max-w-md select-none overflow-hidden">
+                            <ul class="swiper-wrapper flex w-max">
+                                <li class="swiper-slide flex flex-wrap items-center gap-4 p-4 max-w-sm w-full" v-for="(testimonial, i) in testimonials" :key="i">
+                                    <img class="w-28 h-28 rounded-full" :src="testimonial.image" :alt="testimonial.fullname" />
                                     <div class="flex flex-col items-start gap-2">
-                                        <b class="font-bold text-2xl">{{ `${comment.name} ${comment.family}` }}</b>
-                                        <span>{{ comment.title }}</span>
+                                        <b class="font-bold text-2xl">{{ testimonial.fullname }}</b>
+                                        <span>{{ testimonial.title }}</span>
                                     </div>
-                                    <p class="max-w-md my-8">{{ comment.text }}</p>
+                                    <p class="max-w-md my-8">{{ testimonial.comment }}</p>
                                 </li>
                             </ul>
                             <div class="swiper-pagination swiper-pagination-bullets"></div>
@@ -175,46 +175,24 @@ export default {
             sending: false,
             sent: false,
 
-            comments: [
-                {
-                    image: "/misc/Figma.svg",
-                    name: "سید احمد",
-                    family: "عباسی",
-                    title: "مدرس دوره تجربه کاربری",
-                    text: "توجه کنید که سابقه تدریس ویدئویی و ضبط فیلم بسیار مهم است، حتما در صورتی که تجربه ضبط آموزش و تجهیزات آن را دارید با ما در ارتباط باشید",
-                },
-                {
-                    image: "/misc/Figma.svg",
-                    name: "سید احمد",
-                    family: "عباسی",
-                    title: "مدرس دوره تجربه کاربری",
-                    text: "توجه کنید که سابقه تدریس ویدئویی و ضبط فیلم بسیار مهم است، حتما در صورتی که تجربه ضبط آموزش و تجهیزات آن را دارید با ما در ارتباط باشید",
-                },
-                {
-                    image: "/misc/Figma.svg",
-                    name: "سید احمد",
-                    family: "عباسی",
-                    title: "مدرس دوره تجربه کاربری",
-                    text: "توجه کنید که سابقه تدریس ویدئویی و ضبط فیلم بسیار مهم است، حتما در صورتی که تجربه ضبط آموزش و تجهیزات آن را دارید با ما در ارتباط باشید",
-                },
-                {
-                    image: "/misc/Figma.svg",
-                    name: "سید احمد",
-                    family: "عباسی",
-                    title: "مدرس دوره تجربه کاربری",
-                    text: "توجه کنید که سابقه تدریس ویدئویی و ضبط فیلم بسیار مهم است، حتما در صورتی که تجربه ضبط آموزش و تجهیزات آن را دارید با ما در ارتباط باشید",
-                },
-            ],
-            commentsSwiperOptions: {
+            testimonialsLoading: "",
+            testimonials: ["", "", "", ""],
+            testimonialsSwiperOptions: {
                 autoplay: 3000,
                 slidesPerView: 1,
                 initialSlide: 0,
                 spaceBetween: 32,
                 loop: false,
                 freeMode: false,
-                pagination: '.swiper-pagination',
+                pagination: ".swiper-pagination",
             },
         };
+    },
+    async fetch() {
+        let headers = {};
+        if (process.server) headers = this.$nuxt.context.req.headers;
+
+        await Promise.all([this.getTestimonials({ headers })]);
     },
     methods: {
         async send(e) {
@@ -246,6 +224,26 @@ export default {
                 .finally(() => {
                     this.sending = false;
                 });
+        },
+
+         async getTestimonials(data = {}) {
+            if (this.testimonialsLoading) return;
+            this.testimonialsLoading = true;
+
+            let url = `/api/testimonials?showFor=teacher`;
+            let headers = {};
+            if (process.server) {
+                url = `${process.env.BASE_URL}${url}`;
+                headers = data.headers ? data.headers : {};
+            }
+
+            await axios
+                .get(url, { headers })
+                .then((results) => {
+                    this.testimonials = results.data.records;
+                })
+                .catch((e) => {})
+                .finally(() => (this.testimonialsLoading = false));
         },
     },
 };
