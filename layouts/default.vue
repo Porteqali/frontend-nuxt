@@ -1,5 +1,8 @@
 <style>
 body {
+    /* overflow: hidden;
+    height: 100vh; */
+
     margin: 0 auto;
     width: 100vw;
     overflow-x: hidden;
@@ -11,13 +14,17 @@ body {
 }
 
 .nuxt_main {
+    /* height: 100vh;
+    overflow-x: hidden; */
+
+    /* overflow: hidden; */
+
     /* relative flex flex-col items-center justify-start overflow-x-hidden w-full */
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    overflow: hidden;
     width: 100vw;
 }
 
@@ -73,7 +80,7 @@ footer {
 
         <Nuxt class="z-10" nuxt-child-key="default" />
 
-        <div class="footer_container w-full mt-32">
+        <div class="footer_container relative w-full mt-32">
             <button class="go_up_btn orange_gradient_v relative flex items-center justify-center rounded-xl p-6 -mb-8 mr-auto" @click="scrollUp()">
                 <img src="/icons/GoUp.svg" alt="GoUp" width="16" height="16" />
             </button>
@@ -128,11 +135,14 @@ footer {
                     <pre wrap="true">Porteqali.com All Rights Reserved. Copyright {{ new Date(Date.now()).getFullYear() }} ©</pre>
                 </small>
             </footer>
+            <img class="footer_bg absolute opacity-75" src="/backgrounds/Background.footer2.png" alt="Background.footer" />
         </div>
 
-        <img class="footer_bg absolute opacity-75" src="/backgrounds/Background.footer2.png" alt="Background.footer" />
+        <!-- <img class="footer_bg absolute opacity-75" src="/backgrounds/Background.footer2.png" alt="Background.footer" /> -->
     </div>
 </template>
+
+<script type="text/javascript"></script>
 
 <script>
 import axios from "axios";
@@ -141,15 +151,17 @@ import Newsletter from "~/components/footer/Newsletter.vue";
 
 export default {
     name: "Default.layout",
-    head: {
-        title: "گروه آموزشی پرتقال",
-        meta: [{ hid: "description", name: "description", content: "گروه آموزشی پرتقال" }],
+    head() {
+        return {
+            title: "گروه آموزشی پرتقال",
+            meta: [{ hid: "description", name: "description", content: "گروه آموزشی پرتقال" }],
+        };
     },
     props: ["error"],
     components: {
-    Menu,
-    Newsletter
-},
+        Menu,
+        Newsletter,
+    },
     data() {
         return {
             topBackground: {
@@ -176,12 +188,14 @@ export default {
         let headers = {};
         if (process.server) headers = this.$nuxt.context.req.headers;
 
-        // await Promise.all([this.getContactInfo({ headers })]);
+        await Promise.all([this.getContactInfo({ headers })]);
     },
     mounted() {
         if (process.client && window) {
             window.history.scrollRestoration = "auto";
         }
+
+        this.raychatInit();
     },
     methods: {
         scrollUp() {
@@ -200,6 +214,27 @@ export default {
                 .get(url, { headers })
                 .then((results) => (this.contact_info = results.data))
                 .catch((e) => {});
+        },
+
+        raychatInit() {
+            if (typeof window !== "undefined") {
+                !(function () {
+                    function t() {
+                        var t = document.createElement("script");
+                        (t.type = "text/javascript"),
+                            (t.async = !0),
+                            localStorage.getItem("rayToken")
+                                ? (t.src = "https://app.raychat.io/scripts/js/" + o + "?rid=" + localStorage.getItem("rayToken") + "&href=" + window.location.href)
+                                : (t.src = "https://app.raychat.io/scripts/js/" + o + "?href=" + window.location.href);
+                        var e = document.getElementsByTagName("script")[0];
+                        e.parentNode.insertBefore(t, e);
+                    }
+                    var e = document,
+                        a = window,
+                        o = "87076991-6e3c-4d73-a795-ce9cab0a21b2";
+                    "complete" == e.readyState ? t() : a.attachEvent ? a.attachEvent("onload", t) : a.addEventListener("load", t, !1);
+                })();
+            }
         },
     },
 };

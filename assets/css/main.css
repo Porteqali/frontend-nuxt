@@ -35,7 +35,7 @@
 }
 body{
     /* text-shadow: 0px 1px 3px #00000044; */
-    transform: translateZ(0);
+    /* transform: translateZ(0); */
 }
 
 .kalameh { font-family: "KalamehWebRegular" !important; }
@@ -145,3 +145,8 @@ body{
 .video-js .vjs-big-play-button:hover {
     background-color: transparent;
 }
+
+.raychat_main_button.right{ right: 1rem !important; }
+.raychat_main_button.left{ left: 1rem !important; }
+.raychat_main_button.top{ top: 1rem !important; }
+.raychat_main_button.bottom{ bottom: 1rem !important; }

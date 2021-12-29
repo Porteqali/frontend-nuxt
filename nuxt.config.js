@@ -69,7 +69,7 @@ export default {
             dir: "rtl",
         },
         icon: {
-            source:"~static/icon.png",
+            source: "~static/icon.png",
         },
         meta: {
             author: "porteqali",
