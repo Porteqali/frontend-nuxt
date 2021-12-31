@@ -96,17 +96,19 @@
         </div>
         <ul class="courses_list grid gap-10 w-full" v-if="!coursesLoading">
             <li class="gray_gradient blur course_card shadow-lg flex flex-col gap-4 p-4 rounded-3xl max-w-md w-full mx-auto" v-for="(course, i) in courses" :key="i">
-                <div class="relative overflow-hidden rounded-xl shadow-lg w-full h-72">
+                <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="relative overflow-hidden rounded-xl shadow-lg w-full h-72">
                     <img class="absolute inset-0 object-cover" :src="course.image || `/misc/course.png`" alt="course" draggable="false" />
                     <img class="absolute top-2 right-2" :src="course.groups[0].icon" width="32" height="32" alt="Figma" />
                     <span class="course_tag flex items-center justify-center p-4 w-auto h-16 rounded-xl absolute top-2 left-2">جدید</span>
-                </div>
+                </nuxt-link>
                 <div class="flex flex-col gap-4">
-                    <h3 class="font-bold text-xl overflow-hidden overflow-ellipsis whitespace-nowrap">{{ course.name }}</h3>
-                    <div class="flex items-center gap-2">
+                    <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="w-full">
+                        <h3 class="font-bold text-xl overflow-hidden overflow-ellipsis whitespace-nowrap">{{ course.name }}</h3>
+                    </nuxt-link>
+                    <nuxt-link :to="`/teacher/${course.teacher[0]._id}`" class="flex items-center gap-2">
                         <img :src="course.teacher[0].image" alt="Figma" width="40" height="40" />
                         <span>{{ `${course.teacher[0].name} ${course.teacher[0].family}` }}</span>
-                    </div>
+                    </nuxt-link>
                     <div class="flex flex-wrap justify-between gap-4">
                         <span class="flex items-end gap-1">
                             <img src="/icons/TimeCircle.line.svg" alt="TimeCircle" width="20" height="20" />
@@ -121,14 +123,17 @@
                             <small>{{ course.score.toFixed(1) }} از 8 امتیاز</small>
                         </span>
                     </div>
-                    <button class="orange_gradient_h flex items-center justify-center gap-4 py-4 px-8 rounded-xl">
+                    <nuxt-link
+                        :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`"
+                        class="orange_gradient_h flex items-center justify-center gap-4 py-4 px-8 rounded-xl"
+                    >
                         <span v-if="course.price">
                             <b class="text-3xl">{{ new Intl.NumberFormat("fa").format(course.price) }}</b>
                             تومان
                         </span>
                         <span class="text-xl" v-else>رایگان</span>
                         <img src="/icons/Buy.svg" alt="Buy" width="24" height="24" />
-                    </button>
+                    </nuxt-link>
                 </div>
             </li>
         </ul>

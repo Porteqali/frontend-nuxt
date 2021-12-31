@@ -106,7 +106,7 @@ ul li:hover {
                     </div>
                     <ul class="flex flex-col w-full max-h-96 overflow-auto overflow-x-hidden">
                         <li class="flex w-full" v-for="(course, i) in searchResults" :key="i">
-                            <nuxt-link to="#" class="flex items-center justify-between gap-2 p-3 w-full">
+                            <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="flex items-center justify-between gap-2 p-3 w-full">
                                 <div class="flex items-center gap-2">
                                     <img :src="course.groups[0].icon" width="28" height="28" :alt="course.groups[0].name" />
                                     <div class="flex flex-col gap-2">
@@ -208,7 +208,7 @@ export default {
             await axios
                 .get(encodeURI(url), { headers })
                 .then((results) => {
-                    if(results.data.records.length > 4) results.data.records.length = 4;
+                    if (results.data.records.length > 4) results.data.records.length = 4;
                     this.searchResults = results.data.records;
                 })
                 .catch((e) => {})

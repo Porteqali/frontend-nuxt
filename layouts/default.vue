@@ -1,8 +1,5 @@
 <style>
 body {
-    /* overflow: hidden;
-    height: 100vh; */
-
     margin: 0 auto;
     width: 100vw;
     overflow-x: hidden;
@@ -14,18 +11,13 @@ body {
 }
 
 .nuxt_main {
-    /* height: 100vh;
-    overflow-x: hidden; */
-
-    /* overflow: hidden; */
-
-    /* relative flex flex-col items-center justify-start overflow-x-hidden w-full */
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     width: 100vw;
+    overflow: hidden;
 }
 
 header {
@@ -142,8 +134,6 @@ footer {
     </div>
 </template>
 
-<script type="text/javascript"></script>
-
 <script>
 import axios from "axios";
 import Menu from "~/components/header/Menu.vue";
@@ -195,7 +185,8 @@ export default {
             window.history.scrollRestoration = "auto";
         }
 
-        this.raychatInit();
+        // TODO : uncomment this
+        // this.raychatInit();
     },
     methods: {
         scrollUp() {
