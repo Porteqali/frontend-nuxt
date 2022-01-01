@@ -1,7 +1,7 @@
 <style scoped></style>
 
 <template>
-    <div class="flex flex-col items-start md:flex-row gap-4 md:gap-8">
+    <div class="flex flex-col items-start md:flex-row gap-4 md:gap-8 w-full">
         <img
             class="rounded-full shadow-xl w-16 md:w-36 h-16 md:h-36"
             v-if="comment.author[0]"

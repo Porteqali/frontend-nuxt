@@ -75,7 +75,10 @@
                         v-for="(course, i) in mostViewedCourses"
                         :key="i"
                     >
-                        <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full sm:w-64">
+                        <nuxt-link
+                            :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`"
+                            class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full sm:w-64"
+                        >
                             <img
                                 class="max-w-screen-sm w-full sm:h-full object-cover"
                                 :src="course.image ? course.image : `/misc/article.png`"
@@ -95,7 +98,7 @@
                                 <h3 class="text-2xl">{{ course.name }}</h3>
                                 <span class="text-lightblue-300">{{ `${course.totalTime} آموزش - ${course.topicsTotal} ویدیو` }}</span>
                             </div>
-                        </div>
+                        </nuxt-link>
                         <div class="flex flex-col gap-6 pt-2 w-full">
                             <ul class="topics flex flex-col justify-between items-stretch gap-7 w-full">
                                 <li class="flex items-start gap-4 w-full" v-for="(topic, i) in course.topics" :key="i">
@@ -186,18 +189,22 @@
                         <div class="flex flex-col gap-6 pt-2 w-full">
                             <span class="font-light opacity-60">{{ teacher.courseCount }} دوره آموزشی</span>
                             <ul class="topics flex flex-col justify-between items-stretch gap-7 w-full">
-                                <li class="flex items-start gap-4 w-full" v-for="(course, i) in teacher.courses" :key="i">
-                                    <span class="flex items-center justify-center flex-shrink-0 w-8 h-8 rounded-full">
-                                        <img class="w-full h-full object-cover" :src="course.groups[0].icon || `/misc/Figma.svg`" :alt="course.groups[0].name" />
-                                    </span>
-                                    <div class="flex flex-wrap items-start justify-between gap-2 w-full">
-                                        <div class="flex flex-col gap-1 flex-grow">
-                                            <strong class="overflow-hidden overflow-ellipsis whitespace-nowrap" style="max-width: 210px">{{ course.name }}</strong>
-                                            <span class="relative w-full h-1 bg-indigo-100"><b class="absolute w-8/12 h-1 bg-indigo-800"></b></span>
-                                            <p>{{ course.description.length > 60 ? course.description.substr(0, 60) + "..." : course.description }}</p>
+                                <li class="w-full" v-for="(course, i) in teacher.courses" :key="i">
+                                    <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="flex items-start gap-4 w-full">
+                                        <span class="flex items-center justify-center flex-shrink-0 w-8 h-8 rounded-full">
+                                            <img class="w-full h-full object-cover" :src="course.groups[0].icon || `/misc/Figma.svg`" :alt="course.groups[0].name" />
+                                        </span>
+                                        <div class="flex flex-wrap items-start justify-between gap-2 w-full">
+                                            <div class="flex flex-col gap-1 flex-grow">
+                                                <strong class="overflow-hidden overflow-ellipsis whitespace-nowrap" style="max-width: 210px">
+                                                    {{ course.name }}
+                                                </strong>
+                                                <span class="relative w-full h-1 bg-indigo-100"><b class="absolute w-8/12 h-1 bg-indigo-800"></b></span>
+                                                <p>{{ course.description.length > 60 ? course.description.substr(0, 60) + "..." : course.description }}</p>
+                                            </div>
+                                            <small class="bg-indigo-100 text-indigo-800 py-1 p-2 rounded-md">{{ course.totalTime }}</small>
                                         </div>
-                                        <small class="bg-indigo-100 text-indigo-800 py-1 p-2 rounded-md">{{ course.totalTime }}</small>
-                                    </div>
+                                    </nuxt-link>
                                 </li>
                             </ul>
                         </div>
