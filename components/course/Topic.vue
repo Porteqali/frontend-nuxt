@@ -47,14 +47,14 @@
 <template>
     <div class="flex items-center gap-4">
         <span
-            class="action_btn flex items-center justify-center w-10 h-10 p-3 rounded-full cursor-pointer"
+            class="action_btn flex items-center justify-center flex-shrink-0 w-10 h-10 p-3 rounded-full cursor-pointer"
             :class="{ first, last, playable: !!data.canPlay, unplayable: !data.canPlay }"
             @click="selectTopic(data)"
         >
             <img src="/icons/Play.black.line.svg" width="16" height="16" alt="Play" v-if="!!data.canPlay" />
             <img src="/icons/Lock.black.svg" width="16" height="16" alt="Lock" v-else />
         </span>
-        <div class="flex items-center gap-2 border-b border-solid border-gray-200 p-4 pb-6 w-full">
+        <div class="flex items-center flex-wrap md:flex-nowrap gap-2 border-b border-solid border-gray-200 p-4 pb-6 w-full">
             <h4 class="flex-grow cursor-pointer" @click="selectTopic(data)">{{ data.name }}</h4>
             <small class="bg-indigo-100 text-indigo-800 py-1 p-2 rounded-md flex-shrink-0">
                 {{ `${data.time.hours}:${data.time.minutes}:${data.time.seconds}` }}

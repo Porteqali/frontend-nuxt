@@ -77,7 +77,7 @@
                             </li>
                         </ul>
                         <hr class="border-b border-solid border-gray-300 border-opacity-30" />
-                        <div class="gray_gradient flex items-center rounded-2xl gap-4 p-4">
+                        <div class="gray_gradient flex items-center rounded-2xl gap-4 p-4" v-if="!purchased">
                             <b class="orange_gradient_h discount_box w-16 h-16 rounded-2xl text-2xl flex-shrink-0" v-if="course.price > 0 && !!discount">
                                 {{ discount }}%
                             </b>
@@ -89,7 +89,10 @@
                                 <strong class="font-normal text-3xl w-full text-center" v-else>رایگان</strong>
                             </span>
                         </div>
-                        <button class="buy_btn flex items-center justify-center gap-2 text-xl p-4 -m-6 mt-0 shadow-lg bg-bluegray-100 text-black">
+                        <div v-else>
+                            <Score :courseId="course._id" />
+                        </div>
+                        <button class="buy_btn flex items-center justify-center gap-2 text-xl p-4 -m-6 mt-0 shadow-lg bg-bluegray-100 text-black" v-if="!purchased">
                             <img src="/icons/Buy.black.svg" alt="Buy" />
                             <span v-if="course.price > 0">افزودن به سبد خرید</span>
                             <span v-else>ثبت نام در دوره</span>
@@ -261,6 +264,7 @@ import { duration } from "jalali-moment";
 import VideoPlayer from "~/components/VideoPlayer.vue";
 import CommentSection from "~/components/course/Comment.section.vue";
 import Topic from "~/components/course/Topic.vue";
+import Score from "~/components/course/Score.vue";
 
 export default {
     head() {
@@ -273,6 +277,7 @@ export default {
         CommentSection,
         VideoPlayer,
         Topic,
+        Score,
     },
     data() {
         return {
@@ -288,11 +293,12 @@ export default {
                 freeMode: true,
             },
 
+            discount: 20,
             numberOfVotes: 0,
             topVotePercentage: 0,
             totalVotePercentage: 0,
 
-            discount: 20,
+            purchased: false,
 
             teacherDescHeightOpen: false,
             tabPage: "desc",
@@ -312,6 +318,8 @@ export default {
         if (to.params.id) this.$route.params.id = to.params.id;
         if (to.params.name) this.$route.params.name = to.params.name;
 
+        this.selectedVideo = { src: "", type: "" };
+
         await this.getCourse({}, to);
         if (typeof window !== "undefined") window.scrollTo({ top: 0 });
         next();
@@ -320,12 +328,14 @@ export default {
         async getCourse(data = {}, route) {
             if (this.loadingCourse) return;
             this.loadingCourse = true;
+
             let url = `/api/course/${route.params.id}`;
             let headers = {};
             if (process.server) {
                 url = `${process.env.BASE_URL}${url}`;
                 headers = data.headers ? data.headers : {};
             }
+
             await axios
                 .get(url, { headers })
                 .then((results) => {
@@ -334,12 +344,10 @@ export default {
                     let seconds = 0;
                     results.data.course.topics.forEach((topic) => {
                         seconds += parseInt(topic.time.hours) * 3600 + parseInt(topic.time.minutes) * 60 + parseInt(topic.time.seconds);
-                    });
 
-                    // TODO
-                    // findout if user bougth the course or not
-                    // show scoring ui for users that bought the course
-                    // also make sure users that bouth the course csn comment
+                        // get first free course and load it into player
+                        if (topic.canPlay && this.selectedVideo.src == "") this.changeTopic(topic);
+                    });
 
                     this.course = {
                         ...results.data.course,
@@ -364,8 +372,7 @@ export default {
                     this.topVotePercentage = results.data.numberOfVotes <= 0 ? 0 : (results.data.numberOfTopVotes / results.data.numberOfVotes) * 100;
                     this.totalVotePercentage = results.data.course.buyCount <= 0 ? 0 : (results.data.numberOfVotes / results.data.course.buyCount) * 100;
 
-                    // TODO
-                    // get first free course and load it into player
+                    this.purchased = results.data.purchased;
                 })
                 .catch((e) => {})
                 .finally(() => (this.loadingCourse = false));

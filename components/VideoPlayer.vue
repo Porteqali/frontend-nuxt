@@ -1,6 +1,12 @@
 <style scoped>
 .video-js {
-    min-height: 32rem;
+    min-height: 20rem;
+}
+
+@media (min-width: 768px) {
+    .video-js {
+        min-height: 32rem;
+    }
 }
 </style>
 
@@ -33,8 +39,6 @@ export default {
             }
         },
     },
-    methods: {
-        
-    },
+    methods: {},
 };
 </script>
