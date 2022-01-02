@@ -237,7 +237,7 @@
                         :title="popularArticle.title"
                     >
                         <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full h-48">
-                            <img class="max-w-screen-sm w-full object-cover" src="/misc/course.png" alt="course" loading="lazy" />
+                            <img class="max-w-screen-sm w-full object-cover" :src="popularArticle.image" :alt="popularArticle.title" loading="lazy" />
                             <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2" v-if="!!popularArticle.category">
                                 {{ popularArticle.category.name }}
                             </span>

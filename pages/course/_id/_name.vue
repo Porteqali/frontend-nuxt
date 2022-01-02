@@ -130,7 +130,7 @@
                     </div>
                 </div>
                 <div class="flex flex-col gap-6 flex-grow">
-                    <VideoPlayer class="w-full" src="" type="" />
+                    <VideoPlayer class="w-full" :src="selectedVideo.src" :type="selectedVideo.type" />
                     <div class="flex flex-col bg-white rounded-3xl shadow-lg overflow-hidden w-full">
                         <ul class="tab_header flex w-full overflow-auto bg-gray-100">
                             <li
@@ -168,8 +168,8 @@
                             </div>
                             <div class="w-full p-6" name="topics" v-show="tabPage == 'topics'">
                                 <ul class="flex flex-col gap-4 p-2 px-4 rounded-2xl shadow-lg bg-gray-50">
-                                    <li class="w-full" v-for="(topic, i) in course.topics" :key="i">
-                                        <Topic :data="topic" />
+                                    <li class="relative w-full" v-for="(topic, i) in course.topics" :key="i">
+                                        <Topic :data="topic" :first="i == 0" :last="i == course.topics.length - 1" @selectTopic="changeTopic" />
                                     </li>
                                 </ul>
                             </div>
@@ -279,6 +279,14 @@ export default {
             loadingCourse: false,
             course: this.course || {},
             similarCourses: this.similarCourses || [],
+            coursesSwiperOptions: {
+                autoplay: false,
+                slidesPerView: "auto",
+                initialSlide: 0,
+                // spaceBetween: 46,
+                loop: false,
+                freeMode: true,
+            },
 
             numberOfVotes: 0,
             topVotePercentage: 0,
@@ -289,14 +297,7 @@ export default {
             teacherDescHeightOpen: false,
             tabPage: "desc",
 
-            coursesSwiperOptions: {
-                autoplay: false,
-                slidesPerView: "auto",
-                initialSlide: 0,
-                // spaceBetween: 46,
-                loop: false,
-                freeMode: true,
-            },
+            selectedVideo: { src: "", type: "" },
         };
     },
     async fetch() {
@@ -336,8 +337,9 @@ export default {
                     });
 
                     // TODO
-                    // proccess the topic to detemie if its playable or lock
-                    // also check if user can access to file in file-controller in bacl-end
+                    // findout if user bougth the course or not
+                    // show scoring ui for users that bought the course
+                    // also make sure users that bouth the course csn comment
 
                     this.course = {
                         ...results.data.course,
@@ -367,6 +369,12 @@ export default {
                 })
                 .catch((e) => {})
                 .finally(() => (this.loadingCourse = false));
+        },
+
+        changeTopic(topic) {
+            if (topic.canPlay) {
+                this.selectedVideo = { src: topic.file, type: "video/mp4" };
+            }
         },
     },
 };

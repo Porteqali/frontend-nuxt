@@ -7,8 +7,8 @@
 <template>
     <div class="video-js relative rounded-3xl overflow-hidden w-full">
         <div class="vjs-big-play-button absolute cursor-pointer" v-show="videoPaused"></div>
-        <video class="w-full h-full" controls @play="videoPaused = false" @pause="videoPaused = true" v-if="!loading">
-            <source :src="src" :type="type" />
+        <video ref="videoPlayer" class="w-full h-full" controls @play="videoPaused = false" @pause="videoPaused = true" v-if="!loading">
+            <source :src="src" :type="type || 'video/mp4'" />
         </video>
     </div>
 </template>
@@ -23,11 +23,18 @@ export default {
             videoPaused: true,
         };
     },
-    methods: {
-        playPause() {
-            if (this.$refs.videoPlayer.paused) this.$refs.videoPlayer.play();
-            else this.$refs.videoPlayer.pause();
+    watch: {
+        src(val) {
+            try {
+                this.$refs.videoPlayer.load();
+                this.$refs.videoPlayer.play();
+            } catch (e) {
+                console.log(e);
+            }
         },
+    },
+    methods: {
+        
     },
 };
 </script>
