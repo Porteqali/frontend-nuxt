@@ -55,12 +55,14 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
     name: "Score",
-    props: ["courseId"],
+    props: ["courseId", "userScore"],
     data() {
         return {
-            score: 0,
+            score: this.userScore || 0,
             submitting: false,
         };
     },
@@ -74,7 +76,14 @@ export default {
             if (this.submitting) return;
             this.submitting = true;
 
-            // TODO
+            await axios
+                .post(`/api/course/${this.courseId}/score`, { score: this.score })
+                .then((response) => {
+                    // update the old score
+                    this.$emit("update:score", response.data.newScore);
+                })
+                .catch((e) => (this.score = 0))
+                .finally(() => (this.submitting = false));
         },
     },
 };

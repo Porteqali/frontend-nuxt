@@ -90,7 +90,7 @@
                             </span>
                         </div>
                         <div v-else>
-                            <Score :courseId="course._id" />
+                            <Score :courseId="course._id" :userScore="userScore" @update:score="updateScore" />
                         </div>
                         <button class="buy_btn flex items-center justify-center gap-2 text-xl p-4 -m-6 mt-0 shadow-lg bg-bluegray-100 text-black" v-if="!purchased">
                             <img src="/icons/Buy.black.svg" alt="Buy" />
@@ -133,7 +133,7 @@
                     </div>
                 </div>
                 <div class="flex flex-col gap-6 flex-grow">
-                    <VideoPlayer class="w-full" :src="selectedVideo.src" :type="selectedVideo.type" />
+                    <VideoPlayer :src="selectedVideo.src" :type="selectedVideo.type" />
                     <div class="flex flex-col bg-white rounded-3xl shadow-lg overflow-hidden w-full">
                         <ul class="tab_header flex w-full overflow-auto bg-gray-100">
                             <li
@@ -297,6 +297,7 @@ export default {
             numberOfVotes: 0,
             topVotePercentage: 0,
             totalVotePercentage: 0,
+            userScore: 0,
 
             purchased: false,
 
@@ -371,6 +372,7 @@ export default {
                     this.numberOfVotes = results.data.numberOfVotes;
                     this.topVotePercentage = results.data.numberOfVotes <= 0 ? 0 : (results.data.numberOfTopVotes / results.data.numberOfVotes) * 100;
                     this.totalVotePercentage = results.data.course.buyCount <= 0 ? 0 : (results.data.numberOfVotes / results.data.course.buyCount) * 100;
+                    this.userScore = results.data.userScore;
 
                     this.purchased = results.data.purchased;
                 })
@@ -382,6 +384,12 @@ export default {
             if (topic.canPlay) {
                 this.selectedVideo = { src: topic.file, type: "video/mp4" };
             }
+        },
+
+        updateScore(newScore) {
+            try {
+                this.course.score = parseFloat(newScore);
+            } catch (e) {}
         },
     },
 };
