@@ -85,7 +85,12 @@
                                 :alt="course.name"
                                 draggable="false"
                             />
-                            <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 left-2">category</span>
+                            <span
+                                class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 left-2"
+                                v-if="course.discountInfo && course.discountInfo.tag != ''"
+                            >
+                                {{ course.discountInfo.tag }}
+                            </span>
                             <div class="absolute flex flex-col gap-2 top-2 right-2">
                                 <span class="w-10 h-10 rounded-full" :title="course.groups[0].name">
                                     <img class="w-full h-full object-cover" :src="course.groups[0].icon || `/misc/Figma.svg`" :alt="course.groups[0].name" />
@@ -259,7 +264,6 @@ export default {
                 .then((results) => {
                     results.data.length = 2;
                     this.mostViewedCourses = results.data.map((course) => {
-                        // TODO : categoryTag = discount percentage | free | new | nothing
                         let seconds = 0;
                         course.topics.forEach((topic) => {
                             seconds += parseInt(topic.time.hours) * 3600 + parseInt(topic.time.minutes) * 60 + parseInt(topic.time.seconds);

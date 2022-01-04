@@ -85,7 +85,9 @@
                                 <small class="line-through" v-if="course.price > 0 && !!discount">
                                     {{ new Intl.NumberFormat("fa").format(course.price) }} تومان
                                 </small>
-                                <strong class="font-normal text-3xl" v-if="course.price > 0">{{ new Intl.NumberFormat("fa").format(course.price) }} تومان</strong>
+                                <strong class="font-normal text-3xl" :class="{ 'text-center': !discount }" v-if="course.price > 0">
+                                    {{ new Intl.NumberFormat("fa").format(course.price) }} تومان
+                                </strong>
                                 <strong class="font-normal text-3xl w-full text-center" v-else>رایگان</strong>
                             </span>
                         </div>
@@ -94,8 +96,10 @@
                         </div>
                         <button class="buy_btn flex items-center justify-center gap-2 text-xl p-4 -m-6 mt-0 shadow-lg bg-bluegray-100 text-black" v-if="!purchased">
                             <img src="/icons/Buy.black.svg" alt="Buy" />
+                            <!-- TODO : move text into new component and handle addToCart and free register on there -->
                             <span v-if="course.price > 0">افزودن به سبد خرید</span>
                             <span v-else>ثبت نام در دوره</span>
+                            <!-- ---- -->
                         </button>
                     </div>
                     <div class="flex gap-4">
@@ -132,7 +136,7 @@
                         </nuxt-link>
                     </div>
                 </div>
-                <div class="flex flex-col gap-6 flex-grow">
+                <div class="flex flex-col gap-6 flex-grow w-full">
                     <VideoPlayer :src="selectedVideo.src" :type="selectedVideo.type" />
                     <div class="flex flex-col bg-white rounded-3xl shadow-lg overflow-hidden w-full">
                         <ul class="tab_header flex w-full overflow-auto bg-gray-100">
@@ -375,6 +379,7 @@ export default {
                     this.userScore = results.data.userScore;
 
                     this.purchased = results.data.purchased;
+                    this.discount = results.data.discountAndTag.discountAmount;
                 })
                 .catch((e) => {})
                 .finally(() => (this.loadingCourse = false));

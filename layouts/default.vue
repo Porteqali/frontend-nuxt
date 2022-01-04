@@ -129,8 +129,9 @@ footer {
             </footer>
             <img class="footer_bg absolute opacity-75" src="/backgrounds/Background.footer2.png" alt="Background.footer" />
         </div>
-
         <!-- <img class="footer_bg absolute opacity-75" src="/backgrounds/Background.footer2.png" alt="Background.footer" /> -->
+
+        <Toast />
     </div>
 </template>
 
@@ -138,6 +139,7 @@ footer {
 import axios from "axios";
 import Menu from "~/components/header/Menu.vue";
 import Newsletter from "~/components/footer/Newsletter.vue";
+import Toast from "~/components/Toast.vue";
 
 export default {
     name: "Default.layout",
@@ -151,6 +153,7 @@ export default {
     components: {
         Menu,
         Newsletter,
+        Toast,
     },
     data() {
         return {

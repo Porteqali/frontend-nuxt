@@ -12,7 +12,7 @@
 
 <template>
     <div class="video-js relative rounded-3xl overflow-hidden w-full h-auto">
-        <div class="vjs-big-play-button absolute cursor-pointer" v-show="videoPaused"></div>
+        <div class="vjs-big-play-button absolute cursor-pointer" v-show="videoPaused" @click="$refs.videoPlayer.play()"></div>
         <video ref="videoPlayer" class="w-full h-auto" controls @play="videoPaused = false" @pause="videoPaused = true" v-if="!loading">
             <source :src="src" :type="type || 'video/mp4'" />
         </video>
