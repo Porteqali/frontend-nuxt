@@ -70,6 +70,12 @@
                         <SearchDropdown class="z-10" :open.sync="searchDropdownOpenState" />
                     </li>
                     <li class="p-4 px-2" @mouseover="cartDropdownOpenState = true" @mouseleave="cartDropdownOpenState = false">
+                        <span
+                            class="absolute mt-8 mr-1 flex items-center justify-center w-5 h-5 text-sm p-1 pt-2 rounded-md bg-orange-500 text-white"
+                            v-show="Object.keys(cart.list).length"
+                        >
+                            {{ Object.keys(cart.list).length }}
+                        </span>
                         <img src="/icons/Buy.svg" width="28" height="28" alt="Buy" />
                         <CartDropdown class="z-10" :open.sync="cartDropdownOpenState" />
                     </li>
@@ -132,6 +138,9 @@ export default {
     computed: {
         user() {
             return this.$store.state.user;
+        },
+        cart() {
+            return this.$store.state.cart;
         },
     },
     methods: {

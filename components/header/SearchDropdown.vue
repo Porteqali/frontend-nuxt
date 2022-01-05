@@ -1,7 +1,8 @@
 <style scoped>
 .box {
     position: absolute;
-    top: 1.25rem;
+    /* top: 1.25rem; */
+    margin-top: 1rem;
     left: 0;
     background-color: var(--header-nav-container-bg-color);
     color: var(--header-nav-text-color);
@@ -25,7 +26,7 @@ ul li:hover {
 
 @media (min-width: 768px) {
     .box {
-        top: 3.75rem;
+        /* top: 3.75rem; */
     }
 }
 </style>

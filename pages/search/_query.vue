@@ -166,7 +166,7 @@
                             class="orange_gradient_h flex items-center justify-center gap-4 py-4 px-8 rounded-xl"
                         >
                             <span v-if="course.price">
-                                <b class="text-3xl">{{ new Intl.NumberFormat("fa").format(course.price) }}</b>
+                                <b class="text-3xl">{{ new Intl.NumberFormat("fa").format(course.discountInfo.discountedPrice) }}</b>
                                 تومان
                             </span>
                             <span class="text-xl" v-else>رایگان</span>

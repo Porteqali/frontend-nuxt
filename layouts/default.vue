@@ -189,7 +189,17 @@ export default {
         }
 
         // TODO : uncomment this
+        // rayChat register
         // this.raychatInit();
+
+        // load back cart list info
+        let cartList = localStorage.getItem("cart");
+        if (cartList) {
+            try {
+                cartList = JSON.parse(cartList);
+                for (const item in cartList) this.$store.dispatch("cart/addItemToCart", { item: { ...cartList[item] } });
+            } catch (e) {}
+        }
     },
     methods: {
         scrollUp() {

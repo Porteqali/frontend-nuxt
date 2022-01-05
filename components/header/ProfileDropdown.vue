@@ -1,7 +1,8 @@
 <style scoped>
 .box {
     position: absolute;
-    top: 3.75rem;
+    /* top: 3.75rem; */
+    margin-top: 1rem;
     left: 0;
     background-color: var(--header-nav-container-bg-color);
     color: var(--header-nav-text-color);

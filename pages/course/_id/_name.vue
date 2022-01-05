@@ -11,10 +11,6 @@
     justify-content: center;
 }
 
-.buy_btn {
-    border-radius: 0 0 1rem 1rem;
-}
-
 .course_card {
     /* background-color: var(--department-section-title-alt-text-bg-color); */
     background: linear-gradient(154.49deg, rgba(121, 117, 131, 0.2) 5.35%, rgba(54, 53, 103, 0.2) 83.85%), rgba(49, 48, 54, 0.3);
@@ -86,7 +82,7 @@
                                     {{ new Intl.NumberFormat("fa").format(course.price) }} تومان
                                 </small>
                                 <strong class="font-normal text-3xl" :class="{ 'text-center': !discount }" v-if="course.price > 0">
-                                    {{ new Intl.NumberFormat("fa").format(course.price) }} تومان
+                                    {{ new Intl.NumberFormat("fa").format(course.discountInfo.discountedPrice) }} تومان
                                 </strong>
                                 <strong class="font-normal text-3xl w-full text-center" v-else>رایگان</strong>
                             </span>
@@ -94,13 +90,7 @@
                         <div v-else>
                             <Score :courseId="course._id" :userScore="userScore" @update:score="updateScore" />
                         </div>
-                        <button class="buy_btn flex items-center justify-center gap-2 text-xl p-4 -m-6 mt-0 shadow-lg bg-bluegray-100 text-black" v-if="!purchased">
-                            <img src="/icons/Buy.black.svg" alt="Buy" />
-                            <!-- TODO : move text into new component and handle addToCart and free register on there -->
-                            <span v-if="course.price > 0">افزودن به سبد خرید</span>
-                            <span v-else>ثبت نام در دوره</span>
-                            <!-- ---- -->
-                        </button>
+                        <PurchaseButton :course="course" :coursePrice="course.price" :courseName="course.name" v-if="!purchased" />
                     </div>
                     <div class="flex gap-4">
                         <div class="info_card flex flex-col items-center justify-center gap-4 w-64 h-auto p-4 rounded-3xl">
@@ -269,6 +259,7 @@ import VideoPlayer from "~/components/VideoPlayer.vue";
 import CommentSection from "~/components/course/Comment.section.vue";
 import Topic from "~/components/course/Topic.vue";
 import Score from "~/components/course/Score.vue";
+import PurchaseButton from "~/components/course/Purchase.button.vue";
 
 export default {
     head() {
@@ -282,6 +273,7 @@ export default {
         VideoPlayer,
         Topic,
         Score,
+        PurchaseButton,
     },
     data() {
         return {

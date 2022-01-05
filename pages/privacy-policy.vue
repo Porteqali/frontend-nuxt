@@ -22,7 +22,7 @@
             </div>
         </section>
 
-        <article class="w-full p-8 mt-20 rounded-2xl max-w-screen-lg shadow-2xl z-10 bg-white" @click="testToast">
+        <article class="w-full p-8 mt-20 rounded-2xl max-w-screen-lg shadow-2xl z-10 bg-white">
             <p>
                 پرتقال با تاکید بر احترامی که برای حریم شخصی کاربران قائل است، برای سفارش، ثبت نظر یا استفاده از برخی امکانات وب سایت اطلاعاتی را از کاربران درخواست
                 می‌کند تا بتواند خدماتی امن و مطمئن را به کابران ارائه دهد. برای نمونه می‌توان به اطلاعاتی مانند ایمیل، شماره همراه، نام و ... اشاره نمود.
@@ -56,15 +56,6 @@ export default {
         Background,
     },
     mounted() {},
-    methods: {
-        testToast() {
-            this.$store.dispatch("toast/makeToast", {
-                icon: "/icons/Category.svg",
-                title: "عنوان تستی",
-                message: "از برخی امکانات وب سایت اطلاعاتی را از کاربران درخواست می‌کند تا بتواند خدماتی امن و مطمئن را به کابران ارائه دهد",
-                btn: { text: "سبد خرید", internal: true, link: "/cart" },
-            });
-        },
-    },
+    methods: {},
 };
 </script>

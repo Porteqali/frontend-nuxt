@@ -4,7 +4,7 @@
     top: 2rem;
     right: 2rem;
     z-index: 1000;
-    background-color: #00000088;
+    background-color: #000000a0;
     color: #fff;
 }
 </style>
