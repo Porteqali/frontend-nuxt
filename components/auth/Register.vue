@@ -223,7 +223,7 @@ export default {
         },
 
         async sendCode(e) {
-            if(e) e.preventDefault();
+            if (e) e.preventDefault();
             if (this.loading) return;
             this.loading = true;
 
@@ -295,6 +295,9 @@ export default {
                     await this.$store.dispatch("user/refresh");
                     // await this.$store.dispatch("user/getUserInfo");
                     this.updateOpenState(false);
+
+                    // TODO
+                    // remove any purchased course that is in cart
                 })
                 .catch((e) => {
                     if (typeof e.response !== "undefined" && e.response.data) {

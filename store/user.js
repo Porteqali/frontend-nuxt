@@ -54,6 +54,7 @@ const actions = {
             name: "",
             family: "",
             email: "",
+            mobile: "",
             permissions: [],
         });
     },

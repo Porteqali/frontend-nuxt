@@ -131,28 +131,28 @@
                     <div class="flex flex-col bg-white rounded-3xl shadow-lg overflow-hidden w-full">
                         <ul class="tab_header flex w-full overflow-auto bg-gray-100">
                             <li
-                                class="flex items-center justify-center p-4 w-full cursor-pointer text-center hover:bg-gray-50"
+                                class="flex items-center justify-center p-4 w-full cursor-pointer text-center text-sm md:text-base hover:bg-gray-50"
                                 :class="{ 'bg-white': tabPage == 'desc' }"
                                 @click="tabPage = 'desc'"
                             >
                                 توضیحات
                             </li>
                             <li
-                                class="flex items-center justify-center p-4 w-full cursor-pointer text-center hover:bg-gray-50"
+                                class="flex items-center justify-center p-4 w-full cursor-pointer text-center text-sm md:text-base hover:bg-gray-50"
                                 :class="{ 'bg-white': tabPage == 'topics' }"
                                 @click="tabPage = 'topics'"
                             >
                                 سرفصل ها
                             </li>
                             <li
-                                class="flex items-center justify-center p-4 w-full cursor-pointer text-center hover:bg-gray-50"
+                                class="flex items-center justify-center p-4 w-full cursor-pointer text-center text-sm md:text-base hover:bg-gray-50"
                                 :class="{ 'bg-white': tabPage == 'files' }"
                                 @click="tabPage = 'files'"
                             >
                                 فایل ها
                             </li>
                             <li
-                                class="flex items-center justify-center p-4 w-full cursor-pointer text-center hover:bg-gray-50"
+                                class="flex items-center justify-center p-4 w-full cursor-pointer text-center text-sm md:text-base hover:bg-gray-50"
                                 :class="{ 'bg-white': tabPage == 'comments' }"
                                 @click="tabPage = 'comments'"
                             >

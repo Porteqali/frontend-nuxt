@@ -48,33 +48,55 @@
                     <p class="text-xl">سبد خرید شما خالی است!</p>
                 </div>
             </section>
-            <section class="card relative flex flex-col gap-4 p-4 md:p-6 rounded-3xl shadow-xl w-full max-w-sm flex-shrink-0" v-if="Object.keys(cart.list).length">
+            <section
+                class="card relative flex flex-col gap-4 p-4 md:p-6 rounded-3xl shadow-xl w-full max-w-sm flex-shrink-0"
+                v-if="Object.keys(cart.list).length && !cartTotalLoading"
+            >
                 <div class="flex flex-wrap items-center justify-between gap-4">
                     <span>قیمت کل</span>
-                    <span>{{ new Intl.NumberFormat("fa").format(158000) }} تومان</span>
+                    <span>{{ new Intl.NumberFormat("fa").format(totalPrice) }} تومان</span>
                 </div>
                 <div class="flex flex-wrap items-center justify-between gap-4">
                     <span>میزان تخفیف</span>
                     <span class="text-rose-500">
-                        <b class="rounded-md shadow-md bg-rose-400 text-white p-2 py-1">12%</b>
-                        {{ new Intl.NumberFormat("fa").format(12000) }} تومان
+                        <b class="rounded-md shadow-md bg-rose-400 text-white p-2 py-1">{{ totalDiscountPercent }}%</b>
+                        {{ new Intl.NumberFormat("fa").format(totalDiscount) }} تومان
                     </span>
                 </div>
                 <hr />
                 <form class="coupon_code_input flex items-center gap-2 p-2 w-full rounded-xl" @submit="registerCouponCode($event)">
-                    <!-- if user submit a code and code is valid and accepter: replace this section with the code and a way to delete it -->
-                    <input class="w-full bg-transparent h-full px-2" type="text" placeholder="کد تخفیف" />
+                    <!-- TODO : if user submit a code and code is valid and accepter: replace this section with the code and a way to delete it -->
+                    <input class="w-full bg-transparent h-full px-2" v-model="couponCode" type="text" placeholder="کد تخفیف" />
                     <button class="bg-black bg-opacity-40 p-2 px-4 rounded-xl flex-shrink-0" type="submit">اعمال کد</button>
                 </form>
                 <hr />
                 <div class="flex flex-wrap items-center justify-between gap-4">
                     <b>مبلغ قابل پرداخت</b>
-                    <b class="text-xl text-orange-400">{{ new Intl.NumberFormat("fa").format(158000) }} تومان</b>
+                    <b class="text-xl text-orange-400">{{ new Intl.NumberFormat("fa").format(payablePrice) }} تومان</b>
                 </div>
                 <p class="text-sm">امکان تغییر قیمت دوره های داخل سبد خرید در هر زمان وجود دارد</p>
-                <button class="orange_gradient_h flex items-center justify-center w-full p-4 rounded-xl">
-                    <b class="text-xl">تایید و پرداخت</b>
-                </button>
+                <div class="flex items-center gap-2">
+                    <button
+                        class="orange_gradient_h flex items-center justify-center w-full p-4 rounded-xl shadow-lg"
+                        :class="{ 'opacity-50 cursor-wait': redirectingToGateway }"
+                        :disabled="redirectingToGateway"
+                        @click="pay('zarinpal')"
+                    >
+                        <b class="text-xl">تایید و پرداخت</b>
+                    </button>
+                    <button
+                        class="bg-bluegray-100 flex items-center justify-center w-max p-4 rounded-xl shadow-lg"
+                        :class="{ 'opacity-50 cursor-wait': redirectingToGateway }"
+                        :disabled="redirectingToGateway"
+                        @click="pay('wallet')"
+                        title="پرداخت با کیف پول"
+                    >
+                        <Icon class="w-8 h-8 bg-gray-800" folder="icons" name="Wallet" />
+                    </button>
+                </div>
+            </section>
+            <section class="card relative flex items-center justify-center gap-4 p-6 rounded-3xl shadow-xl w-full max-w-sm flex-shrink-0" v-if="cartTotalLoading">
+                <Loading class="w-20 h-20 m-10" />
             </section>
         </div>
         <div class="card flex flex-col items-center justify-center gap-4 p-6 w-full max-w-md rounded-3xl shadow-xl" v-else>
@@ -89,37 +111,49 @@
 </template>
 
 <script>
+import axios from "axios";
+import Loading from "~/components/Loading.vue";
+
 export default {
-    // TODO
-    // if user apply a coupon code:
-    // for each cart item we should apply the code and test if code will reduce the pirce or not
-    // if coupon code reduces the price of code we accept that price
-    // then we sum up all price and calc the total discount and payable price
-    // if user accepts we send info to server to do the same calc again and if it matches we proceed to gateway
-    // if not match: we send and error and ask user to update the cart
     head() {
         return {
             title: "سبد خرید - گروه آموزشی پرتقال",
             meta: [{ hid: "description", name: "description", content: "" }],
         };
     },
-    components: {},
+    components: { Loading },
     data() {
         return {
             loading: true,
+            cartTotalLoading: false,
 
+            couponCode: "",
+            totalPrice: 0,
             totalDiscount: 0,
             totalDiscountPercent: 0,
-
             payablePrice: 0,
+
+            redirectingToGateway: false,
         };
     },
-    mounted() {
+    async mounted() {
         this.loading = false;
+        await this.calcCartTotal();
+    },
+    watch: {
+        cartList() {
+            setTimeout(() => this.calcCartTotal(), 1000);
+        },
     },
     computed: {
         cart() {
             return this.$store.state.cart;
+        },
+        cartList() {
+            return this.$store.state.cart.list;
+        },
+        user() {
+            return this.$store.state.user;
         },
     },
     methods: {
@@ -129,8 +163,69 @@ export default {
             localStorage.setItem("cart", JSON.stringify(this.cart.list));
         },
 
-        // TODO
-        // wrtite method and calc total price and discount amounts
+        async calcCartTotal() {
+            if (this.cartTotalLoading) return;
+            this.cartTotalLoading = true;
+
+            const list = localStorage.getItem("cart");
+            if (!list) return;
+
+            await axios
+                .post(`/api/cart-total`, { list, couponCode: this.couponCode })
+                .then((result) => {
+                    this.totalPrice = result.data.totalPrice;
+                    this.totalDiscount = result.data.totalDiscount;
+                    this.totalDiscountPercent = result.data.totalDiscountPercent;
+                    this.payablePrice = result.data.payablePrice;
+                })
+                .catch((e) => {
+                    this.couponCode = "";
+                })
+                .finally(() => (this.cartTotalLoading = false));
+        },
+
+        async registerCouponCode(e) {
+            e.preventDefault();
+            await this.calcCartTotal();
+        },
+
+        async pay(method) {
+            // before redirecting to payment gateway check if user is logged in or not
+            if (!this.user.info.email && !this.user.info.mobile) {
+                this.$store.dispatch("toast/makeToast", {
+                    type: "error",
+                    title: "پرداخت و خرید",
+                    message: `برای انجام هرگونه عملیات خرید، ابتدا باید در سایت ثبتنام و وارد حساب کاربری خود شده باشید`,
+                });
+                return;
+            }
+
+            if (this.redirectingToGateway) return;
+            this.redirectingToGateway = true;
+
+            const list = localStorage.getItem("cart");
+            if (!list) return;
+
+            // request back-end for redirect url
+            await axios
+                .post(`/api/payment`, { method, list, couponCode: this.couponCode })
+                .then((response) => {
+                    // then rediect to gateway
+                    window.location.href = response.data.url;
+                })
+                .catch((error) => {
+                    this.redirectingToGateway = false;
+                    if (typeof e.response !== "undefined" && e.response.data) {
+                        if (typeof e.response.data.message === "object") {
+                            this.$store.dispatch("toast/makeToast", {
+                                type: "error",
+                                title: "انتقال به درگاه پرداخت",
+                                message: e.response.data.message[0].errors[0],
+                            });
+                        }
+                    }
+                });
+        },
     },
 };
 </script>
