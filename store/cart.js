@@ -17,6 +17,10 @@ const actions = {
         commit("deleteFromCart", data.item);
         commit("updateTotal");
     },
+    async clearCart({ dispatch, commit }, data = {}) {
+        commit("clearCart");
+        commit("updateTotal");
+    },
 };
 
 const mutations = {
@@ -24,6 +28,9 @@ const mutations = {
     deleteFromCart: (state, item) => {
         delete state.list[item._id];
         state.list = { ...state.list };
+    },
+    clearCart: (state) => {
+        state.list = {};
     },
     updateTotal: (state, total = 0) => {
         for (const item in state.list) total += parseInt(state.list[item].discountedPrice);

@@ -213,7 +213,7 @@ export default {
                     // then rediect to gateway
                     window.location.href = response.data.url;
                 })
-                .catch((error) => {
+                .catch((e) => {
                     this.redirectingToGateway = false;
                     if (typeof e.response !== "undefined" && e.response.data) {
                         if (typeof e.response.data.message === "object") {
