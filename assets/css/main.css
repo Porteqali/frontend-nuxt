@@ -2,6 +2,8 @@
     --topOffset: 0%;
     --rightOffset: 0%;
     --minWidth: 2020px;
+    scrollbar-color: #ff6978 transparent !important;
+    scrollbar-width: thin !important;
 }
 
 @font-face { font-family: "IranYekanWebRegular"; src: url("~/assets/fonts/IranYekanWebRegular.ttf") format("truetype"); }
@@ -36,6 +38,7 @@
 body{
     /* text-shadow: 0px 1px 3px #00000044; */
     /* transform: translateZ(0); */
+    position: relative;
 }
 
 .kalameh { font-family: "KalamehWebRegular" !important; }

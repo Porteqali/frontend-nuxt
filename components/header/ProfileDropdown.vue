@@ -25,7 +25,7 @@ ul li:hover {
             </div>
             <ul class="flex flex-col p-6 pt-0 w-full">
                 <li class="p-3">
-                    <nuxt-link to="#" class="flex items-center gap-2">
+                    <nuxt-link to="/profile" class="flex items-center gap-2">
                         <img src="/icons/Work.blue.svg" width="24" height="24" alt="Work" />
                         <span>حساب کاربری</span>
                     </nuxt-link>

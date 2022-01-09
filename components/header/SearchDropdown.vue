@@ -91,7 +91,7 @@ ul li:hover {
                         </li>
                         <li class="">
                             <nuxt-link class="flex items-center gap-2 p-3" to="/blog" title="blog">
-                                <img src="/icons/Document.gray.svg" width="24" height="24" alt="Document" />
+                                <img src="/icons/Document.svg" width="24" height="24" alt="Document" />
                                 <span class="text-sm">مقالات</span>
                             </nuxt-link>
                         </li>

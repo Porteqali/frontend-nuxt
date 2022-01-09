@@ -84,7 +84,10 @@ app.get("/file/*", async (req, res) => {
                     res.writeHead(response.statusCode, { ...response.headers });
                     response.pipe(res);
                 } catch (e) {}
-            } else return res.status(404).end();
+            } else {
+                console.log(response.statusCode);
+                return res.status(404).end();
+            }
         },
     );
 });
