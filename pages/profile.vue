@@ -13,7 +13,7 @@
 
 <template>
     <main role="main" class="flex flex-wrap lg:flex-nowrap items-start justify-center gap-8 max-w-screen-4xl w-full">
-        <nav class="card sticky top-0 flex flex-col gap-4 p-6 rounded-3xl shadow-xl w-full max-w-xs flex-grow">
+        <nav class="card sticky top-0 flex flex-col gap-4 p-6 rounded-3xl shadow-xl w-full md:max-w-xs flex-grow">
             <div class="flex items-center gap-2">
                 <img class="w-12 h-12 rounded-2xl object-cover" :src="user.info.image" :alt="`${user.info.name} ${user.info.family}`" />
                 <div class="flex flex-col gap-1">
@@ -40,7 +40,11 @@
                     </nuxt-link>
                 </li>
                 <li class="w-full">
-                    <nuxt-link class="flex items-center gap-2 p-1 rounded-xl w-full hover:shadow-md" :class="{ active: $route.name == 'profile-courses' }" to="#">
+                    <nuxt-link
+                        class="flex items-center gap-2 p-1 rounded-xl w-full hover:shadow-md"
+                        :class="{ active: $route.name == 'profile-courses' }"
+                        to="/profile/courses"
+                    >
                         <img src="/icons/Play.gray.svg" alt="Play" />
                         <span>دوره های خریداری شده</span>
                     </nuxt-link>
@@ -56,13 +60,21 @@
                     </nuxt-link>
                 </li>
                 <li class="w-full">
-                    <nuxt-link class="flex items-center gap-2 p-1 rounded-xl w-full hover:shadow-md" :class="{ active: $route.name == 'profile-wallet' }" to="#">
+                    <nuxt-link
+                        class="flex items-center gap-2 p-1 rounded-xl w-full hover:shadow-md"
+                        :class="{ active: $route.name == 'profile-wallet' }"
+                        to="/profile/wallet"
+                    >
                         <img src="/icons/Wallet.gray.svg" alt="Wallet" />
                         <span>شارژ کیف پول</span>
                     </nuxt-link>
                 </li>
                 <li class="w-full">
-                    <nuxt-link class="flex items-center gap-2 p-1 rounded-xl w-full hover:shadow-md" :class="{ active: $route.name == 'profile-comments' }" to="#">
+                    <nuxt-link
+                        class="flex items-center gap-2 p-1 rounded-xl w-full hover:shadow-md"
+                        :class="{ active: $route.name == 'profile-comments' }"
+                        to="/profile/comments"
+                    >
                         <img src="/icons/Chat.gray.svg" alt="Chat" />
                         <span>نظرات</span>
                     </nuxt-link>

@@ -78,25 +78,11 @@ body{
 
 .blur {
     position: relative; z-index: 2;
-    /* transform: translateZ(0); */
-    /* will-change: transform; */
-
-    /* -webkit-backface-visibility: hidden;
-    -webkit-perspective: 1000;
-    -webkit-transform: translate3d(0,0,0);
-    -webkit-transform: translateZ(0);
-    backface-visibility: hidden;
-    perspective: 1000;
-    transform: translate3d(0,0,0); */
 }
 .blur::before {
     content: "";
-    border-radius: inherit;
-    z-index: -1;
     position: absolute; inset: 0;
-    /* transform: translateZ(0); */
-    /* will-change: transform; */
-
+    border-radius: inherit; z-index: -1;
     /* backdrop-filter: blur(10px); */
 }
 

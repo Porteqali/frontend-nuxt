@@ -19,7 +19,7 @@ ul li:hover {
     <transition class="" name="slideup" appear>
         <div class="box blur rounded-3xl shadow-lg" v-show="open">
             <div class="flex flex-col items-center justify-center gap-2 p-4 w-full">
-                <img :src="user.info.image || `/header/avatar.svg`" class="w-10 h-10 object-contain" width="40" height="40" alt="avatar" />
+                <img :src="user.info.image || `/header/avatar.svg`" class="w-10 h-10 object-cover rounded-full" width="40" height="40" alt="avatar" />
                 <span>{{ `${user.info.name} ${user.info.family}` }}</span>
                 <hr class="w-full mx-auto border rounded-full border-lightblue-400" />
             </div>
@@ -77,6 +77,7 @@ export default {
         async logout() {
             await axios.post(`/auth/logout`).catch((e) => {});
             await this.$store.dispatch("user/logout");
+            this.$router.push("/");
         },
     },
 };
