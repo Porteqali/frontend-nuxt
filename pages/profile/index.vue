@@ -60,8 +60,8 @@
             <span class="skeleton w-8/12 h-2"></span>
         </div>
 
-        <ChangeAndConfirmEmail :open.sync="emailVerificationOpenState" />
-        <ChangeAndConfirmMobile :open.sync="mobileVerificationOpenState" />
+        <ChangeAndConfirmEmail :open.sync="emailVerificationOpenState" @update:email="updateEmail" />
+        <ChangeAndConfirmMobile :open.sync="mobileVerificationOpenState" @update:mobile="updateMobile" />
     </section>
 </template>
 
@@ -140,6 +140,13 @@ export default {
                     }
                 })
                 .finally(() => (this.saving = false));
+        },
+
+        updateEmail(email) {
+            this.email = email;
+        },
+        updateMobile(mobile) {
+            this.mobile = mobile;
         },
     },
 };

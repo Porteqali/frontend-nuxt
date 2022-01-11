@@ -27,7 +27,7 @@
                     <p class="text-xs">موجودی کیف پول</p>
                 </div>
                 <b class="flex items-center gap-1">
-                    <span class="text-orange-400">0</span>
+                    <span class="text-orange-400">{{ new Intl.NumberFormat("fa").format(user.info.wallet)}}</span>
                     <small class="opacity-70 text-xs">تومان</small>
                 </b>
             </div>
@@ -53,7 +53,7 @@
                     <nuxt-link
                         class="flex items-center gap-2 p-1 rounded-xl w-full hover:shadow-md"
                         :class="{ active: $route.name == 'profile-transactions' }"
-                        to="#"
+                        to="/profile/transactions"
                     >
                         <img src="/icons/Document.gray.svg" alt="Document" />
                         <span>تراکنش های مالی</span>

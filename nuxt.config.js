@@ -34,6 +34,7 @@ export default {
     plugins: [
         { src: "~/plugins/swiper.client.js", mode: "client" },
         { src: "~/plugins/mask.client.js", mode: "client" },
+        { src: "~/plugins/money.client.js", mode: "client" },
         { src: "~plugins/video.client.js", mode: "client" },
     ],
 

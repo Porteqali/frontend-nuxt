@@ -121,6 +121,7 @@ export default {
                     });
                     this.$store.commit("user/setInfo", { ...this.user.info, email: this.email });
                     this.updateOpenState(false);
+                    this.$emit("update:email", this.email);
                 })
                 .catch((e) => {
                     if (typeof e.response !== "undefined" && e.response.data) {
