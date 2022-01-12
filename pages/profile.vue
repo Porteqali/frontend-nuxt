@@ -27,7 +27,7 @@
                     <p class="text-xs">موجودی کیف پول</p>
                 </div>
                 <b class="flex items-center gap-1">
-                    <span class="text-orange-400">{{ new Intl.NumberFormat("fa").format(user.info.wallet)}}</span>
+                    <span class="text-orange-400">{{ new Intl.NumberFormat("fa").format(user.info.wallet) }}</span>
                     <small class="opacity-70 text-xs">تومان</small>
                 </b>
             </div>
@@ -80,10 +80,10 @@
                     </nuxt-link>
                 </li>
                 <li class="w-full">
-                    <nuxt-link class="flex items-center gap-2 p-1 rounded-xl w-full hover:shadow-md" to="#">
+                    <button class="flex items-center gap-2 p-1 rounded-xl w-full hover:shadow-md" @click="logout()">
                         <img src="/icons/Logout.gray.svg" alt="Logout" />
                         <span>خروج</span>
-                    </nuxt-link>
+                    </button>
                 </li>
             </ul>
         </nav>
@@ -109,6 +109,13 @@ export default {
     computed: {
         user() {
             return this.$store.state.user;
+        },
+    },
+    methods: {
+        async logout() {
+            await axios.post(`/auth/logout`).catch((e) => {});
+            await this.$store.dispatch("user/logout");
+            this.$router.push("/");
         },
     },
 };

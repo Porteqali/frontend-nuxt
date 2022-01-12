@@ -208,7 +208,7 @@ export default {
 
             // request back-end for redirect url
             await axios
-                .post(`/api/payment`, { method, list, couponCode: this.couponCode })
+                .post(`/api/course-payment`, { method, list, couponCode: this.couponCode })
                 .then((response) => {
                     // then rediect to gateway
                     window.location.href = response.data.url;

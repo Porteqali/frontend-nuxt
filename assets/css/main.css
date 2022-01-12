@@ -1,4 +1,4 @@
-:root{
+:root {
     --topOffset: 0%;
     --rightOffset: 0%;
     --minWidth: 2020px;
@@ -6,136 +6,232 @@
     scrollbar-width: thin !important;
 }
 
-@font-face { font-family: "IranYekanWebRegular"; src: url("~/assets/fonts/IranYekanWebRegular.ttf") format("truetype"); }
-@font-face { font-family: "IranYekanWebRegularFaNum"; src: url("~/assets/fonts/IranYekanWebRegularFaNum.woff") format("woff"); }
-@font-face { font-family: "KalamehWebRegular"; src: url("~/assets/fonts/KalamehWebRegular.woff2") format("woff2"); }
-@font-face { font-family: "KalamehWebBold"; src: url("~/assets/fonts/KalamehWebBold.woff2") format("woff2"); }
+@font-face {
+    font-family: "IranYekanWebRegular";
+    src: url("~/assets/fonts/IranYekanWebRegular.ttf") format("truetype");
+}
+@font-face {
+    font-family: "IranYekanWebRegularFaNum";
+    src: url("~/assets/fonts/IranYekanWebRegularFaNum.woff") format("woff");
+}
+@font-face {
+    font-family: "KalamehWebRegular";
+    src: url("~/assets/fonts/KalamehWebRegular.woff2") format("woff2");
+}
+@font-face {
+    font-family: "KalamehWebBold";
+    src: url("~/assets/fonts/KalamehWebBold.woff2") format("woff2");
+}
 
-*::-moz-selection { background: #414141; color: white; }
-*::selection { background: #414141; color: white; }
+*::-moz-selection {
+    background: #414141;
+    color: white;
+}
+*::selection {
+    background: #414141;
+    color: white;
+}
 
 *::-webkit-scrollbar-track {
-    background-color: transparent; border-radius: 0px;
+    background-color: transparent;
+    border-radius: 0px;
     -webkit-box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.01);
 }
 *::-webkit-scrollbar {
     margin-inline-start: 0.25em;
-    width: 10px; height: 10px; border-radius: 0px;
+    width: 10px;
+    height: 10px;
+    border-radius: 0px;
     -webkit-box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.01);
 }
-*::-webkit-scrollbar-track-piece { background-color: transparent; border-radius: 0px; }
+*::-webkit-scrollbar-track-piece {
+    background-color: transparent;
+    border-radius: 0px;
+}
 *::-webkit-scrollbar-thumb {
-    background: #ff6978; border-radius: 0px;
+    background: #ff6978;
+    border-radius: 0px;
     -webkit-box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.1);
 }
 
-*,html{
-    font-family: "IranYekanWebRegular","IranYekanWebRegularFaNum";
+*,
+html {
+    font-family: "IranYekanWebRegular", "IranYekanWebRegularFaNum";
     scroll-behavior: smooth;
-    transition: all .15s;
+    transition: all 0.15s;
     outline: none;
 }
-body{
+body {
     /* text-shadow: 0px 1px 3px #00000044; */
     /* transform: translateZ(0); */
     position: relative;
 }
 
-.kalameh { font-family: "KalamehWebRegular" !important; }
-.kalameh_bold { font-family: "KalamehWebBold" !important; }
-
-.slidedown-enter-active, .slidedown-leave-active { transition: all 0.3s; }
-.slidedown-enter, .slidedown-leave-to { opacity: 0; transform: translateY(-30px); }
-
-.slideup-enter-active, .slideup-leave-active { transition: all 0.3s; }
-.slideup-enter, .slideup-leave-to { opacity: 0; transform: translateY(30px); }
-
-.slideleft-enter-active,.slideleft-leave-active{ transition: all .3s; }
-.slideleft-enter,.slideleft-leave-to{ opacity: 0; transform: translateX(30px); }
-
-.fade-enter-active, .fade-leave-active{ transition: all .25s ease; }
-.fade-enter, .fade-leave-to{ opacity: 0; }
-
-.page-enter-active, .page-leave-active { transition: all 0.5s; }
-.page-enter, .page-leave-to { opacity: 0; }
-
-.orange_gradient_v{
-    color: #fff;
-    background: linear-gradient(273.67deg, #FF8537 -20.26%, #FF51B1 114.54%);
+.kalameh {
+    font-family: "KalamehWebRegular" !important;
 }
-.orange_gradient_h{
-    color: #fff;
-    background: linear-gradient(142.39deg, #FF8537 0%, #FF51B1 100.15%);
+.kalameh_bold {
+    font-family: "KalamehWebBold" !important;
 }
-.gray_gradient{
+
+.slidedown-enter-active,
+.slidedown-leave-active {
+    transition: all 0.3s;
+}
+.slidedown-enter,
+.slidedown-leave-to {
+    opacity: 0;
+    transform: translateY(-30px);
+}
+
+.slideup-enter-active,
+.slideup-leave-active {
+    transition: all 0.3s;
+}
+.slideup-enter,
+.slideup-leave-to {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.slideleft-enter-active,
+.slideleft-leave-active {
+    transition: all 0.3s;
+}
+.slideleft-enter,
+.slideleft-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: all 0.25s ease;
+}
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.page-enter-active,
+.page-leave-active {
+    transition: all 0.5s;
+}
+.page-enter,
+.page-leave-to {
+    opacity: 0;
+}
+
+.orange_gradient_v {
+    color: #fff;
+    background: linear-gradient(273.67deg, #ff8537 -20.26%, #ff51b1 114.54%);
+}
+.orange_gradient_h {
+    color: #fff;
+    background: linear-gradient(142.39deg, #ff8537 0%, #ff51b1 100.15%);
+}
+.gray_gradient {
     color: #fff;
     background: linear-gradient(154.49deg, rgba(121, 117, 131, 0.2) 5.35%, rgba(54, 53, 103, 0.2) 83.85%), rgba(49, 48, 54, 0.3);
 }
-.darkblue_gradient{
+.darkblue_gradient {
     color: #fff;
     background: linear-gradient(0deg, rgba(19, 40, 80, 0.8), rgba(19, 40, 80, 0.8));
 }
 
 .blur {
-    position: relative; z-index: 2;
+    position: relative;
+    z-index: 2;
 }
 .blur::before {
     content: "";
-    position: absolute; inset: 0;
-    border-radius: inherit; z-index: -1;
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    z-index: -1;
     /* backdrop-filter: blur(10px); */
 }
 
-.skeleton{
+.skeleton {
     background: linear-gradient(90deg, #ffffff22 0%, #cccccc99 50%, #ffffff22 100%);
-    background-size: 200% 200%; border-radius: 6px;
+    background-size: 200% 200%;
+    border-radius: 6px;
     animation: shimmer_skeleton 2s infinite;
 }
 @keyframes shimmer_skeleton {
-    0% { background-position: 0% 50%; }
-	50% { background-position: 100% 50%; }
-	100% { background-position: 0% 50%; }
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
-.boyImg{
+.boyImg {
     animation: float 3s ease infinite;
 }
 @keyframes float {
-    0% { transform: translateY(0); }
-	50% { transform: translateY(10%); }
-	100% { transform: translateY(0); }
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(10%);
+    }
+    100% {
+        transform: translateY(0);
+    }
 }
 
-.swiper-pagination-bullet-active{
-    background-color: #FF8537 !important;
+.swiper-pagination-bullet-active {
+    background-color: #ff8537 !important;
 }
 
 .video-js .vjs-big-play-button {
-    display: flex; background-color: transparent;
-    width: 100%; height: 100%;
-    top: 0; left: 0; right: 0; bottom: 0;
+    display: flex;
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     border: none !important;
     box-shadow: none !important;
 }
-.video-js .vjs-big-play-button:before{
+.video-js .vjs-big-play-button:before {
     content: "" !important;
-    background-image: url('~/static/misc/play.svg');
+    background-image: url("~/static/misc/play.svg");
     background-repeat: no-repeat;
     background-size: 46px;
     background-position: calc(50% - -2px) calc(50%);
-    width: 5rem; height: 5rem; border-radius: 50%;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
     background-color: #534e48aa;
     padding: 3.5rem;
-    display: flex; margin: auto;
+    display: flex;
+    margin: auto;
 }
 .video-js .vjs-big-play-button .vjs-icon-placeholder:before {
-    content: "" !important; display: none !important;
+    content: "" !important;
+    display: none !important;
 }
 .video-js .vjs-big-play-button:hover {
     background-color: transparent;
 }
 
-.raychat_main_button.right{ right: 1rem !important; }
-.raychat_main_button.left{ left: 1rem !important; }
-.raychat_main_button.top{ top: 1rem !important; }
-.raychat_main_button.bottom{ bottom: 1rem !important; }
+.raychat_main_button.right {
+    right: 1rem !important;
+}
+.raychat_main_button.left {
+    left: 1rem !important;
+}
+.raychat_main_button.top {
+    top: 1rem !important;
+}
+.raychat_main_button.bottom {
+    bottom: 1rem !important;
+}

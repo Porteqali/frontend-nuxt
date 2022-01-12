@@ -26,23 +26,23 @@
                         <span>تومان</span>
                     </div>
                 </div>
-                <button type="button" class="orange_gradient_h p-3 px-4 rounded-2xl shadow-md flex-shrink-0">تایید و پرداخت</button>
+                <button type="button" class="orange_gradient_h p-3 px-4 rounded-2xl shadow-md flex-shrink-0" @click="pay()">تایید و پرداخت</button>
             </div>
             <hr class="w-full" />
             <ul class="flex flex-wrap items-center gap-4">
-                <li class="cart_item p-8 rounded-3xl cursor-pointer shadow-md hover:shadow-xl" @click="chargeAmount=10000">
+                <li class="cart_item p-8 rounded-3xl cursor-pointer shadow-md hover:shadow-xl" @click="chargeAmount = 10000">
                     <b class="text-2xl">10،000</b>
                     <small>تومان</small>
                 </li>
-                <li class="cart_item p-8 rounded-3xl cursor-pointer shadow-md hover:shadow-xl" @click="chargeAmount=50000">
+                <li class="cart_item p-8 rounded-3xl cursor-pointer shadow-md hover:shadow-xl" @click="chargeAmount = 50000">
                     <b class="text-2xl">50،000</b>
                     <small>تومان</small>
                 </li>
-                <li class="cart_item p-8 rounded-3xl cursor-pointer shadow-md hover:shadow-xl" @click="chargeAmount=100000">
+                <li class="cart_item p-8 rounded-3xl cursor-pointer shadow-md hover:shadow-xl" @click="chargeAmount = 100000">
                     <b class="text-2xl">100،000</b>
                     <small>تومان</small>
                 </li>
-                <li class="cart_item p-8 rounded-3xl cursor-pointer shadow-md hover:shadow-xl" @click="chargeAmount=200000">
+                <li class="cart_item p-8 rounded-3xl cursor-pointer shadow-md hover:shadow-xl" @click="chargeAmount = 200000">
                     <b class="text-2xl">200،000</b>
                     <small>تومان</small>
                 </li>
@@ -52,6 +52,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
     head() {
         return {
@@ -62,6 +63,7 @@ export default {
     components: {},
     data() {
         return {
+            redirectingToGateway: false,
             chargeAmount: "",
             moneyOptions: { decimal: ".", thousands: "," },
         };
@@ -69,6 +71,42 @@ export default {
     computed: {
         user() {
             return this.$store.state.user;
+        },
+    },
+    methods: {
+        async pay(method = "zarinpal") {
+            // before redirecting to payment gateway check if user is logged in or not
+            if (!this.user.info.email && !this.user.info.mobile) {
+                this.$store.dispatch("toast/makeToast", {
+                    type: "error",
+                    title: "پرداخت و خرید",
+                    message: `برای انجام هرگونه عملیات خرید، ابتدا باید در سایت ثبتنام و وارد حساب کاربری خود شده باشید`,
+                });
+                return;
+            }
+
+            if (this.redirectingToGateway) return;
+            this.redirectingToGateway = true;
+
+            // request back-end for redirect url
+            await axios
+                .post(`/api/wallet-payment`, { method, amount: this.chargeAmount.replace(",", "") })
+                .then((response) => {
+                    // then rediect to gateway
+                    window.location.href = response.data.url;
+                })
+                .catch((e) => {
+                    this.redirectingToGateway = false;
+                    if (typeof e.response !== "undefined" && e.response.data) {
+                        if (typeof e.response.data.message === "object") {
+                            this.$store.dispatch("toast/makeToast", {
+                                type: "error",
+                                title: "انتقال به درگاه پرداخت",
+                                message: e.response.data.message[0].errors[0],
+                            });
+                        }
+                    }
+                });
         },
     },
 };
