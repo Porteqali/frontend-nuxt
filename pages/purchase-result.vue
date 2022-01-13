@@ -45,6 +45,10 @@
                 <p class="text-center text-sm opacity-75">لطفا در صورت عدم بازگشت مبلغ به حساب، با پشتیبانی تماس بگیرید</p>
                 <code class="text-xs text-red-500">{{ status }}</code>
             </div>
+            <div class="flex flex-col items-center justify-center gap-2 w-full" v-else-if="status == '413'">
+                <p class="text-center">تراکنش تکراری یا منقضی شده.</p>
+                <code class="text-xs text-red-500">{{ status }}</code>
+            </div>
             <div class="flex flex-col items-center justify-center gap-2 w-full" v-else>
                 <p class="text-center text-sm opacity-75">عملیات تراکنش به درستی انجام نشد. لطفا با پشتیبانی تماس بگیرید</p>
                 <code class="text-xs text-red-500">{{ message }}</code>
