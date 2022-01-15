@@ -7,7 +7,7 @@
 
 <template>
     <section class="card relative flex flex-col gap-8 p-4 md:p-6 rounded-3xl shadow-xl w-full max-w-screen-lg flex-grow">
-        <div class="flex items-center justify-between gap-4">
+        <div class="flex flex-wrap items-center justify-between gap-4">
             <div class="flex items-center gap-2">
                 <img src="/icons/Wallet.gray.svg" width="32" height="32" alt="Wallet" />
                 <h2 class="text-2xl">شارژ کیف پول</h2>
@@ -30,20 +30,20 @@
             </div>
             <hr class="w-full" />
             <ul class="flex flex-wrap items-center gap-4">
-                <li class="cart_item p-8 rounded-3xl cursor-pointer shadow-md hover:shadow-xl" @click="chargeAmount = 10000">
-                    <b class="text-2xl">10،000</b>
+                <li class="cart_item p-4 md:p-8 rounded-3xl cursor-pointer shadow-md hover:shadow-xl" @click="chargeAmount = 10000">
+                    <b class="text-lg md:text-2xl">10،000</b>
                     <small>تومان</small>
                 </li>
-                <li class="cart_item p-8 rounded-3xl cursor-pointer shadow-md hover:shadow-xl" @click="chargeAmount = 50000">
-                    <b class="text-2xl">50،000</b>
+                <li class="cart_item p-4 md:p-8 rounded-3xl cursor-pointer shadow-md hover:shadow-xl" @click="chargeAmount = 50000">
+                    <b class="text-lg md:text-2xl">50،000</b>
                     <small>تومان</small>
                 </li>
-                <li class="cart_item p-8 rounded-3xl cursor-pointer shadow-md hover:shadow-xl" @click="chargeAmount = 100000">
-                    <b class="text-2xl">100،000</b>
+                <li class="cart_item p-4 md:p-8 rounded-3xl cursor-pointer shadow-md hover:shadow-xl" @click="chargeAmount = 100000">
+                    <b class="text-lg md:text-2xl">100،000</b>
                     <small>تومان</small>
                 </li>
-                <li class="cart_item p-8 rounded-3xl cursor-pointer shadow-md hover:shadow-xl" @click="chargeAmount = 200000">
-                    <b class="text-2xl">200،000</b>
+                <li class="cart_item p-4 md:p-8 rounded-3xl cursor-pointer shadow-md hover:shadow-xl" @click="chargeAmount = 200000">
+                    <b class="text-lg md:text-2xl">200،000</b>
                     <small>تومان</small>
                 </li>
             </ul>

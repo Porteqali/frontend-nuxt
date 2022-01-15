@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import Background from "~/components/Background.vue";
+import Background from "~/components/web/Background.vue";
 
 export default {
     props: ["error"],

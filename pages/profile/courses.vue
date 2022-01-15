@@ -19,7 +19,7 @@
                 <li class="flex w-full" v-for="item in courses" :key="item._id">
                     <nuxt-link
                         :to="`/course/${item.course[0]._id}/${item.course[0].name.replace(/ /g, '-')}`"
-                        class="cart_item flex items-center gap-4 p-4 rounded-2xl w-full"
+                        class="cart_item flex flex-wrap md:flex-nowrap items-center gap-4 p-4 rounded-2xl w-full"
                     >
                         <img class="w-24 h-auto rounded-xl shadow-md flex-shrink-0" :src="item.course[0].image" width="100" :alt="item.course[0].name" />
                         <div class="flex flex-col gap-2 w-full">
@@ -29,19 +29,21 @@
                                 <span class="text-sm opacity-75">{{ `${item.teacher[0].name} ${item.teacher[0].family}` }}</span>
                             </div>
                         </div>
-                        <div class="flex flex-col items-center gap-4 w-full">
-                            <h5 class="flex items-center gap-2">
-                                <img src="/icons/TimeCircle.orange.svg" alt="TimeCircle" />
-                                <span>مدت زمان دوره</span>
-                            </h5>
-                            <strong>{{ item.course[0].totalTime }}</strong>
-                        </div>
-                        <div class="flex flex-col items-center gap-4 w-full">
-                            <h5 class="flex items-center gap-2">
-                                <img src="/icons/Video.orange.svg" alt="Video" />
-                                <span>تعداد جلسات</span>
-                            </h5>
-                            <strong v-if="item.course[0].topics">{{ item.course[0].topics.length }}</strong>
+                        <div class="flex flex-wrap items-center justify-between md:justify-evenly gap-4 w-full">
+                            <div class="flex flex-col items-center gap-4">
+                                <h5 class="flex items-center gap-2">
+                                    <img src="/icons/TimeCircle.orange.svg" alt="TimeCircle" />
+                                    <span>مدت زمان دوره</span>
+                                </h5>
+                                <strong>{{ item.course[0].totalTime }}</strong>
+                            </div>
+                            <div class="flex flex-col items-center gap-4">
+                                <h5 class="flex items-center gap-2">
+                                    <img src="/icons/Video.orange.svg" alt="Video" />
+                                    <span>تعداد جلسات</span>
+                                </h5>
+                                <strong v-if="item.course[0].topics">{{ item.course[0].topics.length }}</strong>
+                            </div>
                         </div>
                     </nuxt-link>
                 </li>

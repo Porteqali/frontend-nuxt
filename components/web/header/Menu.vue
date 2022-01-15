@@ -96,10 +96,10 @@
 </template>
 
 <script>
-import DepartmentDropdown from "~/components/header/DepartmentDropdown";
-import SearchDropdown from "~/components/header/SearchDropdown";
-import CartDropdown from "~/components/header/CartDropdown";
-import ProfileDropdown from "~/components/header/ProfileDropdown";
+import DepartmentDropdown from "~/components/web/header/DepartmentDropdown";
+import SearchDropdown from "~/components/web/header/SearchDropdown";
+import CartDropdown from "~/components/web/header/CartDropdown";
+import ProfileDropdown from "~/components/web/header/ProfileDropdown";
 import Login from "~/components/auth/Login";
 import Register from "~/components/auth/Register";
 

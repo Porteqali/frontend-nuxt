@@ -266,7 +266,7 @@
 
 <script>
 import axios from "axios";
-import CommentSection from "~/components/article/Comment.section";
+import CommentSection from "~/components/web/article/Comment.section";
 
 export default {
     head: {

@@ -13,9 +13,9 @@
         </div>
         <ul class="flex flex-col gap-4 w-full">
             <transition-group class="flex flex-col gap-4" name="slideleft" appear>
-                <li class="cart_item flex items-start gap-4 p-4 rounded-2xl w-full shadow-lg" v-for="comment in comments" :key="comment._id">
-                    <img class="w-24 h-auto rounded-xl shadow-md flex-shrink-0" :src="comment.item.image" width="100" :alt="comment.item.name" />
-                    <div class="flex flex-col gap-2 w-full">
+                <li class="cart_item flex flex-col items-start gap-4 p-4 rounded-2xl w-full shadow-lg" v-for="comment in comments" :key="comment._id">
+                    <div class="flex items-start gap-4 w-full">
+                        <img class="w-16 h-auto rounded-xl shadow-md flex-shrink-0" :src="comment.item.image" width="100" :alt="comment.item.name" />
                         <div class="flex flex-wrap items-start justify-between gap-2 w-full">
                             <div class="flex flex-col items-start gap-1">
                                 <h4>{{ comment.item.name }}</h4>
@@ -27,9 +27,9 @@
                             <span class="p-1 px-2 rounded-lg text-xs shadow-md bg-emerald-200 text-emerald-800" v-if="comment.status == 'active'">تایید شده</span>
                             <span class="p-1 px-2 rounded-lg text-xs shadow-md bg-rose-200 text-rose-800" v-if="comment.status == 'deactive'">رد شده</span>
                         </div>
-                        <hr class="w-full my-2" />
-                        <p class="opacity-75">{{ comment.text }}</p>
                     </div>
+                    <hr class="w-full opacity-50" />
+                    <p class="opacity-75">{{ comment.text }}</p>
                 </li>
             </transition-group>
         </ul>

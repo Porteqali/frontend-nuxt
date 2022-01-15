@@ -153,7 +153,7 @@
 
 <script>
 import axios from "axios";
-import Background from "~/components/Background";
+import Background from "~/components/web/Background";
 import Icon from "~/components/Icon.vue";
 
 export default {

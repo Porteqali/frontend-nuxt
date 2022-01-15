@@ -2,9 +2,6 @@
 
 <template>
     <section class="flex flex-col gap-8 w-full max-w-screen-xl mx-auto mt-4">
-        <div class="flex flex-col gap-10 my-4">
-            <h4 class="font-bold text-4xl">نظرات کاربران</h4>
-        </div>
         <div class="flex flex-col md:flex-row items-start gap-4 md:gap-8">
             <img class="rounded-full shadow-xl w-16 md:w-36 h-16 md:h-36" :src="user.info.image || `/misc/avatar.svg`" alt="avatar" />
             <div class="flex flex-col items-end gap-4 w-full">
@@ -52,7 +49,7 @@
 <script>
 import axios from "axios";
 import Loading from "~/components/Loading";
-import Comment from "~/components/Comment";
+import Comment from "~/components/web/Comment";
 
 export default {
     name: "CommentSection",
@@ -108,7 +105,7 @@ export default {
                 headers = data.headers ? data.headers : {};
             }
 
-            let params = [`page=${this.commentsPage}`, `type=article`, `commentedOn=${this.commentedOn}`];
+            let params = [`page=${this.commentsPage}`, `type=course`, `commentedOn=${this.commentedOn}`];
             url = `${url}?${params.join("&")}`;
 
             await axios
@@ -137,7 +134,7 @@ export default {
             await axios
                 .post(`/api/comments/send`, {
                     text: this.commentText,
-                    type: "article",
+                    type: "course",
                     commentedOn: this.commentedOn,
                 })
                 .then(() => {

@@ -255,11 +255,11 @@
 <script>
 import axios from "axios";
 import { duration } from "jalali-moment";
-import VideoPlayer from "~/components/VideoPlayer.vue";
-import CommentSection from "~/components/course/Comment.section.vue";
-import Topic from "~/components/course/Topic.vue";
-import Score from "~/components/course/Score.vue";
-import PurchaseButton from "~/components/course/Purchase.button.vue";
+import VideoPlayer from "~/components/web/VideoPlayer.vue";
+import CommentSection from "~/components/web/course/Comment.section.vue";
+import Topic from "~/components/web/course/Topic.vue";
+import Score from "~/components/web/course/Score.vue";
+import PurchaseButton from "~/components/web/course/Purchase.button.vue";
 
 export default {
     head() {

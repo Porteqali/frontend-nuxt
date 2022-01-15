@@ -137,9 +137,10 @@ footer {
 
 <script>
 import axios from "axios";
-import Menu from "~/components/header/Menu.vue";
-import Newsletter from "~/components/footer/Newsletter.vue";
+import Menu from "~/components/web/header/Menu.vue";
+import Newsletter from "~/components/web/footer/Newsletter.vue";
 import Toast from "~/components/Toast.vue";
+import Background from "~/components/web/Background.vue";
 
 export default {
     name: "Default.layout",
@@ -149,11 +150,11 @@ export default {
             meta: [{ hid: "description", name: "description", content: "گروه آموزشی پرتقال" }],
         };
     },
-    props: ["error"],
     components: {
         Menu,
         Newsletter,
         Toast,
+        Background,
     },
     data() {
         return {

@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import Background from "~/components/Background";
+import Background from "~/components/web/Background";
 
 export default {
     head: {

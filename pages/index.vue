@@ -90,13 +90,13 @@
 
 <script>
 require("~/assets/css/swiper.min.css");
-import Background from "~/components/Background.vue";
-import DepartmentSection from "~/components/home/Department.section";
-import MostViewedCoursesSection from "~/components/home/MostViewedCourses.section";
-import TestimonialSection from "~/components/home/Testimonial.section";
-import FaqSection from "~/components/home/FAQ.section";
-import BlogSection from "~/components/home/Blog.section";
-import NewsSection from "~/components/home/News.section";
+import Background from "~/components/web/Background.vue";
+import DepartmentSection from "~/components/web/home/Department.section";
+import MostViewedCoursesSection from "~/components/web/home/MostViewedCourses.section";
+import TestimonialSection from "~/components/web/home/Testimonial.section";
+import FaqSection from "~/components/web/home/FAQ.section";
+import BlogSection from "~/components/web/home/Blog.section";
+import NewsSection from "~/components/web/home/News.section";
 
 export default {
     scrollToTop: true,
