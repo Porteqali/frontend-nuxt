@@ -2,7 +2,7 @@
     --topOffset: 0%;
     --rightOffset: 0%;
     --minWidth: 2020px;
-    scrollbar-color: #ff6978 transparent !important;
+    scrollbar-color: #888 transparent !important;
     scrollbar-width: thin !important;
 }
 
@@ -14,10 +14,10 @@
 *::-moz-selection { background: #414141; color: white; }
 *::selection { background: #414141; color: white; }
 
-*::-webkit-scrollbar-track { background-color: transparent; border-radius: 0px; -webkit-box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.01); }
-*::-webkit-scrollbar { margin-inline-start: 0.25em; width: 10px; height: 10px; border-radius: 0px; -webkit-box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.01); }
-*::-webkit-scrollbar-track-piece { background-color: transparent; border-radius: 0px; }
-*::-webkit-scrollbar-thumb { background: #ff6978; border-radius: 0px; -webkit-box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.1); }
+*::-webkit-scrollbar-track { background-color: transparent; border-radius: 10px; -webkit-box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.01); }
+*::-webkit-scrollbar { margin-inline-start: 0.25em; width: 10px; height: 10px; border-radius: 10px; -webkit-box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.01); }
+*::-webkit-scrollbar-track-piece { background-color: transparent; border-radius: 10px; }
+*::-webkit-scrollbar-thumb { background: #888; border-radius: 10px; -webkit-box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.1); }
 
 *,
 html {
@@ -34,6 +34,9 @@ body {
 
 .kalameh { font-family: "KalamehWebRegular" !important; }
 .kalameh_bold { font-family: "KalamehWebBold" !important; }
+
+.accordiondown-enter-active, .accordiondown-leave-active { height: max-content; overflow: hidden; transform-origin: top; transition: all 0.3s; }
+.accordiondown-enter, .accordiondown-leave-to { height: 0; opacity: 0; transform: translateY(-30px) scaleY(0); }
 
 .slidedown-enter-active, .slidedown-leave-active { transition: all 0.3s; }
 .slidedown-enter, .slidedown-leave-to { opacity: 0; transform: translateY(-30px); }

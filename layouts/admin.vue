@@ -22,13 +22,7 @@ body {
 }
 
 .inner_main {
-    min-height: calc(100vh - 6.5rem);
-}
-
-@media (min-width: 768px) {
-    .inner_main {
-        min-height: calc(100vh - 7rem);
-    }
+    min-height: calc(100vh - 7rem);
 }
 </style>
 

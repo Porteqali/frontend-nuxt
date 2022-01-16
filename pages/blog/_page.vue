@@ -103,7 +103,7 @@
             </li>
         </ul>
         <ul class="flex flex-wrap justify-center md:justify-start gap-4 2xl:gap-12" v-else>
-            <li class="article_card blur flex flex-col gap-4 p-4 w-full sm:max-w-xs shadow-lg rounded-xl" v-for="(item, i) in articlesSkeleton" :key="i">
+            <li class="article_card flex flex-col gap-4 p-4 w-full sm:max-w-xs shadow-lg rounded-xl" v-for="(item, i) in articlesSkeleton" :key="i">
                 <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full h-48">
                     <span class="skeleton flex max-w-screen-sm w-full h-48"></span>
                     <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2">

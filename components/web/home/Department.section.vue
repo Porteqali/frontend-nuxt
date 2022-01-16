@@ -80,7 +80,7 @@
         <div v-swiper="coursesSwiperOptions" class="w-full max-w-screen-4xl select-none overflow-hidden">
             <ul class="swiper-wrapper flex items-start">
                 <li
-                    class="swiper-slide gray_gradient blur course_card shadow-lg flex flex-col gap-4 p-4 rounded-3xl max-w-sm ml-10"
+                    class="swiper-slide gray_gradient course_card shadow-lg flex flex-col gap-4 p-4 rounded-3xl max-w-sm ml-10"
                     v-for="(course, i) in courses"
                     :key="i"
                 >

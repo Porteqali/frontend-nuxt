@@ -32,7 +32,7 @@
         </div>
         <div class="flex flex-col items-center justify-center w-full gap-8" v-if="!articlesLoading">
             <div class="flex flex-wrap justify-center w-full gap-8">
-                <div class="article_card blur shadow-xl flex flex-col sm:flex-row gap-4 p-4 rounded-2xl w-full sm:max-w-screen-sm">
+                <div class="article_card shadow-xl flex flex-col sm:flex-row gap-4 p-4 rounded-2xl w-full sm:max-w-screen-sm">
                     <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full sm:w-64">
                         <img class="max-w-screen-sm w-full sm:h-full object-cover" :src="articles[0].image" alt="course" loading="lazy" />
                         <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2" v-if="!!articles[0].category[0]">

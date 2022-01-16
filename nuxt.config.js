@@ -36,6 +36,7 @@ export default {
         { src: "~/plugins/mask.client.js", mode: "client" },
         { src: "~/plugins/money.client.js", mode: "client" },
         { src: "~plugins/video.client.js", mode: "client" },
+        { src: "~plugins/clickaway.client.js", mode: "client" },
     ],
 
     // Auto import components: https://go.nuxtjs.dev/config-components
