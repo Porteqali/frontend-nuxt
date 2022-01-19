@@ -175,7 +175,7 @@
             <li>
                 <nuxt-link
                     class="flex items-center justify-center p-3 w-8 h-8 rounded-full"
-                    :to="`${`/department/:page?order=${order}&group=${group.slug}&search=${search}`.replace(':page', Math.max(coursesPage - 1, 1))}`"
+                    :to="`/department/:page?order=${order}&group=${group.slug}&search=${search}`.replace(':page', Math.max(coursesPage - 1, 1))"
                 >
                     &lt;
                 </nuxt-link>
@@ -184,7 +184,7 @@
                 <nuxt-link
                     class="flex items-center justify-center p-3 w-8 h-8 shadow-sm rounded-full"
                     :class="coursesPage == item ? 'bg-lightblue-300' : 'bg-indigo-100'"
-                    :to="`${`/department/:page?order=${order}&group=${group.slug}&search=${search}`.replace(':page', item)}`"
+                    :to="`/department/:page?order=${order}&group=${group.slug}&search=${search}`.replace(':page', item)"
                     v-if="item > 0"
                 >
                     {{ item }}
@@ -194,7 +194,7 @@
             <li>
                 <nuxt-link
                     class="flex items-center justify-center p-3 w-8 h-8 rounded-full"
-                    :to="`${`/department/:page?order=${order}&group=${group.slug}&search=${search}`.replace(':page', Math.min(coursesPage + 1, coursesPageTotal))}`"
+                    :to="`/department/:page?order=${order}&group=${group.slug}&search=${search}`.replace(':page', Math.min(coursesPage + 1, coursesPageTotal))"
                 >
                     &gt;
                 </nuxt-link>

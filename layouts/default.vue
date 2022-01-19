@@ -1,16 +1,6 @@
-<style>
-body {
-    margin: 0 auto;
-    width: 100vw;
-    overflow-x: hidden;
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    padding: 0;
-    background-color: var(--body-bg-color);
-}
-
+<style scoped>
 .nuxt_main {
+    background-color: var(--body-bg-color);
     position: relative;
     display: flex;
     flex-direction: column;

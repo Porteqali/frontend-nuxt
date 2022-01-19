@@ -1,21 +1,35 @@
 <style scoped>
 .side_nav {
-    position: absolute;
+    position: fixed;
     width: 100%;
     max-width: 280px;
     height: calc(100vh - 7rem);
-    background-color: #ffffffbb;
-    color: #000;
+    background-color: #222222;
+    color: #ddd;
     z-index: 20;
 }
+
 .side_nav ul {
     overflow-y: auto;
     overflow-x: hidden;
 }
+.side_nav ul::-webkit-scrollbar {
+    width: 3px;
+}
+
 .side_nav li:hover > a,
 .nuxt-link-exact-active {
-    box-shadow: 0px 8px 12px rgba(0, 0, 0, 10%);
-    background-color: #cfcfcf;
+    /* box-shadow: 0px 8px 12px rgba(0, 0, 0, 10%); */
+    background-color: #444;
+}
+
+.menu_icon {
+    /* background-color: #f1f1f1;
+    padding: .15rem;
+    border-radius: .25rem; */
+    width: 1.5rem;
+    height: 1.5rem;
+    filter: invert(1);
 }
 
 .submenu {
@@ -28,91 +42,88 @@
 
 @media (min-width: 768px) {
     .side_nav {
-        position: relative !important;
-        /* max-width: 250px; */
+        /* position: relative !important; */
+        position: sticky !important;
+        top: 6rem;
     }
 }
 </style>
 
 <template>
     <transition name="slideleft" appear="">
-        <nav class="side_nav blur flex flex-col gap-4 p-2 rounded-3xl shadow-lg" v-show="sideMenuOpen">
+        <nav class="side_nav flex flex-col gap-4 p-2 rounded-2xl shadow-lg" v-show="sideMenuOpen">
             <ul class="flex flex-col p-1 w-full h-full flex-grow text-sm" v-clickaway:sidenav_toggler="menuOnBlur">
                 <li class="flex w-full">
                     <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin">
-                        <img src="/icons/admin/Home.svg" width="24" alt="Home" />
+                        <img src="/icons/admin/Home.svg" class="menu_icon" width="24" />
                         <span>داشبورد</span>
                     </nuxt-link>
                 </li>
 
-                <hr class="w-11/12 mx-auto my-2 border-gray-400" />
+                <hr class="w-11/12 mx-auto my-2 border-gray-700" />
 
-                <li
-                    class="flex w-full p-2 rounded-xl cursor-pointer hover:shadow-md"
-                    @click="openGroup('admins')"
-                    v-if="checkPermissions(['admin.list.view', 'admin.permissions.view'], userPermissions, 'OR')"
-                >
+                <li class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-700" @click="openGroup('admins')">
                     <div class="flex items-center gap-2 w-full">
-                        <img src="/icons/admin/ShieldDone.svg" width="24" />
-                        <b>مدیریت ادمین ها</b>
+                        <img src="/icons/admin/ShieldDone.svg" class="menu_icon" width="24" />
+                        <span>مدیریت ادمین ها</span>
                     </div>
-                    <img class="mr-auto" src="/icons/ArrowDown.line.svg" width="16" />
+                    <img class="mr-auto" src="/icons/Arrow.white.svg" width="8" />
                 </li>
                 <transition name="accordiondown" appear>
                     <ul class="submenu flex flex-col gap-1 py-1" v-show="openedGroup.includes('admins')" name="admins">
                         <li class="" v-if="checkPermissions(['admin.list.view'], userPermissions)">
                             <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/list">
-                                <img src="/icons/admin/Users2.svg" width="24" />
+                                <img src="/icons/admin/Users2.svg" class="menu_icon" width="24" />
                                 <span>لیست ادمین ها</span>
                             </nuxt-link>
                         </li>
                         <li class="" v-if="checkPermissions(['admin.permissions.view'], userPermissions)">
                             <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/permissions">
-                                <img src="/icons/admin/ShieldDone.svg" width="24" />
+                                <img src="/icons/admin/ShieldDone.svg" class="menu_icon" width="24" />
                                 <span>دسترسی ها</span>
                             </nuxt-link>
                         </li>
                     </ul>
                 </transition>
 
-                <li
-                    class="flex w-full p-2 rounded-xl cursor-pointer hover:shadow-md"
-                    @click="openGroup('marketers')"
-                    v-if="checkPermissions([], userPermissions, 'OR')"
-                >
+                <li class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-700" @click="openGroup('marketers')">
                     <div class="flex items-center gap-2 w-full">
-                        <img src="/icons/admin/Users2.svg" width="24" />
-                        <b>مدیریت بازاریابان</b>
+                        <img src="/icons/admin/Users2.svg" class="menu_icon" width="24" />
+                        <span>مدیریت بازاریابان</span>
                     </div>
-                    <img class="mr-auto" src="/icons/ArrowDown.line.svg" width="16" />
+                    <img class="mr-auto" src="/icons/Arrow.white.svg" width="8" />
                 </li>
                 <transition name="accordiondown" appear>
                     <ul class="submenu flex flex-col gap-1 py-1" v-show="openedGroup.includes('marketers')" name="marketers">
-                        <li class="" v-if="checkPermissions([], userPermissions)">
+                        <li class="">
                             <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/marketers">لیست بازاریابان</nuxt-link>
                         </li>
-                        <li class="" v-if="checkPermissions([], userPermissions)">
+                        <li class="">
                             <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/marketers-commissions">لیست کمیسیون ها</nuxt-link>
                         </li>
-                        <li class="" v-if="checkPermissions([], userPermissions)">
+                        <li class="">
                             <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/marketers-commission-payments">پرداخت کمیسیون</nuxt-link>
                         </li>
                     </ul>
                 </transition>
 
-                <li class="flex w-full p-2 rounded-xl cursor-pointer hover:shadow-md" @click="openGroup('users')" v-if="checkPermissions([], userPermissions, 'OR')">
+                <li
+                    class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-700"
+                    @click="openGroup('users')"
+                    v-if="checkPermissions([], userPermissions, 'OR')"
+                >
                     <div class="flex items-center gap-2 w-full">
-                        <img src="/icons/admin/Users3.svg" width="24" />
-                        <b>مدیریت کاربران</b>
+                        <img src="/icons/admin/Users3.svg" class="menu_icon" width="24" />
+                        <span>مدیریت کاربران</span>
                     </div>
-                    <img class="mr-auto" src="/icons/ArrowDown.line.svg" width="16" />
+                    <img class="mr-auto" src="/icons/Arrow.white.svg" width="8" />
                 </li>
                 <transition name="accordiondown" appear>
                     <ul class="submenu flex flex-col gap-1 py-1" v-show="openedGroup.includes('users')" name="users">
-                        <li class="" v-if="checkPermissions([], userPermissions)">
+                        <li class="">
                             <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/users">لیست کاربران</nuxt-link>
                         </li>
-                        <li class="" v-if="checkPermissions([], userPermissions)">
+                        <li class="">
                             <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/users-comments">نظرات کاربران</nuxt-link>
                         </li>
                     </ul>
@@ -120,161 +131,151 @@
 
                 <li class="flex w-full">
                     <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/teachers">
-                        <img src="/icons/admin/Teacher.svg" width="24" />
+                        <img src="/icons/admin/Teacher.svg" class="menu_icon" width="24" />
                         <span>مدیریت اساتید</span>
                     </nuxt-link>
                 </li>
 
                 <li class="flex w-full">
                     <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/user-groups">
-                        <img src="/icons/Wallet.gray.svg" width="24" />
+                        <img src="/icons/Wallet.gray.svg" class="menu_icon" width="24" />
                         <span>گروه کاربران</span>
                     </nuxt-link>
                 </li>
 
-                <hr class="w-11/12 mx-auto my-2 border-gray-400" />
+                <hr class="w-11/12 mx-auto my-2 border-gray-700" />
 
-                <li
-                    class="flex w-full p-2 rounded-xl cursor-pointer hover:shadow-md"
-                    @click="openGroup('courses')"
-                    v-if="checkPermissions([], userPermissions, 'OR')"
-                >
+                <li class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-700" @click="openGroup('courses')">
                     <div class="flex items-center gap-2 w-full">
-                        <img src="/icons/admin/Play.svg" width="24" />
-                        <b>مدیریت دوره ها</b>
+                        <img src="/icons/admin/Play.svg" class="menu_icon" width="24" />
+                        <span>مدیریت دوره ها</span>
                     </div>
-                    <img class="mr-auto" src="/icons/ArrowDown.line.svg" width="16" />
+                    <img class="mr-auto" src="/icons/Arrow.white.svg" width="8" />
                 </li>
                 <transition name="accordiondown" appear>
                     <ul class="submenu flex flex-col gap-1 py-1" v-show="openedGroup.includes('courses')" name="courses">
-                        <li class="" v-if="checkPermissions([], userPermissions)">
+                        <li class="">
                             <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/courses">لیست دوره ها</nuxt-link>
                         </li>
-                        <li class="" v-if="checkPermissions([], userPermissions)">
+                        <li class="">
                             <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/course-groups">گروه دوره ها</nuxt-link>
                         </li>
                     </ul>
                 </transition>
 
-                <hr class="w-11/12 mx-auto my-2 border-gray-400" />
+                <hr class="w-11/12 mx-auto my-2 border-gray-700" />
 
-                <li
-                    class="flex w-full p-2 rounded-xl cursor-pointer hover:shadow-md"
-                    @click="openGroup('finance')"
-                    v-if="checkPermissions([], userPermissions, 'OR')"
-                >
+                <li class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-700" @click="openGroup('finance')">
                     <div class="flex items-center gap-2 w-full">
-                        <img src="/icons/admin/Document.svg" width="24" />
-                        <b>مدیریت مالی</b>
+                        <img src="/icons/admin/Document.svg" class="menu_icon" width="24" />
+                        <span>مدیریت مالی</span>
                     </div>
-                    <img class="mr-auto" src="/icons/ArrowDown.line.svg" width="16" />
+                    <img class="mr-auto" src="/icons/Arrow.white.svg" width="8" />
                 </li>
                 <transition name="accordiondown" appear>
                     <ul class="submenu flex flex-col gap-1 py-1" v-show="openedGroup.includes('finance')" name="finance">
-                        <li class="" v-if="checkPermissions([], userPermissions)">
+                        <li class="">
                             <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/transitions">لیست تراکنش ها</nuxt-link>
                         </li>
-                        <li class="" v-if="checkPermissions([], userPermissions)">
+                        <li class="">
                             <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/commissions">کمیسیون ها</nuxt-link>
                         </li>
-                        <li class="" v-if="checkPermissions([], userPermissions)">
+                        <li class="">
                             <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/discounts">تخفیف ها</nuxt-link>
                         </li>
                     </ul>
                 </transition>
 
-                <li
-                    class="flex w-full p-2 rounded-xl cursor-pointer hover:shadow-md"
-                    @click="openGroup('usances')"
-                    v-if="checkPermissions([], userPermissions, 'OR')"
-                >
+                <li class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-700" @click="openGroup('usances')">
                     <div class="flex items-center gap-2 w-full">
-                        <img src="/icons/admin/Discount.svg" width="24" />
-                        <b>مدیریت سررسید ها</b>
+                        <img src="/icons/admin/Discount.svg" class="menu_icon" width="24" />
+                        <span>مدیریت سررسید ها</span>
                     </div>
-                    <img class="mr-auto" src="/icons/ArrowDown.line.svg" width="16" />
+                    <img class="mr-auto" src="/icons/Arrow.white.svg" width="8" />
                 </li>
                 <transition name="accordiondown" appear>
                     <ul class="submenu flex flex-col gap-1 py-1" v-show="openedGroup.includes('usances')" name="usances">
-                        <li class="" v-if="checkPermissions([], userPermissions)">
+                        <li class="">
                             <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/usance-settings">تنظیمات سررسید</nuxt-link>
                         </li>
-                        <li class="" v-if="checkPermissions([], userPermissions)">
+                        <li class="">
                             <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/usances">لیست سررسید ها</nuxt-link>
                         </li>
-                        <li class="" v-if="checkPermissions([], userPermissions)">
+                        <li class="">
                             <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/usance-payments">پرداختی های سررسید</nuxt-link>
                         </li>
                     </ul>
                 </transition>
 
-                <hr class="w-11/12 mx-auto my-2 border-gray-400" />
+                <hr class="w-11/12 mx-auto my-2 border-gray-700" />
 
                 <li class="flex w-full">
                     <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/collaborate-requests">
-                        <img src="/icons/admin/HandShake.svg" width="24" />
+                        <img src="/icons/admin/HandShake.svg" class="menu_icon" width="24" />
                         <span>همکاری با ما</span>
                     </nuxt-link>
                 </li>
                 <li class="flex w-full">
                     <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/contact-us-requests">
-                        <img src="/icons/admin/Calling.svg" width="24" />
+                        <img src="/icons/admin/Calling.svg" class="menu_icon" width="24" />
                         <span>تماس با ما</span>
                     </nuxt-link>
                 </li>
 
-                <hr class="w-11/12 mx-auto my-2 border-gray-400" />
+                <hr class="w-11/12 mx-auto my-2 border-gray-700" />
 
                 <li class="flex w-full">
                     <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/articles">
-                        <img src="/icons/admin/Blog.svg" width="24" />
+                        <img src="/icons/admin/Blog.svg" class="menu_icon" width="24" />
                         <span>مقالات</span>
                     </nuxt-link>
                 </li>
                 <li class="flex w-full">
                     <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/faqs">
-                        <img src="/icons/admin/Question.svg" width="24" />
+                        <img src="/icons/admin/Question.svg" class="menu_icon" width="24" />
                         <span>سوالات متداول</span>
                     </nuxt-link>
                 </li>
                 <li class="flex w-full">
                     <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/testimonials">
-                        <img src="/icons/admin/Chat.svg" width="24" />
+                        <img src="/icons/admin/Chat.svg" class="menu_icon" width="24" />
                         <span>نظرات نمایشی</span>
                     </nuxt-link>
                 </li>
 
-                <hr class="w-11/12 mx-auto my-2 border-gray-400" />
+                <hr class="w-11/12 mx-auto my-2 border-gray-700" />
 
                 <li class="flex w-full">
                     <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/contact-info">
-                        <img src="/icons/admin/InfoCircle.svg" width="24" />
+                        <img src="/icons/admin/InfoCircle.svg" class="menu_icon" width="24" />
                         <span>اطلاعات تماس</span>
                     </nuxt-link>
                 </li>
 
-                <li class="flex w-full p-2 rounded-xl cursor-pointer hover:shadow-md" @click="openGroup('pages')" v-if="checkPermissions([], userPermissions, 'OR')">
+                <li class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-700" @click="openGroup('pages')">
                     <div class="flex items-center gap-2 w-full">
-                        <img src="/icons/admin/Discount.svg" width="24" />
-                        <b>مدیریت صفحات</b>
+                        <img src="/icons/admin/Document.svg" class="menu_icon" width="24" />
+                        <span>مدیریت صفحات</span>
                     </div>
-                    <img class="mr-auto" src="/icons/ArrowDown.line.svg" width="16" />
+                    <img class="mr-auto" src="/icons/Arrow.white.svg" width="8" />
                 </li>
                 <transition name="accordiondown" appear>
                     <ul class="submenu flex flex-col gap-1 py-1" v-show="openedGroup.includes('pages')" name="pages">
-                        <li class="" v-if="checkPermissions([], userPermissions)">
+                        <li class="">
                             <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/page/about-us">درباره ما</nuxt-link>
                         </li>
-                        <li class="" v-if="checkPermissions([], userPermissions)">
+                        <li class="">
                             <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/page/collaborate">همکاری با ما</nuxt-link>
                         </li>
                     </ul>
                 </transition>
             </ul>
-            <button class="flex items-center gap-2 p-2 mb-2 w-full rounded-xl bg-red-100 border-2 border-solid border-rose-300">
-                <img src="/icons/Logout.gray.svg" width="24" />
-                <span class="text-rose-800">خروج</span>
-            </button>
+            <div class="flex flex-col p-1">
+                <button class="flex items-center gap-2 p-2 w-full rounded-xl bg-rose-800">
+                    <img src="/icons/Logout.gray.svg" class="menu_icon" width="24" />
+                    <span class="text-rose-200">خروج</span>
+                </button>
+            </div>
         </nav>
     </transition>
 </template>

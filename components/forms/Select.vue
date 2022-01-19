@@ -1,6 +1,5 @@
 <style scoped>
 .t_select {
-    width: 100%;
     color: var(--select-color);
     display: flex;
     flex-direction: column;
@@ -22,8 +21,7 @@
     align-items: center;
     gap: 0.5rem;
     z-index: 2;
-    padding: 1.25rem;
-    border-radius: 1rem;
+    border-radius: .75rem;
     background-color: var(--select-input-bg-color);
 }
 .t_select .box::after {
@@ -33,10 +31,9 @@
     background-repeat: no-repeat;
     background-size: 1.25rem;
     background-position: center;
-    margin-inline-start: auto;
     margin-top: -1px;
-    width: 1rem;
-    height: 1rem;
+    width: .75rem;
+    height: .75rem;
     padding: 0.25rem;
 }
 .t_select .list {
@@ -50,7 +47,7 @@
     border-radius: 1rem;
     width: inherit;
     min-width: max-content;
-    max-height: 10rem;
+    max-height: 12rem;
     padding: 0.25rem;
     padding-top: 2.25rem;
     margin-inline-start: -0.35rem;
@@ -58,8 +55,8 @@
     margin-right: 1px;
 }
 .t_select .list li {
-    padding: .25rem 0.5rem;
-    border-radius: .5rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.5rem;
     cursor: pointer;
     transition: all 0.1s;
 }
@@ -74,9 +71,9 @@
 <template>
     <div class="t_select flex flex-col flex-grow" :class="{ open: open }">
         <div class="t_select_input" :class="inputClass">
-            <div class="box shadow-lg" tabindex="0" @click="toggleMenu()" @blur="toggleMenu(false)">
+            <div class="box p-4 shadow-lg" :class="{ 'p-2': small }" tabindex="0" @click="toggleMenu()" @blur="toggleMenu(false)">
                 <span name="placeholder" class="opacity-50 ml-4" v-if="placeholder && !selectedOption.value">{{ placeholder }}</span>
-                <span name="value" class="ml-4" v-if="selectedOption.name && selectedOption.value">{{ selectedOption.name }}</span>
+                <span name="value text-sm" :class="{ 'ml-4': !small }" v-if="selectedOption.name && selectedOption.value">{{ selectedOption.name }}</span>
             </div>
             <transition name="slidedown" mode="out-in" appear>
                 <ol class="list" v-if="open">
@@ -95,7 +92,7 @@
 <script>
 export default {
     name: "Select",
-    props: ["selectedOption", "placeholder", "options", "error", "inputClass"],
+    props: ["selectedOption", "placeholder", "options", "error", "inputClass", "small"],
     data() {
         return {
             open: false,

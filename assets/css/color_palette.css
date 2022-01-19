@@ -25,20 +25,22 @@
     --department-section-course-tag-bg-color: #ff51b1;
     --department-section-course-tag-color: #fff;
 
-    --testimonial-section-card-bg-color: #3F0E47aa;
+    --testimonial-section-card-bg-color: #3f0e47aa;
     --testimonial-section-card-color: #fff;
 
     --faq-section-card-bg-color: #fff;
     --faq-section-card-color: #000;
-    --faq-section-card-title-color: #3913B8;
+    --faq-section-card-title-color: #3913b8;
 
     --about-us-counts-color: #000;
 
     --select-color: #000;
     --select-input-bg-color: #fff;
     --select-list-bg-color: #fff;
-    --select-list-li-hover-bg-color: #FF853788;
-    --select-list-li-selected-bg-color: #FF8537;
+    --select-list-li-hover-bg-color: #ff853788;
+    --select-list-li-selected-bg-color: #ff8537;
+    --select-list-li-hover-bg-color: #9caaad88;
+    --select-list-li-selected-bg-color: #9caaad;
 }
 
 [theme="default_light"],

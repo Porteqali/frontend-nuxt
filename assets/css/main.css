@@ -19,17 +19,17 @@
 *::-webkit-scrollbar-track-piece { background-color: transparent; border-radius: 10px; }
 *::-webkit-scrollbar-thumb { background: #888; border-radius: 10px; -webkit-box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.1); }
 
-*,
-html {
+*, html {
     font-family: "IranYekanWebRegular", "IranYekanWebRegularFaNum";
     scroll-behavior: smooth;
     transition: all 0.15s;
     outline: none;
 }
 body {
-    /* text-shadow: 0px 1px 3px #00000044; */
-    /* transform: translateZ(0); */
     position: relative;
+    width: 100vw; margin: 0 auto; overflow-x: hidden;
+    display: flex; flex-direction: column;
+    margin: 0 auto; padding: 0;
 }
 
 .kalameh { font-family: "KalamehWebRegular" !important; }
@@ -38,6 +38,9 @@ body {
 .dashboard_body {
     width: 100%; max-height: 100%; overflow: auto;
 }
+
+.check-enter-active, .check-leave-active { transition: all 0.2s; }
+.check-enter, .check-leave-to { transform: scale(0, 0); }
 
 .accordiondown-enter-active, .accordiondown-leave-active { height: max-content; overflow: hidden; transform-origin: top; transition: all 0.3s; }
 .accordiondown-enter, .accordiondown-leave-to { padding: 0 !important; height: 0; opacity: 0; transform: translateY(-30px) scaleY(0); }

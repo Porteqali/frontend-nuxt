@@ -1,24 +1,15 @@
 <style scoped>
-body {
-    margin: 0 auto;
-    width: 100vw;
-    min-height: 100vh;
-    overflow-x: hidden;
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    padding: 0;
-    background-color: var(--body-bg-color);
-}
-
 .nuxt_main {
+    background-color: #fafcfd;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     width: 100vw;
-    overflow: hidden;
+    max-width: 1920px;
+    margin: 0 auto;
+    /* overflow: hidden; */
 }
 
 .inner_main {
@@ -35,7 +26,7 @@ body {
             <Nuxt class="w-full z-10" nuxt-child-key="admin" />
         </div>
 
-        <img class="fixed right-0 bottom-0" draggable="false" src="/backgrounds/admin/Background.png" />
+        <!-- <img class="fixed right-0 bottom-0" draggable="false" src="/backgrounds/admin/Background.png" /> -->
 
         <Toast />
     </div>

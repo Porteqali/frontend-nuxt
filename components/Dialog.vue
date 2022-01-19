@@ -41,7 +41,7 @@
                 <div class="box blur p-6 rounded-2xl w-max max-h-full overflow-auto" :class="boxClass" v-show="open">
                     <div class="flex justify-between items-center gap-4 mb-4">
                         <b class="text-2xl" v-if="title">{{ title }}</b>
-                        <button class="flex items-center justify-center bg-gray-100 w-10 h-10 rounded-full p-2" @click="close()">
+                        <button class="flex items-center justify-center bg-gray-100 w-10 h-10 rounded-full p-2 shadow-md" @click="close()">
                             <img src="/icons/Cancel.svg" width="24" height="24" alt="Cancel" />
                         </button>
                     </div>

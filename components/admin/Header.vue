@@ -4,14 +4,18 @@ header {
     color: #000;
     height: 4rem;
     overflow: hidden;
+
+    position: sticky;
+    top: 1rem;
+    z-index: 25;
 }
 </style>
 
 <template>
-    <header class="flex items-center justify-between gap-6 p-3 px-6 w-full max-w-screen-4xl rounded-3xl shadow-lg z-20">
+    <header class="blur flex items-center justify-between gap-6 p-3 px-6 w-full max-w-screen-4xl rounded-2xl shadow-lg z-20">
         <div class="flex items-center gap-6">
             <button @click="sideMenuToggle()"><img class="sidenav_toggler" src="/icons/admin/Hamburger.svg" width="24" /></button>
-            <img class="h-8 md:h-10" src="/logo_orange.png" alt="porteqal" />
+            <nuxt-link class="" to="/"><img class="h-8 md:h-10" src="/logo_orange.png" alt="porteqal" /></nuxt-link>
         </div>
         <div class="flex items-center gap-4">
             <img src="/icons/admin/Notification.svg" width="24" />

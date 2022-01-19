@@ -68,7 +68,7 @@
         <ul class="grid gap-10" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr))" v-if="!articlesLoading">
             <li class="flex w-full shadow-lg rounded-xl mx-auto" v-for="(article, i) in articles" :key="i">
                 <nuxt-link
-                    class="article_card blur flex flex-col gap-4 flex-grow p-4 rounded-2xl shadow-xl w-full"
+                    class="article_card flex flex-col gap-4 flex-grow p-4 rounded-2xl shadow-xl w-full"
                     :to="`/article/${article.slug}`"
                     :title="article.title"
                 >
