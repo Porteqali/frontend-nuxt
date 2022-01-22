@@ -12,6 +12,8 @@ app.use(require("cookie-parser")());
 app.use(csrf);
 
 app.all("/api/*", multer().fields([{ name: "files" }]), async (req, res) => {
+    let resStatus = 200;
+    let resData = {};
     const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
 
     let data = { ...req.body };
@@ -54,17 +56,20 @@ app.all("/api/*", multer().fields([{ name: "files" }]), async (req, res) => {
             // maxBodyLength: Infinity,
         })
         .then((response) => {
-            return res.json(response.data);
+            resData = response.data;
         })
         .catch((error) => {
-            if (typeof error.response !== "undefined") return res.status(error.response.status).json(error.response.data);
-            console.log(error);
-            return res.status(500).end();
+            if (typeof error.response !== "undefined") {
+                resStatus = error.response.status;
+                resData = error.response.data;
+            } else console.log(error);
         })
         .finally(() => {
             filesToDelete.forEach(async (path) => await fsPromise.unlink(path));
-            return res.status(500).end();
         });
+
+    if (!!resData) return res.status(resStatus).json(resData);
+    else return res.status(resStatus).end();
 });
 
 app.get("/file/*", async (req, res) => {

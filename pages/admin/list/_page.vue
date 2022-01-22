@@ -6,14 +6,14 @@
             <div class="flex items-center gap-2">
                 <nuxt-link to="/admin"><img class="opacity-75" src="/icons/admin/Home.svg" width="20" /></nuxt-link>
                 <img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" />
-                <h1 class="text-2xl"><b>مدیریت دسترسی ها</b></h1>
+                <h1 class="text-2xl"><b>مدیریت ادمین ها</b></h1>
             </div>
             <nuxt-link
-                to="/admin/permissions/create"
+                to="/admin/list/create"
                 class="orange_gradient_v rounded-xl p-2 px-4 w-max hover:shadow-md"
-                v-if="checkPermissions(['admin.permissions.add'], userPermissions)"
+                v-if="checkPermissions(['admin.list.add'], userPermissions)"
             >
-                دسترسی جدید
+                ادمین جدید
             </nuxt-link>
         </div>
 
@@ -53,27 +53,38 @@
             :isEmpty="!tableData.length"
             :total="total"
             :pageTotal="pageTotal"
-            :pageUrl="`/admin/permissions/:page?search=${search}`"
+            :pageUrl="`/admin/list/:page?search=${search}`"
             @update:table="getTableData()"
         >
             <template v-slot:tbody="{ record, index }">
-                <td>{{ record.name }}</td>
+                <td>
+                    <div class="flex items-center gap-2">
+                        <img class="w-8 h-8 rounded-full object-cover" :src="record.image" v-if="record.image" alt="" />
+                        <span>{{ `${record.name} ${record.family}` }}</span>
+                    </div>
+                </td>
+                <td>{{ record.email }}</td>
+                <td><span v-if="record.permissionGroup[0]">{{ record.permissionGroup[0].name }}</span></td>
                 <td>{{ new Date(record.createdAt).toLocaleString("fa") }}</td>
+                <td>
+                    <span class="p-1 px-2 text-xs rounded-md bg-emerald-100 text-emerald-700" v-if="record.status == 'active'">فعال</span>
+                    <span class="p-1 px-2 text-xs rounded-md bg-rose-100 text-rose-700" v-if="record.status == 'deactive'">غیرفعال</span>
+                </td>
                 <td>
                     <div class="flex items-center gap-1">
                         <router-link
                             class="p-2 rounded-lg hover:bg-blue-200"
                             title="Edit"
-                            :to="`/admin/permissions/edit/${record._id}`"
-                            v-if="checkPermissions(['admin.permissions.edit'], userPermissions)"
+                            :to="`/admin/list/edit/${record._id}`"
+                            v-if="checkPermissions(['admin.list.edit'], userPermissions)"
                         >
                             <img src="/icons/admin/Edit.svg" width="24" />
                         </router-link>
                         <button
                             class="p-2 rounded-lg hover:bg-red-200"
                             title="Delete"
-                            @click="askToDelete(record._id, record.name, index)"
-                            v-if="checkPermissions(['admin.permissions.delete'], userPermissions)"
+                            @click="askToDelete(record._id, `${record.name} ${record.family}`, index)"
+                            v-if="checkPermissions(['admin.list.delete'], userPermissions)"
                         >
                             <img src="/icons/admin/Delete.svg" width="24" />
                         </button>
@@ -88,7 +99,7 @@
             :recordName.sync="deletingRecordName"
             :recordIndex.sync="deletingRecordIndex"
             :tableData.sync="tableData"
-            url="/api/admin/permission-groups"
+            url="/api/admin/list"
         />
     </main>
 </template>
@@ -102,7 +113,7 @@ import DeleteDialog from "~/components/admin/DeleteDialog.vue";
 export default {
     layout: "admin",
     head() {
-        return { title: "مدیریت دسترسی ها - گروه آموزشی پرتقال" };
+        return { title: "مدیریت ادمین ها - گروه آموزشی پرتقال" };
     },
     mixins: [permissionCheck],
     components: {
@@ -119,15 +130,18 @@ export default {
                 toRegisterDate: "",
                 status: [],
             },
-            sort: this.sort || { col: "نام", type: "asc" },
+            sort: this.sort || { col: "کاربر", type: "asc" },
             page: this.page || 1,
             pp: this.pp || 25,
             total: this.total || 0,
             pageTotal: this.pageTotal || 0,
 
             tableHeads: {
-                نام: { sortable: true },
+                کاربر: { sortable: true },
+                ایمیل: { sortable: true },
+                "سطح دسترسی": { sortable: true },
                 "تاریخ ثبت": { sortable: true },
+                وضعیت: { sortable: true },
                 عملیات: { sortable: false },
             },
             tableData: this.tableData || [],
@@ -175,7 +189,7 @@ export default {
             if (this.isDataLoading) return;
             this.isDataLoading = true;
 
-            let url = `/api/admin/permission-groups`;
+            let url = `/api/admin/list`;
             let headers = {};
             if (process.server) {
                 url = `${process.env.BASE_URL}${url}`;

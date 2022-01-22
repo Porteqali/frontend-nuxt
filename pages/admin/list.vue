@@ -1,7 +1,7 @@
 <style scoped></style>
 
 <template>
-    <div>test 123</div>
+    <Nuxt nuxt-child-key="list" />
 </template>
 
 <script>

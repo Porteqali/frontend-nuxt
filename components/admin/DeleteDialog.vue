@@ -2,7 +2,7 @@
 
 <template>
     <Dialog :open="open" @update:open="updateOpenState">
-        <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-2 w-full max-w-xs md:max-w-md">
             <!-- <Icon class="w-32 h-32 bg-rose-500" size="120px" folder="icons/admin" name="Danger" /> -->
             <span class="text-lg">
                 آیا مطمئن به
@@ -28,7 +28,7 @@ import Icon from "~/components/Icon.vue";
 
 export default {
     name: "DeleteDialog",
-    props: ["open", "recordId", "recordName", "recordIndex", "tableData"],
+    props: ["open", "recordId", "recordName", "recordIndex", "tableData","url"],
     components: {
         Dialog,
         Icon,
@@ -48,7 +48,7 @@ export default {
             if (this.deletingRecord) return;
             this.deletingRecord = true;
 
-            let url = `/api/admin/permission-groups/${this.recordId}`;
+            let url = `${this.url}/${this.recordId}`;
             await axios
                 .delete(url)
                 .then((response) => {

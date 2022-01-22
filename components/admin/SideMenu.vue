@@ -62,7 +62,11 @@
 
                 <hr class="w-11/12 mx-auto my-2 border-gray-700" />
 
-                <li class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-700" @click="openGroup('admins')">
+                <li
+                    class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-700"
+                    @click="openGroup('admins')"
+                    v-if="checkPermissions(['admin.list.view', 'admin.permissions.view'], userPermissions, 'OR')"
+                >
                     <div class="flex items-center gap-2 w-full">
                         <img src="/icons/admin/ShieldDone.svg" class="menu_icon" width="24" />
                         <span>مدیریت ادمین ها</span>
@@ -175,7 +179,7 @@
                 <transition name="accordiondown" appear>
                     <ul class="submenu flex flex-col gap-1 py-1" v-show="openedGroup.includes('finance')" name="finance">
                         <li class="">
-                            <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/transitions">لیست تراکنش ها</nuxt-link>
+                            <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/transactions">لیست تراکنش ها</nuxt-link>
                         </li>
                         <li class="">
                             <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/commissions">کمیسیون ها</nuxt-link>

@@ -7,7 +7,7 @@
             <img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" />
             <nuxt-link to="/admin/permissions">مدیریت دسترسی ها</nuxt-link>
             <img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" />
-            <h1 class="text-2xl"><b>دسترسی جدید</b></h1>
+            <h1 class="text-2xl"><b>ویرایش دسترسی</b></h1>
         </div>
 
         <hr class="w-full" />
@@ -70,7 +70,7 @@ import axios from "axios";
 export default {
     layout: "admin",
     head() {
-        return { title: "ایجاد گروه دسترسی جدید - گروه آموزشی پرتقال" };
+        return { title: "ویرایش گروه دسترسی جدید - گروه آموزشی پرتقال" };
     },
     components: {},
     data() {
@@ -80,7 +80,7 @@ export default {
             permissions: this.permissions || {},
 
             name: "",
-            selectedPermissions: [],
+            selectedPermissions: this.selectedPermissions || [],
 
             errorMsg: "",
             errorTag: "",
@@ -90,7 +90,10 @@ export default {
         let headers = {};
         if (process.server) headers = this.$nuxt.context.req.headers;
 
-        await Promise.all([this.getPermissions({ headers })]);
+        const route = this.$nuxt.context.route;
+
+        await this.getPermissions({ headers });
+        await this.loadPermissions({ headers }, route);
     },
     computed: {
         userPermissions() {
@@ -116,6 +119,28 @@ export default {
                         this.permissions[records[i].group].push({ ...records[i] });
                     }
                     this.permissions = { ...this.permissions };
+                })
+                .catch((e) => {
+                    if (typeof e.response !== "undefined" && e.response.data && typeof e.response.data.message === "object") {
+                        this.$store.dispatch("toast/makeToast", { type: "error", title: "خطا", message: e.response.data.message[0].errors[0] });
+                    }
+                });
+        },
+
+        async loadPermissions(data = {}, route) {
+            let url = `/api/admin/permission-groups/${route.params.id}`;
+            let headers = {};
+            if (process.server) {
+                url = `${process.env.BASE_URL}${url}`;
+                headers = data.headers ? data.headers : {};
+            }
+
+            url = encodeURI(url);
+            await axios
+                .get(url, { headers })
+                .then((response) => {
+                    this.name = response.data.name;
+                    this.selectedPermissions = response.data.permissions;
                 })
                 .catch((e) => {
                     if (typeof e.response !== "undefined" && e.response.data && typeof e.response.data.message === "object") {
@@ -156,16 +181,17 @@ export default {
 
             this.errorMsg = this.errorTag = "";
 
-            let url = encodeURI(`/api/admin/permission-groups`);
+            let url = encodeURI(`/api/admin/permission-groups/${this.$route.params.id}`);
             await axios
-                .post(url, {
+                .put(url, {
                     name: this.name,
                     selectedPermissions: this.selectedPermissions,
                 })
                 .then((response) => {
-                    this.$store.dispatch("toast/makeToast", { type: "success", title: "", message: "گروه دسترسی با موفقیت اضافه شد" });
+                    this.$store.dispatch("toast/makeToast", { type: "success", title: "", message: "گروه دسترسی با موفقیت ویرایش شد" });
                 })
                 .catch((e) => {
+                    console.log(e);
                     if (typeof e.response !== "undefined" && e.response.data && typeof e.response.data.message === "object") {
                         this.$store.dispatch("toast/makeToast", { type: "error", title: "خطا", message: e.response.data.message[0].errors[0] });
                         this.errorMsg = e.response.data.message[0].errors[0];

@@ -88,7 +88,6 @@
             :recordName.sync="deletingRecordName"
             :recordIndex.sync="deletingRecordIndex"
             :tableData.sync="tableData"
-            url="/api/admin/permission-groups"
         />
     </main>
 </template>
