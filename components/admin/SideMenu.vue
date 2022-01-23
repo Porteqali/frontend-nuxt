@@ -51,8 +51,8 @@
 
 <template>
     <transition name="slideleft" appear="">
-        <nav class="side_nav flex flex-col gap-4 p-2 rounded-2xl shadow-lg" v-show="sideMenuOpen">
-            <ul class="flex flex-col p-1 w-full h-full flex-grow text-sm" v-clickaway:sidenav_toggler="menuOnBlur">
+        <nav class="side_nav flex flex-col gap-4 p-2 rounded-2xl shadow-2xl" v-show="sideMenuOpen">
+            <ul class="flex flex-col p-1 gap-1 w-full h-full flex-grow text-sm" v-clickaway:sidenav_toggler="menuOnBlur">
                 <li class="flex w-full">
                     <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin">
                         <img src="/icons/admin/Home.svg" class="menu_icon" width="24" />
@@ -60,7 +60,7 @@
                     </nuxt-link>
                 </li>
 
-                <hr class="w-11/12 mx-auto my-2 border-gray-700" />
+                <hr class="w-11/12 mx-auto my-1 border-gray-700" />
 
                 <li
                     class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-700"
@@ -90,32 +90,14 @@
                     </ul>
                 </transition>
 
-                <li class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-700" @click="openGroup('marketers')">
-                    <div class="flex items-center gap-2 w-full">
+                <li class="flex w-full" v-if="checkPermissions(['admin.marketers.view'], userPermissions)">
+                    <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/marketers">
                         <img src="/icons/admin/Users2.svg" class="menu_icon" width="24" />
                         <span>مدیریت بازاریابان</span>
-                    </div>
-                    <img class="mr-auto" src="/icons/Arrow.white.svg" width="8" />
+                    </nuxt-link>
                 </li>
-                <transition name="accordiondown" appear>
-                    <ul class="submenu flex flex-col gap-1 py-1" v-show="openedGroup.includes('marketers')" name="marketers">
-                        <li class="">
-                            <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/marketers">لیست بازاریابان</nuxt-link>
-                        </li>
-                        <li class="">
-                            <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/marketers-commissions">لیست کمیسیون ها</nuxt-link>
-                        </li>
-                        <li class="">
-                            <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/marketers-commission-payments">پرداخت کمیسیون</nuxt-link>
-                        </li>
-                    </ul>
-                </transition>
 
-                <li
-                    class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-700"
-                    @click="openGroup('users')"
-                    v-if="checkPermissions([], userPermissions, 'OR')"
-                >
+                <li class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-700" @click="openGroup('users')">
                     <div class="flex items-center gap-2 w-full">
                         <img src="/icons/admin/Users3.svg" class="menu_icon" width="24" />
                         <span>مدیریت کاربران</span>
@@ -147,7 +129,7 @@
                     </nuxt-link>
                 </li>
 
-                <hr class="w-11/12 mx-auto my-2 border-gray-700" />
+                <hr class="w-11/12 mx-auto my-1 border-gray-700" />
 
                 <li class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-700" @click="openGroup('courses')">
                     <div class="flex items-center gap-2 w-full">
@@ -167,7 +149,7 @@
                     </ul>
                 </transition>
 
-                <hr class="w-11/12 mx-auto my-2 border-gray-700" />
+                <hr class="w-11/12 mx-auto my-1 border-gray-700" />
 
                 <li class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-700" @click="openGroup('finance')">
                     <div class="flex items-center gap-2 w-full">
@@ -211,7 +193,7 @@
                     </ul>
                 </transition>
 
-                <hr class="w-11/12 mx-auto my-2 border-gray-700" />
+                <hr class="w-11/12 mx-auto my-1 border-gray-700" />
 
                 <li class="flex w-full">
                     <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/collaborate-requests">
@@ -226,7 +208,7 @@
                     </nuxt-link>
                 </li>
 
-                <hr class="w-11/12 mx-auto my-2 border-gray-700" />
+                <hr class="w-11/12 mx-auto my-1 border-gray-700" />
 
                 <li class="flex w-full">
                     <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/articles">
@@ -247,7 +229,7 @@
                     </nuxt-link>
                 </li>
 
-                <hr class="w-11/12 mx-auto my-2 border-gray-700" />
+                <hr class="w-11/12 mx-auto my-1 border-gray-700" />
 
                 <li class="flex w-full">
                     <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/contact-info">

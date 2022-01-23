@@ -35,6 +35,9 @@
     height: 100%;
     overflow: auto;
 }
+.dashbaord_table tbody td {
+    border-bottom: 1px solid #eaeaea;
+}
 .dashbaord_table tbody tr:hover {
     transition: all 0.2s;
     background-color: #f6f6f6;
@@ -112,13 +115,13 @@
             </div>
         </div>
 
-        <div class="shadow-lg rounded-xl overflow-hidden h-full" :class="{ 'p-4': tableView == 'card' }" v-if="!loading">
+        <div class="shadow-lg rounded-xl overflow-auto h-full" :class="{ 'p-4': tableView == 'card' }" v-if="!loading">
             <table :class="{ 'flex-grow': !isEmpty, [tableView]: true }">
                 <thead>
                     <tr>
                         <th v-for="(value, name) in heads" :key="name" class="" :sortable="value.sortable" @click="updateSort(value.sortable, name)">
                             <div class="flex items-center gap-1 cursor-pointer">
-                                <span>{{ name }}</span>
+                                <span class="opacity-75 text-sm">{{ name }}</span>
                                 <img class="select-none w-4" src="/icons/admin/SortAsc.svg" v-if="value.sortable && sort.col == name && sort.type == 'asc'" />
                                 <img class="select-none w-4" src="/icons/admin/SortDesc.svg" v-else-if="value.sortable && sort.col == name && sort.type == 'desc'" />
                                 <img class="select-none w-4" src="/icons/admin/SortEmpty.svg" v-else-if="value.sortable" />
@@ -139,7 +142,7 @@
         <ul class="flex items-center gap-4" v-if="!!pagesList.length">
             <li v-for="(item, i) in pagesList" :key="i">
                 <nuxt-link
-                    class="flex items-center justify-center p-3 w-8 h-8 shadow-md rounded-lg"
+                    class="flex items-center justify-center p-3 w-8 h-8 shadow-md rounded-xl"
                     :class="page != item ? 'bg-white' : 'bg-gray-800 text-white'"
                     :to="pageUrl.replace(':page', item)"
                     v-if="item > 0"

@@ -6,14 +6,14 @@
             <div class="flex items-center gap-2">
                 <nuxt-link to="/admin"><img class="opacity-75" src="/icons/admin/Home.svg" width="20" /></nuxt-link>
                 <img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" />
-                <h1 class="text-2xl"><b>مدیریت دسترسی ها</b></h1>
+                <h1 class="text-2xl"><b>مدیریت بازاریابان</b></h1>
             </div>
             <nuxt-link
-                to="/admin/permissions/create"
+                to="/admin/marketers/create"
                 class="orange_gradient_v rounded-xl p-2 px-4 w-max hover:shadow-md"
-                v-if="checkPermissions(['admin.permissions.add'], userPermissions)"
+                v-if="checkPermissions(['admin.marketers.add'], userPermissions)"
             >
-                دسترسی جدید
+                بازاریاب جدید
             </nuxt-link>
         </div>
 
@@ -53,30 +53,67 @@
             :isEmpty="!tableData.length"
             :total="total"
             :pageTotal="pageTotal"
-            :pageUrl="`/admin/permissions/:page?search=${search}`"
+            :pageUrl="`/admin/marketers/:page?search=${search}`"
             @update:table="getTableData()"
         >
             <template v-slot:tbody="{ record, index }">
-                <td>{{ record.name }}</td>
+                <td>
+                    <div class="flex items-center gap-2">
+                        <img class="w-8 h-8 rounded-full object-cover" :src="record.image" v-if="record.image" alt="" />
+                        <span>{{ `${record.name} ${record.family}` }}</span>
+                    </div>
+                </td>
+                <td>
+                    <span class="title">تعداد مشتریان:</span>
+                    {{ new Intl.NumberFormat("fa").format(record.customerCount) }}
+                </td>
+                <td>
+                    <span class="title">کل کمیسیون:</span>
+                    {{ new Intl.NumberFormat("fa").format(record.totalCommission) }}
+                    <small>تومان</small>
+                </td>
+                <td>
+                    <span class="title">کمیسیون پرداخت شده:</span>
+                    {{ new Intl.NumberFormat("fa").format(record.totalPaid) }}
+                    <small>تومان</small>
+                </td>
+                <td>
+                    <span class="p-1 px-2 text-xs rounded-md bg-emerald-100 text-emerald-700" v-if="record.status == 'active'">فعال</span>
+                    <span class="p-1 px-2 text-xs rounded-md bg-rose-100 text-rose-700" v-if="record.status == 'deactive'">غیرفعال</span>
+                </td>
                 <td>{{ new Date(record.createdAt).toLocaleString("fa") }}</td>
                 <td>
                     <div class="flex items-center gap-1">
                         <router-link
-                            class="p-2 rounded-lg hover:bg-blue-200"
+                            class="p-2 rounded-lg hover:bg-blue-200 flex-shrink-0"
                             title="Edit"
-                            :to="`/admin/permissions/edit/${record._id}`"
-                            v-if="checkPermissions(['admin.permissions.edit'], userPermissions)"
+                            :to="`/admin/marketers/edit/${record._id}`"
+                            v-if="checkPermissions(['admin.marketers.edit'], userPermissions)"
                         >
                             <img src="/icons/admin/Edit.svg" width="24" />
                         </router-link>
+                        <router-link
+                            class="p-2 rounded-lg hover:bg-emerald-200 flex-shrink-0"
+                            title="پرداخت کمیسیون"
+                            :to="`/admin/marketers/edit/${record._id}`"
+                            v-if="checkPermissions(['admin.marketers.pay'], userPermissions)"
+                        >
+                            <img src="/icons/admin/Payment.svg" width="24" />
+                        </router-link>
                         <button
-                            class="p-2 rounded-lg hover:bg-red-200"
+                            class="p-2 rounded-lg hover:bg-red-200 flex-shrink-0"
                             title="Delete"
-                            @click="askToDelete(record._id, record.name, index)"
-                            v-if="checkPermissions(['admin.permissions.delete'], userPermissions)"
+                            @click="askToDelete(record._id, `${record.name} ${record.family}`, index)"
+                            v-if="checkPermissions(['admin.marketers.delete'], userPermissions)"
                         >
                             <img src="/icons/admin/Delete.svg" width="24" />
                         </button>
+                        <ButtonList class="p-2 rounded-lg hover:bg-gray-200 flex-shrink-0">
+                            <li class="p-2 rounded-lg hover:bg-coolgray-200"><nuxt-link class="flex w-full" to="#">لیست سطوح بازاریابی</nuxt-link></li>
+                            <li class="p-2 rounded-lg hover:bg-coolgray-200"><nuxt-link class="flex w-full" to="#">لیست مشتریان</nuxt-link></li>
+                            <li class="p-2 rounded-lg hover:bg-coolgray-200"><nuxt-link class="flex w-full" to="#">لیست کمیسیون ها</nuxt-link></li>
+                            <li class="p-2 rounded-lg hover:bg-coolgray-200"><nuxt-link class="flex w-full" to="#">تاریخچه پرداخت کمیسیون ها</nuxt-link></li>
+                        </ButtonList>
                     </div>
                 </td>
             </template>
@@ -88,6 +125,7 @@
             :recordName.sync="deletingRecordName"
             :recordIndex.sync="deletingRecordIndex"
             :tableData.sync="tableData"
+            url="/api/admin/marketers"
         />
     </main>
 </template>
@@ -97,16 +135,18 @@ import axios from "axios";
 import permissionCheck from "~/mixins/permissionCheck";
 import Table from "~/components/admin/Table.vue";
 import DeleteDialog from "~/components/admin/DeleteDialog.vue";
+import ButtonList from "~/components/forms/admin/ButtonList.vue";
 
 export default {
     layout: "admin",
     head() {
-        return { title: "مدیریت دسترسی ها - گروه آموزشی پرتقال" };
+        return { title: "مدیریت بازاریابان - گروه آموزشی پرتقال" };
     },
     mixins: [permissionCheck],
     components: {
         Table,
         DeleteDialog,
+        ButtonList,
     },
     data() {
         return {
@@ -118,14 +158,18 @@ export default {
                 toRegisterDate: "",
                 status: [],
             },
-            sort: this.sort || { col: "نام", type: "asc" },
+            sort: this.sort || { col: "بازاریاب", type: "asc" },
             page: this.page || 1,
             pp: this.pp || 25,
             total: this.total || 0,
             pageTotal: this.pageTotal || 0,
 
             tableHeads: {
-                نام: { sortable: true },
+                بازاریاب: { sortable: true },
+                "تعداد مشتریان": { sortable: true },
+                "کل کمیسیون": { sortable: true },
+                "کمیسیون پرداخت شده": { sortable: true },
+                وضعیت: { sortable: true },
                 "تاریخ ثبت": { sortable: true },
                 عملیات: { sortable: false },
             },
@@ -174,7 +218,7 @@ export default {
             if (this.isDataLoading) return;
             this.isDataLoading = true;
 
-            let url = `/api/admin/permission-groups`;
+            let url = `/api/admin/marketers`;
             let headers = {};
             if (process.server) {
                 url = `${process.env.BASE_URL}${url}`;

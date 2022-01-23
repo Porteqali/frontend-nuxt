@@ -76,14 +76,12 @@
                     <div class="flex flex-col gap-2 w-full">
                         <label class="text-sm">
                             <span>رمزعبور</span>
-                            <b class="text-red-500">*</b>
                         </label>
                         <input type="password" v-model="password" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
                     </div>
                     <div class="flex flex-col gap-2 w-full">
                         <label class="text-sm">
                             <span>تکرار رمزعبور</span>
-                            <b class="text-red-500">*</b>
                         </label>
                         <input type="password" v-model="passwordConfirmation" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
                     </div>

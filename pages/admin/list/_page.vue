@@ -65,11 +65,11 @@
                 </td>
                 <td>{{ record.email }}</td>
                 <td><span v-if="record.permissionGroup[0]">{{ record.permissionGroup[0].name }}</span></td>
-                <td>{{ new Date(record.createdAt).toLocaleString("fa") }}</td>
                 <td>
                     <span class="p-1 px-2 text-xs rounded-md bg-emerald-100 text-emerald-700" v-if="record.status == 'active'">فعال</span>
                     <span class="p-1 px-2 text-xs rounded-md bg-rose-100 text-rose-700" v-if="record.status == 'deactive'">غیرفعال</span>
                 </td>
+                <td>{{ new Date(record.createdAt).toLocaleString("fa") }}</td>
                 <td>
                     <div class="flex items-center gap-1">
                         <router-link
@@ -140,8 +140,8 @@ export default {
                 کاربر: { sortable: true },
                 ایمیل: { sortable: true },
                 "سطح دسترسی": { sortable: true },
-                "تاریخ ثبت": { sortable: true },
                 وضعیت: { sortable: true },
+                "تاریخ ثبت": { sortable: true },
                 عملیات: { sortable: false },
             },
             tableData: this.tableData || [],
