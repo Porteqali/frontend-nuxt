@@ -5,49 +5,144 @@
         <div class="flex flex-wrap md:flex-nowrap items-center gap-2">
             <nuxt-link to="/admin"><img class="opacity-75" src="/icons/admin/Home.svg" width="20" /></nuxt-link>
             <img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" />
-            <nuxt-link to="/admin/permissions">مدیریت دسترسی ها</nuxt-link>
+            <nuxt-link to="/admin/marketers">مدیریت بازاریابان</nuxt-link>
             <img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" />
-            <h1 class="text-2xl"><b>دسترسی جدید</b></h1>
+            <h1 class="text-2xl"><b>بازاریاب جدید</b></h1>
         </div>
 
         <hr class="w-full" />
 
         <section class="flex flex-col gap-4 bg-white rounded-2xl shadow-lg mx-auto w-full max-w-screen-lg flex-grow p-4">
             <form class="flex flex-col gap-4 flex-grow max-h-full overflow-auto">
-                <div class="flex flex-col gap-2 w-full">
-                    <label class="text-sm">
-                        <span>نام گروه دسترسی</span>
-                        <b class="text-red-500">*</b>
-                    </label>
-                    <input type="text" v-model="name" dir="auto" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
+                <div class="flex items-center gap-4">
+                    <img class="w-28 h-28 bg-gray-300 rounded-3xl object-cover" :src="image || '/icons/Profile.svg'" alt="" />
+                    <div class="flex flex-col items-start gap-4">
+                        <button type="button" class="orange_gradient_h p-2 px-4 rounded-xl shadow-md text-sm" @click="$refs.fileInput.click()" :disabled="saving">
+                            آپلود عکس جدید
+                        </button>
+                        <button type="button" class="gray_gradient p-2 px-4 rounded-xl shadow-md text-sm" @click="deleteImage()" v-if="!!image">حذف</button>
+                    </div>
+                    <input class="w-0 h-0 opacity-0" ref="fileInput" type="file" accept=".jpg,.jpeg,.png,.gif" @change="selectFile()" />
                 </div>
                 <hr class="w-full" />
-                <div class="flex flex-col gap-1">
-                    <h5>دسترسی ها</h5>
-                    <small class="opacity-50">مجوز های مورد نظر خود را انتخاب کنید</small>
+                <div class="flex flex-wrap md:flex-nowrap gap-4 w-full">
+                    <div class="flex flex-col gap-2 w-full">
+                        <label class="text-sm">
+                            <span>نام</span>
+                            <b class="text-red-500">*</b>
+                        </label>
+                        <input type="text" v-model="name" dir="auto" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
+                    </div>
+                    <div class="flex flex-col gap-2 w-full">
+                        <label class="text-sm">
+                            <span>نام خانوادگی</span>
+                            <b class="text-red-500">*</b>
+                        </label>
+                        <input type="text" v-model="family" dir="auto" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
+                    </div>
                 </div>
-                <ul class="flex flex-col gap-2 mt-2">
-                    <li class="mb-4" v-for="(group, groupName) in permissions" :key="groupName">
-                        <div class="flex items-center mb-2 gap-2 cursor-pointer select-none" @click="addPermission(group)">
-                            <transition name="check" mode="out-in" appear>
-                                <img src="/icons/admin/TickSquare.svg" width="24" v-if="checkPermission(group)" />
-                                <img src="/icons/admin/TickSquareBox.svg" width="24" v-else />
-                            </transition>
-                            <b>{{ group[0].groupLabel }}</b>
-                        </div>
-                        <ul class="px-6">
-                            <li class="mb-2" v-for="(item, i) in group" :key="i">
-                                <div class="flex items-center gap-2 cursor-pointer select-none" @click="addPermission([item])">
-                                    <transition name="check" mode="out-in" appear>
-                                        <img src="/icons/admin/TickSquare.svg" width="24" v-if="checkPermission([item])" />
-                                        <img src="/icons/admin/TickSquareBox.svg" width="24" v-else />
-                                    </transition>
-                                    <span class="text-sm opacity-75">{{ item.label }}</span>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+                <div class="flex flex-wrap md:flex-nowrap gap-4 w-full">
+                    <div class="flex flex-col gap-2 w-full">
+                        <label class="text-sm">
+                            <span>شماره موبایل</span>
+                            <b class="text-red-500">*</b>
+                        </label>
+                        <input
+                            type="text"
+                            v-model="mobile"
+                            v-mask="'09##-### ####'"
+                            dir="ltr"
+                            class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100"
+                        />
+                    </div>
+                    <div class="flex flex-col gap-2 w-full">
+                        <label class="text-sm">
+                            <span>تلفن ثابت</span>
+                        </label>
+                        <input
+                            type="text"
+                            v-model="tel"
+                            v-mask="'###-#### ####'"
+                            dir="ltr"
+                            placeholder="021-2233 4567"
+                            class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100"
+                        />
+                    </div>
+                </div>
+                <div class="flex flex-col gap-2 w-full">
+                    <label class="text-sm">
+                        <span>ایمیل</span>
+                        <b class="text-red-500">*</b>
+                    </label>
+                    <input type="email" v-model="email" dir="auto" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
+                </div>
+                <div class="flex flex-col gap-2 w-full">
+                    <label class="text-sm">
+                        <span>آدرس</span>
+                    </label>
+                    <input type="text" v-model="address" dir="auto" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
+                </div>
+                <div class="flex flex-wrap md:flex-nowrap gap-4 w-full">
+                    <div class="flex flex-col gap-2 w-full">
+                        <label class="text-sm">
+                            <span>کد پستی</span>
+                        </label>
+                        <input type="text" v-model="postalCode" dir="ltr" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
+                    </div>
+                    <div class="flex flex-col gap-2 w-full">
+                        <label class="text-sm">
+                            <span>کد ملی</span>
+                        </label>
+                        <input type="text" v-model="nationalCode" dir="ltr" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
+                    </div>
+                </div>
+                <hr class="w-full" />
+                <div class="flex flex-col gap-2 w-full">
+                    <label class="text-sm">
+                        <span>وضعیت</span>
+                        <b class="text-red-500">*</b>
+                    </label>
+                    <Select :selectedOption.sync="status" :options="statusOptions">
+                        <template v-slot:option="{ option }">
+                            <span :value="option.value">{{ option.name }}</span>
+                        </template>
+                    </Select>
+                </div>
+                <hr class="w-full" />
+                <div class="flex flex-col gap-2 w-full">
+                    <label class="text-sm">
+                        <span>بازه زمانی برای کاربران جدید (به روز)</span>
+                        <b class="text-red-500">*</b>
+                    </label>
+                    <input type="number" v-model="period" dir="ltr" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
+                    <small class="text-xs opacity-75">مدت زمانی که خرید کاربرانی که با این بازاریاب ثبت نام کنند، برای این بازاریاب ثبت میشود.</small>
+                </div>
+                <div class="flex flex-col gap-2 w-full">
+                    <label class="text-sm">
+                        <span>کد بازاریاب</span>
+                        <b class="text-red-500">*</b>
+                    </label>
+                    <input type="text" v-model="marketingCode" dir="ltr" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
+                    <small class="text-xs opacity-75">این کد برای استفاده در لینک بازاریابی استفاده میشود</small>
+                    <small class="text-xs opacity-75" v-if="!!marketingCode">{{ `${baseUrl}/${marketingCode}` }}</small>
+                </div>
+                <hr class="w-full" />
+                <div class="flex flex-wrap md:flex-nowrap gap-4 w-full">
+                    <div class="flex flex-col gap-2 w-full">
+                        <label class="text-sm">
+                            <span>رمزعبور</span>
+                            <b class="text-red-500">*</b>
+                        </label>
+                        <input type="password" v-model="password" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
+                    </div>
+                    <div class="flex flex-col gap-2 w-full">
+                        <label class="text-sm">
+                            <span>تکرار رمزعبور</span>
+                            <b class="text-red-500">*</b>
+                        </label>
+                        <input type="password" v-model="passwordConfirmation" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
+                    </div>
+                </div>
             </form>
             <hr class="w-full" />
             <small class="flex items-center gap-2 bg-rose-100 text-red-800 text-sm p-2 rounded-lg w-max" v-if="errorMsg">
@@ -66,21 +161,40 @@
 
 <script>
 import axios from "axios";
+import Select from "~/components/forms/admin/Select.vue";
 
 export default {
     layout: "admin",
     head() {
-        return { title: "ایجاد گروه دسترسی جدید - گروه آموزشی پرتقال" };
+        return { title: "ایجاد بازاریاب جدید - گروه آموزشی پرتقال" };
     },
-    components: {},
+    components: {
+        Select,
+    },
     data() {
         return {
             loading: false,
             saving: false,
-            permissions: this.permissions || {},
+            statusOptions: {
+                active: { name: "فعال", value: "active" },
+                deactive: { name: "غیرفعال", value: "deactive" },
+            },
+            baseUrl: "",
 
+            image: "",
             name: "",
-            selectedPermissions: [],
+            family: "",
+            email: "",
+            status: { name: "فعال", value: "active" },
+            mobile: "",
+            tel: "",
+            address: "",
+            postalCode: "",
+            nationalCode: "",
+            marketingCode: "",
+            period: "30",
+            password: "",
+            passwordConfirmation: "",
 
             errorMsg: "",
             errorTag: "",
@@ -89,8 +203,9 @@ export default {
     async fetch() {
         let headers = {};
         if (process.server) headers = this.$nuxt.context.req.headers;
-
-        await Promise.all([this.getPermissions({ headers })]);
+    },
+    mounted() {
+        this.baseUrl = window.location.origin;
     },
     computed: {
         userPermissions() {
@@ -98,56 +213,13 @@ export default {
         },
     },
     methods: {
-        async getPermissions(data = {}) {
-            let url = `/api/admin/permission-groups/permissions`;
-            let headers = {};
-            if (process.server) {
-                url = `${process.env.BASE_URL}${url}`;
-                headers = data.headers ? data.headers : {};
-            }
-
-            url = encodeURI(url);
-            await axios
-                .get(url, { headers })
-                .then((response) => {
-                    const records = response.data.records;
-                    for (let i = 0; i < records.length; i++) {
-                        if (!this.permissions.hasOwnProperty(records[i].group)) this.permissions[records[i].group] = [];
-                        this.permissions[records[i].group].push({ ...records[i] });
-                    }
-                    this.permissions = { ...this.permissions };
-                })
-                .catch((e) => {
-                    if (typeof e.response !== "undefined" && e.response.data && typeof e.response.data.message === "object") {
-                        this.$store.dispatch("toast/makeToast", { type: "error", title: "خطا", message: e.response.data.message[0].errors[0] });
-                    }
-                });
+        async selectFile() {
+            this.image = this.$refs.fileInput.files[0] ? URL.createObjectURL(this.$refs.fileInput.files[0]) : "";
         },
 
-        addPermission(items) {
-            let state = "";
-            if (items.length > 1) state = this.checkPermission(items) ? "1" : "0";
-
-            for (let i = 0; i < items.length; i++) {
-                const index = this.selectedPermissions.indexOf(items[i]._id);
-                if (index === -1) {
-                    if (state == "1") continue;
-                    this.selectedPermissions.push(items[i]._id);
-                } else {
-                    if (state == "0") continue;
-                    this.selectedPermissions.splice(index, 1);
-                }
-            }
-        },
-        checkPermission(items) {
-            let checked = true;
-            for (let i = 0; i < items.length; i++) {
-                if (this.selectedPermissions.indexOf(items[i]._id) === -1) {
-                    checked = false;
-                    break;
-                }
-            }
-            return checked;
+        async deleteImage() {
+            this.$refs.fileInput.files = undefined;
+            this.image = "";
         },
 
         async save() {
@@ -156,14 +228,27 @@ export default {
 
             this.errorMsg = this.errorTag = "";
 
-            let url = encodeURI(`/api/admin/permission-groups`);
+            const formData = new FormData();
+            if (this.$refs.fileInput.files[0]) formData.append("files", this.$refs.fileInput.files[0]);
+            formData.append("name", this.name);
+            formData.append("family", this.family);
+            formData.append("email", this.email);
+            formData.append("status", this.status.value);
+            formData.append("mobile", this.mobile);
+            if (!!this.tel) formData.append("tel", this.tel);
+            if (!!this.address) formData.append("address", this.address);
+            if (!!this.postalCode) formData.append("postalCode", this.postalCode);
+            if (!!this.nationalCode) formData.append("nationalCode", this.nationalCode);
+            formData.append("marketingCode", this.marketingCode);
+            formData.append("period", this.period);
+            formData.append("password", this.password);
+            formData.append("passwordConfirmation", this.passwordConfirmation);
+
+            let url = encodeURI(`/api/admin/marketers`);
             await axios
-                .post(url, {
-                    name: this.name,
-                    selectedPermissions: this.selectedPermissions,
-                })
+                .post(url, formData)
                 .then((response) => {
-                    this.$store.dispatch("toast/makeToast", { type: "success", title: "", message: "گروه دسترسی با موفقیت اضافه شد" });
+                    this.$store.dispatch("toast/makeToast", { type: "success", title: "", message: "بازاریاب با موفقیت اضافه شد" });
                 })
                 .catch((e) => {
                     if (typeof e.response !== "undefined" && e.response.data && typeof e.response.data.message === "object") {

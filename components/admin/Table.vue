@@ -8,6 +8,13 @@
     width: 100%;
     height: 100%;
 }
+.table_box {
+    height: auto;
+}
+.table_box::-webkit-scrollbar {
+    width: 3px;
+}
+
 .dashbaord_table table {
     position: relative;
     width: 100%;
@@ -99,13 +106,19 @@
 .dashbaord_table table.card .t_group_button .list {
     inset-inline-end: initial;
 }
+
+@media (min-width: 768px) {
+    .table_box {
+        height: calc(100vh - 22rem);
+    }
+}
 </style>
 
 <template>
     <div class="dashbaord_table">
         <div class="flex flex-wrap justify-between items-center">
             <small class="opacity-50">{{ `نمایش ${(page - 1) * pp + 1} تا ${end} از ${total} نتیجه` }}</small>
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2 z-20">
                 <Select :small="true" :selectedOption.sync="selectedPP" @update:selectedOption="updatePerPage()" :options="ppOptions">
                     <template v-slot:option="{ option }">
                         <span :value="option.value">{{ option.name }}</span>
@@ -115,9 +128,9 @@
             </div>
         </div>
 
-        <div class="shadow-lg rounded-xl overflow-auto h-full" :class="{ 'p-4': tableView == 'card' }" v-if="!loading">
+        <div class="table_box shadow-lg rounded-xl overflow-auto" :class="{ 'p-4': tableView == 'card' }" v-if="!loading">
             <table :class="{ 'flex-grow': !isEmpty, [tableView]: true }">
-                <thead>
+                <thead class="z-10">
                     <tr>
                         <th v-for="(value, name) in heads" :key="name" class="" :sortable="value.sortable" @click="updateSort(value.sortable, name)">
                             <div class="flex items-center gap-1 cursor-pointer">

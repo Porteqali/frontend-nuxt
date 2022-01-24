@@ -14,11 +14,11 @@
     overflow-x: hidden;
 }
 .side_nav ul::-webkit-scrollbar {
-    width: 3px;
+    width: 2px;
 }
 
 .side_nav li:hover > a,
-.nuxt-link-exact-active {
+.nuxt-link-active {
     /* box-shadow: 0px 8px 12px rgba(0, 0, 0, 10%); */
     background-color: #444;
 }

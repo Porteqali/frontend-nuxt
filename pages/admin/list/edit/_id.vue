@@ -17,10 +17,10 @@
                 <div class="flex items-center gap-4">
                     <img class="w-28 h-28 bg-gray-300 rounded-3xl object-cover" :src="image || '/icons/Profile.svg'" alt="" />
                     <div class="flex flex-col items-start gap-4">
-                        <button type="button" class="orange_gradient_h p-2 px-4 rounded-xl shadow-md" @click="$refs.fileInput.click()" :disabled="saving">
+                        <button type="button" class="orange_gradient_h p-2 px-4 rounded-xl shadow-md text-sm" @click="$refs.fileInput.click()" :disabled="saving">
                             آپلود عکس جدید
                         </button>
-                        <button type="button" class="gray_gradient p-2 px-4 rounded-xl shadow-md" @click="deleteImage()" v-if="!!image">حذف</button>
+                        <button type="button" class="gray_gradient p-2 px-4 rounded-xl shadow-md text-sm" @click="deleteImage()" v-if="!!image">حذف</button>
                     </div>
                     <input class="w-0 h-0 opacity-0" ref="fileInput" type="file" accept=".jpg,.jpeg,.png,.gif" @change="selectFile()" />
                 </div>

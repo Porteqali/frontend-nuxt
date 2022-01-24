@@ -21,7 +21,7 @@
     align-items: center;
     gap: 0.5rem;
     z-index: 2;
-    border-radius: .75rem;
+    border-radius: 0.75rem;
     background-color: var(--select-input-bg-color);
 }
 .t_select .box::after {
@@ -32,8 +32,8 @@
     background-size: 1.25rem;
     background-position: center;
     margin-top: -1px;
-    width: .75rem;
-    height: .75rem;
+    width: 0.75rem;
+    height: 0.75rem;
     padding: 0.25rem;
 }
 .t_select .list {
@@ -71,7 +71,7 @@
 <template>
     <div class="t_select flex flex-col flex-grow" :class="{ open: open }">
         <div class="t_select_input" :class="inputClass">
-            <div class="box p-4 shadow-lg" :class="{ 'p-2': small }" tabindex="0" @click="toggleMenu()" @blur="toggleMenu(false)">
+            <div class="box shadow-lg" :class="{ 'p-2 py-4': small, 'p-4': !small }" tabindex="0" @click="toggleMenu()" @blur="toggleMenu(false)">
                 <span name="placeholder" class="opacity-50 ml-4" v-if="placeholder && !selectedOption.value">{{ placeholder }}</span>
                 <span name="value text-sm" :class="{ 'ml-4': !small }" v-if="selectedOption.name && selectedOption.value">{{ selectedOption.name }}</span>
             </div>
