@@ -97,7 +97,11 @@
                     </nuxt-link>
                 </li>
 
-                <li class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-700" @click="openGroup('users')">
+                <li
+                    class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-700"
+                    @click="openGroup('users')"
+                    v-if="checkPermissions(['admin.users.view', 'admin.users-comments.view'], userPermissions, 'OR')"
+                >
                     <div class="flex items-center gap-2 w-full">
                         <img src="/icons/admin/Users3.svg" class="menu_icon" width="24" />
                         <span>مدیریت کاربران</span>
@@ -106,11 +110,17 @@
                 </li>
                 <transition name="accordiondown" appear>
                     <ul class="submenu flex flex-col gap-1 py-1" v-show="openedGroup.includes('users')" name="users">
-                        <li class="">
-                            <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/users">لیست کاربران</nuxt-link>
+                        <li class="" v-if="checkPermissions(['admin.users.view'], userPermissions)">
+                            <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/users">
+                                <img src="/icons/admin/Users2.svg" class="menu_icon" width="24" />
+                                <span>لیست کاربران</span>
+                            </nuxt-link>
                         </li>
-                        <li class="">
-                            <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/users-comments">نظرات کاربران</nuxt-link>
+                        <li class="" v-if="checkPermissions(['admin.users-comments.view'], userPermissions)">
+                            <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/users-comments">
+                                <img src="/icons/admin/Chat.svg" class="menu_icon" width="24" />
+                                <span>نظرات کاربران</span>
+                            </nuxt-link>
                         </li>
                     </ul>
                 </transition>
@@ -119,13 +129,6 @@
                     <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/teachers">
                         <img src="/icons/admin/Teacher.svg" class="menu_icon" width="24" />
                         <span>مدیریت اساتید</span>
-                    </nuxt-link>
-                </li>
-
-                <li class="flex w-full">
-                    <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/user-groups">
-                        <img src="/icons/Wallet.gray.svg" class="menu_icon" width="24" />
-                        <span>گروه کاربران</span>
                     </nuxt-link>
                 </li>
 

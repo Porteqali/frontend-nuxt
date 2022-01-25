@@ -8,15 +8,9 @@
                 <img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" />
                 <nuxt-link to="/admin/marketers">مدیریت بازاریابان</nuxt-link>
                 <img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" />
-                <h1 class="text-2xl"><b>تاریخچه پرداخت کمیسیون ها</b></h1>
+                <h1 class="text-2xl"><b>لیست کمیسیون ها</b></h1>
             </div>
-            <nuxt-link
-                :to="`/admin/marketers/pay/${$route.params.id}`"
-                class="orange_gradient_v rounded-xl p-2 px-4 w-max hover:shadow-md"
-                v-if="checkPermissions(['admin.marketers.pay'], userPermissions)"
-            >
-                ایجاد رکورد پرداخت
-            </nuxt-link>
+            <!--  -->
         </div>
 
         <hr class="w-full" />
@@ -63,28 +57,32 @@
             :isEmpty="!tableData.length"
             :total="total"
             :pageTotal="pageTotal"
-            :pageUrl="`/admin/marketers/commission-payments/${$route.params.id}/:page?search=${search}`"
+            :pageUrl="`/admin/marketers/customers/${$route.params.id}/:page?search=${search}`"
             @update:table="getTableData()"
         >
             <template v-slot:tbody="{ record }">
                 <td>
-                    <span class="title">مبلغ پرداختی کمیسیون:</span>
-                    {{ new Intl.NumberFormat("fa").format(record.payedAmount) }}
+                    <div class="flex items-center gap-2">
+                        <img class="w-8 h-8 rounded-full object-cover" :src="record.image" v-if="record.image" alt="" />
+                        <span>{{ record.fullname }}</span>
+                    </div>
                 </td>
                 <td>
-                    <span class="title">مبلغ مانده کمیسیون:</span>
-                    {{ new Intl.NumberFormat("fa").format(record.commissionAmountAfterPayment) }}
-                    <small>تومان</small>
+                    <span class="title">زمان ثبت نام:</span>
+                    {{ new Date(record.createdAt).toLocaleString("fa") }}
                 </td>
                 <td>
-                    <span class="title">شماره حساب | شماره کارت:</span>
-                    {{ record.cardNumber }}
+                    <span class="title">دوره:</span>
+                    {{ record.period }}
+                    <small class="text-xs opacity-75">روزه</small>
                 </td>
                 <td>
-                    <span class="title">بانک:</span>
-                    {{ record.bank }}
+                    <span class="title">زمان پایان دوره:</span>
+                    <div class="flex items-center gap-2">
+                        <span>{{ new Date(record.endsAt).toLocaleString("fa") }}</span>
+                        <small class="bg-bluegray-200 p-2 py-1 rounded-lg">{{ record.tillTheEnd }}</small>
+                    </div>
                 </td>
-                <td>{{ new Date(record.createdAt).toLocaleString("fa") }}</td>
             </template>
         </Table>
     </main>
@@ -100,7 +98,7 @@ import ButtonList from "~/components/forms/admin/ButtonList.vue";
 export default {
     layout: "admin",
     head() {
-        return { title: "مدیریت بازاریابان - گروه آموزشی پرتقال" };
+        return { title: "لیست مشتریان بازاریاب - گروه آموزشی پرتقال" };
     },
     mixins: [permissionCheck],
     components: {
@@ -123,18 +121,17 @@ export default {
                 toRegisterDate: "",
                 status: [],
             },
-            sort: this.sort || { col: "تاریخ ثبت", type: "desc" },
+            sort: this.sort || { col: "زمان ثبت نام", type: "desc" },
             page: this.page || 1,
             pp: this.pp || 25,
             total: this.total || 0,
             pageTotal: this.pageTotal || 0,
 
             tableHeads: {
-                "مبلغ پرداختی کمیسیون": { sortable: true },
-                "مبلغ مانده کمیسیون": { sortable: true },
-                "شماره حساب | شماره کارت": { sortable: true },
-                بانک: { sortable: true },
-                "تاریخ ثبت": { sortable: true },
+                کاربر: { sortable: true },
+                "زمان ثبت نام": { sortable: true },
+                دوره: { sortable: true },
+                "زمان پایان دوره": { sortable: true },
             },
             tableData: this.tableData || [],
             tableView: "list",
@@ -181,7 +178,7 @@ export default {
             if (this.isDataLoading) return;
             this.isDataLoading = true;
 
-            let url = `/api/admin/marketers/commission-payments/${this.$route.params.id}`;
+            let url = `/api/admin/marketers/customers/${this.$route.params.id}`;
             let headers = {};
             if (process.server) {
                 url = `${process.env.BASE_URL}${url}`;

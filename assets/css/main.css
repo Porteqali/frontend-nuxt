@@ -36,7 +36,7 @@ body {
 .kalameh_bold { font-family: "KalamehWebBold" !important; }
 
 .dashboard_body {
-    width: 100%; max-height: 100%; overflow: auto;
+    width: 100%; max-height: 100%;
 }
 
 .check-enter-active, .check-leave-active { transition: all 0.2s; }

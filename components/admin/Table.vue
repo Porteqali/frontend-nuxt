@@ -65,7 +65,6 @@
 .dashbaord_table table.card {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
     height: 100%;
 }
 .dashbaord_table table.card thead tr {
@@ -128,7 +127,7 @@
             </div>
         </div>
 
-        <div class="table_box shadow-lg rounded-xl overflow-auto" :class="{ 'p-4': tableView == 'card' }" v-if="!loading">
+        <div class="table_box shadow-lg rounded-xl overflow-auto" :class="{ 'p-2': tableView == 'card' }" v-if="!loading">
             <table :class="{ 'flex-grow': !isEmpty, [tableView]: true }">
                 <thead class="z-10">
                     <tr>
