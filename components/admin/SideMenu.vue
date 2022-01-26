@@ -164,7 +164,10 @@
                 <transition name="accordiondown" appear>
                     <ul class="submenu flex flex-col gap-1 py-1" v-show="openedGroup.includes('finance')" name="finance">
                         <li class="">
-                            <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/transactions">لیست تراکنش ها</nuxt-link>
+                            <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/course-transactions">تراکنش های خرید دوره</nuxt-link>
+                        </li>
+                        <li class="">
+                            <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/wallet-transactions">تراکنش های شارژ کیف پول</nuxt-link>
                         </li>
                         <li class="">
                             <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/commissions">کمیسیون ها</nuxt-link>
@@ -175,7 +178,7 @@
                     </ul>
                 </transition>
 
-                <li class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-700" @click="openGroup('usances')">
+                <!-- <li class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-700" @click="openGroup('usances')">
                     <div class="flex items-center gap-2 w-full">
                         <img src="/icons/admin/Discount.svg" class="menu_icon" width="24" />
                         <span>مدیریت سررسید ها</span>
@@ -194,20 +197,20 @@
                             <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/usance-payments">پرداختی های سررسید</nuxt-link>
                         </li>
                     </ul>
-                </transition>
+                </transition> -->
 
                 <hr class="w-11/12 mx-auto my-1 border-gray-700" />
 
                 <li class="flex w-full">
                     <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/collaborate-requests">
                         <img src="/icons/admin/HandShake.svg" class="menu_icon" width="24" />
-                        <span>همکاری با ما</span>
+                        <span>درخواست های همکاری</span>
                     </nuxt-link>
                 </li>
                 <li class="flex w-full">
                     <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/contact-us-requests">
                         <img src="/icons/admin/Calling.svg" class="menu_icon" width="24" />
-                        <span>تماس با ما</span>
+                        <span>پیام های تماس با ما</span>
                     </nuxt-link>
                 </li>
 

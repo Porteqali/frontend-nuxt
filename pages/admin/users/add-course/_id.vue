@@ -7,44 +7,24 @@
             <img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" />
             <nuxt-link to="/admin/users">مدیریت کاربران</nuxt-link>
             <img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" />
-            <h1 class="text-2xl"><b>دریافت خروجی از کاربران</b></h1>
+            <nuxt-link :to="`/admin/users/courses/${$route.params.id}`">لیست دوره ها</nuxt-link>
+            <img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" />
+            <h1 class="text-2xl"><b>افزودن دوره</b></h1>
         </div>
 
         <hr class="w-full" />
 
         <section class="flex flex-col gap-4 bg-white rounded-2xl shadow-lg mx-auto w-full max-w-screen-lg flex-grow p-4">
-            <form class="flex flex-col gap-4 p-1 flex-grow max-h-full overflow-y-auto" @submit="$event.preventDefault()">
-                <div class="flex items-center gap-2 cursor-pointer select-none w-max" @click="applyDateFilter = !applyDateFilter">
-                    <transition name="check" mode="out-in" appear>
-                        <img src="/icons/admin/TickSquare.svg" width="24" v-if="applyDateFilter" />
-                        <img src="/icons/admin/TickSquareBox.svg" width="24" v-else />
-                    </transition>
-                    <span class="text-sm opacity-75">اعمال تاریخ</span>
-                    <small class="text-xs opacity-60">(کاربرانی که در بازه تاریخ زیر ثبت نام کرده اند)</small>
-                </div>
-                <div class="flex flex-wrap md:flex-nowrap gap-4 w-full">
-                    <div class="flex flex-col gap-2 w-full">
-                        <label class="text-sm">
-                            <span>از تاریخ</span>
-                        </label>
-                        <input type="date" v-model="startDate" dir="auto" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
-                    </div>
-                    <div class="flex flex-col gap-2 w-full">
-                        <label class="text-sm">
-                            <span>تا تاریخ</span>
-                        </label>
-                        <input type="date" v-model="endDate" dir="auto" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
+            <form class="flex flex-col gap-4 p-1 flex-grow max-h-full overflow-auto">
+                <div class="flex items-center gap-2">
+                    <img class="w-14 h-14 rounded-full object-cover shadow-md" :src="image" v-if="image" alt="" />
+                    <div class="flex flex-col">
+                        <span class="text-lg">{{ `${name} ${family}` }}</span>
+                        <small class="opacity-75">{{ email }}</small>
                     </div>
                 </div>
                 <hr class="w-full" />
-                <div class="flex items-center gap-2 cursor-pointer select-none w-max" @click="applyCourseFilter = !applyCourseFilter">
-                    <transition name="check" mode="out-in" appear>
-                        <img src="/icons/admin/TickSquare.svg" width="24" v-if="applyCourseFilter" />
-                        <img src="/icons/admin/TickSquareBox.svg" width="24" v-else />
-                    </transition>
-                    <span class="text-sm opacity-75">اعمال فیلتر دوره</span>
-                    <small class="text-xs opacity-60">(کاربرانی که در دوره های انتخاب شده زیر ثبت نام کرده اند)</small>
-                </div>
+                <small class="opacity-75">دوره مورد نظر خود را جستجو و انتخاب کنید</small>
                 <ul class="flex flex-wrap gap-4" v-if="Object.keys(selectedCourses).length">
                     <li class="flex items-center gap-2 p-2 rounded-xl shadow-md" v-for="(course, i) in selectedCourses" :key="i">
                         <img class="w-14 shadow-md object-cover rounded-xl" :src="course.image" alt="" />
@@ -78,24 +58,6 @@
                         <li v-if="!courses.length"><small class="text-rose-800">نتیجه ای پیدا نشد!</small></li>
                     </ul>
                 </div>
-                <hr class="w-full" />
-                <div class="flex flex-wrap md:flex-nowrap gap-4 w-full">
-                    <label for="">انتخاب فیلد :</label>
-                    <div class="flex items-center gap-2 cursor-pointer select-none flex-shrink-0" @click="mobileField = !mobileField">
-                        <transition name="check" mode="out-in" appear>
-                            <img src="/icons/admin/TickSquare.svg" width="24" v-if="mobileField" />
-                            <img src="/icons/admin/TickSquareBox.svg" width="24" v-else />
-                        </transition>
-                        <span class="text-sm opacity-75">شماره موبایل</span>
-                    </div>
-                    <div class="flex items-center gap-2 cursor-pointer select-none flex-shrink-0" @click="emailField = !emailField">
-                        <transition name="check" mode="out-in" appear>
-                            <img src="/icons/admin/TickSquare.svg" width="24" v-if="emailField" />
-                            <img src="/icons/admin/TickSquareBox.svg" width="24" v-else />
-                        </transition>
-                        <span class="text-sm opacity-75">آدرس ایمیل</span>
-                    </div>
-                </div>
             </form>
             <hr class="w-full" />
             <small class="flex items-center gap-2 bg-rose-100 text-red-800 text-sm p-2 rounded-lg w-max" v-if="errorMsg">
@@ -104,7 +66,7 @@
             </small>
             <div class="flex flex-wrap items-center gap-4">
                 <button class="orange_gradient_h p-4 py-2 rounded-xl" :class="{ 'opacity-75 cursor-wait': saving }" :disabled="saving" @click="save()">
-                    تایید و دریافت خروجی
+                    تایید و ثبت
                 </button>
                 <button class="border-2 border-gray-500 hover:bg-gray-200 p-4 py-1.5 rounded-xl" @click="$router.back()">بازگشت</button>
             </div>
@@ -115,12 +77,11 @@
 <script>
 import axios from "axios";
 import Select from "~/components/forms/admin/Select.vue";
-import JDate from "jalali-moment";
 
 export default {
     layout: "admin",
     head() {
-        return { title: "دریافت خروجی از کاربران - گروه آموزشی پرتقال" };
+        return { title: "ویرایش کاربر - گروه آموزشی پرتقال" };
     },
     components: {
         Select,
@@ -130,17 +91,15 @@ export default {
             loading: false,
             saving: false,
 
-            applyDateFilter: false,
-            applyCourseFilter: false,
+            image: "",
+            name: "",
+            family: "",
+            email: "",
             courseSearchQuery: "",
             courseSearchTimeout: null,
             courses: [],
 
-            startDate: "",
-            endDate: "",
             selectedCourses: {},
-            mobileField: true,
-            emailField: true,
 
             errorMsg: "",
             errorTag: "",
@@ -149,9 +108,10 @@ export default {
     async fetch() {
         let headers = {};
         if (process.server) headers = this.$nuxt.context.req.headers;
-    },
-    mounted() {
-        this.baseUrl = window.location.origin;
+
+        const route = this.$nuxt.context.route;
+
+        await this.loadUser({ headers }, route);
     },
     computed: {
         userPermissions() {
@@ -159,6 +119,30 @@ export default {
         },
     },
     methods: {
+        async loadUser(data = {}, route) {
+            let url = `/api/admin/users/${route.params.id}`;
+            let headers = {};
+            if (process.server) {
+                url = `${process.env.BASE_URL}${url}`;
+                headers = data.headers ? data.headers : {};
+            }
+
+            url = encodeURI(url);
+            await axios
+                .get(url, { headers })
+                .then((response) => {
+                    this.image = response.data.image;
+                    this.name = response.data.name;
+                    this.family = response.data.family;
+                    this.email = response.data.email;
+                })
+                .catch((e) => {
+                    if (typeof e.response !== "undefined" && e.response.data && typeof e.response.data.message === "object") {
+                        this.$store.dispatch("toast/makeToast", { type: "error", title: "خطا", message: e.response.data.message[0].errors[0] });
+                    }
+                });
+        },
+
         async courseSearchTimeoutCheck() {
             if (this.courseSearchTimeout) clearTimeout(this.courseSearchTimeout);
             this.courseSearchTimeout = setTimeout(async () => {
@@ -188,17 +172,13 @@ export default {
 
             this.errorMsg = this.errorTag = "";
 
-            let url = `/api/admin/users/export?`;
-            if (this.applyDateFilter) url = `${url}startDate=${JDate(this.startDate).toISOString()}&`;
-            if (this.applyDateFilter) url = `${url}endDate=${JDate(this.endDate).toISOString()}&`;
-            if (this.applyCourseFilter) url = `${url}selectedCourses=${Object.keys(this.selectedCourses).join(",")}&`;
-            url = `${url}mobileField=${this.mobileField}&`;
-            url = `${url}emailField=${this.emailField}&`;
-
+            let url = encodeURI(`/api/admin/users/courses/${this.$route.params.id}`);
             await axios
-                .get(encodeURI(url))
+                .post(url, {
+                    selectedCourses: Object.keys(this.selectedCourses).join(","),
+                })
                 .then((response) => {
-                    window.location.href = `${window.location.origin}/${response.data.link}`;
+                    this.$store.dispatch("toast/makeToast", { type: "success", title: "", message: "دوره های انتخابی به کاربر اضافه شد" });
                 })
                 .catch((e) => {
                     if (typeof e.response !== "undefined" && e.response.data && typeof e.response.data.message === "object") {

@@ -3,14 +3,26 @@
 <template>
     <main class="dashboard_body flex flex-col gap-4 md:p-4 md:py-1">
         <div class="flex flex-wrap justify-between items-center gap-4">
-            <div class="flex items-center gap-2">
+            <div class="flex flex-wrap md:flex-nowrap items-center gap-2">
                 <nuxt-link to="/admin"><img class="opacity-75" src="/icons/admin/Home.svg" width="20" /></nuxt-link>
                 <img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" />
-                <h1 class="text-2xl"><b>مدیریت کاربران</b></h1>
+                <nuxt-link to="/admin/users">مدیریت کاربران</nuxt-link>
+                <img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" />
+                <h1 class="text-2xl"><b>لیست دوره ها</b></h1>
             </div>
-            <nuxt-link to="/admin/users/export" class="gray_gradient rounded-xl p-2 px-4 w-max hover:shadow-md">دریافت خروجی</nuxt-link>
+            <nuxt-link :to="`/admin/users/add-course/${$route.params.id}`" class="orange_gradient_v rounded-xl p-2 px-4 w-max hover:shadow-md">
+                اختصاص دوره
+            </nuxt-link>
         </div>
 
+        <hr class="w-full" />
+        <div class="flex items-center gap-2">
+            <img class="w-14 h-14 rounded-full object-cover shadow-md" :src="image" v-if="image" alt="" />
+            <div class="flex flex-col">
+                <span class="text-lg">{{ `${name} ${family}` }}</span>
+                <small class="opacity-75">{{ email }}</small>
+            </div>
+        </div>
         <hr class="w-full" />
 
         <div class="flex flex-wrap justify-between items-center gap-4 w-full">
@@ -47,82 +59,37 @@
             :isEmpty="!tableData.length"
             :total="total"
             :pageTotal="pageTotal"
-            :pageUrl="`/admin/users/:page?search=${search}`"
+            :pageUrl="`/admin/users/courses/${$route.params.id}/:page?search=${search}`"
             @update:table="getTableData()"
         >
-            <template v-slot:tbody="{ record, index }">
+            <template v-slot:tbody="{ record }">
                 <td>
                     <div class="flex items-center gap-2">
-                        <img class="w-8 h-8 rounded-full object-cover" :src="record.image" v-if="record.image" alt="" />
-                        <span>{{ record.fullname }}</span>
+                        <img class="w-10 h-10 rounded-lg object-cover" :src="record.course[0].image" v-if="record.course[0].image" alt="" />
+                        <span>{{ record.course[0].name }}</span>
                     </div>
                 </td>
                 <td>
-                    <div class="flex items-center gap-1">
-                        <span>{{ record.email }}</span>
-                        <Icon class="w-5 h-5 bg-blue-400" size="18px" folder="icons/admin" name="Verified" v-if="!!record.emailVerifiedAt" />
-                    </div>
+                    <span class="title">کد تراکنش:</span>
+                    {{ record.transactionCode }}
                 </td>
                 <td>
-                    <div class="flex items-center gap-1">
-                        <span>{{ record.mobile }}</span>
-                        <Icon class="w-5 h-5 bg-blue-400" size="18px" folder="icons/admin" name="Verified" v-if="!!record.mobileVerifiedAt" />
-                    </div>
+                    <span class="title">مقدار پرداختی:</span>
+                    {{ new Intl.NumberFormat("fa").format(record.paidAmount) }}
+                    <small>تومان</small>
                 </td>
                 <td>
-                    <span class="p-1 px-2 text-xs rounded-md bg-emerald-100 text-emerald-700" v-if="record.status == 'active'">فعال</span>
-                    <span class="p-1 px-2 text-xs rounded-md bg-rose-100 text-rose-700" v-if="record.status == 'deactive'">غیرفعال</span>
-                </td>
-                <td>{{ new Date(record.createdAt).toLocaleString("fa") }}</td>
-                <td>
-                    <div class="flex items-center gap-1">
-                        <router-link
-                            class="p-2 rounded-lg hover:bg-blue-200"
-                            title="Edit"
-                            :to="`/admin/users/edit/${record._id}`"
-                            v-if="checkPermissions(['admin.users.edit'], userPermissions)"
-                        >
-                            <img src="/icons/admin/Edit.svg" width="24" />
-                        </router-link>
-                        <button
-                            class="p-2 rounded-lg hover:bg-red-200"
-                            title="Delete"
-                            @click="askToDelete(record._id, record.fullname, index)"
-                            v-if="checkPermissions(['admin.users.delete'], userPermissions)"
-                        >
-                            <img src="/icons/admin/Delete.svg" width="24" />
-                        </button>
-                        <ButtonList class="p-2 rounded-lg hover:bg-gray-200 flex-shrink-0">
-                            <li class="p-2 rounded-lg hover:bg-coolgray-200">
-                                <nuxt-link class="flex w-full" :to="`/admin/users/course-transactions/${record._id}`">تراکنش های خرید دوره</nuxt-link>
-                            </li>
-                            <li class="p-2 rounded-lg hover:bg-coolgray-200">
-                                <nuxt-link class="flex w-full" :to="`/admin/users/wallet-transactions/${record._id}`">تراکنش های شارژ کیف پول</nuxt-link>
-                            </li>
-                            <li class="p-2 rounded-lg hover:bg-coolgray-200">
-                                <nuxt-link class="flex w-full" :to="`/admin/users/courses/${record._id}`">لیست دوره ها</nuxt-link>
-                            </li>
-                        </ButtonList>
-                    </div>
+                    <span class="title">تاریخ خرید:</span>
+                    <span>{{ new Date(record.createdAt).toLocaleString("fa") }}</span>
                 </td>
             </template>
         </Table>
-
-        <DeleteDialog
-            :open.sync="deleteDialogState"
-            :recordId.sync="deletingRecordId"
-            :recordName.sync="deletingRecordName"
-            :recordIndex.sync="deletingRecordIndex"
-            :tableData.sync="tableData"
-            url="/api/admin/users"
-        />
     </main>
 </template>
 
 <script>
 import axios from "axios";
 import permissionCheck from "~/mixins/permissionCheck";
-import Icons from "~/components/Icon.vue";
 import Table from "~/components/admin/Table.vue";
 import DeleteDialog from "~/components/admin/DeleteDialog.vue";
 import ButtonList from "~/components/forms/admin/ButtonList.vue";
@@ -130,11 +97,10 @@ import ButtonList from "~/components/forms/admin/ButtonList.vue";
 export default {
     layout: "admin",
     head() {
-        return { title: "مدیریت کاربران - گروه آموزشی پرتقال" };
+        return { title: "لیست دوره های کاربر - گروه آموزشی پرتقال" };
     },
     mixins: [permissionCheck],
     components: {
-        Icons,
         Table,
         DeleteDialog,
         ButtonList,
@@ -143,35 +109,33 @@ export default {
         return {
             isDataLoading: false,
 
+            image: this.image || "",
+            name: this.name || "",
+            family: this.family || "",
+            email: this.email || "",
+
             search: this.search || "",
             filters: this.filters || {
                 fromRegisterDate: "",
                 toRegisterDate: "",
                 status: [],
             },
-            sort: this.sort || { col: "تاریخ ثبت", type: "asc" },
+            sort: this.sort || { col: "تاریخ خرید", type: "desc" },
             page: this.page || 1,
             pp: this.pp || 25,
             total: this.total || 0,
             pageTotal: this.pageTotal || 0,
 
             tableHeads: {
-                کاربر: { sortable: true },
-                ایمیل: { sortable: true },
-                "شماره موبایل": { sortable: true },
-                وضعیت: { sortable: true },
-                "تاریخ ثبت": { sortable: true },
-                عملیات: { sortable: false },
+                دوره: { sortable: true },
+                "کد تراکنش": { sortable: true },
+                "مقدار پرداختی": { sortable: true },
+                "تاریخ خرید": { sortable: true },
             },
             tableData: this.tableData || [],
             tableView: "list",
 
-            deletingRecordId: "",
-            deletingRecordName: "",
-            deletingRecordIndex: "",
-
             filterDialogState: false,
-            deleteDialogState: false,
         };
     },
     async fetch() {
@@ -208,7 +172,7 @@ export default {
             if (this.isDataLoading) return;
             this.isDataLoading = true;
 
-            let url = `/api/admin/users`;
+            let url = `/api/admin/users/courses/${this.$route.params.id}`;
             let headers = {};
             if (process.server) {
                 url = `${process.env.BASE_URL}${url}`;
@@ -231,6 +195,11 @@ export default {
                     this.tableData = response.data.records;
                     this.total = response.data.total;
                     this.pageTotal = response.data.pageTotal;
+
+                    this.image = response.data.user.image;
+                    this.name = response.data.user.name;
+                    this.family = response.data.user.family;
+                    this.email = response.data.user.email;
                 })
                 .catch((e) => {
                     if (typeof e.response !== "undefined" && e.response.data && typeof e.response.data.message === "object") {
@@ -256,15 +225,6 @@ export default {
             this.pp = 25;
             this.total = 0;
             this.pageTotal = 0;
-        },
-
-        // ========================
-
-        askToDelete(id, name, index) {
-            this.deletingRecordId = id;
-            this.deletingRecordName = name;
-            this.deletingRecordIndex = index;
-            this.deleteDialogState = true;
         },
     },
 };

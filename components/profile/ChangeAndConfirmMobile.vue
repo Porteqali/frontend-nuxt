@@ -6,7 +6,7 @@
             <div class="flex flex-wrap md:flex-nowrap items-end gap-4 w-full">
                 <div class="flex flex-col gap-2 w-full flex-grow">
                     <label class="">شماره موبایل</label>
-                    <input type="text" v-model="mobile" name="mobile" v-mask="'09##-### ####'" :masked="true" dir="auto" class="p-3 w-full rounded-xl shadow-xl" />
+                    <input type="text" v-model="mobile" name="mobile" v-mask="'09#########'" :masked="true" dir="auto" class="p-3 w-full rounded-xl shadow-xl" />
                 </div>
                 <button class="gray_gradient p-3 px-4 rounded-2xl shadow-md flex-shrink-0" @click="sendVerificationCode()" v-if="timeLeft <= 0">
                     ارسال کد تایید
