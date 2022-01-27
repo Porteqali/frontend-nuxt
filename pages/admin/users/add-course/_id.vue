@@ -15,7 +15,7 @@
         <hr class="w-full" />
 
         <section class="flex flex-col gap-4 bg-white rounded-2xl shadow-lg mx-auto w-full max-w-screen-lg flex-grow p-4">
-            <form class="flex flex-col gap-4 p-1 flex-grow max-h-full overflow-auto">
+            <form class="flex flex-col gap-4 p-1 flex-grow max-h-full overflow-auto" @submit="$event.preventDefault()">
                 <div class="flex items-center gap-2">
                     <img class="w-14 h-14 rounded-full object-cover shadow-md" :src="image" v-if="image" alt="" />
                     <div class="flex flex-col">

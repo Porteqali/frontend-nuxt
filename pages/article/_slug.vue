@@ -1,6 +1,7 @@
 <style scoped>
 .header_card {
     background-color: var(--header-nav-container-bg-color);
+    color: #fff;
     position: absolute;
 }
 .article_img {

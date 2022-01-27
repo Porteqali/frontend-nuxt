@@ -125,7 +125,7 @@
                     </ul>
                 </transition>
 
-                <li class="flex w-full">
+                <li class="flex w-full" v-if="checkPermissions(['admin.teachers.view'], userPermissions)">
                     <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/teachers">
                         <img src="/icons/admin/Teacher.svg" class="menu_icon" width="24" />
                         <span>مدیریت اساتید</span>

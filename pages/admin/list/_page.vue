@@ -125,11 +125,6 @@ export default {
             isDataLoading: false,
 
             search: this.search || "",
-            filters: this.filters || {
-                fromRegisterDate: "",
-                toRegisterDate: "",
-                status: [],
-            },
             sort: this.sort || { col: "کاربر", type: "asc" },
             page: this.page || 1,
             pp: this.pp || 25,
@@ -197,13 +192,7 @@ export default {
             }
 
             let params = [`page=${this.page}`, `pp=${this.pp}`, `sort=${this.sort.col}`, `sort_type=${this.sort.type}`, `search=${this.search}`];
-            for (let item in this.filters) {
-                if (this.filters[item]) {
-                    let filterName = item.replace(/\.?([A-Z])/g, (x, y) => "_" + y.toLowerCase()).replace(/^_/, "");
-                    if (typeof this.filters[item] === "object") this.filters[item] = this.filters[item].toString();
-                    params.push(`${filterName}=${this.filters[item]}`);
-                }
-            }
+            
             url = encodeURI(`${url}?${params.join("&")}`);
 
             await axios
