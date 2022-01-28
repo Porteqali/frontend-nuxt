@@ -6,14 +6,14 @@
             <div class="flex flex-wrap md:flex-nowrap items-center gap-2">
                 <nuxt-link to="/admin"><img class="opacity-75" src="/icons/admin/Home.svg" width="20" /></nuxt-link>
                 <img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" />
-                <nuxt-link to="/admin/marketers">مدیریت بازاریابان</nuxt-link>
+                <nuxt-link to="/admin/teachers">مدیریت اساتید</nuxt-link>
                 <img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" />
                 <h1 class="text-2xl"><b>تاریخچه پرداخت کمیسیون ها</b></h1>
             </div>
             <nuxt-link
-                :to="`/admin/marketers/pay/${$route.params.id}`"
+                :to="`/admin/teachers/pay/${$route.params.id}`"
                 class="orange_gradient_v rounded-xl p-2 px-4 w-max hover:shadow-md"
-                v-if="checkPermissions(['admin.marketers.pay'], userPermissions)"
+                v-if="checkPermissions(['admin.teachers.pay'], userPermissions)"
             >
                 ایجاد رکورد پرداخت
             </nuxt-link>
@@ -63,7 +63,7 @@
             :isEmpty="!tableData.length"
             :total="total"
             :pageTotal="pageTotal"
-            :pageUrl="`/admin/marketers/commission-payments/${$route.params.id}/:page?search=${search}`"
+            :pageUrl="`/admin/teachers/commission-payments/${$route.params.id}/:page?search=${search}`"
             @update:table="getTableData()"
         >
             <template v-slot:tbody="{ record }">
@@ -100,7 +100,7 @@ import ButtonList from "~/components/forms/admin/ButtonList.vue";
 export default {
     layout: "admin",
     head() {
-        return { title: "مدیریت بازاریابان - گروه آموزشی پرتقال" };
+        return { title: "تاریخچه پرداخت کمیسیون ها - گروه آموزشی پرتقال" };
     },
     mixins: [permissionCheck],
     components: {
@@ -176,7 +176,7 @@ export default {
             if (this.isDataLoading) return;
             this.isDataLoading = true;
 
-            let url = `/api/admin/marketers/commission-payments/${this.$route.params.id}`;
+            let url = `/api/admin/teachers/commission-payments/${this.$route.params.id}`;
             let headers = {};
             if (process.server) {
                 url = `${process.env.BASE_URL}${url}`;

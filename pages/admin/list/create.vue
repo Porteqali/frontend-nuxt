@@ -167,11 +167,7 @@ export default {
                         this.permissionGroups[record._id] = { name: record.name, value: record._id };
                     });
                 })
-                .catch((e) => {
-                    if (typeof e.response !== "undefined" && e.response.data && typeof e.response.data.message === "object") {
-                        this.$store.dispatch("toast/makeToast", { type: "error", title: "خطا", message: e.response.data.message[0].errors[0] });
-                    }
-                });
+                .catch((e) => {});
         },
 
         async selectFile() {

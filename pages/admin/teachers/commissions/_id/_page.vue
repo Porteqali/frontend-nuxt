@@ -6,7 +6,7 @@
             <div class="flex flex-wrap md:flex-nowrap items-center gap-2">
                 <nuxt-link to="/admin"><img class="opacity-75" src="/icons/admin/Home.svg" width="20" /></nuxt-link>
                 <img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" />
-                <nuxt-link to="/admin/marketers">مدیریت بازاریابان</nuxt-link>
+                <nuxt-link to="/admin/teachers">مدیریت اساتید</nuxt-link>
                 <img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" />
                 <h1 class="text-2xl"><b>لیست کمیسیون ها</b></h1>
             </div>
@@ -57,7 +57,7 @@
             :isEmpty="!tableData.length"
             :total="total"
             :pageTotal="pageTotal"
-            :pageUrl="`/admin/marketers/commissions/${$route.params.id}/:page?search=${search}`"
+            :pageUrl="`/admin/teachers/commissions/${$route.params.id}/:page?search=${search}`"
             @update:table="getTableData()"
         >
             <template v-slot:tbody="{ record }">
@@ -77,8 +77,8 @@
                     <small>تومان</small>
                 </td>
                 <td>
-                    <span class="title">کمیسیون بازاریاب:</span>
-                    {{ new Intl.NumberFormat("fa").format(record.marketerCut) }}
+                    <span class="title">کمیسیون استاد:</span>
+                    {{ new Intl.NumberFormat("fa").format(record.teacherCut) }}
                     <small>تومان</small>
                 </td>
                 <td>{{ new Date(record.createdAt).toLocaleString("fa") }}</td>
@@ -97,7 +97,7 @@ import ButtonList from "~/components/forms/admin/ButtonList.vue";
 export default {
     layout: "admin",
     head() {
-        return { title: "لیست کمیسیون های بازاریاب - گروه آموزشی پرتقال" };
+        return { title: "لیست کمیسیون های استاد - گروه آموزشی پرتقال" };
     },
     mixins: [permissionCheck],
     components: {
@@ -125,7 +125,7 @@ export default {
                 مشتری: { sortable: true },
                 دوره: { sortable: true },
                 "مبلغ پرداختی کاربر": { sortable: true },
-                "کمیسیون بازاریاب": { sortable: true },
+                "کمیسیون استاد": { sortable: true },
                 "تاریخ ثبت": { sortable: true },
             },
             tableData: this.tableData || [],
@@ -173,7 +173,7 @@ export default {
             if (this.isDataLoading) return;
             this.isDataLoading = true;
 
-            let url = `/api/admin/marketers/commissions/${this.$route.params.id}`;
+            let url = `/api/admin/teachers/commissions/${this.$route.params.id}`;
             let headers = {};
             if (process.server) {
                 url = `${process.env.BASE_URL}${url}`;

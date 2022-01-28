@@ -82,7 +82,7 @@ import Select from "~/components/forms/admin/Select.vue";
 export default {
     layout: "admin",
     head() {
-        return { title: "ویرایش بازاریاب - گروه آموزشی پرتقال" };
+        return { title: "پردخت کمیسیون - گروه آموزشی پرتقال" };
     },
     components: {
         Select,

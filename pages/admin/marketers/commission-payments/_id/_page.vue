@@ -100,7 +100,7 @@ import ButtonList from "~/components/forms/admin/ButtonList.vue";
 export default {
     layout: "admin",
     head() {
-        return { title: "مدیریت بازاریابان - گروه آموزشی پرتقال" };
+        return { title: "تاریخچه پرداخت کمیسیون ها - گروه آموزشی پرتقال" };
     },
     mixins: [permissionCheck],
     components: {

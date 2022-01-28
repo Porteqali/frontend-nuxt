@@ -5,7 +5,7 @@
         <div class="flex flex-wrap md:flex-nowrap items-center gap-2">
             <nuxt-link to="/admin"><img class="opacity-75" src="/icons/admin/Home.svg" width="20" /></nuxt-link>
             <img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" />
-            <nuxt-link to="/admin/marketers">مدیریت بازاریابان</nuxt-link>
+            <nuxt-link to="/admin/teachers">مدیریت اساتید</nuxt-link>
             <img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" />
             <h1 class="text-2xl"><b>پرداخت کمیسیون</b></h1>
         </div>
@@ -82,7 +82,7 @@ import Select from "~/components/forms/admin/Select.vue";
 export default {
     layout: "admin",
     head() {
-        return { title: "ویرایش بازاریاب - گروه آموزشی پرتقال" };
+        return { title: "پردخت کمیسیون - گروه آموزشی پرتقال" };
     },
     components: {
         Select,
@@ -123,7 +123,7 @@ export default {
     },
     methods: {
         async loadMarketer(data = {}, route) {
-            let url = `/api/admin/marketers/${route.params.id}`;
+            let url = `/api/admin/teachers/${route.params.id}`;
             let headers = {};
             if (process.server) {
                 url = `${process.env.BASE_URL}${url}`;
@@ -167,7 +167,7 @@ export default {
             if (!!this.cardNumber) data.cardNumber = this.cardNumber;
             if (!!this.bank) data.bank = this.bank;
 
-            let url = encodeURI(`/api/admin/marketers/pay/${this.$route.params.id}`);
+            let url = encodeURI(`/api/admin/teachers/pay/${this.$route.params.id}`);
             await axios
                 .post(url, data)
                 .then((response) => {
