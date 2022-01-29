@@ -184,6 +184,17 @@
                 </div>
                 <hr class="w-full" />
                 <label for="">مشخصات مالی</label>
+                <div class="flex flex-col gap-2 w-full">
+                    <label class="text-sm">
+                        <span>کمیسیون</span>
+                        <b class="text-red-500">*</b>
+                    </label>
+                    <Select :selectedOption.sync="commission" :options="commissionOptions">
+                        <template v-slot:option="{ option }">
+                            <span :value="option.value">{{ option.name }}</span>
+                        </template>
+                    </Select>
+                </div>
                 <div class="flex flex-wrap md:flex-nowrap gap-4 w-full">
                     <div class="flex flex-col gap-2 w-full">
                         <label class="text-sm">شماره کارت</label>
@@ -207,17 +218,6 @@
                 <div class="flex flex-col gap-2 w-full">
                     <label class="text-sm">شماره شبا</label>
                     <input type="text" v-model="shebaNumber" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
-                </div>
-                <div class="flex flex-col gap-2 w-full">
-                    <label class="text-sm">
-                        <span>کمیسیون</span>
-                        <b class="text-red-500">*</b>
-                    </label>
-                    <Select :selectedOption.sync="commission" :options="commissionOptions">
-                        <template v-slot:option="{ option }">
-                            <span :value="option.value">{{ option.name }}</span>
-                        </template>
-                    </Select>
                 </div>
             </form>
             <hr class="w-full" />
@@ -385,13 +385,24 @@ export default {
             formData.append("family", this.family);
             formData.append("email", this.email);
             formData.append("status", this.status.value);
-            formData.append("mobile", this.mobile);
+            formData.append("mobile", this.mobile.replaceAll("-", "").replaceAll(" ", ""));
             if (!!this.tel) formData.append("tel", this.tel);
             if (!!this.address) formData.append("address", this.address);
             if (!!this.postalCode) formData.append("postalCode", this.postalCode);
             if (!!this.nationalCode) formData.append("nationalCode", this.nationalCode);
             formData.append("password", this.password);
             formData.append("passwordConfirmation", this.passwordConfirmation);
+            if (!!this.birthDay.value && !!this.birthMonth.value && !!this.birthYear.value) {
+                formData.append("birthDate", `${this.birthYear.value}/${this.birthMonth.value}/${this.birthDay.value}`);
+            }
+            if (!!this.fatherName) formData.append("fatherName", this.fatherName);
+            formData.append("description", this.description);
+            formData.append("groups", Object.keys(this.groups).toString());
+            if (!!this.cardNumber) formData.append("cardNumber", this.cardNumber);
+            if (!!this.cardOwnerName) formData.append("cardOwnerName", this.cardOwnerName);
+            if (!!this.cardBankName) formData.append("cardBankName", this.cardBankName);
+            if (!!this.shebaNumber) formData.append("shebaNumber", this.shebaNumber);
+            formData.append("commission", this.commission.value);
 
             let url = encodeURI(`/api/admin/teachers`);
             await axios

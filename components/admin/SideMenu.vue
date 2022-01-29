@@ -134,7 +134,11 @@
 
                 <hr class="w-11/12 mx-auto my-1 border-gray-700" />
 
-                <li class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-700" @click="openGroup('courses')">
+                <li
+                    class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-700"
+                    @click="openGroup('courses')"
+                    v-if="checkPermissions(['admin.courses.view', 'admin.course-groups.view'], userPermissions, 'OR')"
+                >
                     <div class="flex items-center gap-2 w-full">
                         <img src="/icons/admin/Play.svg" class="menu_icon" width="24" />
                         <span>مدیریت دوره ها</span>
@@ -143,20 +147,30 @@
                 </li>
                 <transition name="accordiondown" appear>
                     <ul class="submenu flex flex-col gap-1 py-1" v-show="openedGroup.includes('courses')" name="courses">
-                        <li class="">
-                            <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/courses">لیست دوره ها</nuxt-link>
+                        <li class="" v-if="checkPermissions(['admin.courses.view'], userPermissions)">
+                            <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/courses">
+                                <img src="/icons/admin/List.svg" class="menu_icon" width="24" />
+                                <span>لیست دوره ها</span>
+                            </nuxt-link>
                         </li>
-                        <li class="">
-                            <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/course-groups">گروه دوره ها</nuxt-link>
+                        <li class="" v-if="checkPermissions(['admin.course-groups.view'], userPermissions)">
+                            <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/course-groups">
+                                <img src="/icons/admin/WorkBag.svg" class="menu_icon" width="24" />
+                                <span>گروه دوره ها</span>
+                            </nuxt-link>
                         </li>
                     </ul>
                 </transition>
 
                 <hr class="w-11/12 mx-auto my-1 border-gray-700" />
 
-                <li class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-700" @click="openGroup('finance')">
+                <li
+                    class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-700"
+                    @click="openGroup('finance')"
+                    v-if="checkPermissions(['admin.commissions.view'], userPermissions, 'OR')"
+                >
                     <div class="flex items-center gap-2 w-full">
-                        <img src="/icons/admin/Document.svg" class="menu_icon" width="24" />
+                        <img src="/icons/admin/Usd.svg" class="menu_icon" width="24" />
                         <span>مدیریت مالی</span>
                     </div>
                     <img class="mr-auto" src="/icons/Arrow.white.svg" width="8" />
@@ -164,16 +178,28 @@
                 <transition name="accordiondown" appear>
                     <ul class="submenu flex flex-col gap-1 py-1" v-show="openedGroup.includes('finance')" name="finance">
                         <li class="">
-                            <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/course-transactions">تراکنش های خرید دوره</nuxt-link>
+                            <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/course-transactions">
+                                <img src="/icons/admin/Receipt.svg" class="menu_icon" width="24" />
+                                <span>تراکنش های خرید دوره</span>
+                            </nuxt-link>
                         </li>
                         <li class="">
-                            <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/wallet-transactions">تراکنش های شارژ کیف پول</nuxt-link>
+                            <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/wallet-transactions">
+                                <img src="/icons/admin/Receipt.svg" class="menu_icon" width="24" />
+                                <span>تراکنش های شارژ کیف پول</span>
+                            </nuxt-link>
+                        </li>
+                        <li class="" v-if="checkPermissions(['admin.commissions.view'], userPermissions)">
+                            <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/commissions">
+                                <img src="/icons/admin/SackDollar.svg" class="menu_icon" width="24" />
+                                <span>کمیسیون ها</span>
+                            </nuxt-link>
                         </li>
                         <li class="">
-                            <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/commissions">کمیسیون ها</nuxt-link>
-                        </li>
-                        <li class="">
-                            <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/discounts">تخفیف ها</nuxt-link>
+                            <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/discounts">
+                                <img src="/icons/admin/BadgePercent.svg" class="menu_icon" width="24" />
+                                <span>تخفیف ها</span>
+                            </nuxt-link>
                         </li>
                     </ul>
                 </transition>

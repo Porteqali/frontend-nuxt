@@ -78,8 +78,12 @@
     padding: 0.6rem 0.5rem;
 }
 .dashbaord_table table.card tbody {
-    display: flex;
-    flex-wrap: wrap;
+    /* display: flex; */
+    /* flex-wrap: wrap; */
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
     gap: 1rem;
     height: auto;
     overflow: initial;

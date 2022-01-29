@@ -48,7 +48,7 @@
     border-radius: 1rem;
     width: calc(100% - 10px);
     min-width: max-content;
-    max-height: 12rem;
+    max-height: 16rem;
     padding: 0.25rem;
     padding-top: 2.25rem;
     margin-top: -2rem;

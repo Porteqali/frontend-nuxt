@@ -5,9 +5,9 @@
         <div class="flex flex-wrap md:flex-nowrap items-center gap-2">
             <nuxt-link to="/admin"><img class="opacity-75" src="/icons/admin/Home.svg" width="20" /></nuxt-link>
             <img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" />
-            <nuxt-link to="/admin/users">مدیریت کاربران</nuxt-link>
+            <nuxt-link to="/admin/course-groups">گروه دوره ها</nuxt-link>
             <img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" />
-            <h1 class="text-2xl"><b>ویرایش کاربر</b></h1>
+            <h1 class="text-2xl"><b>ویرایش گروه دوره</b></h1>
         </div>
 
         <hr class="w-full" />
@@ -35,62 +35,14 @@
                     </div>
                     <div class="flex flex-col gap-2 w-full">
                         <label class="text-sm">
-                            <span>نام خانوادگی</span>
+                            <span>گروه اصلی</span>
                             <b class="text-red-500">*</b>
                         </label>
-                        <input type="text" v-model="family" dir="auto" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
-                    </div>
-                </div>
-                <hr class="w-full" />
-                <div class="flex flex-wrap md:flex-nowrap gap-4 w-full">
-                    <div class="flex flex-col gap-2 w-full">
-                        <label class="text-sm">
-                            <span>ایمیل</span>
-                            <b class="text-red-500">*</b>
-                        </label>
-                        <input type="email" v-model="email" dir="auto" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
-                    </div>
-                    <div class="flex flex-col gap-2 w-max flex-shrink-0">
-                        <label class="text-sm">
-                            <span>وضعیت تایید ایمیل</span>
-                        </label>
-                        <div class="flex items-center gap-2 cursor-pointer select-none h-full" @click="emailVerified = !emailVerified">
-                            <transition name="check" mode="out-in" appear>
-                                <img src="/icons/admin/TickSquare.svg" width="24" v-if="emailVerified" />
-                                <img src="/icons/admin/TickSquareBox.svg" width="24" v-else />
-                            </transition>
-                            <span class="text-sm opacity-75" v-if="emailVerified">تایید شده</span>
-                            <span class="text-sm opacity-75" v-else>تایید نشده</span>
-                        </div>
-                    </div>
-                </div>
-                <hr class="w-full" />
-                <div class="flex flex-wrap md:flex-nowrap gap-4 w-full">
-                    <div class="flex flex-col gap-2 w-full">
-                        <label class="text-sm">
-                            <span>شماره موبایل</span>
-                            <b class="text-red-500">*</b>
-                        </label>
-                        <input
-                            type="text"
-                            v-model="mobile"
-                            dir="auto"
-                            v-mask="`###########`"
-                            class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100"
-                        />
-                    </div>
-                    <div class="flex flex-col gap-2 w-max flex-shrink-0">
-                        <label class="text-sm">
-                            <span>وضعیت تایید موبایل</span>
-                        </label>
-                        <div class="flex items-center gap-2 cursor-pointer select-none h-full" @click="mobileVerified = !mobileVerified">
-                            <transition name="check" mode="out-in" appear>
-                                <img src="/icons/admin/TickSquare.svg" width="24" v-if="mobileVerified" />
-                                <img src="/icons/admin/TickSquareBox.svg" width="24" v-else />
-                            </transition>
-                            <span class="text-sm opacity-75" v-if="mobileVerified">تایید شده</span>
-                            <span class="text-sm opacity-75" v-else>تایید نشده</span>
-                        </div>
+                        <Select :selectedOption.sync="topGroup" :options="topGroupOptions">
+                            <template v-slot:option="{ option }">
+                                <span :value="option.value">{{ option.name }}</span>
+                            </template>
+                        </Select>
                     </div>
                 </div>
                 <hr class="w-full" />
@@ -104,21 +56,6 @@
                             <span :value="option.value">{{ option.name }}</span>
                         </template>
                     </Select>
-                </div>
-                <hr class="w-full" />
-                <div class="flex flex-wrap md:flex-nowrap gap-4 w-full">
-                    <div class="flex flex-col gap-2 w-full">
-                        <label class="text-sm">
-                            <span>رمزعبور</span>
-                        </label>
-                        <input type="password" v-model="password" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
-                    </div>
-                    <div class="flex flex-col gap-2 w-full">
-                        <label class="text-sm">
-                            <span>تکرار رمزعبور</span>
-                        </label>
-                        <input type="password" v-model="passwordConfirmation" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
-                    </div>
                 </div>
             </form>
             <hr class="w-full" />
@@ -143,7 +80,7 @@ import Select from "~/components/forms/admin/Select.vue";
 export default {
     layout: "admin",
     head() {
-        return { title: "ویرایش کاربر - گروه آموزشی پرتقال" };
+        return { title: "ویرایش گروه دوره - گروه آموزشی پرتقال" };
     },
     components: {
         Select,
@@ -156,17 +93,21 @@ export default {
                 active: { name: "فعال", value: "active" },
                 deactive: { name: "غیرفعال", value: "deactive" },
             },
+            topGroupOptions: {
+                network: { name: "امنیت شبکه", value: "network" },
+                languages: { name: "زبان های خارجی", value: "languages" },
+                graphic: { name: "طراحی گرافیک", value: "graphic" },
+                university: { name: "دروس دانشگاهی", value: "university" },
+                programming: { name: "برنامه نویسی", value: "programming" },
+                "web-design": { name: "طراحی سایت", value: "web-design" },
+                business: { name: "کسب و کار", value: "business" },
+                free: { name: "دوره های رایگان", value: "free" },
+            },
 
             image: "",
             name: "",
-            family: "",
-            email: "",
-            emailVerified: false,
-            mobile: "",
-            mobileVerified: false,
+            topGroup: { name: "", value: "" },
             status: { name: "فعال", value: "active" },
-            password: "",
-            passwordConfirmation: "",
 
             errorMsg: "",
             errorTag: "",
@@ -178,7 +119,10 @@ export default {
 
         const route = this.$nuxt.context.route;
 
-        await this.loadUser({ headers }, route);
+        await this.loadCourseGroup({ headers }, route);
+    },
+    mounted() {
+        this.baseUrl = window.location.origin;
     },
     computed: {
         userPermissions() {
@@ -186,8 +130,8 @@ export default {
         },
     },
     methods: {
-        async loadUser(data = {}, route) {
-            let url = `/api/admin/users/${route.params.id}`;
+        async loadCourseGroup(data = {}, route) {
+            let url = `/api/admin/course-groups/${route.params.id}`;
             let headers = {};
             if (process.server) {
                 url = `${process.env.BASE_URL}${url}`;
@@ -198,13 +142,9 @@ export default {
             await axios
                 .get(url, { headers })
                 .then((response) => {
-                    this.image = response.data.image;
+                    this.image = response.data.icon;
                     this.name = response.data.name;
-                    this.family = response.data.family;
-                    this.email = response.data.email;
-                    this.emailVerified = response.data.emailVerifiedAt ? true : false;
-                    this.mobile = response.data.mobile;
-                    this.mobileVerified = response.data.mobileVerifiedAt ? true : false;
+                    this.topGroup = this.topGroupOptions[response.data.topGroup];
                     this.status = this.statusOptions[response.data.status];
                 })
                 .catch((e) => {
@@ -233,22 +173,17 @@ export default {
             if (this.$refs.fileInput.files[0]) formData.append("files", this.$refs.fileInput.files[0]);
             formData.append("image", this.image);
             formData.append("name", this.name);
-            formData.append("family", this.family);
-            formData.append("email", this.email);
-            formData.append("emailVerified", this.emailVerified);
-            formData.append("mobile", this.mobile.replaceAll("-", "").replaceAll(" ", ""));
-            formData.append("mobileVerified", this.mobileVerified);
             formData.append("status", this.status.value);
-            if (!!this.password) formData.append("password", this.password);
-            if (!!this.passwordConfirmation) formData.append("passwordConfirmation", this.passwordConfirmation);
+            formData.append("topGroup", this.topGroup.value);
 
-            let url = encodeURI(`/api/admin/users/${this.$route.params.id}`);
+            let url = encodeURI(`/api/admin/course-groups/${this.$route.params.id}`);
             await axios
                 .put(url, formData)
                 .then((response) => {
-                    this.$store.dispatch("toast/makeToast", { type: "success", title: "", message: "کاربر با موفقیت ویرایش شد" });
+                    this.$store.dispatch("toast/makeToast", { type: "success", title: "", message: "گروه دوره با موفقیت ویرایش شد" });
                 })
                 .catch((e) => {
+                    console.log(e);
                     if (typeof e.response !== "undefined" && e.response.data && typeof e.response.data.message === "object") {
                         this.$store.dispatch("toast/makeToast", { type: "error", title: "خطا", message: e.response.data.message[0].errors[0] });
                         this.errorMsg = e.response.data.message[0].errors[0];

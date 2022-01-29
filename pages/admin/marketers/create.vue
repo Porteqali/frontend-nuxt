@@ -234,7 +234,7 @@ export default {
             formData.append("family", this.family);
             formData.append("email", this.email);
             formData.append("status", this.status.value);
-            formData.append("mobile", this.mobile);
+            formData.append("mobile", this.mobile.replaceAll("-", "").replaceAll(" ", ""));
             if (!!this.tel) formData.append("tel", this.tel);
             if (!!this.address) formData.append("address", this.address);
             if (!!this.postalCode) formData.append("postalCode", this.postalCode);
