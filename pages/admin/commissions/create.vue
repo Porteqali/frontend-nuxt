@@ -44,6 +44,7 @@
                         <label class="text-sm">
                             <span>مقدار</span>
                             <b class="text-red-500">*</b>
+                            <small class="opacity-75">(سهم وبسایت از هر خرید)</small>
                         </label>
                         <div class="flex items-center gap-2 p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100">
                             <input type="number" v-model="amount" dir="ltr" class="w-full bg-transparent" />

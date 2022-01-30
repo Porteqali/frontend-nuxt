@@ -167,7 +167,10 @@
                 <li
                     class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-700"
                     @click="openGroup('finance')"
-                    v-if="checkPermissions(['admin.commissions.view'], userPermissions, 'OR')"
+                    v-if="
+                        checkPermissions(['admin.commissions.view', 'admin.discounts.view'], userPermissions, 'OR') ||
+                        checkPermissions(['admin.wallet-transactions.view', 'admin.course-transactions.view'], userPermissions, 'OR')
+                    "
                 >
                     <div class="flex items-center gap-2 w-full">
                         <img src="/icons/admin/Usd.svg" class="menu_icon" width="24" />
@@ -177,13 +180,13 @@
                 </li>
                 <transition name="accordiondown" appear>
                     <ul class="submenu flex flex-col gap-1 py-1" v-show="openedGroup.includes('finance')" name="finance">
-                        <li class="">
+                        <li class="" v-if="checkPermissions(['admin.course-transactions.view'], userPermissions)">
                             <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/course-transactions">
                                 <img src="/icons/admin/Receipt.svg" class="menu_icon" width="24" />
                                 <span>تراکنش های خرید دوره</span>
                             </nuxt-link>
                         </li>
-                        <li class="">
+                        <li class="" v-if="checkPermissions(['admin.wallet-transactions.view'], userPermissions)">
                             <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/wallet-transactions">
                                 <img src="/icons/admin/Receipt.svg" class="menu_icon" width="24" />
                                 <span>تراکنش های شارژ کیف پول</span>
@@ -195,7 +198,7 @@
                                 <span>کمیسیون ها</span>
                             </nuxt-link>
                         </li>
-                        <li class="">
+                        <li class="" v-if="checkPermissions(['admin.discounts.view'], userPermissions)">
                             <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/discounts">
                                 <img src="/icons/admin/BadgePercent.svg" class="menu_icon" width="24" />
                                 <span>تخفیف ها</span>

@@ -6,7 +6,7 @@
             <div class="flex items-center gap-2">
                 <nuxt-link to="/admin"><img class="opacity-75" src="/icons/admin/Home.svg" width="20" /></nuxt-link>
                 <img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" />
-                <h1 class="text-2xl"><b>نظرات کاربران</b></h1>
+                <h1 class="text-2xl"><b>تراکنش های شارژ کیف پول</b></h1>
             </div>
             <!--  -->
         </div>
@@ -21,13 +21,10 @@
                         <input class="w-full text-sm" type="text" placeholder="جستجو" v-model="search" />
                     </div>
                 </form>
-                <button
-                    class="flex items-center gap-2 p-2.5 rounded-xl bg-white hover:bg-warmgray-100 hover:shadow-none shadow-md"
-                    @click="filterDialogState = true"
-                >
+                <!-- <button class="flex items-center gap-2 p-2 rounded-xl border-2 border-solid border-gray-700" @click="filterDialogState = true">
                     <img src="/icons/admin/Filter.line.svg" width="20" />
-                    <span class="pl-1 text-sm">فیلتر ها</span>
-                </button>
+                    <span class="text-sm">فیلتر ها</span>
+                </button> -->
             </div>
             <div class="flex justify-center items-center gap-1 flex-shrink-0">
                 <button class="hover:shadow-lg p-2 text-sm rounded-xl" :class="{ 'bg-white shadow-md': tableView == 'list' }" @click="tableView = 'list'">
@@ -50,7 +47,7 @@
             :isEmpty="!tableData.length"
             :total="total"
             :pageTotal="pageTotal"
-            :pageUrl="`/admin/users-comments/:page?search=${search}`"
+            :pageUrl="`/admin/wallet-transactions/:page?search=${search}`"
             @update:table="getTableData()"
         >
             <template v-slot:tbody="{ record, index }">
@@ -61,114 +58,85 @@
                     </div>
                 </td>
                 <td>
+                    <span class="title">کد تراکنش</span>
+                    {{ record.transactionCode }}
+                </td>
+                <td>
+                    <span class="title">مبلغ کل</span>
+                    {{ new Intl.NumberFormat("fa").format(record.chargeAmount) }}
+                    <small>تومان</small>
+                </td>
+                <td>
+                    <span class="title">مبلغ پرداختی</span>
+                    {{ new Intl.NumberFormat("fa").format(record.paidAmount) }}
+                    <small>تومان</small>
+                </td>
+                <td>
+                    <span class="p-1 px-2 text-xs rounded-md bg-lightblue-100 text-lightblue-700" v-if="record.status == 'waiting_for_payment'">منتظر پرداخت</span>
+                    <span class="p-1 px-2 text-xs rounded-md bg-emerald-100 text-emerald-700" v-if="record.status == 'ok'">پرداخت موفق</span>
+                    <span class="p-1 px-2 text-xs rounded-md bg-rose-100 text-rose-700" v-if="record.status == 'cancel'">لغو شده</span>
+                    <span class="p-1 px-2 text-xs rounded-md bg-red-100 text-red-700" v-if="record.status == 'error'">خطا</span>
+                </td>
+                <td>
+                    {{ new Date(record.createdAt).toLocaleString("fa") }}
+                </td>
+                <td>
                     <div class="flex items-center gap-1">
-                        <span class="p-1 bg-bluegray-200 rounded-lg text-xs" v-if="record.course[0]">دوره</span>
-                        <span class="p-1 bg-warmgray-200 rounded-lg text-xs" v-if="record.article[0]">مقاله</span>
-                        <span v-if="record.course[0]">{{ record.course[0].name }}</span>
-                        <span v-if="record.article[0]">{{ record.article[0].title }}</span>
-                    </div>
-                </td>
-                <td>
-                    <p>{{ record.text.length > 60 ? record.text.substr(0, 60) + "..." : record.text }}</p>
-                </td>
-                <td>
-                    <span class="p-1 px-2 text-xs rounded-md bg-emerald-100 text-emerald-700" v-if="record.status == 'active'">تایید شده</span>
-                    <span class="p-1 px-2 text-xs rounded-md bg-rose-100 text-rose-700" v-if="record.status == 'deactive'">تایید نشده</span>
-                    <span class="p-1 px-2 text-xs rounded-md bg-blue-100 text-blue-700" v-if="record.status == 'waiting_for_review'">درحال بررسی</span>
-                </td>
-                <td>{{ new Date(record.createdAt).toLocaleString("fa") }}</td>
-                <td>
-                    <div class="flex items-center gap-1">
-                        <router-link
-                            class="p-2 rounded-lg hover:bg-blue-200"
-                            title="Edit"
-                            :to="`/admin/users-comments/edit/${record._id}`"
-                            v-if="checkPermissions(['admin.users-comments.edit'], userPermissions)"
-                        >
-                            <img src="/icons/admin/Edit.svg" width="24" />
-                        </router-link>
                         <button
-                            class="p-2 rounded-lg hover:bg-red-200"
-                            title="Delete"
-                            @click="askToDelete(record._id, record.fullname, index)"
-                            v-if="checkPermissions(['admin.users-comments.delete'], userPermissions)"
+                            class="p-2 rounded-lg hover:bg-emerald-200 flex-shrink-0"
+                            title="تکمیل فرایند پرداخت"
+                            @click="askToComplete(record._id, `${record.name}`, index)"
+                            v-if="record.status == 'waiting_for_payment' && checkPermissions(['admin.wallet-transactions.complete'], userPermissions)"
                         >
-                            <img src="/icons/admin/Delete.svg" width="24" />
+                            <img src="/icons/admin/Payment.svg" width="24" />
                         </button>
                     </div>
                 </td>
             </template>
         </Table>
 
-        <Dialog boxClass="max-w-xs md:max-w-md" :open.sync="filterDialogState">
+        <Dialog boxClass="max-w-xs md:max-w-md" :open.sync="payDialogState">
             <div class="flex flex-col gap-2 w-full max-w-xs md:max-w-md">
-                <label for="">وضعیت:</label>
-                <div class="flex flex-wrap items-center gap-6">
-                    <div class="flex items-center gap-2 cursor-pointer select-none w-max" @click="filterStatus('waiting_for_review')">
-                        <transition name="check" mode="out-in" appear>
-                            <img src="/icons/admin/TickSquare.svg" width="24" v-if="statusFilter.includes('waiting_for_review')" />
-                            <img src="/icons/admin/TickSquareBox.svg" width="24" v-else />
-                        </transition>
-                        <span class="text-sm opacity-75">درحال بررسی</span>
-                    </div>
-                    <div class="flex items-center gap-2 cursor-pointer select-none w-max" @click="filterStatus('active')">
-                        <transition name="check" mode="out-in" appear>
-                            <img src="/icons/admin/TickSquare.svg" width="24" v-if="statusFilter.includes('active')" />
-                            <img src="/icons/admin/TickSquareBox.svg" width="24" v-else />
-                        </transition>
-                        <span class="text-sm opacity-75">تایید شده</span>
-                    </div>
-                    <div class="flex items-center gap-2 cursor-pointer select-none w-max" @click="filterStatus('deactive')">
-                        <transition name="check" mode="out-in" appear>
-                            <img src="/icons/admin/TickSquare.svg" width="24" v-if="statusFilter.includes('deactive')" />
-                            <img src="/icons/admin/TickSquareBox.svg" width="24" v-else />
-                        </transition>
-                        <span class="text-sm opacity-75">تایید نشده</span>
-                    </div>
-                </div>
+                <span class="text-lg">
+                    آیا مطمئن به
+                    <b class="text-emerald-600">پرداخت</b>
+                    این تراکنش هستید؟
+                </span>
+                <small class="opacity-50">این عملیات برگشت ناپذیر است!</small>
             </div>
             <hr class="border-solid my-4" />
-            <div class="flex flex-wrap items-center gap-2">
-                <button class="p-6 py-2 rounded-xl bg-warmgray-700 hover:bg-warmgray-800 text-white" @click="getTableData()">اعمال فیلتر</button>
-                <button class="p-6 py-2 rounded-xl border-2 border-solid border-gray-400 hover:bg-gray-200" @click="clearFilters()">حذف فیلتر های اعمال شده</button>
+            <div class="flex gap-2">
+                <button class="p-6 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white" :disabled="paying" @click="payRecord()">
+                    <span>تکمیل فرایند پرداخت</span>
+                </button>
+                <button class="p-6 py-2 rounded-xl border-2 border-solid border-gray-400 hover:bg-gray-200" @click="payDialogState = false">لغو</button>
             </div>
         </Dialog>
-
-        <DeleteDialog
-            :open.sync="deleteDialogState"
-            :recordId.sync="deletingRecordId"
-            :recordName.sync="deletingRecordName"
-            :recordIndex.sync="deletingRecordIndex"
-            :tableData.sync="tableData"
-            url="/api/admin/users-comments"
-        />
     </main>
 </template>
 
 <script>
 import axios from "axios";
 import permissionCheck from "~/mixins/permissionCheck";
-import Icons from "~/components/Icon.vue";
 import Table from "~/components/admin/Table.vue";
 import DeleteDialog from "~/components/admin/DeleteDialog.vue";
+import ButtonList from "~/components/forms/admin/ButtonList.vue";
 
 export default {
     layout: "admin",
     head() {
-        return { title: "نظرات کاربران - گروه آموزشی پرتقال" };
+        return { title: "تراکنش های شارژ کیف پول - گروه آموزشی پرتقال" };
     },
     mixins: [permissionCheck],
     components: {
-        Icons,
         Table,
         DeleteDialog,
+        ButtonList,
     },
     data() {
         return {
             isDataLoading: false,
 
-            statusFilter: this.statusFilter || [],
-            
             search: this.search || "",
             sort: this.sort || { col: "تاریخ ثبت", type: "asc" },
             page: this.page || 1,
@@ -178,8 +146,9 @@ export default {
 
             tableHeads: {
                 کاربر: { sortable: true },
-                مورد: { sortable: true },
-                متن: { sortable: true },
+                "کد تراکنش": { sortable: true },
+                "مبلغ کل": { sortable: true },
+                "مبلغ پرداختی": { sortable: true },
                 وضعیت: { sortable: true },
                 "تاریخ ثبت": { sortable: true },
                 عملیات: { sortable: false },
@@ -187,12 +156,13 @@ export default {
             tableData: this.tableData || [],
             tableView: "list",
 
-            deletingRecordId: "",
-            deletingRecordName: "",
-            deletingRecordIndex: "",
+            paying: false,
+            payingRecordId: "",
+            payingRecordName: "",
+            payingRecordIndex: "",
 
             filterDialogState: false,
-            deleteDialogState: false,
+            payDialogState: false,
         };
     },
     async fetch() {
@@ -229,7 +199,7 @@ export default {
             if (this.isDataLoading) return;
             this.isDataLoading = true;
 
-            let url = `/api/admin/users-comments`;
+            let url = `/api/admin/wallet-transactions`;
             let headers = {};
             if (process.server) {
                 url = `${process.env.BASE_URL}${url}`;
@@ -237,7 +207,7 @@ export default {
             }
 
             let params = [`page=${this.page}`, `pp=${this.pp}`, `sort=${this.sort.col}`, `sort_type=${this.sort.type}`, `search=${this.search}`];
-            if (this.statusFilter) params.push(`status=${this.statusFilter.toString()}`);
+
             url = encodeURI(`${url}?${params.join("&")}`);
 
             await axios
@@ -275,23 +245,37 @@ export default {
 
         // ========================
 
-        askToDelete(id, name, index) {
-            this.deletingRecordId = id;
-            this.deletingRecordName = name;
-            this.deletingRecordIndex = index;
-            this.deleteDialogState = true;
+        askToComplete(id, name, index) {
+            this.payingRecordId = id;
+            this.payingRecordName = name;
+            this.payingRecordIndex = index;
+            this.payDialogState = true;
         },
 
-        async clearFilters() {
-            this.statusFilter = [];
-            await this.getTableData();
+        async payRecord() {
+            if (this.paying) return;
+            this.paying = true;
+
+            let url = `/api/admin/wallet-transactions/${this.payingRecordId}`;
+            await axios
+                .post(url)
+                .then((response) => {
+                    this.$store.dispatch("toast/makeToast", { type: "success", title: "", message: "تراکنش با موفقیت پرداخت شد" });
+                    this.tableData[this.payingRecordIndex].status = "ok";
+                })
+                .catch((e) => {
+                    if (typeof e.response !== "undefined" && e.response.data && typeof e.response.data.message === "object") {
+                        this.$store.dispatch("toast/makeToast", { type: "error", title: "خطا", message: e.response.data.message[0].errors[0] });
+                    }
+                })
+                .finally(() => {
+                    this.paying = false;
+                    this.payDialogState = false;
+                    this.payingRecordId = "";
+                    this.payingRecordName = "";
+                    this.payingRecordIndex = "";
+                });
         },
-        // ...
-        filterStatus(status) {
-            if (this.statusFilter.includes(status)) this.statusFilter.splice(this.statusFilter.indexOf(status), 1);
-            else this.statusFilter.push(status);
-        },
-        // ...
     },
 };
 </script>
