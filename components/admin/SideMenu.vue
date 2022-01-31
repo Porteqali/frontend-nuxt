@@ -230,17 +230,23 @@
 
                 <hr class="w-11/12 mx-auto my-1 border-gray-700" />
 
-                <li class="flex w-full">
+                <li class="flex justify-between items-center w-full gap-2" v-if="checkPermissions(['admin.collaborate-requests.view'], userPermissions)">
                     <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/collaborate-requests">
                         <img src="/icons/admin/HandShake.svg" class="menu_icon" width="24" />
                         <span>درخواست های همکاری</span>
                     </nuxt-link>
+                    <small class="flex items-center justify-center px-1 h-5 rounded-md bg-warmgray-50 text-black text-xs" style="min-width: 1rem">
+                        {{ collabRequestCount }}
+                    </small>
                 </li>
-                <li class="flex w-full">
-                    <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/contact-us-requests">
+                <li class="flex justify-between items-center w-full gap-2" v-if="checkPermissions(['admin.contact-requests.view'], userPermissions)">
+                    <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/contact-requests">
                         <img src="/icons/admin/Calling.svg" class="menu_icon" width="24" />
                         <span>پیام های تماس با ما</span>
                     </nuxt-link>
+                    <small class="flex items-center justify-center px-1 h-5 rounded-md bg-warmgray-50 text-black text-xs" style="min-width: 1rem">
+                        {{ contactRequestCount }}
+                    </small>
                 </li>
 
                 <hr class="w-11/12 mx-auto my-1 border-gray-700" />
@@ -302,6 +308,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import permissionCheck from "~/mixins/permissionCheck";
 
 export default {
@@ -309,7 +316,16 @@ export default {
     data() {
         return {
             openedGroup: "",
+
+            collabRequestCount: 0,
+            contactRequestCount: 0,
         };
+    },
+    async fetch() {
+        let headers = {};
+        if (process.server) headers = this.$nuxt.context.req.headers;
+
+        await this.getNewRequestCounts({ headers });
     },
     mounted() {
         if (screen.width <= 768) {
@@ -335,6 +351,24 @@ export default {
         openGroup(groupName) {
             if (this.openedGroup == groupName) this.openedGroup = "";
             else this.openedGroup = groupName;
+        },
+
+        async getNewRequestCounts(data = {}) {
+            let url = `/api/admin/home/newRequestCounts`;
+            let headers = {};
+            if (process.server) {
+                url = `${process.env.BASE_URL}${url}`;
+                headers = data.headers ? data.headers : {};
+            }
+
+            url = encodeURI(url);
+            await axios
+                .get(url, { headers })
+                .then((response) => {
+                    this.collabRequestCount = response.data.collabRequestCount;
+                    this.contactRequestCount = response.data.contactRequestCount;
+                })
+                .catch((e) => {});
         },
     },
 };
