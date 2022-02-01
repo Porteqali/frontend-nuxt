@@ -257,22 +257,28 @@
                         <span>مقالات</span>
                     </nuxt-link>
                 </li>
-                <li class="flex w-full">
+                <li class="flex w-full" v-if="checkPermissions(['admin.faqs.view'], userPermissions)">
                     <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/faqs">
                         <img src="/icons/admin/Question.svg" class="menu_icon" width="24" />
                         <span>سوالات متداول</span>
                     </nuxt-link>
                 </li>
-                <li class="flex w-full">
+                <li class="flex w-full" v-if="checkPermissions(['admin.testimonials.view'], userPermissions)">
                     <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/testimonials">
                         <img src="/icons/admin/Chat.svg" class="menu_icon" width="24" />
                         <span>نظرات نمایشی</span>
                     </nuxt-link>
                 </li>
+                <li class="flex w-full" v-if="checkPermissions(['admin.banner.view'], userPermissions)">
+                    <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/banner">
+                        <img src="/icons/admin/Flag.svg" class="menu_icon" width="24" />
+                        <span>بنر وبسایت</span>
+                    </nuxt-link>
+                </li>
 
                 <hr class="w-11/12 mx-auto my-1 border-gray-700" />
 
-                <li class="flex w-full">
+                <li class="flex w-full" v-if="checkPermissions(['admin.contact-info.view'], userPermissions)">
                     <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/contact-info">
                         <img src="/icons/admin/InfoCircle.svg" class="menu_icon" width="24" />
                         <span>اطلاعات تماس</span>

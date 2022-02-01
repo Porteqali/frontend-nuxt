@@ -122,7 +122,7 @@
                 <div class="flex flex-wrap md:flex-nowrap items-end gap-4 w-full">
                     <div class="flex flex-col gap-2 w-full">
                         <label class="text-sm">
-                            <span>اعمال دوره بر روی</span>
+                            <span>اعمال تخفیف بر روی</span>
                         </label>
                         <Select :selectedOption.sync="emmitTo" @update:selectedOption="selectSearchedItem({})" :options="emmitToOptions">
                             <template v-slot:option="{ option }">

@@ -68,7 +68,7 @@
 </style>
 
 <template>
-    <div class="t_select flex flex-col flex-grow" :class="{ open: open }">
+    <div class="t_select flex flex-col flex-grow" :class="{ 'open z-30': open }">
         <div class="t_select_input" :class="inputClass">
             <div class="box p-4 bg-coolgray-100" :class="{ 'p-2': small }" tabindex="0" @click="toggleMenu()" @blur="toggleMenu(false)">
                 <span name="placeholder" class="opacity-50 ml-4" v-if="placeholder && !selectedOption.value">{{ placeholder }}</span>
