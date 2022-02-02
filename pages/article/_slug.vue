@@ -103,7 +103,7 @@
                 <li class="flex-shrink-0 text-lightblue-600" v-if="article">{{ article.title }}</li>
             </ul>
             <div class="flex flex-wrap justify-between items-start gap-4">
-                <div class="flex flex-col gap-8" v-if="!loadingArticle">
+                <div class="flex flex-col gap-8 w-full max-w-4xl" v-if="!loadingArticle">
                     <div v-html="article.body" class="article_body flex-grow bg-white shadow-xl rounded-2xl p-4 max-w-4xl"></div>
                     <div
                         class="author_card flex flex-col items-center justify-start gap-4 p-8 md:p-16 w-full rounded-3xl shadow-2xl max-w-4xl"

@@ -251,7 +251,7 @@
 
                 <hr class="w-11/12 mx-auto my-1 border-gray-700" />
 
-                <li class="flex w-full">
+                <li class="flex w-full" v-if="checkPermissions(['admin.articles.view'], userPermissions)">
                     <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/articles">
                         <img src="/icons/admin/Blog.svg" class="menu_icon" width="24" />
                         <span>مقالات</span>

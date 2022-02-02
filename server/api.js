@@ -90,7 +90,6 @@ app.get("/file/*", async (req, res) => {
                     response.pipe(res);
                 } catch (e) {}
             } else {
-                console.log(response.statusCode);
                 return res.status(404).end();
             }
         },
