@@ -6,11 +6,15 @@
             <div class="flex items-center gap-2">
                 <nuxt-link to="/admin"><img class="opacity-75" src="/icons/admin/Home.svg" width="20" /></nuxt-link>
                 <img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" />
-                <nuxt-link to="/admin/users">مدیریت کاربران</nuxt-link>
-                <img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" />
-                <h1 class="text-2xl"><b>تراکنش های خرید دوره</b></h1>
+                <h1 class="text-2xl"><b>لیست دوره ها</b></h1>
             </div>
-            <!--  -->
+            <nuxt-link
+                to="/admin/courses/create"
+                class="orange_gradient_v rounded-xl p-2 px-4 w-max hover:shadow-md"
+                v-if="checkPermissions(['admin.courses.add'], userPermissions)"
+            >
+                دوره جدید
+            </nuxt-link>
         </div>
 
         <hr class="w-full" />
@@ -49,86 +53,87 @@
             :isEmpty="!tableData.length"
             :total="total"
             :pageTotal="pageTotal"
-            :pageUrl="`/admin/users/course-transactions/${userId}/:page?search=${search}&forUser=${userId}`"
+            :pageUrl="`/admin/courses/:page?search=${search}`"
             @update:table="getTableData()"
         >
             <template v-slot:tbody="{ record, index }">
                 <td>
                     <div class="flex items-center gap-2">
-                        <img class="w-8 h-8 rounded-full object-cover" :src="record.info[0].user[0].image" v-if="record.info[0].user[0].image" alt="" />
-                        <span>{{ record.info[0].fullname }}</span>
+                        <img class="w-12 h-10 rounded-xl object-cover" :src="record.image" v-if="record.image" alt="" />
+                        <span>{{ `${record.name}` }}</span>
                     </div>
                 </td>
                 <td>
-                    <div class="flex flex-col items-center gap-2">
-                        <span class="bg-bluegray-100 p-1 text-xs rounded-lg shadow-sm" v-for="(item, i) in record.info" :key="i">{{ item.course[0].name }}</span>
+                    <span class="title">استاد:</span>
+                    <div class="flex items-center gap-2">
+                        <img class="w-8 h-8 rounded-full object-cover" :src="record.teacher[0].image" v-if="record.teacher[0].image" alt="" />
+                        <span class="text-sm">{{ `${record.teacher[0].name} ${record.teacher[0].family}` }}</span>
                     </div>
                 </td>
                 <td>
-                    <span class="title">کد تراکنش</span>
-                    {{ record.info[0].transactionCode }}
-                </td>
-                <td>
-                    <span class="title">مبلغ کل</span>
-                    {{ new Intl.NumberFormat("fa").format(record.info[0].totalPrice) }}
+                    {{ new Intl.NumberFormat("fa").format(record.price) }}
                     <small>تومان</small>
                 </td>
                 <td>
-                    <span class="title">مبلغ پرداختی</span>
-                    {{ new Intl.NumberFormat("fa").format(record.info[0].paidAmount) }}
-                    <small>تومان</small>
+                    <span class="title">گروه دوره</span>
+                    <span class="text-sm">{{ `${record.groups[0].name}` }}</span>
                 </td>
                 <td>
-                    <span class="p-1 px-2 text-xs rounded-md bg-lightblue-100 text-lightblue-700" v-if="record.info[0].status == 'waiting_for_payment'">
-                        منتظر پرداخت
-                    </span>
-                    <span class="p-1 px-2 text-xs rounded-md bg-emerald-100 text-emerald-700" v-if="record.info[0].status == 'ok'">پرداخت موفق</span>
-                    <span class="p-1 px-2 text-xs rounded-md bg-rose-100 text-rose-700" v-if="record.info[0].status == 'cancel'">لغو شده</span>
-                    <span class="p-1 px-2 text-xs rounded-md bg-red-100 text-red-700" v-if="record.info[0].status == 'error'">خطا</span>
+                    <span class="title">میزان خرید</span>
+                    {{ new Intl.NumberFormat("fa").format(record.buyCount) }}
                 </td>
                 <td>
-                    {{ new Date(record.info[0].createdAt).toLocaleString("fa") }}
+                    <span class="title">میزان بازدید</span>
+                    {{ new Intl.NumberFormat("fa").format(record.viewCount) }}
+                </td>
+                <td>
+                    <span class="p-1 px-2 text-xs rounded-md bg-emerald-100 text-emerald-700" v-if="record.status == 'active'">فعال</span>
+                    <span class="p-1 px-2 text-xs rounded-md bg-amber-100 text-amber-700" v-if="record.status == 'deactive'">غیرفعال</span>
+                </td>
+                <td>
+                    <span class="title">تاریخ ثبت:</span>
+                    {{ new Date(record.createdAt).toLocaleDateString("fa") }}
+                    <small class="bg-bluegray-200 p-2 py-1 rounded-lg text-xs">{{ record.tillCreatedAt }}</small>
                 </td>
                 <td>
                     <div class="flex items-center gap-1">
                         <router-link
-                            class="p-2 rounded-lg hover:bg-blue-200 flex-shrink-0"
-                            title="مشاهده جزئیات"
-                            :to="`/admin/course-transactions/details/${record._id}`"
-                            v-if="checkPermissions(['admin.course-transactions.view'], userPermissions)"
+                            class="p-2 rounded-lg hover:bg-blue-200"
+                            title="Edit"
+                            :to="`/admin/courses/edit/${record._id}`"
+                            v-if="checkPermissions(['admin.courses.edit'], userPermissions)"
                         >
-                            <img src="/icons/admin/Document.svg" width="24" />
+                            <img src="/icons/admin/Edit.svg" width="24" />
+                        </router-link>
+                        <router-link
+                            class="p-2 rounded-lg hover:bg-indigo-200"
+                            title="سرفصل ها"
+                            :to="`/admin/courses/topics/${record._id}`"
+                            v-if="checkPermissions(['admin.courses.edit'], userPermissions)"
+                        >
+                            <img src="/icons/admin/Play.svg" width="24" />
                         </router-link>
                         <button
-                            class="p-2 rounded-lg hover:bg-emerald-200 flex-shrink-0"
-                            title="تکمیل فرایند پرداخت"
-                            @click="askToComplete(record._id, ``, index)"
-                            v-if="record.info[0].status == 'waiting_for_payment' && checkPermissions(['admin.course-transactions.complete'], userPermissions)"
+                            class="p-2 rounded-lg hover:bg-red-200"
+                            title="Delete"
+                            @click="askToDelete(record._id, `${record.name}`, index)"
+                            v-if="checkPermissions(['admin.courses.delete'], userPermissions)"
                         >
-                            <img src="/icons/admin/Payment.svg" width="24" />
+                            <img src="/icons/admin/Delete.svg" width="24" />
                         </button>
                     </div>
                 </td>
             </template>
         </Table>
 
-        <Dialog boxClass="max-w-xs md:max-w-md" :open.sync="payDialogState">
-            <div class="flex flex-col gap-2 w-full max-w-xs md:max-w-md">
-                <span class="text-lg">
-                    آیا مطمئن به
-                    <b class="text-emerald-600">پرداخت</b>
-                    این تراکنش هستید؟
-                </span>
-                <small class="opacity-50">این عملیات برگشت ناپذیر است!</small>
-            </div>
-            <hr class="border-solid my-4" />
-            <div class="flex gap-2">
-                <button class="p-6 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white" :disabled="paying" @click="payRecord()">
-                    <span>تکمیل فرایند پرداخت</span>
-                </button>
-                <button class="p-6 py-2 rounded-xl border-2 border-solid border-gray-400 hover:bg-gray-200" @click="payDialogState = false">لغو</button>
-            </div>
-        </Dialog>
+        <DeleteDialog
+            :open.sync="deleteDialogState"
+            :recordId.sync="deletingRecordId"
+            :recordName.sync="deletingRecordName"
+            :recordIndex.sync="deletingRecordIndex"
+            :tableData.sync="tableData"
+            url="/api/admin/courses"
+        />
     </main>
 </template>
 
@@ -137,24 +142,21 @@ import axios from "axios";
 import permissionCheck from "~/mixins/permissionCheck";
 import Table from "~/components/admin/Table.vue";
 import DeleteDialog from "~/components/admin/DeleteDialog.vue";
-import ButtonList from "~/components/forms/admin/ButtonList.vue";
 
 export default {
     layout: "admin",
     head() {
-        return { title: "تراکنش های خرید دوره - گروه آموزشی پرتقال" };
+        return { title: "لیست دوره ها - گروه آموزشی پرتقال" };
     },
     mixins: [permissionCheck],
     components: {
         Table,
         DeleteDialog,
-        ButtonList,
     },
     data() {
         return {
             isDataLoading: false,
 
-            userId: this.userId || "",
             search: this.search || "",
             sort: this.sort || { col: "تاریخ ثبت", type: "asc" },
             page: this.page || 1,
@@ -163,11 +165,12 @@ export default {
             pageTotal: this.pageTotal || 0,
 
             tableHeads: {
-                کاربر: { sortable: true },
-                دوره: { sortable: true },
-                "کد تراکنش": { sortable: true },
-                "مبلغ کل": { sortable: true },
-                "مبلغ پرداختی": { sortable: true },
+                عنوان: { sortable: true },
+                استاد: { sortable: true },
+                مبلغ: { sortable: true },
+                "گروه دوره": { sortable: true },
+                "میزان خرید": { sortable: true },
+                "میزان بازدید": { sortable: true },
                 وضعیت: { sortable: true },
                 "تاریخ ثبت": { sortable: true },
                 عملیات: { sortable: false },
@@ -175,13 +178,12 @@ export default {
             tableData: this.tableData || [],
             tableView: "list",
 
-            paying: false,
-            payingRecordId: "",
-            payingRecordName: "",
-            payingRecordIndex: "",
+            deletingRecordId: "",
+            deletingRecordName: "",
+            deletingRecordIndex: "",
 
             filterDialogState: false,
-            payDialogState: false,
+            deleteDialogState: false,
         };
     },
     async fetch() {
@@ -218,21 +220,14 @@ export default {
             if (this.isDataLoading) return;
             this.isDataLoading = true;
 
-            let url = `/api/admin/course-transactions`;
+            let url = `/api/admin/courses`;
             let headers = {};
             if (process.server) {
                 url = `${process.env.BASE_URL}${url}`;
                 headers = data.headers ? data.headers : {};
             }
 
-            let params = [
-                `page=${this.page}`,
-                `pp=${this.pp}`,
-                `sort=${this.sort.col}`,
-                `sort_type=${this.sort.type}`,
-                `search=${this.search}`,
-                `forUser=${this.userId}`,
-            ];
+            let params = [`page=${this.page}`, `pp=${this.pp}`, `sort=${this.sort.col}`, `sort_type=${this.sort.type}`, `search=${this.search}`];
 
             url = encodeURI(`${url}?${params.join("&")}`);
 
@@ -260,7 +255,6 @@ export default {
         processRoute(route) {
             if (route.params.page && !isNaN(parseInt(route.params.page))) this.page = parseInt(route.params.page);
             if (route.query.search) this.search = route.query.search;
-            if (route.params.id) this.userId = route.params.id;
         },
 
         clearResults() {
@@ -272,36 +266,11 @@ export default {
 
         // ========================
 
-        askToComplete(id, name, index) {
-            this.payingRecordId = id;
-            this.payingRecordName = name;
-            this.payingRecordIndex = index;
-            this.payDialogState = true;
-        },
-
-        async payRecord() {
-            if (this.paying) return;
-            this.paying = true;
-
-            let url = `/api/admin/course-transactions/${this.payingRecordId}`;
-            await axios
-                .post(url)
-                .then((response) => {
-                    this.$store.dispatch("toast/makeToast", { type: "success", title: "", message: "تراکنش با موفقیت پرداخت شد" });
-                    this.tableData[this.payingRecordIndex].status = "ok";
-                })
-                .catch((e) => {
-                    if (typeof e.response !== "undefined" && e.response.data && typeof e.response.data.message === "object") {
-                        this.$store.dispatch("toast/makeToast", { type: "error", title: "خطا", message: e.response.data.message[0].errors[0] });
-                    }
-                })
-                .finally(() => {
-                    this.paying = false;
-                    this.payDialogState = false;
-                    this.payingRecordId = "";
-                    this.payingRecordName = "";
-                    this.payingRecordIndex = "";
-                });
+        askToDelete(id, name, index) {
+            this.deletingRecordId = id;
+            this.deletingRecordName = name;
+            this.deletingRecordIndex = index;
+            this.deleteDialogState = true;
         },
     },
 };

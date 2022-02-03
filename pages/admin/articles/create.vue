@@ -146,7 +146,6 @@
                     plugins="advlist autolink link image lists charmap print preview hr anchor pagebreak searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking table emoticons template paste help"
                     toolbar="insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor"
                     v-model="body"
-                    output-format="text"
                     style="min-height: 768px"
                 />
             </form>

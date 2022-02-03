@@ -12,6 +12,8 @@
 .side_nav ul {
     overflow-y: auto;
     overflow-x: hidden;
+    scrollbar-color: #888 transparent !important;
+    scrollbar-width: thin !important;
 }
 .side_nav ul::-webkit-scrollbar {
     width: 2px;
@@ -54,7 +56,7 @@
         <nav class="side_nav flex flex-col gap-4 p-2 rounded-2xl shadow-2xl" v-show="sideMenuOpen">
             <ul class="flex flex-col p-1 gap-1 w-full h-full flex-grow text-sm" v-clickaway:sidenav_toggler="menuOnBlur">
                 <li class="flex w-full">
-                    <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin">
+                    <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/dashboard">
                         <img src="/icons/admin/Home.svg" class="menu_icon" width="24" />
                         <span>داشبورد</span>
                     </nuxt-link>
@@ -304,7 +306,7 @@
                 </transition>
             </ul>
             <div class="flex flex-col p-1">
-                <button class="flex items-center gap-2 p-2 w-full rounded-xl bg-rose-800">
+                <button class="flex items-center gap-2 p-2 w-full rounded-xl bg-rose-800" @click="$router.push('/')">
                     <img src="/icons/Logout.gray.svg" class="menu_icon" width="24" />
                     <span class="text-rose-200">خروج</span>
                 </button>

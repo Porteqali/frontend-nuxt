@@ -93,5 +93,5 @@ export default {
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {},
 
-    serverMiddleware: ["~/server/csrf.js", "~/server/auth.js", "~/server/api.js", "~/server/payment.js", "~/server/checkIfAdmin.js"],
+    serverMiddleware: ["~/server/csrf.js", "~/server/auth.js", "~/server/api.js", "~/server/payment.js", "~/server/checkIfRoleMatch.js"],
 };

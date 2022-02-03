@@ -94,6 +94,17 @@ body {
     backdrop-filter: blur(10px);
 }
 
+.progress_bar > div{
+    background: linear-gradient(135deg, #ff8537 0%, #ffdcc6 100%);
+	background-size: 200% 200%; margin-inline-start: -1px;
+	animation: progress_bar_gradient 2s ease infinite;
+}
+@keyframes progress_bar_gradient {
+	0% { background-position: 0% 50%; }
+	50% { background-position: 100% 50%; }
+	100% { background-position: 0% 50%; }
+}
+
 .skeleton {
     background: linear-gradient(90deg, #ffffff22 0%, #cccccc99 50%, #ffffff22 100%);
     background-size: 200% 200%;
