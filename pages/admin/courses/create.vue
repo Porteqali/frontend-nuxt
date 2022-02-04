@@ -5,7 +5,7 @@
         <div class="flex flex-wrap md:flex-nowrap items-center gap-2">
             <nuxt-link to="/admin"><img class="opacity-75" src="/icons/admin/Home.svg" width="20" /></nuxt-link>
             <img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" />
-            <nuxt-link to="/admin/list">لیست دوره ها</nuxt-link>
+            <nuxt-link to="/admin/courses">لیست دوره ها</nuxt-link>
             <img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" />
             <h1 class="text-2xl"><b>دوره جدید</b></h1>
         </div>
@@ -185,7 +185,7 @@
                         <div class="flex flex-wrap items-center gap-1" v-if="item.file">
                             <span>{{ item.file.split(/[\\/]/).pop() }}</span>
                             <span class="text-xs p-1 bg-gray-100 opacity-75 rounded-lg w-max" dir="ltr" v-if="item.size">
-                                {{ `${new Intl.NumberFormat().format((item.size / 1024).toFixed(2))} Mb` }}
+                                {{ `${new Intl.NumberFormat().format((item.size / 1048576).toFixed(2))} MB` }}
                             </span>
                         </div>
                         <div class="flex flex-wrap items-center gap-2">
@@ -196,7 +196,13 @@
                             >
                                 انتخاب فایل
                             </button>
-                            <button type="button" class="bg-rose-50 text-red-800 p-1 px-2 rounded-lg text-xs w-max" @click="removeExerciseFile(i)">حذف</button>
+                            <button
+                                type="button"
+                                class="border-2 border-solid border-red-400 hover:bg-rose-50 p-0.5 px-2 rounded-lg text-xs w-max"
+                                @click="removeExerciseFile(i)"
+                            >
+                                حذف
+                            </button>
                         </div>
                         <input class="w-0 h-0 opacity-0" :ref="`exerciseFileInput-${i}`" type="file" @change="selectExerciseFile(`exerciseFileInput-${i}`, i)" />
                     </li>
@@ -211,10 +217,11 @@
                 <span>{{ errorMsg }}</span>
             </small>
             <div class="flex items-center flex-wrap gap-2" v-show="saving">
-                <small class="opacity-75">درحال آپلود فایل</small>
+                <small class="opacity-75">درحال آپلود فایل...</small>
                 <div class="progress_bar bg-gray-50 w-40 h-max rounded-full shadow-inner shadow-md">
                     <div class="h-2 bg-secondary-400 rounded-full" :style="`width:${uploadingFilesPercentage}%`"></div>
                 </div>
+                <b class="text-xs opacity-60">{{ `${uploadingFilesPercentage}%` }}</b>
             </div>
             <div class="flex flex-wrap items-center gap-4">
                 <button class="orange_gradient_h p-4 py-2 rounded-xl" :class="{ 'opacity-75 cursor-wait': saving }" :disabled="saving" @click="save()">
@@ -264,8 +271,7 @@ export default {
             tags: [],
             showInNew: false,
             exerciseFiles: [
-                { name: "فایل تمرین شماره 1", file: "/file/public/course_exercise_files/tt.zip", fileRaw: null, size: "140932" },
-                { name: "فایل نصبی برنامه فوتوشاپ", file: "/file/public/course_exercise_files/tt.zip", fileRaw: null, size: "4343249" },
+                // { name: "فایل تمرین شماره 1", file: "/file/public/course_exercise_files/tt.zip", fileRaw: null, size: "140932" },
             ],
 
             errorMsg: "",
@@ -325,9 +331,11 @@ export default {
         },
 
         selectExerciseFile(ref, index) {
-            this.exerciseFiles[index].fileRaw = this.$refs[ref][0].files[0];
-            this.exerciseFiles[index].file = this.$refs[ref][0].files[0].name;
-            this.exerciseFiles[index].size = this.$refs[ref][0].files[0].size;
+            if (this.$refs[ref][0].files[0]) {
+                this.exerciseFiles[index].fileRaw = this.$refs[ref][0].files[0];
+                this.exerciseFiles[index].file = this.$refs[ref][0].files[0].name;
+                this.exerciseFiles[index].size = this.$refs[ref][0].files[0].size;
+            }
         },
         removeExerciseFile(index) {
             this.exerciseFiles.splice(index, 1);
@@ -393,23 +401,34 @@ export default {
             this.errorMsg = this.errorTag = "";
 
             const formData = new FormData();
-            // TODO
             if (this.$refs.fileInput.files[0]) formData.append("files", this.$refs.fileInput.files[0]);
-            formData.append("name", this.name);
-            formData.append("family", this.family);
-            formData.append("email", this.email);
-            formData.append("permissionGroup", this.permissionGroup.value);
-            formData.append("status", this.status.value);
-            formData.append("password", this.password);
-            formData.append("passwordConfirmation", this.passwordConfirmation);
 
-            let url = encodeURI(`/api/admin/list`);
+            const exerciseFilesDetails = [];
+            for (let i = 0; i < this.exerciseFiles.length; i++) {
+                if (this.exerciseFiles[i].name && this.exerciseFiles[i].fileRaw) {
+                    formData.append("exerciseFiles", this.exerciseFiles[i].fileRaw);
+                    exerciseFilesDetails.push({ name: this.exerciseFiles[i].name, size: this.exerciseFiles[i].size });
+                }
+            }
+            formData.append("exerciseFilesDetails", JSON.stringify(exerciseFilesDetails));
+
+            formData.append("name", this.name);
+            formData.append("description", this.description);
+            formData.append("teacher", this.selectedTeacher._id || "");
+            formData.append("price", this.price.replaceAll(",", ""));
+            formData.append("groups", Object.keys(this.groups).toString());
+            formData.append("status", this.status.value);
+            if (this.commission.value) formData.append("commission", this.commission.value);
+            if (!!this.tags.length) formData.append("tags", JSON.stringify(this.tags));
+            formData.append("showInNew", this.showInNew);
+
+            let url = encodeURI(`/api/admin/courses`);
             await axios
                 .post(url, formData, {
                     onUploadProgress: (e) => (this.uploadingFilesPercentage = parseInt(Math.round((e.loaded / e.total) * 100))),
                 })
                 .then((response) => {
-                    this.$store.dispatch("toast/makeToast", { type: "success", title: "", message: "ادمین با موفقیت اضافه شد" });
+                    this.$store.dispatch("toast/makeToast", { type: "success", title: "", message: "دوره با موفقیت اضافه شد" });
                 })
                 .catch((e) => {
                     if (typeof e.response !== "undefined" && e.response.data && typeof e.response.data.message === "object") {
