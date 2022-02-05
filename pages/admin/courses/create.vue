@@ -204,7 +204,12 @@
                                 حذف
                             </button>
                         </div>
-                        <input class="w-0 h-0 opacity-0" :ref="`exerciseFileInput-${i}`" type="file" @change="selectExerciseFile(`exerciseFileInput-${i}`, i)" />
+                        <input
+                            class="w-0 h-0 opacity-0 -mt-2"
+                            :ref="`exerciseFileInput-${i}`"
+                            type="file"
+                            @change="selectExerciseFile(`exerciseFileInput-${i}`, i)"
+                        />
                     </li>
                 </ul>
 

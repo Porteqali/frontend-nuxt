@@ -193,6 +193,7 @@
                                 type="button"
                                 class="darkblue_gradient p-1 px-2 rounded-lg shadow-md text-xs w-max"
                                 @click="$refs[`exerciseFileInput-${i}`][0].click()"
+                                v-if="!item._id"
                             >
                                 انتخاب فایل
                             </button>
@@ -204,7 +205,12 @@
                                 حذف
                             </button>
                         </div>
-                        <input class="w-0 h-0 opacity-0" :ref="`exerciseFileInput-${i}`" type="file" @change="selectExerciseFile(`exerciseFileInput-${i}`, i)" />
+                        <input
+                            class="w-0 h-0 opacity-0 -mt-2"
+                            :ref="`exerciseFileInput-${i}`"
+                            type="file"
+                            @change="selectExerciseFile(`exerciseFileInput-${i}`, i)"
+                        />
                     </li>
                 </ul>
 
@@ -220,7 +226,7 @@
             </small>
             <div class="flex items-center flex-wrap gap-2" v-show="saving">
                 <small class="opacity-75">درحال آپلود فایل...</small>
-                <div class="progress_bar bg-gray-50 w-40 h-max rounded-full shadow-inner shadow-md">
+                <div class="progress_bar bg-gray-50 w-40 h-max rounded-full shadow-inner">
                     <div class="h-2 bg-secondary-400 rounded-full" :style="`width:${uploadingFilesPercentage}%`"></div>
                 </div>
                 <b class="text-xs opacity-60">{{ `${uploadingFilesPercentage}%` }}</b>
@@ -468,7 +474,9 @@ export default {
 
             let url = encodeURI(`/api/admin/courses/${this.$route.params.id}`);
             await axios
-                .put(url, formData)
+                .put(url, formData, {
+                    onUploadProgress: (e) => (this.uploadingFilesPercentage = parseInt(Math.round((e.loaded / e.total) * 100))),
+                })
                 .then((response) => {
                     this.$store.dispatch("toast/makeToast", { type: "success", title: "", message: "دوره با موفقیت ویرایش شد" });
                 })
