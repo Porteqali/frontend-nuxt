@@ -150,7 +150,6 @@ export default {
                     this.status = this.statusOptions[response.data.status];
                 })
                 .catch((e) => {
-                    console.log(e);
                     if (typeof e.response !== "undefined" && e.response.data && typeof e.response.data.message === "object") {
                         this.$store.dispatch("toast/makeToast", { type: "error", title: "خطا", message: e.response.data.message[0].errors[0] });
                     }
@@ -188,7 +187,6 @@ export default {
                     this.$store.dispatch("toast/makeToast", { type: "success", title: "", message: "بنر با موفقیت ویرایش شد" });
                 })
                 .catch((e) => {
-                    console.log(e);
                     if (typeof e.response !== "undefined" && e.response.data && typeof e.response.data.message === "object") {
                         this.$store.dispatch("toast/makeToast", { type: "error", title: "خطا", message: e.response.data.message[0].errors[0] });
                         this.errorMsg = e.response.data.message[0].errors[0];

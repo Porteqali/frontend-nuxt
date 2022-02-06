@@ -101,9 +101,7 @@ export default {
                     this.transactionsTotal = results.data.total;
                     this.transactionsPageTotal = results.data.pageTotal;
                 })
-                .catch((e) => {
-                    console.log(e);
-                })
+                .catch((e) => {})
                 .finally(() => (this.transactionsLoading = false));
         },
     },

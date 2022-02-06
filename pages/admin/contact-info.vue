@@ -131,7 +131,6 @@ export default {
                     this.socials = response.data.socials;
                 })
                 .catch((e) => {
-                    console.log(e);
                     if (typeof e.response !== "undefined" && e.response.data && typeof e.response.data.message === "object") {
                         this.$store.dispatch("toast/makeToast", { type: "error", title: "خطا", message: e.response.data.message[0].errors[0] });
                     }
@@ -166,7 +165,6 @@ export default {
                     this.$store.dispatch("toast/makeToast", { type: "success", title: "", message: "اطلاعات تماس با موفقیت ویرایش شد" });
                 })
                 .catch((e) => {
-                    console.log(e);
                     if (typeof e.response !== "undefined" && e.response.data && typeof e.response.data.message === "object") {
                         this.$store.dispatch("toast/makeToast", { type: "error", title: "خطا", message: e.response.data.message[0].errors[0] });
                         this.errorMsg = e.response.data.message[0].errors[0];

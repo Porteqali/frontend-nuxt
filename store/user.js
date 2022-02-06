@@ -44,9 +44,7 @@ const actions = {
                     await axios.post(`/auth/refresh`).catch((error) => clearInterval(interval));
                 }, refreshRate * 1000);
             })
-            .catch((e) => {
-                console.log(e);
-            });
+            .catch((e) => {});
     },
 
     logout({ commit }, data = {}) {

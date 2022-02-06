@@ -34,9 +34,7 @@ export default {
             try {
                 this.$refs.videoPlayer.load();
                 this.$refs.videoPlayer.play();
-            } catch (e) {
-                console.log(e);
-            }
+            } catch (e) {}
         },
     },
     methods: {},

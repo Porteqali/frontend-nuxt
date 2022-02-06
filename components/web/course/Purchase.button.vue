@@ -52,6 +52,7 @@ export default {
 
                 // save cart list info into localStorage
                 localStorage.setItem("cart", JSON.stringify(this.cart.list));
+            } else {
             }
         },
     },

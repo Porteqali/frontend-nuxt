@@ -44,6 +44,8 @@ footer {
 
 <template>
     <div class="nuxt_main px-4 md:px-8 lg:px-12" dir="rtl" ref="body" id="app">
+        <Banner :data="banner" v-if="!!banner && banner.status == 'active'" />
+
         <header class="flex items-center justify-between gap-8 py-8 w-full max-w-screen-4xl z-20">
             <nuxt-link title="پرتقال" to="/" class="flex-shrink-0">
                 <img v-if="!!$nuxt.$route.matched[0] && !!topBackground[$nuxt.$route.matched[0].path]" src="/logo_white.png" alt="پرتقال" />
@@ -131,6 +133,7 @@ import Menu from "~/components/web/header/Menu.vue";
 import Newsletter from "~/components/web/footer/Newsletter.vue";
 import Toast from "~/components/Toast.vue";
 import Background from "~/components/web/Background.vue";
+import Banner from "~/components/web/Banner.vue";
 
 export default {
     name: "Default.layout",
@@ -145,6 +148,7 @@ export default {
         Newsletter,
         Toast,
         Background,
+        Banner,
     },
     data() {
         return {
@@ -166,13 +170,14 @@ export default {
             },
 
             contact_info: this.contact_info || {},
+            banner: this.banner || {},
         };
     },
     async fetch() {
         let headers = {};
         if (process.server) headers = this.$nuxt.context.req.headers;
 
-        await Promise.all([this.getContactInfo({ headers })]);
+        await Promise.all([this.getContactInfo({ headers }), this.getBanner({ headers })]);
     },
     mounted() {
         if (process.client && window) {
@@ -208,6 +213,20 @@ export default {
             await axios
                 .get(url, { headers })
                 .then((results) => (this.contact_info = results.data))
+                .catch((e) => {});
+        },
+
+        async getBanner(data = {}) {
+            let url = `/api/banner`;
+            let headers = {};
+            if (process.server) {
+                url = `${process.env.BASE_URL}${url}`;
+                headers = data.headers ? data.headers : {};
+            }
+
+            await axios
+                .get(url, { headers })
+                .then((results) => (this.banner = results.data))
                 .catch((e) => {});
         },
 
