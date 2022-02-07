@@ -71,12 +71,12 @@
                 </td>
                 <td>
                     <span class="title">زمان شروع</span>
-                    {{ new Date(record.startDate).toLocaleString("fa") }}
+                    <span class="inline-block w-20">{{ new Date(record.startDate).toLocaleDateString("fa") }}</span>
                     <small class="bg-bluegray-200 p-2 py-1 rounded-lg">{{ record.tillTheStart }}</small>
                 </td>
                 <td>
                     <span class="title">زمان پایان</span>
-                    {{ new Date(record.endDate).toLocaleString("fa") }}
+                    <span class="inline-block w-20">{{ new Date(record.endDate).toLocaleDateString("fa") }}</span>
                     <small class="bg-bluegray-200 p-2 py-1 rounded-lg">{{ record.tillTheEnd }}</small>
                 </td>
                 <td>

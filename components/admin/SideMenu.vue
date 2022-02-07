@@ -277,6 +277,12 @@
                         <span>بنر وبسایت</span>
                     </nuxt-link>
                 </li>
+                <li class="flex w-full">
+                    <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/latest-news">
+                        <img src="/icons/admin/Mic.svg" class="menu_icon" width="24" />
+                        <span>اخبار سایت</span>
+                    </nuxt-link>
+                </li>
 
                 <hr class="w-11/12 mx-auto my-1 border-gray-700" />
 
@@ -301,6 +307,12 @@
                         </li>
                         <li class="">
                             <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/page/collaborate">همکاری با ما</nuxt-link>
+                        </li>
+                        <li class="">
+                            <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/page/terms-and-conditions">قوانین و مقررات</nuxt-link>
+                        </li>
+                        <li class="">
+                            <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/page/privacy-policy">حریم خصوصی</nuxt-link>
                         </li>
                     </ul>
                 </transition>

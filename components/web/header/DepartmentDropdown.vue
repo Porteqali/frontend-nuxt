@@ -33,6 +33,8 @@ ul li:hover {
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     name: "DepartmentDropdown",
     props: ["open"],
@@ -53,9 +55,32 @@ export default {
             ],
         };
     },
+    async fetch() {
+        let headers = {};
+        if (process.server) headers = this.$nuxt.context.req.headers;
+
+        await Promise.all([this.getCourseGroups({ headers })]);
+    },
     methods: {
         updateOpenState(state) {
             this.$emit("update:open", state);
+        },
+
+        async getCourseGroups(data = {}) {
+            let url = `/api/course-groups`;
+            let headers = {};
+            if (process.server) {
+                url = `${process.env.BASE_URL}${url}`;
+                headers = data.headers ? data.headers : {};
+            }
+
+            await axios
+                .get(url, { headers })
+                .then((results) => {
+                    this.departments = [];
+                    results.data.records.forEach((record) => this.departments.push({ ...record, slug: record.topGroup }));
+                })
+                .catch((e) => {});
         },
     },
 };

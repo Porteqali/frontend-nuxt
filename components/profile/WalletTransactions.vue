@@ -15,24 +15,24 @@
                         <hr class="w-4" />
                         <div class="flex items-center gap-2">
                             <span>کد تراکنش:</span>
-                            <b class="bg-gray-300 p-1 rounded-lg">{{ transaction.transactionCode }}</b>
+                            <b class="bg-gray-300 text-gray-800 p-1 px-2 text-sm rounded-lg">{{ transaction.transactionCode }}</b>
                         </div>
                         <hr class="w-4" />
-                        <small class="p-1 px-2 rounded-lg bg-amber-300 text-amber-800" v-show="transaction.status == 'waiting_for_payment'">پرداخت نشده</small>
-                        <small class="p-1 px-2 rounded-lg bg-emerald-300 text-emerald-800" v-show="transaction.status == 'ok'">پرداخت موفق</small>
-                        <small class="p-1 px-2 rounded-lg bg-rose-300 text-rose-800" v-show="transaction.status == 'cancel'">لغو شده</small>
-                        <small class="p-1 px-2 rounded-lg bg-red-300 text-red-800" v-show="transaction.status == 'error'">خطا</small>
+                        <small class="p-1 px-2 rounded-lg bg-amber-200 text-amber-800" v-show="transaction.status == 'waiting_for_payment'">پرداخت نشده</small>
+                        <small class="p-1 px-2 rounded-lg bg-emerald-200 text-emerald-800" v-show="transaction.status == 'ok'">پرداخت موفق</small>
+                        <small class="p-1 px-2 rounded-lg bg-rose-200 text-rose-800" v-show="transaction.status == 'cancel'">لغو شده</small>
+                        <small class="p-1 px-2 rounded-lg bg-red-200 text-red-800" v-show="transaction.status == 'error'">خطا</small>
                     </div>
                     <hr class="w-full opacity-40" />
                     <div class="flex flex-wrap items-center justify-between gap-4">
                         <div class="flex items-center gap-2">
                             <span>مبلغ کل:</span>
-                            <b class="text-orange-100">{{ new Intl.NumberFormat("fa").format(transaction.chargeAmount) }}</b>
+                            <b class="text-orange-100 text-xl">{{ new Intl.NumberFormat("fa").format(transaction.chargeAmount) }}</b>
                             <small class="opacity-75">تومان</small>
                         </div>
                         <div class="flex items-center gap-2">
                             <span>مبلغ پرداختی:</span>
-                            <b class="text-orange-100">{{ new Intl.NumberFormat("fa").format(transaction.paidAmount) }}</b>
+                            <b class="text-orange-100 text-xl">{{ new Intl.NumberFormat("fa").format(transaction.paidAmount) }}</b>
                             <small class="opacity-75">تومان</small>
                         </div>
                     </div>

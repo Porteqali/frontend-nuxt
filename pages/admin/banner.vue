@@ -13,7 +13,7 @@
         <section class="flex flex-col gap-4 bg-white rounded-2xl shadow-lg mx-auto w-full max-w-screen-lg flex-grow p-4">
             <form class="flex flex-col gap-4 flex-grow max-h-full overflow-auto">
                 <div class="flex flex-col gap-4">
-                    <img class="w-full h-28 bg-gray-300 rounded-2xl object-contain" :src="image" alt="" />
+                    <img class="w-full h-16 bg-gray-300 rounded-2xl object-contain" :src="image" alt="" />
                     <div class="flex flex-wrap items-start gap-4">
                         <button type="button" class="orange_gradient_h p-2 px-4 rounded-xl shadow-md text-sm" @click="$refs.fileInput.click()" :disabled="saving">
                             آپلود عکس جدید
@@ -21,6 +21,7 @@
                         <button type="button" class="gray_gradient p-2 px-4 rounded-xl shadow-md text-sm" @click="deleteImage()" v-if="!!image">حذف</button>
                         <input class="w-0 h-0 opacity-0" ref="fileInput" type="file" accept=".jpg,.jpeg,.png,.gif" @change="selectFile()" />
                     </div>
+                    <small class="opacity-75">ابعاد مناسب برای عکس 2800x100 پیکسل</small>
                 </div>
                 <hr class="w-full" />
                 <div class="flex flex-col gap-2 w-full">
@@ -44,6 +45,12 @@
                         </label>
                         <input type="text" v-model="code" dir="auto" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
                     </div>
+                </div>
+                <div class="flex flex-col gap-2 w-full">
+                    <label class="text-sm">
+                        <span>لینک</span>
+                    </label>
+                    <input type="text" v-model="link" dir="auto" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
                 </div>
                 <div class="flex flex-wrap md:flex-nowrap gap-4 w-full">
                     <div class="flex flex-col gap-2 w-full">
@@ -108,6 +115,7 @@ export default {
             bgColor: "",
             text: "",
             code: "",
+            link: "",
             endDate: "",
             status: { name: "فعال", value: "active" },
 
@@ -146,6 +154,7 @@ export default {
                     this.bgColor = response.data.bgColor;
                     this.text = response.data.text;
                     this.code = response.data.code;
+                    this.link = response.data.link;
                     this.endDate = JDate(response.data.endDate).locale("fa").format("yyyy-MM-DDThh:mm:ss");
                     this.status = this.statusOptions[response.data.status];
                 })
@@ -177,6 +186,7 @@ export default {
             formData.append("bgColor", this.bgColor);
             if (!!this.text) formData.append("text", this.text);
             if (!!this.code) formData.append("code", this.code);
+            if (!!this.link) formData.append("link", this.link);
             formData.append("endDate", JDate(this.endDate).toISOString());
             formData.append("status", this.status.value);
 

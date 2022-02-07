@@ -64,7 +64,7 @@ footer {
 
         <Nuxt class="z-10" nuxt-child-key="default" />
 
-        <div class="footer_container relative w-full mt-32">
+        <div class="footer_container relative w-full mt-20">
             <button class="go_up_btn orange_gradient_v relative flex items-center justify-center rounded-xl p-6 -mb-8 mr-auto" @click="scrollUp()">
                 <img src="/icons/GoUp.svg" alt="GoUp" width="16" height="16" />
             </button>

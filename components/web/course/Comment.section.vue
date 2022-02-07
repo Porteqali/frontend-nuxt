@@ -20,7 +20,7 @@
                     {{ message }}
                 </span>
                 <button
-                    class="orange_gradient_h flex items-center justify-center gap-2 py-3 px-4 w-max rounded-xl hover:shadow-lg"
+                    class="orange_gradient_h flex items-center justify-center gap-2 py-2 px-4 w-max rounded-xl hover:shadow-lg"
                     :class="{ 'opacity-50': sending }"
                     @click="sendComment($event)"
                 >

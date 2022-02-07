@@ -87,7 +87,7 @@
                     :class="{ group_selected: group.slug == department.slug }"
                     v-for="(department, i) in departments"
                     :key="i"
-                    @click="groupChanged(department.slug)"
+                    @click="groupChanged(department._id)"
                 >
                     <img class="title_alt cursor-pointer" :src="department.icon" width="48" height="48" :alt="department.slug" />
                     <span class="blur title_alt_text w-max">{{ department.name }}</span>
@@ -241,7 +241,7 @@ export default {
         const route = this.$nuxt.context.route;
         this.processRoute(route);
 
-        await Promise.all([this.getCourses({ headers })]);
+        await Promise.all([this.getCourses({ headers }), this.getCourseGroups({ headers })]);
     },
     async beforeRouteUpdate(to, from, next) {
         if (to.params.page) this.$route.params.page = to.params.page;
@@ -271,11 +271,28 @@ export default {
         groupChanged(group) {
             if (this.coursesLoading) return;
 
-            if (this.group.slug === group) this.group = { name: "", slug: "" };
+            if (this.group._id === group) this.group = { name: "", slug: "" };
             else this.group = this.departments[group];
 
             this.clearCourses();
             this.getCourses();
+        },
+
+        async getCourseGroups(data = {}) {
+            let url = `/api/course-groups`;
+            let headers = {};
+            if (process.server) {
+                url = `${process.env.BASE_URL}${url}`;
+                headers = data.headers ? data.headers : {};
+            }
+
+            await axios
+                .get(url, { headers })
+                .then((results) => {
+                    this.departments = {};
+                    results.data.records.forEach((record) => (this.departments[record._id] = { ...record, slug: record.topGroup }));
+                })
+                .catch((e) => {});
         },
 
         async getCourses(data = {}) {

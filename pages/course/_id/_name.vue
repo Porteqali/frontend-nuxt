@@ -29,11 +29,16 @@
                 <h1 class="font-bold text-3xl">{{ course.name }}</h1>
                 <ul class="flex flex-wrap items-center gap-2 font-light text-base md:text-lg">
                     <li class="flex-shrink-0"><nuxt-link title="صفحه اصلی" to="/">صفحه اصلی</nuxt-link></li>
-                    <li class="flex-shrink-0">&gt;</li>
+                    <li class="flex-shrink-0"><img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" /></li>
                     <li class="flex-shrink-0"><nuxt-link title="دپارتمان ها" to="/department">دپارتمان ها</nuxt-link></li>
-                    <li class="flex-shrink-0">&gt;</li>
-                    <li class="flex-shrink-0" v-if="course && course.groups">{{ course.groups[0].name }}</li>
-                    <li class="flex-shrink-0">&gt;</li>
+                    <li class="flex-shrink-0"><img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" /></li>
+                    <li class="flex-shrink-0" v-if="course && course.groups">
+                        <nuxt-link class="flex items-center gap-1" :title="course.groups[0].name" :to="`/department?group=${course.groups[0].topGroup}`">
+                            <img class="w-6 h-6 rounded-full shadow-md" :src="course.groups[0].icon" alt="" />
+                            {{ course.groups[0].name }}
+                        </nuxt-link>
+                    </li>
+                    <li class="flex-shrink-0"><img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" /></li>
                     <li class="flex-shrink-0 text-lightblue-600" v-if="course">{{ course.name }}</li>
                 </ul>
             </header>
@@ -160,17 +165,17 @@
                             </li>
                         </ul>
                         <div class="tab_content w-full h-screen overflow-scroll">
-                            <div class="w-full p-6" name="desc" v-show="tabPage == 'desc'">
+                            <div class="w-full p-3 md:p-6" name="desc" v-show="tabPage == 'desc'">
                                 <p class="p-6 rounded-2xl shadow-lg" v-if="course">{{ course.description }}</p>
                             </div>
-                            <div class="w-full p-6" name="topics" v-show="tabPage == 'topics'">
+                            <div class="w-full p-3 md:p-6" name="topics" v-show="tabPage == 'topics'">
                                 <ul class="flex flex-col gap-4 p-2 px-4 rounded-2xl shadow-lg bg-gray-50">
                                     <li class="relative w-full" v-for="(topic, i) in course.topics" :key="i">
                                         <Topic :data="topic" :first="i == 0" :last="i == course.topics.length - 1" @selectTopic="changeTopic" />
                                     </li>
                                 </ul>
                             </div>
-                            <div class="w-full p-6" name="files" v-show="tabPage == 'files'">
+                            <div class="w-full p-3 md:p-6" name="files" v-show="tabPage == 'files'">
                                 <ul class="flex flex-col gap-4 w-full" v-if="course.exerciseFiles && course.exerciseFiles.length > 0">
                                     <li class="w-full" v-for="(exerciseFile, i) in course.exerciseFiles" :key="i">
                                         <a
@@ -186,7 +191,7 @@
                                 </ul>
                                 <div class="text-red-400 w-full h-64 flex items-center justify-center" v-else>این دوره فایلی برای دانلود ندارد</div>
                             </div>
-                            <div class="w-full p-6" name="comments" v-show="tabPage == 'comments'">
+                            <div class="w-full p-3 md:p-6" name="comments" v-show="tabPage == 'comments'">
                                 <CommentSection :commentedOn="course._id" />
                             </div>
                         </div>

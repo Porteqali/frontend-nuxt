@@ -20,7 +20,7 @@
                 <p class="text-center">با تشکر از خرید شما</p>
                 <p class="text-center text-sm opacity-75">میتوانید با مراجعه به حساب کاربری خود دوره های خریداری شده را مشاهده کنید</p>
             </div>
-            <div class="flex flex-col items-center justify-center gap-2 w-full" v-if="status == '201'">
+            <div class="flex flex-col items-center justify-center gap-2 w-full" v-else-if="status == '201'">
                 <p class="text-center">با تشکر از خرید شما</p>
                 <p class="text-center text-sm opacity-75">کیف پول شما با موفقیت شارژ شد</p>
             </div>
