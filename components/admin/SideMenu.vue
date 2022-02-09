@@ -4,7 +4,8 @@
     width: 100%;
     max-width: 280px;
     height: calc(100vh - 7rem);
-    background-color: #222222;
+    background-color: #222222de;
+    /* backdrop-filter: blur(10px); */
     color: #ddd;
     z-index: 20;
 }
@@ -62,7 +63,7 @@
                     </nuxt-link>
                 </li>
 
-                <hr class="w-11/12 mx-auto my-1 border-gray-700" />
+                <hr class="w-11/12 mx-auto my-1 border-gray-600" />
 
                 <li
                     class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-700"
@@ -134,7 +135,7 @@
                     </nuxt-link>
                 </li>
 
-                <hr class="w-11/12 mx-auto my-1 border-gray-700" />
+                <hr class="w-11/12 mx-auto my-1 border-gray-600" />
 
                 <li
                     class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-700"
@@ -164,7 +165,7 @@
                     </ul>
                 </transition>
 
-                <hr class="w-11/12 mx-auto my-1 border-gray-700" />
+                <hr class="w-11/12 mx-auto my-1 border-gray-600" />
 
                 <li
                     class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-700"
@@ -230,7 +231,7 @@
                     </ul>
                 </transition> -->
 
-                <hr class="w-11/12 mx-auto my-1 border-gray-700" />
+                <hr class="w-11/12 mx-auto my-1 border-gray-600" />
 
                 <li class="flex justify-between items-center w-full gap-2" v-if="checkPermissions(['admin.collaborate-requests.view'], userPermissions)">
                     <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/collaborate-requests">
@@ -251,7 +252,7 @@
                     </small>
                 </li>
 
-                <hr class="w-11/12 mx-auto my-1 border-gray-700" />
+                <hr class="w-11/12 mx-auto my-1 border-gray-600" />
 
                 <li class="flex w-full" v-if="checkPermissions(['admin.articles.view'], userPermissions)">
                     <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/articles">
@@ -284,7 +285,7 @@
                     </nuxt-link>
                 </li>
 
-                <hr class="w-11/12 mx-auto my-1 border-gray-700" />
+                <hr class="w-11/12 mx-auto my-1 border-gray-600" />
 
                 <li class="flex w-full" v-if="checkPermissions(['admin.contact-info.view'], userPermissions)">
                     <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/contact-info">

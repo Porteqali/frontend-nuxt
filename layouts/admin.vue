@@ -22,11 +22,11 @@
         <Header />
 
         <div class="inner_main relative flex gap-4 w-full mt-4">
-            <SideMenu />
-            <Nuxt class="w-full z-10" nuxt-child-key="admin" />
+            <SideMenu class="flex-shrink-0" />
+            <Nuxt class="w-full z-10 flex-shrink" nuxt-child-key="admin" />
         </div>
 
-        <!-- <img class="fixed right-0 bottom-0" draggable="false" src="/backgrounds/admin/Background.png" /> -->
+        <img class="fixed right-0 bottom-0" draggable="false" src="/backgrounds/admin/Background.png" />
 
         <Toast />
     </div>

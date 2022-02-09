@@ -20,7 +20,7 @@
                 <ul v-if="Object.keys(cart.list).length">
                     <transition-group class="flex flex-col gap-4" name="slideleft" appear>
                         <li class="cart_item flex items-start gap-4 p-4 rounded-2xl" v-for="item in cart.list" :key="item._id">
-                            <img class="w-24 h-auto rounded-xl shadow-md" :src="item.image" width="100" :alt="item.name" />
+                            <img class="w-32 h-24 rounded-xl shadow-md" :src="item.image" width="100" :alt="item.name" />
                             <div class="flex items-center gap-4 w-full">
                                 <div class="flex flex-col gap-4 flex-grow">
                                     <h5 class="w-full max-w-xl text-2xl">{{ item.name }}</h5>
@@ -65,7 +65,6 @@
                 </div>
                 <hr />
                 <form class="coupon_code_input flex items-center gap-2 p-2 w-full rounded-xl" @submit="registerCouponCode($event)">
-                    <!-- TODO : if user submit a code and code is valid and accepter: replace this section with the code and a way to delete it -->
                     <input class="w-full bg-transparent h-full px-2" v-model="couponCode" type="text" placeholder="کد تخفیف" />
                     <button class="bg-black bg-opacity-40 p-2 px-4 rounded-xl flex-shrink-0" type="submit">اعمال کد</button>
                 </form>

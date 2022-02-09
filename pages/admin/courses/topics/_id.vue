@@ -38,7 +38,7 @@
                     </button>
                 </div>
                 <ul class="flex flex-col gap-4">
-                    <Draggable class="flex flex-col gap-4" v-model="topics" handle=".grab_area" @start="drag = true" @end="drag = false">
+                    <Draggable class="flex flex-col gap-4" ghost-class="bg-gray-200" v-model="topics" handle=".grab_area" @start="drag = true" @end="drag = false">
                         <li class="flex items-start gap-2 p-2 shadow-md rounded-xl w-full" v-for="(item, i) in topics" :key="i" :id="`topic${i + 1}`">
                             <div class="flex flex-col items-center gap-2 h-full">
                                 <span class="flex items-center justify-center w-9 h-9 py-2">{{ i + 1 }}</span>

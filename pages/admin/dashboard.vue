@@ -1,53 +1,73 @@
-<style scoped></style>
+<style scoped>
+.card {
+    display: flex;
+    background-color: #fff;
+    box-shadow: 0px 7px 15px -10px rgba(0, 0, 0, 20%);
+    border-radius: 1rem;
+    flex-grow: 1;
+    min-height: 128px;
+}
+</style>
 
 <template>
-    <main class="dashboard_body flex flex-col gap-4 md:p-4 md:py-1">
-        <div class="flex p-4 w-8/12 rounded-3xl bg-gray-900 shadow-lg">
-            <div class="orange_gradient_h w-96 h-96 rounded-3xl shadow-xl"></div>
+    <main class="dashboard_body flex flex-col gap-4 md:gap-6 md:p-2 md:py-1">
+        <div class="flex flex-wrap lg:flex-nowrap items-start gap-4 md:gap-6 w-full">
+            <div class="flex flex-col gap-4 md:gap-6 w-full lg:w-7/12">
+                <div class="flex flex-wrap gap-4 md:gap-6 w-full">
+                    <span class="card w-64 flex-grow" name="top-info"></span>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 flex-shrink-0">
+                        <span class="card w-screen" style="max-width: 256px" name="top-info"></span>
+                        <span class="card w-screen" style="max-width: 256px" name="top-info"></span>
+                        <span class="card w-screen" style="max-width: 256px" name="top-info"></span>
+                        <span class="card w-screen" style="max-width: 256px" name="top-info"></span>
+                    </div>
+                </div>
+                <span class="card" style="height: 512px" name="chart"></span>
+                <span class="card" style="height: 2.5rem; min-height: initial" name="empty-card"></span>
+            </div>
+            <div class="flex flex-col gap-4 md:gap-6 w-full lg:w-5/12">
+                <span class="card h-64" name="most-viewed-courses"></span>
+                <span class="card h-64" name="most-sold-courses"></span>
+                <span class="card h-80" name="users-device-pie"></span>
+            </div>
         </div>
-        <!-- TODO : add permission for every group section of dashboard -->
-        <ul class="flex flex-col gap-2">
-            <strong>آمار ها</strong>
-            <li>درآمد کل - به همراه میزان این ماه و میزان تفاوت با ماه قبل</li>
-            <li>تعداد دانشجویان - به همراه میزان این ماه و میزان تفاوت با ماه قبل</li>
-            <li>تعداد دانشجویانی که خرید کرده اند - به همراه میزان این ماه و میزان تفاوت با ماه قبل</li>
-            <li>تعداد کل دروس - به همراه میزان این ماه و میزان تفاوت با ماه قبل</li>
-            <li>تعداد خرید ها - به همراه میزان این ماه و میزان تفاوت با ماه قبل</li>
+        <div class="flex flex-wrap-reverse items-end gap-4 md:gap-6 w-full">
+            <RecentCommentsSection class="card w-full lg:w-6/12" style="width: 12px;" />
+            <div class="flex flex-col gap-4 md:gap-6 w-full lg:w-6/12">
+                <UsersLocationChartSection class="card" />
+                <RecentTransactionsSection class="card" />
+            </div>
+        </div>
 
-            <hr class="w-full" />
-
-            <li>دوره های پر فروش - با نمایش میزان فروش</li>
-            <li>دوره های پر بازدید - با نمایش تعداد بازدید</li>
-
-            <hr class="w-full" />
-
-            <li>میزان درآمد به تفکیک یک روز معلوم - ماه (روز های یک ماه) - سال (ماه های یک سال)</li>
-            <li>میزان ثبت نامی ها به تفکیک یک روز معلوم - ماه (روز های یک ماه) - سال (ماه های یک سال)</li>
-
-            <hr class="w-full" />
-
-            <li>میزان رجوع روزانه با توجه به سشن لاگین کاربر ها</li>
-            <li>میزان کاربران آنلاین با توجه به سشن لاگین کاربر ها</li>
-            <li>تفکیک کاربران بر اساس user-agent</li>
-
-            <hr class="w-full" />
-
-            <li>تعداد ویزیت ها با لینک یک بازاریاب به تفکیک یک روز معلوم - ماه (روز های یک ماه) - سال (ماه های یک سال)</li>
-            <li>تعداد ثبت نامی های هر بازاریاب به تفکیک یک روز معلوم - ماه (روز های یک ماه) - سال (ماه های یک سال)</li>
-            <li>تعداد کاربرانی که در بازه اولیه هر بازاریاب هستند</li>
-
-            <hr class="w-full" />
-
-            <strong>ویجت ها</strong>
-            <li>نظرات کاربران</li>
-            <li>تراکنش های اخیر به تفکیک نوع محصول</li>
-            <li>پیام های ارسالی از تماس با ما و همکاری با ما</li>
+        <!-- // TODO : add permission for every group section of dashboard -->
+        <ul class="flex flex-col gap-2 bg-white bg-opacity-90 shadow-md p-4 rounded-xl">
+            <li class="flex items-center gap-1">
+                <img src="/icons/admin/TickSquareBox.svg" width="18" />
+                تعداد ویزیت ها با لینک یک بازاریاب به تفکیک یک روز معلوم - ماه (روز های یک ماه) - سال (ماه های یک سال)
+            </li>
+            <li class="flex items-center gap-1">
+                <img src="/icons/admin/TickSquareBox.svg" width="18" />
+                تعداد ثبت نامی های هر بازاریاب به تفکیک یک روز معلوم - ماه (روز های یک ماه) - سال (ماه های یک سال)
+            </li>
+            <li class="flex items-center gap-1">
+                <img src="/icons/admin/TickSquareBox.svg" width="18" />
+                تعداد کاربرانی که در بازه اولیه هر بازاریاب هستند
+            </li>
         </ul>
     </main>
 </template>
 
 <script>
+import RecentCommentsSection from "~/components/admin/dashboard/RecentComments.section.vue";
+import RecentTransactionsSection from "~/components/admin/dashboard/RecentTransactions.section.vue";
+import UsersLocationChartSection from "~/components/admin/dashboard/UsersLocationChart.section.vue";
+
 export default {
     layout: "admin",
+    components: {
+        RecentCommentsSection,
+        RecentTransactionsSection,
+        UsersLocationChartSection,
+    },
 };
 </script>

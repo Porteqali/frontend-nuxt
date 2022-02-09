@@ -92,7 +92,7 @@
     display: flex;
     flex-direction: column;
     overflow: initial;
-    width: 240px;
+    width: 320px;
     flex-grow: 1;
     border-radius: 0.75rem;
     padding: 0.5rem;
@@ -131,7 +131,7 @@
             </div>
         </div>
 
-        <div class="table_box shadow-lg rounded-xl overflow-auto" :class="{ 'p-2': tableView == 'card' }" v-if="!loading">
+        <div class="table_box shadow-lg rounded-xl overflow-auto bg-white bg-opacity-90" :class="{ 'p-2': tableView == 'card' }" v-if="!loading">
             <table :class="{ 'flex-grow': !isEmpty, [tableView]: true }">
                 <thead class="z-10">
                     <tr>
