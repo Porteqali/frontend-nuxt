@@ -114,6 +114,9 @@
     .table_box {
         height: calc(100vh - 22rem);
     }
+    .dashbaord_table table.card tbody tr {
+        width: 240px;
+    }
 }
 </style>
 
@@ -131,7 +134,7 @@
             </div>
         </div>
 
-        <div class="table_box shadow-lg rounded-xl overflow-auto bg-white bg-opacity-90" :class="{ 'p-2': tableView == 'card' }" v-if="!loading">
+        <div class="table_box shadow-lg rounded-xl overflow-auto bg-white bg-opacity-90 flex-grow" :class="{ 'p-2': tableView == 'card' }" v-if="!loading">
             <table :class="{ 'flex-grow': !isEmpty, [tableView]: true }">
                 <thead class="z-10">
                     <tr>

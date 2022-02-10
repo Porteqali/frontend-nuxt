@@ -26,7 +26,7 @@
             <Nuxt class="w-full z-10 flex-shrink" nuxt-child-key="teacher-panel" />
         </div>
 
-        <img class="fixed right-0 bottom-0" draggable="false" src="/backgrounds/admin/Background.png" />
+        <img class="fixed right-0 bottom-0" draggable="false" src="/backgrounds/admin/Background2.png" />
 
         <Toast />
     </div>

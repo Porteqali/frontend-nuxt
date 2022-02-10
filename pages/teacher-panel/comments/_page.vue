@@ -4,7 +4,7 @@
     <main class="dashboard_body flex flex-col gap-4 md:p-4 md:py-1">
         <div class="flex flex-wrap justify-between items-center gap-4">
             <div class="flex items-center gap-2">
-                <nuxt-link to="/admin"><img class="opacity-75" src="/icons/admin/Home.svg" width="20" /></nuxt-link>
+                <nuxt-link to="/teacher-panel"><img class="opacity-75" src="/icons/admin/Home.svg" width="20" /></nuxt-link>
                 <img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" />
                 <h1 class="text-2xl"><b>نظرات کاربران</b></h1>
             </div>
@@ -50,10 +50,10 @@
             :isEmpty="!tableData.length"
             :total="total"
             :pageTotal="pageTotal"
-            :pageUrl="`/admin/users-comments/:page?search=${search}`"
+            :pageUrl="`/teacher-panel/comments/:page?search=${search}`"
             @update:table="getTableData()"
         >
-            <template v-slot:tbody="{ record, index }">
+            <template v-slot:tbody="{ record }">
                 <td>
                     <div class="flex items-center gap-2">
                         <img class="w-8 h-8 rounded-full object-cover" :src="record.user[0].image" v-if="record.user[0].image" alt="" />
@@ -63,9 +63,7 @@
                 <td>
                     <div class="flex items-center gap-1">
                         <span class="p-1 bg-bluegray-200 rounded-lg text-xs" v-if="record.course[0]">دوره</span>
-                        <span class="p-1 bg-warmgray-200 rounded-lg text-xs" v-if="record.article[0]">مقاله</span>
                         <span class="text-sm" v-if="record.course[0]">{{ record.course[0].name }}</span>
-                        <span class="text-sm" v-if="record.article[0]">{{ record.article[0].title }}</span>
                     </div>
                 </td>
                 <td>
@@ -79,22 +77,9 @@
                 <td>{{ new Date(record.createdAt).toLocaleString("fa") }}</td>
                 <td>
                     <div class="flex items-center gap-1">
-                        <router-link
-                            class="p-2 rounded-lg hover:bg-blue-200"
-                            title="Edit"
-                            :to="`/admin/users-comments/edit/${record._id}`"
-                            v-if="checkPermissions(['admin.users-comments.edit'], userPermissions)"
-                        >
+                        <router-link class="p-2 rounded-lg hover:bg-blue-200" title="پاسخ" :to="`/teacher-panel/comments/edit/${record._id}`">
                             <img src="/icons/admin/Edit.svg" width="24" />
                         </router-link>
-                        <button
-                            class="p-2 rounded-lg hover:bg-red-200"
-                            title="Delete"
-                            @click="askToDelete(record._id, record.fullname, index)"
-                            v-if="checkPermissions(['admin.users-comments.delete'], userPermissions)"
-                        >
-                            <img src="/icons/admin/Delete.svg" width="24" />
-                        </button>
                     </div>
                 </td>
             </template>
@@ -133,21 +118,11 @@
                 <button class="p-6 py-2 rounded-xl border-2 border-solid border-gray-400 hover:bg-gray-200" @click="clearFilters()">حذف فیلتر های اعمال شده</button>
             </div>
         </Dialog>
-
-        <DeleteDialog
-            :open.sync="deleteDialogState"
-            :recordId.sync="deletingRecordId"
-            :recordName.sync="deletingRecordName"
-            :recordIndex.sync="deletingRecordIndex"
-            :tableData.sync="tableData"
-            url="/api/admin/users-comments"
-        />
     </main>
 </template>
 
 <script>
 import axios from "axios";
-import permissionCheck from "~/mixins/permissionCheck";
 import Icons from "~/components/Icon.vue";
 import Table from "~/components/admin/Table.vue";
 import DeleteDialog from "~/components/admin/DeleteDialog.vue";
@@ -157,7 +132,6 @@ export default {
     head() {
         return { title: "نظرات کاربران - گروه آموزشی پرتقال" };
     },
-    mixins: [permissionCheck],
     components: {
         Icons,
         Table,
@@ -168,7 +142,7 @@ export default {
             isDataLoading: false,
 
             statusFilter: this.statusFilter || [],
-            
+
             search: this.search || "",
             sort: this.sort || { col: "تاریخ ثبت", type: "asc" },
             page: this.page || 1,
@@ -229,7 +203,7 @@ export default {
             if (this.isDataLoading) return;
             this.isDataLoading = true;
 
-            let url = `/api/admin/users-comments`;
+            let url = `/api/teacher-panel/comments`;
             let headers = {};
             if (process.server) {
                 url = `${process.env.BASE_URL}${url}`;
@@ -274,13 +248,6 @@ export default {
         },
 
         // ========================
-
-        askToDelete(id, name, index) {
-            this.deletingRecordId = id;
-            this.deletingRecordName = name;
-            this.deletingRecordIndex = index;
-            this.deleteDialogState = true;
-        },
 
         async clearFilters() {
             this.statusFilter = [];

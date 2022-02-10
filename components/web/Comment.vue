@@ -18,7 +18,7 @@
                     <small v-else>مخفی کردن پاسخ‌ها</small>
                 </button>
             </div>
-            <div class="flex flex-col items-start gap-4" v-show="showReply">
+            <div class="flex flex-col items-start gap-4 w-full" v-show="showReply">
                 <Comment
                     class="border-r-2 border-solid border-gray-300 pr-6 w-full"
                     v-for="subcomment in comment.comments"

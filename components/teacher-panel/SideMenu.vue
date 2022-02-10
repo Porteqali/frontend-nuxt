@@ -72,7 +72,7 @@
                     </nuxt-link>
                 </li>
                 <li class="flex w-full">
-                    <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/teacher-panel/user-comments">
+                    <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/teacher-panel/comments">
                         <img src="/icons/admin/Chat.svg" class="menu_icon" width="24" />
                         <span>نظرات</span>
                     </nuxt-link>
