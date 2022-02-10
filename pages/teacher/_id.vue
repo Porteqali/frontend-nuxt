@@ -87,7 +87,7 @@
         <section class="relative flex flex-col justify-center gap-8 flex-grow w-full">
             <ul class="courses_list grid gap-10 w-full">
                 <li
-                    class="gray_gradient blur course_card shadow-lg flex flex-col gap-4 p-4 rounded-3xl max-w-md w-full mx-auto"
+                    class="gray_gradient course_card shadow-lg flex flex-col gap-4 p-4 rounded-3xl max-w-md w-full mx-auto"
                     v-for="(course, i) in courses"
                     :key="i"
                 >

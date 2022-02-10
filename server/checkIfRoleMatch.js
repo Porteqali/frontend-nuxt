@@ -6,26 +6,50 @@ app.use(require("express").json());
 app.use(require("cookie-parser")());
 app.use(csrf);
 
-const checkIfAdmin = async (req, res) => {
-    let isAdmin = false;
+const checkIfRole = async (req, res, role) => {
+    let isRole = false;
 
     const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
-    await post(`${process.env.API_BASE_URL}/auth/check-if-admin`, null, {
+    await post(`${process.env.API_BASE_URL}/auth/check-if-role/${role}`, null, {
         timeout: 30 * 1000,
         headers: { ...req.headers, "x-forwarded-for": ip, server_secret: process.env.SERVER_SECRET, tt: Date.now() },
     })
-        .then((results) => (isAdmin = true))
+        .then((results) => (isRole = true))
         .catch((e) => {});
 
-    return isAdmin;
+    return isRole;
 };
 
+// =========================================================
+
 app.all("/admin", async (req, res, next) => {
-    if (await checkIfAdmin(req, res)) next();
+    if (await checkIfRole(req, res, "admin")) next();
     else return res.status(404).end();
 });
 app.all("/admin/*", async (req, res, next) => {
-    if (await checkIfAdmin(req, res)) next();
+    if (await checkIfRole(req, res, "admin")) next();
+    else return res.status(404).end();
+});
+
+// =========================================================
+
+app.all("/teacher-panel", async (req, res, next) => {
+    if (await checkIfRole(req, res, "teacher")) next();
+    else return res.status(404).end();
+});
+app.all("/teacher-panel/*", async (req, res, next) => {
+    if (await checkIfRole(req, res, "teacher")) next();
+    else return res.status(404).end();
+});
+
+// =========================================================
+
+app.all("/marketer-panel", async (req, res, next) => {
+    if (await checkIfRole(req, res, "marketer")) next();
+    else return res.status(404).end();
+});
+app.all("/marketer-panel/*", async (req, res, next) => {
+    if (await checkIfRole(req, res, "marketer")) next();
     else return res.status(404).end();
 });
 

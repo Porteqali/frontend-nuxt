@@ -23,7 +23,7 @@
 .side_nav li:hover > a,
 .nuxt-link-active {
     /* box-shadow: 0px 8px 12px rgba(0, 0, 0, 10%); */
-    background-color: #444;
+    background-color: #606060;
 }
 
 .menu_icon {
@@ -66,7 +66,7 @@
                 <hr class="w-11/12 mx-auto my-1 border-gray-600" />
 
                 <li
-                    class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-700"
+                    class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-600"
                     @click="openGroup('admins')"
                     v-if="checkPermissions(['admin.list.view', 'admin.permissions.view'], userPermissions, 'OR')"
                 >
@@ -101,7 +101,7 @@
                 </li>
 
                 <li
-                    class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-700"
+                    class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-600"
                     @click="openGroup('users')"
                     v-if="checkPermissions(['admin.users.view', 'admin.users-comments.view'], userPermissions, 'OR')"
                 >
@@ -138,7 +138,7 @@
                 <hr class="w-11/12 mx-auto my-1 border-gray-600" />
 
                 <li
-                    class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-700"
+                    class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-600"
                     @click="openGroup('courses')"
                     v-if="checkPermissions(['admin.courses.view', 'admin.course-groups.view'], userPermissions, 'OR')"
                 >
@@ -168,7 +168,7 @@
                 <hr class="w-11/12 mx-auto my-1 border-gray-600" />
 
                 <li
-                    class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-700"
+                    class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-600"
                     @click="openGroup('finance')"
                     v-if="
                         checkPermissions(['admin.commissions.view', 'admin.discounts.view'], userPermissions, 'OR') ||
@@ -210,7 +210,7 @@
                     </ul>
                 </transition>
 
-                <!-- <li class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-700" @click="openGroup('usances')">
+                <!-- <li class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-600" @click="openGroup('usances')">
                     <div class="flex items-center gap-2 w-full">
                         <img src="/icons/admin/Discount.svg" class="menu_icon" width="24" />
                         <span>مدیریت سررسید ها</span>
@@ -294,7 +294,7 @@
                     </nuxt-link>
                 </li>
 
-                <li class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-700" @click="openGroup('pages')">
+                <li class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-600" @click="openGroup('pages')">
                     <div class="flex items-center gap-2 w-full">
                         <img src="/icons/admin/Document.svg" class="menu_icon" width="24" />
                         <span>مدیریت صفحات</span>
