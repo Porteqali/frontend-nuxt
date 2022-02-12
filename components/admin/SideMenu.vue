@@ -278,7 +278,7 @@
                         <span>بنر وبسایت</span>
                     </nuxt-link>
                 </li>
-                <li class="flex w-full">
+                <li class="flex w-full" v-if="checkPermissions(['admin.latest-news.view'], userPermissions)">
                     <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/latest-news">
                         <img src="/icons/admin/Mic.svg" class="menu_icon" width="24" />
                         <span>اخبار سایت</span>
@@ -294,7 +294,11 @@
                     </nuxt-link>
                 </li>
 
-                <li class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-600" @click="openGroup('pages')">
+                <li
+                    class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-600"
+                    @click="openGroup('pages')"
+                    v-if="checkPermissions(['admin.page.terms-and-conditions.edit', 'admin.page.privacy-policy.edit'], userPermissions, 'OR')"
+                >
                     <div class="flex items-center gap-2 w-full">
                         <img src="/icons/admin/Document.svg" class="menu_icon" width="24" />
                         <span>مدیریت صفحات</span>
@@ -303,16 +307,10 @@
                 </li>
                 <transition name="accordiondown" appear>
                     <ul class="submenu flex flex-col gap-1 py-1" v-show="openedGroup.includes('pages')" name="pages">
-                        <li class="">
-                            <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/page/about-us">درباره ما</nuxt-link>
-                        </li>
-                        <li class="">
-                            <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/page/collaborate">همکاری با ما</nuxt-link>
-                        </li>
-                        <li class="">
+                        <li class="" v-if="checkPermissions(['admin.page.terms-and-conditions.edit'], userPermissions)">
                             <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/page/terms-and-conditions">قوانین و مقررات</nuxt-link>
                         </li>
-                        <li class="">
+                        <li class="" v-if="checkPermissions(['admin.page.privacy-policy.edit'], userPermissions)">
                             <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/page/privacy-policy">حریم خصوصی</nuxt-link>
                         </li>
                     </ul>

@@ -23,7 +23,7 @@
 
         <div class="inner_main relative flex gap-4 w-full mt-4">
             <SideMenu class="flex-shrink-0" />
-            <Nuxt class="w-full z-10 flex-shrink" nuxt-child-key="teacher-panel" />
+            <Nuxt class="w-full z-10" nuxt-child-key="teacher-panel" />
         </div>
 
         <img class="fixed right-0 bottom-0" draggable="false" src="/backgrounds/admin/Background2.png" />

@@ -261,7 +261,6 @@ export default {
     head() {
         return {
             title: `${this.searchQuery} - گروه آموزشی پرتقال`,
-            meta: [{ hid: "description", name: "description", content: "" }],
         };
     },
     components: { Select, Loading },

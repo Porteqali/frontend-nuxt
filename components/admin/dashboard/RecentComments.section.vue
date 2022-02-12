@@ -22,7 +22,7 @@ h3::after {
             <nuxt-link class="hover:underline text-cyan-600 text-xs" to="/admin/users-comments">مشاهده ادامه نظرات</nuxt-link>
         </header>
         <ul class="flex flex-col gap-4">
-            <li class="flex items-start gap-2 shadow-lg p-4 rounded-xl" v-for="(comment, i) in comments" :key="i">
+            <li class="flex flex-wrap items-start gap-2 shadow-lg p-4 rounded-xl" v-for="(comment, i) in comments" :key="i">
                 <img class="w-14 h-14 rounded-full object-cover shadow-md" :src="comment.user[0].image" v-if="comment.user[0].image" alt="" />
                 <div class="flex flex-col gap-1 flex-grow">
                     <div class="flex flex-wrap items-center gap-2">

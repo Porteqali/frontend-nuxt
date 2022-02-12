@@ -181,12 +181,13 @@
 
 <script>
 import axios from "axios";
+import getMetadata from "~/mixins/getMetadata";
 
 export default {
-    head: {
-        title: "وبلاگ - گروه آموزشی پرتقال",
-        meta: [{ hid: "description", name: "description", content: "" }],
+    head() {
+        return { title: "وبلاگ - گروه آموزشی پرتقال", meta: [...this.metadata.meta], link: [...this.metadata.link] };
     },
+    mixins: [getMetadata],
     components: {},
     data() {
         return {
@@ -215,7 +216,7 @@ export default {
         let headers = {};
         if (process.server) headers = this.$nuxt.context.req.headers;
 
-        await Promise.all([this.getTopArticle({ headers }), this.getMostPopularArticles({ headers })]);
+        await Promise.all([this.getMetadata("blog"), this.getTopArticle({ headers }), this.getMostPopularArticles({ headers })]);
     },
     methods: {
         async getTopArticle(data = {}) {

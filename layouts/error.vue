@@ -17,7 +17,7 @@
 </style>
 
 <template>
-    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-4xl w-full">
+    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-4xl w-full" v-if="!loading">
         <!-- <Background src="/backgrounds/Background.404.png" :topOffset="30" :rightOffset="20" :minWidth="2320" /> -->
         <section class="relative flex flex-col justify-center items-center z-10" id="top">
             <div class="flex flex-col items-center gap-10 mt-12">
@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import Background from "~/components/web/Background.vue";
 
 export default {
@@ -43,6 +44,64 @@ export default {
     components: {
         Background,
     },
-    mounted() {},
+    data() {
+        return {
+            loading: true,
+        };
+    },
+    async mounted() {
+        const code = this.getCleanCode();
+        if (this.error.statusCode == 404) {
+            await this.checkMarketingCode(code);
+        }
+        this.loading = false;
+    },
+    methods: {
+        async checkMarketingCode(code) {
+            const url = `/set-marketer-code/${code}`;
+            const isCookieSet = await axios
+                .post(encodeURI(url), {})
+                .then((response) => true)
+                .catch((e) => false);
+            if (!!isCookieSet) return this.$router.push("/");
+        },
+
+        getCleanCode() {
+            let code = this.$route.path || "";
+            const strips = [
+                "~",
+                "`",
+                "!",
+                "@",
+                "#",
+                "$",
+                "%",
+                "^",
+                "*",
+                "(",
+                ")",
+                "+",
+                "[",
+                "{",
+                "]",
+                "}",
+                "\\",
+                "/",
+                "|",
+                ";",
+                ":",
+                '"',
+                "'",
+                "â€”",
+                "â€“",
+                ",",
+                "<",
+                ".",
+                ">",
+            ];
+            strips.forEach((strip) => (code = code.replace(new RegExp(`\\${strip}`, "g"), "")));
+            return code;
+        },
+    },
 };
 </script>

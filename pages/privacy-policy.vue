@@ -22,40 +22,57 @@
             </div>
         </section>
 
-        <article class="w-full p-8 mt-20 rounded-2xl max-w-screen-lg shadow-2xl z-10 bg-white">
-            <p>
-                پرتقال با تاکید بر احترامی که برای حریم شخصی کاربران قائل است، برای سفارش، ثبت نظر یا استفاده از برخی امکانات وب سایت اطلاعاتی را از کاربران درخواست
-                می‌کند تا بتواند خدماتی امن و مطمئن را به کابران ارائه دهد. برای نمونه می‌توان به اطلاعاتی مانند ایمیل، شماره همراه، نام و ... اشاره نمود.
-            </p>
-            <br />
-            <p>
-                لازم به ذکر است تمام مکاتبات پرتقال از طریق ایمیل و شماره همراهی که مخاطب در پروفایل خود ثبت می‌کند صورت می‌گیرد. پرتقال برای اطلاع رسانی جشنواره‌ها،
-                انتشار آموزش‌های جدید و ... برای مخاطبان سایت ایمیل یا پیامک ارسال می‌کند. در صورتی که مخاطب تمایل به دریافت اینگونه ایمیل‌ها نداشته باشند می‌توانند
-                با استفاده از لینک مربوط به لغو اشتراک خبرنامه موجود در انتهای ایمیل دریافتی، اقدام نمایند.
-            </p>
-            <br />
-            <p>
-                لازم به ذکر است، حفظ و نگهداری رمز عبور بر عهده مخاطب می‌باشد و لذا برای جلوگیری از هرگونه سوء استفاده احتمالی، کاربران نباید آن اطلاعات را برای شخص
-                دیگری فاش کنند. پرتقال هویت شخصی مخاطبان را محرمانه می‌داند و اطلاعات شخصی آنان را به هیچ شخص یا سازمان دیگری منتقل نمی‌کند. پرتقال برای حفاظت و
-                نگهداری اطلاعات و حریم شخصی کاربران همه توان خود را به کار می‌گیرد و امیدوار است که تجربه‌ی خریدی امن، راحت و خوشایند را برای همه مخاطبان فراهم آورد.
-            </p>
+        <article class="article_body w-full p-8 mt-20 rounded-2xl max-w-screen-lg shadow-2xl z-10 bg-white">
+            <div class="w-full h-full" v-html="htmlText"></div>
         </article>
     </main>
 </template>
 
 <script>
+import axios from 'axios';
+import getMetadata from "~/mixins/getMetadata";
 import Background from "~/components/web/Background";
 
 export default {
     scrollToTop: true,
-    head: {
-        title: "حریم خصوصی - گروه آموزشی پرتقال",
-        meta: [{ hid: "description", name: "description", content: "" }],
+    head() {
+        return { title: "حریم خصوصی - گروه آموزشی پرتقال", meta: [...this.metadata.meta], link: [...this.metadata.link] };
     },
+    mixins: [getMetadata],
     components: {
         Background,
     },
+    data() {
+        return {
+            loading: false,
+            htmlText: "",
+        };
+    },
+    async fetch() {
+        let headers = {};
+        if (process.server) headers = this.$nuxt.context.req.headers;
+
+        await Promise.all([this.getMetadata("privacy-policy"), this.getInfo({ headers })]);
+    },
     mounted() {},
-    methods: {},
+    methods: {
+        async getInfo(data = {}) {
+            if (this.loading) return;
+            this.loading = true;
+
+            let url = `/api/static-pages/privacy_policy`;
+            let headers = {};
+            if (process.server) {
+                url = `${process.env.BASE_URL}${url}`;
+                headers = data.headers ? data.headers : {};
+            }
+
+            await axios
+                .get(url, { headers })
+                .then((results) => (this.htmlText = results.data.text || ""))
+                .catch((e) => {})
+                .finally(() => (this.loading = false));
+        },
+    },
 };
 </script>

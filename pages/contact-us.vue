@@ -172,6 +172,7 @@ import axios from "axios";
 import { mask } from "vue-the-mask";
 
 import "leaflet/dist/leaflet.css";
+import getMetadata from "~/mixins/getMetadata";
 let Vue2Leaflet = {};
 if (process.client) {
     const { LMap, LTileLayer, LMarker, LIcon, LControlZoom } = require("vue2-leaflet");
@@ -179,10 +180,10 @@ if (process.client) {
 }
 
 export default {
-    head: {
-        title: "تماس با ما - گروه آموزشی پرتقال",
-        meta: [{ hid: "description", name: "description", content: "" }],
+    head() {
+        return { title: "تماس با ما - گروه آموزشی پرتقال", meta: [...this.metadata.meta], link: [...this.metadata.link] };
     },
+    mixins: [getMetadata],
     components: {
         "l-map": Vue2Leaflet.LMap,
         "l-tile-layer": Vue2Leaflet.LTileLayer,
@@ -225,7 +226,7 @@ export default {
         let headers = {};
         if (process.server) headers = this.$nuxt.context.req.headers;
 
-        await Promise.all([this.getContactInfo({ headers })]);
+        await Promise.all([this.getMetadata("contact-us"), this.getContactInfo({ headers })]);
     },
     methods: {
         async getContactInfo(data = {}) {

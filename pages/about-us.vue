@@ -155,12 +155,13 @@
 import axios from "axios";
 import Background from "~/components/web/Background";
 import Icon from "~/components/Icon.vue";
+import getMetadata from "~/mixins/getMetadata";
 
 export default {
-    head: {
-        title: "درباره ما - گروه آموزشی پرتقال",
-        meta: [{ hid: "description", name: "description", content: "" }],
+    head() {
+        return { title: "درباره ما - گروه آموزشی پرتقال", meta: [...this.metadata.meta], link: [...this.metadata.link] };
     },
+    mixins: [getMetadata],
     components: {
         Background,
         Icon,
@@ -176,7 +177,7 @@ export default {
         let headers = {};
         if (process.server) headers = this.$nuxt.context.req.headers;
 
-        await Promise.all([this.getTeachers({ headers })]);
+        await Promise.all([this.getMetadata("about-us"), this.getTeachers({ headers })]);
     },
     methods: {
         async getTeachers(data = {}) {

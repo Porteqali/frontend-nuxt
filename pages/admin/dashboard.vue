@@ -26,13 +26,13 @@
                 <span class="card" style="height: 2.5rem; min-height: initial" name="empty-card"></span>
             </div>
             <div class="flex flex-col gap-4 md:gap-6 w-full lg:w-5/12">
-                <span class="card h-64" name="most-viewed-courses"></span>
-                <span class="card h-64" name="most-sold-courses"></span>
+                <MostViewedCoursesSection class="card" />
+                <MostSoldCoursesSection class="card" />
                 <span class="card h-80" name="users-device-pie"></span>
             </div>
         </div>
         <div class="flex flex-wrap-reverse items-end gap-4 md:gap-6 w-full">
-            <RecentCommentsSection class="card w-full lg:w-6/12" style="width: 12px;" />
+            <RecentCommentsSection class="card w-full lg:w-6/12" style="width: 12px" />
             <div class="flex flex-col gap-4 md:gap-6 w-full lg:w-6/12">
                 <UsersLocationChartSection class="card" />
                 <RecentTransactionsSection class="card" />
@@ -61,6 +61,8 @@
 import RecentCommentsSection from "~/components/admin/dashboard/RecentComments.section.vue";
 import RecentTransactionsSection from "~/components/admin/dashboard/RecentTransactions.section.vue";
 import UsersLocationChartSection from "~/components/admin/dashboard/UsersLocationChart.section.vue";
+import MostViewedCoursesSection from "~/components/admin/dashboard/MostViewedCourses.section.vue";
+import MostSoldCoursesSection from "~/components/admin/dashboard/MostSoldCourses.section.vue";
 
 export default {
     layout: "admin",
@@ -68,6 +70,8 @@ export default {
         RecentCommentsSection,
         RecentTransactionsSection,
         UsersLocationChartSection,
+        MostViewedCoursesSection,
+        MostSoldCoursesSection,
     },
 };
 </script>

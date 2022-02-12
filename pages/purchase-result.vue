@@ -69,10 +69,7 @@
 <script>
 export default {
     head() {
-        return {
-            title: "نتیجه پرداخت - گروه آموزشی پرتقال",
-            meta: [{ hid: "description", name: "description", content: "" }],
-        };
+        return { title: "نتیجه پرداخت - گروه آموزشی پرتقال" };
     },
     data() {
         return {

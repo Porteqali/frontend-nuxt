@@ -223,12 +223,13 @@
 <script>
 import axios from "axios";
 import moment from "jalali-moment";
+import getMetadata from "~/mixins/getMetadata";
 
 export default {
-    head: {
-        title: "دپارتمان ها - گروه آموزشی پرتقال",
-        meta: [{ hid: "description", name: "description", content: "" }],
+    head() {
+        return { title: "دپارتمان ها - گروه آموزشی پرتقال", meta: [...this.metadata.meta], link: [...this.metadata.link] };
     },
+    mixins: [getMetadata],
     components: {},
     data() {
         return {
@@ -245,7 +246,7 @@ export default {
         let headers = {};
         if (process.server) headers = this.$nuxt.context.req.headers;
 
-        await Promise.all([this.getMostviewedCourses({ headers }), this.getTopTeachers({ headers })]);
+        await Promise.all([this.getMetadata("department"), this.getMostviewedCourses({ headers }), this.getTopTeachers({ headers })]);
     },
     methods: {
         async getMostviewedCourses(data = {}) {

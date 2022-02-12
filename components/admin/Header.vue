@@ -37,7 +37,7 @@ header {
                         </li>
                     </ul>
                     <div class="flex flex-col items-center justify-center gap-4" v-else>
-                        <img class="w-28" src="/misc/CheckBoard.png" style="filter: grayscale(0.6)" />
+                        <img class="w-28" src="/misc/CheckBoard.png" style="filter: sepia(40%) hue-rotate(-55deg) drop-shadow(0px 4px 3px #00000055)" />
                         <b class="text-lg">اعلانیه ای وجود ندارد</b>
                     </div>
                 </div>
@@ -54,7 +54,7 @@ header {
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 
 export default {
     components: {},

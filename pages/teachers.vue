@@ -88,12 +88,13 @@
 <script>
 import axios from "axios";
 import Icon from "~/components/Icon.vue";
+import getMetadata from "~/mixins/getMetadata";
 
 export default {
-    head: {
-        title: "مدرسان پرتقال - گروه آموزشی پرتقال",
-        meta: [{ hid: "description", name: "description", content: "" }],
+    head() {
+        return { title: "مدرسان پرتقال - گروه آموزشی پرتقال", meta: [...this.metadata.meta], link: [...this.metadata.link] };
     },
+    mixins: [getMetadata],
     components: { Icon },
     data() {
         return {
@@ -126,7 +127,7 @@ export default {
         let headers = {};
         if (process.server) headers = this.$nuxt.context.req.headers;
 
-        await Promise.all([this.getTeachers({ headers })]);
+        await Promise.all([await this.getMetadata("teachers"), this.getTeachers({ headers })]);
     },
     methods: {
         async getTeachers(data = {}) {

@@ -152,12 +152,13 @@ textarea {
 <script>
 import axios from "axios";
 import { mask } from "vue-the-mask";
+import getMetadata from "~/mixins/getMetadata";
 
 export default {
-    head: {
-        title: "همکاری با ما - گروه آموزشی پرتقال",
-        meta: [{ hid: "description", name: "description", content: "" }],
+    head() {
+        return { title: "همکاری با ما - گروه آموزشی پرتقال", meta: [...this.metadata.meta], link: [...this.metadata.link] };
     },
+    mixins: [getMetadata],
     components: {},
     directives: { mask },
     data() {
@@ -192,7 +193,7 @@ export default {
         let headers = {};
         if (process.server) headers = this.$nuxt.context.req.headers;
 
-        await Promise.all([this.getTestimonials({ headers })]);
+        await Promise.all([this.getMetadata("work-with-us"), this.getTestimonials({ headers })]);
     },
     methods: {
         async send(e) {
@@ -226,7 +227,7 @@ export default {
                 });
         },
 
-         async getTestimonials(data = {}) {
+        async getTestimonials(data = {}) {
             if (this.testimonialsLoading) return;
             this.testimonialsLoading = true;
 

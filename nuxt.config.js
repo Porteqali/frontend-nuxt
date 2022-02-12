@@ -2,12 +2,7 @@ export default {
     // Global page headers: https://go.nuxtjs.dev/config-head
     head: {
         title: "porteqali",
-        meta: [
-            { charset: "utf-8" },
-            { name: "viewport", content: "width=device-width, initial-scale=1" },
-            { hid: "description", name: "description", content: "" },
-            { name: "format-detection", content: "telephone=no" },
-        ],
+        meta: [{ charset: "utf-8" }, { name: "viewport", content: "width=device-width, initial-scale=1" }, { name: "format-detection", content: "telephone=no" }],
         link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
     },
 
@@ -93,5 +88,12 @@ export default {
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {},
 
-    serverMiddleware: ["~/server/csrf.js", "~/server/auth.js", "~/server/api.js", "~/server/payment.js", "~/server/checkIfRoleMatch.js"],
+    serverMiddleware: [
+        "~/server/csrf.js",
+        "~/server/auth.js",
+        "~/server/api.js",
+        "~/server/payment.js",
+        "~/server/checkIfRoleMatch.js",
+        "~/server/marketingCode.js",
+    ],
 };
