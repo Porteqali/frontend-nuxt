@@ -139,12 +139,13 @@
 <script>
 import axios from "axios";
 import Loading from "~/components/Loading.vue";
+import getMetadata from "~/mixins/getMetadata";
 
 export default {
-    head: {
-        title: "سوالات متداول - گروه آموزشی پرتقال",
-        meta: [{ hid: "description", name: "description", content: "" }],
+    head() {
+        return { title: this.metadata.title, meta: [...this.metadata.meta], link: [...this.metadata.link] };
     },
+    mixins: [getMetadata],
     components: { Loading },
     data() {
         return {
@@ -163,7 +164,7 @@ export default {
         let headers = {};
         if (process.server) headers = this.$nuxt.context.req.headers;
 
-        await this.getFaqs({ headers });
+        await Promise.all([await this.getMetadata("faqs"), this.getFaqs({ headers })]);
     },
     methods: {
         async selectCategory(group) {

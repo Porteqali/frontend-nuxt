@@ -315,6 +315,13 @@
                         </li>
                     </ul>
                 </transition>
+
+                <li class="flex w-full" v-if="checkPermissions(['admin.metadata.view'], userPermissions)">
+                    <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/metadata">
+                        <img src="/icons/admin/Document.svg" class="menu_icon" width="24" />
+                        <span>متادیتا صفحات</span>
+                    </nuxt-link>
+                </li>
             </ul>
             <div class="flex flex-col p-1">
                 <button class="flex items-center gap-2 p-2 w-full rounded-xl bg-rose-800" @click="$router.push('/')">

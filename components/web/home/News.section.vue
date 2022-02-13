@@ -1,12 +1,12 @@
 <style>
-.video-js {
-    /* width: 100% !important;
-    height: 100% !important; */
-}
+/* .video-js {
+    width: 100% !important;
+    height: 100% !important;
+} */
 </style>
 
 <template>
-    <section class="flex flex-wrap items-start justify-evenly gap-8 lg:gap-20 w-full my-16" id="news">
+    <section class="flex flex-wrap items-start justify-evenly gap-8 lg:gap-20 w-full my-16" id="news" v-if="newsInfo.status == 'active'">
         <div class="flex flex-col gap-6" v-if="!loading">
             <h2 class="text-4xl font-bold">آخرین اخبار سایت</h2>
             <h3 class="text-2xl font-bold mt-6">{{ newsInfo.title }}</h3>

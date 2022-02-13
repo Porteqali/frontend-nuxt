@@ -2,10 +2,11 @@
 .info_card {
     color: var(--header-nav-text-color);
     background-color: var(--header-nav-container-bg-color);
+    box-shadow: 0px 8px 45px rgba(0, 0, 0, 20%);
 }
 
 .discount_box {
-    box-shadow: 0px 5px 30px rgba(255, 91, 152, 0.6);
+    box-shadow: 0px 5px 30px rgba(255, 91, 152, 60%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -44,7 +45,7 @@
             </header>
             <div class="flex flex-col lg:flex-row items-center lg:items-start gap-6 w-full">
                 <div class="flex flex-col gap-4 w-full md:max-w-xs xl:max-w-sm flex-shrink-0" v-if="course">
-                    <div class="info_card flex flex-col gap-4 rounded-3xl shadow-lg p-6">
+                    <div class="info_card flex flex-col gap-4 rounded-3xl p-6">
                         <h3 class="w-full text-xl">اطلاعات کلی دوره</h3>
                         <hr class="border-b border-solid border-gray-300 border-opacity-30" />
                         <ul class="flex flex-wrap items-center justify-evenly gap-6">
@@ -98,14 +99,14 @@
                         <PurchaseButton :course="course" :coursePrice="course.price" :courseName="course.name" v-if="!purchased" />
                     </div>
                     <div class="flex gap-4">
-                        <div class="info_card flex flex-col items-center justify-center gap-4 w-64 h-auto p-4 rounded-3xl">
+                        <div class="info_card blur flex flex-col items-center justify-center gap-4 w-64 h-auto p-4 rounded-3xl">
                             <b class="text-4xl">{{ topVotePercentage }}%</b>
                             <p class="w-full text-sm text-center flex-grow">به دوره بالاترین نمره را داده اند</p>
                             <div class="relative h-4 rounded-full bg-pink-500 bg-opacity-40 w-full">
                                 <span class="absolute bg-pink-500 rounded-full h-full" :style="`width: ${topVotePercentage}%`"></span>
                             </div>
                         </div>
-                        <div class="info_card flex flex-col items-center justify-center gap-4 w-64 h-auto p-4 rounded-3xl">
+                        <div class="info_card blur flex flex-col items-center justify-center gap-4 w-64 h-auto p-4 rounded-3xl">
                             <b class="text-4xl">{{ numberOfVotes }}</b>
                             <p class="w-full text-sm text-center flex-grow">نفر به دوره رای داده اند</p>
                             <div class="relative h-4 rounded-full bg-orange-500 bg-opacity-40 w-full">
@@ -269,6 +270,7 @@ import PurchaseButton from "~/components/web/course/Purchase.button.vue";
 export default {
     head() {
         return {
+            // TODO
             title: `دوره ${this.course.name} - گروه آموزشی پرتقال`,
             meta: [{ hid: "description", name: "description", content: "" }],
         };

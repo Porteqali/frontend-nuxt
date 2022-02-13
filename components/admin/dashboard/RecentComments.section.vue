@@ -17,7 +17,7 @@ h3::after {
 </style>
 <template>
     <section class="flex flex-col gap-6 p-4 md:p-6">
-        <header class="flex items-center justify-between gap-4">
+        <header class="flex flex-wrap items-center justify-between gap-4">
             <h3 class="relative text-2xl"><b class="relative z-10">آخرین نظرات ارسالی</b></h3>
             <nuxt-link class="hover:underline text-cyan-600 text-xs" to="/admin/users-comments">مشاهده ادامه نظرات</nuxt-link>
         </header>

@@ -48,7 +48,7 @@
                                 <button
                                     type="button"
                                     class="border-2 border-solid border-red-400 hover:bg-rose-50 p-1 rounded-lg flex-shrink-0"
-                                    @click="removeExerciseFile(i)"
+                                    @click="removeTopic(i)"
                                 >
                                     <img src="/icons/admin/Delete.svg" width="16" alt="" />
                                 </button>
@@ -228,7 +228,7 @@ export default {
                 this.topics[index].size = this.$refs[ref][0].files[0].size;
             }
         },
-        removeExerciseFile(index) {
+        removeTopic(index) {
             this.topics.splice(index, 1);
         },
         addTopic() {

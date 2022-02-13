@@ -271,6 +271,7 @@ import CommentSection from "~/components/web/article/Comment.section";
 
 export default {
     head: {
+        // TODO
         title: "وبلاگ - گروه آموزشی پرتقال",
         meta: [{ hid: "description", name: "description", content: "" }],
     },

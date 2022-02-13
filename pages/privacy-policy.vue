@@ -36,7 +36,7 @@ import Background from "~/components/web/Background";
 export default {
     scrollToTop: true,
     head() {
-        return { title: "حریم خصوصی - گروه آموزشی پرتقال", meta: [...this.metadata.meta], link: [...this.metadata.link] };
+        return { title: this.metadata.title, meta: [...this.metadata.meta], link: [...this.metadata.link] };
     },
     mixins: [getMetadata],
     components: {

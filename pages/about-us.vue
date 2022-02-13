@@ -159,7 +159,7 @@ import getMetadata from "~/mixins/getMetadata";
 
 export default {
     head() {
-        return { title: "درباره ما - گروه آموزشی پرتقال", meta: [...this.metadata.meta], link: [...this.metadata.link] };
+        return { title: this.metadata.title, meta: [...this.metadata.meta], link: [...this.metadata.link] };
     },
     mixins: [getMetadata],
     components: {

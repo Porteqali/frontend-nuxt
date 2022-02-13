@@ -21,7 +21,7 @@ h3::after {
 </style>
 <template>
     <section class="flex flex-col gap-6 p-4 md:p-6 w-screen max-w-full">
-        <header class="flex items-center justify-between gap-4">
+        <header class="flex flex-wrap items-center justify-between gap-4">
             <h3 class="relative text-2xl"><b class="relative z-10">پر فروش ترین دوره ها</b></h3>
             <div class="flex">
                 <Select :selectedOption.sync="period" @update:selectedOption="updatePeriod()" :options="periodOptions">

@@ -153,6 +153,7 @@ import Loading from "~/components/Loading.vue";
 export default {
     head() {
         return {
+            // TODO
             title: `${this.teacher.name} ${this.teacher.family} - گروه آموزشی پرتقال`,
             meta: [{ hid: "description", name: "description", content: "" }],
         };

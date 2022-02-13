@@ -181,7 +181,7 @@ if (process.client) {
 
 export default {
     head() {
-        return { title: "تماس با ما - گروه آموزشی پرتقال", meta: [...this.metadata.meta], link: [...this.metadata.link] };
+        return { title: this.metadata.title, meta: [...this.metadata.meta], link: [...this.metadata.link] };
     },
     mixins: [getMetadata],
     components: {
