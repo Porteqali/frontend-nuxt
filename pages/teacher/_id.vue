@@ -86,11 +86,7 @@
         </section>
         <section class="relative flex flex-col justify-center gap-8 flex-grow w-full">
             <ul class="courses_list grid gap-10 w-full">
-                <li
-                    class="gray_gradient course_card shadow-lg flex flex-col gap-4 p-4 rounded-3xl max-w-md w-full mx-auto"
-                    v-for="(course, i) in courses"
-                    :key="i"
-                >
+                <li class="gray_gradient course_card shadow-lg flex flex-col gap-4 p-4 rounded-3xl max-w-md w-full mx-auto" v-for="(course, i) in courses" :key="i">
                     <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="relative overflow-hidden rounded-xl shadow-lg w-full h-72">
                         <img class="absolute inset-0 object-cover" :src="course.image || `/misc/course.png`" alt="course" draggable="false" />
                         <img class="absolute top-2 right-2" :src="course.groups[0].icon" width="32" height="32" alt="Figma" />
@@ -153,9 +149,36 @@ import Loading from "~/components/Loading.vue";
 export default {
     head() {
         return {
-            // TODO
             title: `${this.teacher.name} ${this.teacher.family} - گروه آموزشی پرتقال`,
-            meta: [{ hid: "description", name: "description", content: "" }],
+            meta: [
+                { hid: "description", name: "description", content: this.teacher.description ? this.teacher.description.substr(0, 256) + "..." : "" },
+                { hid: "language", name: "language", content: "fa" },
+
+                { hid: "og:locale", name: "og:locale", content: "fa_IR" },
+                { hid: "og:title", name: "og:title", content: `${this.teacher.name} ${this.teacher.family} - گروه آموزشی پرتقال` },
+                { hid: "og:description", name: "og:description", content: this.teacher.description ? this.teacher.description.substr(0, 256) + "..." : "" },
+                { hid: "og:url", name: "og:url", content: this.teacher.canonical },
+                { hid: "og:site_name", name: "og:site_name", content: `${this.teacher.name} ${this.teacher.family} - گروه آموزشی پرتقال` },
+                { hid: "og:image", name: "og:image", content: this.teacher.image },
+
+                { hid: "twitter:card", name: "twitter:card", content: "summary_large_image" },
+                { hid: "twitter:site", name: "twitter:site", content: this.teacher.canonical },
+                {
+                    hid: "twitter:description",
+                    name: "twitter:description",
+                    content: this.teacher.description ? this.teacher.description.substr(0, 256) + "..." : "",
+                },
+                { hid: "twitter:title", name: "twitter:title", content: `${this.teacher.name} ${this.teacher.family} - گروه آموزشی پرتقال` },
+                { hid: "twitter:image", name: "twitter:image", content: this.teacher.image },
+
+                { hid: "robots", name: "robots", content: "max-image-preview:large" },
+                { hid: "mobile-web-app-capable", name: "mobile-web-app-capable", content: "yes" },
+            ],
+            link: [
+                { rel: "canonical", href: this.teacher.canonical },
+                { rel: "apple-touch-icon", sizes: "180x180", href: "/favicon.ico" },
+                { rel: "shortcut icon", type: "image/x-icon", href: "/favicon.ico" },
+            ],
         };
     },
     components: { Icon, Loading },

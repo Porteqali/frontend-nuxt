@@ -3,6 +3,7 @@
     color: var(--header-nav-text-color);
     background-color: var(--header-nav-container-bg-color);
     box-shadow: 0px 8px 45px rgba(0, 0, 0, 20%);
+    box-shadow: 0px 50px 100px rgba(0, 0, 0, 25%);
 }
 
 .discount_box {
@@ -270,9 +271,34 @@ import PurchaseButton from "~/components/web/course/Purchase.button.vue";
 export default {
     head() {
         return {
-            // TODO
             title: `دوره ${this.course.name} - گروه آموزشی پرتقال`,
-            meta: [{ hid: "description", name: "description", content: "" }],
+            meta: [
+                { hid: "description", name: "description", content: this.course.description ? this.course.description.substr(0, 256) + "..." : "" },
+                { hid: "language", name: "language", content: "fa" },
+                { hid: "keywords", name: "keywords", content: this.course.tags ? this.course.tags.toString() : "" },
+                { hid: "author", name: "author", content: this.course.teacher ? `${this.course.teacher.name} ${this.course.teacher.family}` : "" },
+
+                { hid: "og:locale", name: "og:locale", content: "fa_IR" },
+                { hid: "og:title", name: "og:title", content: `دوره ${this.course.name} - گروه آموزشی پرتقال` },
+                { hid: "og:description", name: "og:description", content: this.course.description ? this.course.description.substr(0, 256) + "..." : "" },
+                { hid: "og:url", name: "og:url", content: this.course.canonical },
+                { hid: "og:site_name", name: "og:site_name", content: `دوره ${this.course.name} - گروه آموزشی پرتقال` },
+                { hid: "og:image", name: "og:image", content: this.course.image },
+
+                { hid: "twitter:card", name: "twitter:card", content: "summary_large_image" },
+                { hid: "twitter:site", name: "twitter:site", content: this.course.canonical },
+                { hid: "twitter:description", name: "twitter:description", content: this.course.description ? this.course.description.substr(0, 256) + "..." : "" },
+                { hid: "twitter:title", name: "twitter:title", content: `دوره ${this.course.name} - گروه آموزشی پرتقال` },
+                { hid: "twitter:image", name: "twitter:image", content: this.course.image },
+
+                { hid: "robots", name: "robots", content: "max-image-preview:large" },
+                { hid: "mobile-web-app-capable", name: "mobile-web-app-capable", content: "yes" },
+            ],
+            link: [
+                { rel: "canonical", href: this.course.canonical },
+                { rel: "apple-touch-icon", sizes: "180x180", href: "/favicon.ico" },
+                { rel: "shortcut icon", type: "image/x-icon", href: "/favicon.ico" },
+            ],
         };
     },
     components: {

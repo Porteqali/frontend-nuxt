@@ -58,26 +58,16 @@
         >
             <template v-slot:tbody="{ record, index }">
                 <td>
-                    <div class="flex items-center gap-2">
-                        <img class="w-8 h-8 rounded-full object-cover" :src="record.icon" v-if="record.icon" alt="" />
-                        <span>{{ record.name }}</span>
-                    </div>
+                    <span class="title">صفحه:</span>
+                    <span>{{ record.page }}</span>
                 </td>
                 <td>
-                    <span class="text-sm shadow-sm bg-bluegray-100 rounded-xl p-1 px-2" v-if="record.topGroup == 'network'">امنیت شبکه</span>
-                    <span class="text-sm shadow-sm bg-bluegray-100 rounded-xl p-1 px-2" v-if="record.topGroup == 'languages'">زبان های خارجی</span>
-                    <span class="text-sm shadow-sm bg-bluegray-100 rounded-xl p-1 px-2" v-if="record.topGroup == 'graphic'">طراحی گرافیک</span>
-                    <span class="text-sm shadow-sm bg-bluegray-100 rounded-xl p-1 px-2" v-if="record.topGroup == 'university'">دروس دانشگاهی</span>
-                    <span class="text-sm shadow-sm bg-bluegray-100 rounded-xl p-1 px-2" v-if="record.topGroup == 'programming'">برنامه نویسی</span>
-                    <span class="text-sm shadow-sm bg-bluegray-100 rounded-xl p-1 px-2" v-if="record.topGroup == 'web-design'">طراحی سایت</span>
-                    <span class="text-sm shadow-sm bg-bluegray-100 rounded-xl p-1 px-2" v-if="record.topGroup == 'business'">کسب و کار</span>
-                    <span class="text-sm shadow-sm bg-bluegray-100 rounded-xl p-1 px-2" v-if="record.topGroup == 'free'">دوره های رایگان</span>
+                    <span class="title">عنوان:</span>
+                    <span>{{ record.title }}</span>
                 </td>
                 <td>
-                    <span class="p-1 px-2 text-xs rounded-md bg-emerald-100 text-emerald-700" v-if="record.status == 'active'">فعال</span>
-                    <span class="p-1 px-2 text-xs rounded-md bg-rose-100 text-rose-700" v-if="record.status == 'deactive'">غیرفعال</span>
+                    <p>{{ record.description.length > 60 ? record.description.substr(0, 60) + "..." : record.description }}</p>
                 </td>
-                <td>{{ new Date(record.createdAt).toLocaleString("fa") }}</td>
                 <td>
                     <div class="flex items-center gap-1">
                         <router-link
@@ -91,7 +81,7 @@
                         <button
                             class="p-2 rounded-lg hover:bg-red-200 flex-shrink-0"
                             title="Delete"
-                            @click="askToDelete(record._id, `${record.name}`, index)"
+                            @click="askToDelete(record._id, `${record.page}`, index)"
                             v-if="checkPermissions(['admin.metadata.delete'], userPermissions)"
                         >
                             <img src="/icons/admin/Delete.svg" width="24" />
@@ -145,7 +135,6 @@ export default {
                 صفحه: { sortable: true },
                 عنوان: { sortable: true },
                 توضیحات: { sortable: true },
-                "تاریخ ثبت": { sortable: true },
                 عملیات: { sortable: false },
             },
             tableData: this.tableData || [],

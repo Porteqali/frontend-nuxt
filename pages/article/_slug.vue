@@ -270,10 +270,37 @@ import axios from "axios";
 import CommentSection from "~/components/web/article/Comment.section";
 
 export default {
-    head: {
-        // TODO
-        title: "وبلاگ - گروه آموزشی پرتقال",
-        meta: [{ hid: "description", name: "description", content: "" }],
+    head() {
+        return {
+            title: `${this.article.title} - گروه آموزشی پرتقال`,
+            meta: [
+                { hid: "description", name: "description", content: this.article.metadata ? this.article.metadata.description : "" },
+                { hid: "language", name: "language", content: "fa" },
+                { hid: "keywords", name: "keywords", content: this.article.metadata ? this.article.metadata.keywords : "" },
+                { hid: "author", name: "author", content: this.article.metadata ? this.article.metadata.author : "" },
+
+                { hid: "og:locale", name: "og:locale", content: "fa_IR" },
+                { hid: "og:title", name: "og:title", content: this.article.metadata ? this.article.metadata.title : "" },
+                { hid: "og:description", name: "og:description", content: this.article.metadata ? this.article.metadata.description : "" },
+                { hid: "og:url", name: "og:url", content: this.article.metadata ? this.article.metadata.url : "" },
+                { hid: "og:site_name", name: "og:site_name", content: this.article.metadata ? this.article.metadata.title : "" },
+                { hid: "og:image", name: "og:image", content: this.article.metadata ? this.article.metadata.thumbnail : "" },
+
+                { hid: "twitter:card", name: "twitter:card", content: "summary_large_image" },
+                { hid: "twitter:site", name: "twitter:site", content: this.article.metadata ? this.article.metadata.url : "" },
+                { hid: "twitter:description", name: "twitter:description", content: this.article.metadata ? this.article.metadata.description : "" },
+                { hid: "twitter:title", name: "twitter:title", content: this.article.metadata ? this.article.metadata.title : "" },
+                { hid: "twitter:image", name: "twitter:image", content: this.article.metadata ? this.article.metadata.thumbnail : "" },
+
+                { hid: "robots", name: "robots", content: "max-image-preview:large" },
+                { hid: "mobile-web-app-capable", name: "mobile-web-app-capable", content: "yes" },
+            ],
+            link: [
+                { rel: "canonical", href: this.article.metadata ? this.article.metadata.url : "" },
+                { rel: "apple-touch-icon", sizes: "180x180", href: "/favicon.ico" },
+                { rel: "shortcut icon", type: "image/x-icon", href: "/favicon.ico" },
+            ],
+        };
     },
     components: {
         CommentSection,

@@ -5,57 +5,71 @@
         <div class="flex flex-wrap md:flex-nowrap items-center gap-2">
             <nuxt-link to="/admin"><img class="opacity-75" src="/icons/admin/Home.svg" width="20" /></nuxt-link>
             <img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" />
-            <nuxt-link to="/admin/course-groups">گروه دوره ها</nuxt-link>
+            <nuxt-link to="/admin/metadata">متادیتا ها</nuxt-link>
             <img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" />
-            <h1 class="text-2xl"><b>ویرایش گروه دوره</b></h1>
+            <h1 class="text-2xl"><b>ویرایش متادیتا</b></h1>
         </div>
 
         <hr class="w-full" />
 
         <section class="flex flex-col gap-4 bg-white rounded-2xl shadow-lg mx-auto w-full max-w-screen-lg flex-grow p-4">
             <form class="flex flex-col gap-4 flex-grow max-h-full overflow-auto">
-                <div class="flex items-center gap-4">
-                    <img class="w-28 h-28 bg-gray-300 rounded-3xl object-cover" :src="image || '/icons/Profile.svg'" alt="" />
-                    <div class="flex flex-col items-start gap-4">
-                        <button type="button" class="orange_gradient_h p-2 px-4 rounded-xl shadow-md text-sm" @click="$refs.fileInput.click()" :disabled="saving">
-                            آپلود عکس جدید
-                        </button>
-                        <button type="button" class="gray_gradient p-2 px-4 rounded-xl shadow-md text-sm" @click="deleteImage()" v-if="!!image">حذف</button>
-                    </div>
-                    <input class="w-0 h-0 opacity-0" ref="fileInput" type="file" accept=".jpg,.jpeg,.png,.gif" @change="selectFile()" />
-                </div>
-                <hr class="w-full" />
-                <div class="flex flex-wrap md:flex-nowrap gap-4 w-full">
-                    <div class="flex flex-col gap-2 w-full">
-                        <label class="text-sm">
-                            <span>نام</span>
-                            <b class="text-red-500">*</b>
-                        </label>
-                        <input type="text" v-model="name" dir="auto" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
-                    </div>
-                    <div class="flex flex-col gap-2 w-full">
-                        <label class="text-sm">
-                            <span>گروه اصلی</span>
-                            <b class="text-red-500">*</b>
-                        </label>
-                        <Select :selectedOption.sync="topGroup" :options="topGroupOptions">
-                            <template v-slot:option="{ option }">
-                                <span :value="option.value">{{ option.name }}</span>
-                            </template>
-                        </Select>
-                    </div>
+                <div class="flex flex-col gap-2 w-full">
+                    <label class="text-sm">
+                        <span>صفحه</span>
+                        <b class="text-red-500">*</b>
+                    </label>
+                    <input type="text" v-model="page" dir="auto" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
                 </div>
                 <hr class="w-full" />
                 <div class="flex flex-col gap-2 w-full">
                     <label class="text-sm">
-                        <span>وضعیت</span>
+                        <span>title</span>
                         <b class="text-red-500">*</b>
                     </label>
-                    <Select :selectedOption.sync="status" :options="statusOptions">
-                        <template v-slot:option="{ option }">
-                            <span :value="option.value">{{ option.name }}</span>
-                        </template>
-                    </Select>
+                    <input type="text" v-model="title" dir="auto" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
+                </div>
+                <div class="flex flex-col gap-2 w-full">
+                    <label class="text-sm">
+                        <span>description</span>
+                        <b class="text-red-500">*</b>
+                    </label>
+                    <textarea rows="3" v-model="description" dir="auto" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100"></textarea>
+                </div>
+                <div class="flex flex-col gap-2 w-full">
+                    <label class="text-sm">
+                        <span>keywords</span>
+                        <b class="text-red-500">*</b>
+                    </label>
+                    <input type="text" v-model="keywords" dir="auto" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
+                </div>
+                <div class="flex flex-col gap-2 w-full">
+                    <label class="text-sm">
+                        <span>themeColor</span>
+                        <b class="text-red-500">*</b>
+                    </label>
+                    <input type="color" v-model="themeColor" dir="auto" class="p-3 w-full h-12 rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
+                </div>
+                <div class="flex flex-col gap-2 w-full">
+                    <label class="text-sm">
+                        <span>site</span>
+                        <b class="text-red-500">*</b>
+                    </label>
+                    <input type="text" v-model="site" dir="auto" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
+                </div>
+                <div class="flex flex-col gap-2 w-full">
+                    <label class="text-sm">
+                        <span>canonical</span>
+                        <b class="text-red-500">*</b>
+                    </label>
+                    <input type="text" v-model="canonical" dir="auto" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
+                </div>
+                <div class="flex flex-col gap-2 w-full">
+                    <label class="text-sm">
+                        <span>language</span>
+                        <b class="text-red-500">*</b>
+                    </label>
+                    <input type="text" v-model="language" dir="auto" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
                 </div>
             </form>
             <hr class="w-full" />
@@ -80,7 +94,7 @@ import Select from "~/components/forms/admin/Select.vue";
 export default {
     layout: "admin",
     head() {
-        return { title: "ویرایش گروه دوره - گروه آموزشی پرتقال" };
+        return { title: "ویرایش متادیتا - گروه آموزشی پرتقال" };
     },
     components: {
         Select,
@@ -89,25 +103,16 @@ export default {
         return {
             loading: false,
             saving: false,
-            statusOptions: {
-                active: { name: "فعال", value: "active" },
-                deactive: { name: "غیرفعال", value: "deactive" },
-            },
-            topGroupOptions: {
-                network: { name: "امنیت شبکه", value: "network" },
-                languages: { name: "زبان های خارجی", value: "languages" },
-                graphic: { name: "طراحی گرافیک", value: "graphic" },
-                university: { name: "دروس دانشگاهی", value: "university" },
-                programming: { name: "برنامه نویسی", value: "programming" },
-                "web-design": { name: "طراحی سایت", value: "web-design" },
-                business: { name: "کسب و کار", value: "business" },
-                free: { name: "دوره های رایگان", value: "free" },
-            },
 
             image: "",
-            name: "",
-            topGroup: { name: "", value: "" },
-            status: { name: "فعال", value: "active" },
+            page: "",
+            title: "",
+            description: "",
+            keywords: "",
+            canonical: "",
+            themeColor: "#ff7952",
+            site: "",
+            language: "fa",
 
             errorMsg: "",
             errorTag: "",
@@ -119,7 +124,7 @@ export default {
 
         const route = this.$nuxt.context.route;
 
-        await this.loadCourseGroup({ headers }, route);
+        await this.loadMetadata({ headers }, route);
     },
     mounted() {
         this.baseUrl = window.location.origin;
@@ -130,8 +135,8 @@ export default {
         },
     },
     methods: {
-        async loadCourseGroup(data = {}, route) {
-            let url = `/api/admin/course-groups/${route.params.id}`;
+        async loadMetadata(data = {}, route) {
+            let url = `/api/admin/metadata/${route.params.id}`;
             let headers = {};
             if (process.server) {
                 url = `${process.env.BASE_URL}${url}`;
@@ -142,10 +147,14 @@ export default {
             await axios
                 .get(url, { headers })
                 .then((response) => {
-                    this.image = response.data.icon;
-                    this.name = response.data.name;
-                    this.topGroup = this.topGroupOptions[response.data.topGroup];
-                    this.status = this.statusOptions[response.data.status];
+                    this.page = response.data.page;
+                    this.title = response.data.title;
+                    this.description = response.data.description;
+                    this.keywords = response.data.keywords;
+                    this.canonical = response.data.canonical;
+                    this.themeColor = response.data.themeColor;
+                    this.site = response.data.site;
+                    this.language = response.data.language;
                 })
                 .catch((e) => {
                     if (typeof e.response !== "undefined" && e.response.data && typeof e.response.data.message === "object") {
@@ -169,18 +178,20 @@ export default {
 
             this.errorMsg = this.errorTag = "";
 
-            const formData = new FormData();
-            if (this.$refs.fileInput.files[0]) formData.append("files", this.$refs.fileInput.files[0]);
-            formData.append("image", this.image);
-            formData.append("name", this.name);
-            formData.append("status", this.status.value);
-            formData.append("topGroup", this.topGroup.value);
-
-            let url = encodeURI(`/api/admin/course-groups/${this.$route.params.id}`);
+            let url = encodeURI(`/api/admin/metadata/${this.$route.params.id}`);
             await axios
-                .put(url, formData)
+                .put(url, {
+                    page: this.page,
+                    title: this.title,
+                    description: this.description,
+                    keywords: this.keywords,
+                    canonical: this.canonical,
+                    themeColor: this.themeColor,
+                    site: this.site,
+                    language: this.language,
+                })
                 .then((response) => {
-                    this.$store.dispatch("toast/makeToast", { type: "success", title: "", message: "گروه دوره با موفقیت ویرایش شد" });
+                    this.$store.dispatch("toast/makeToast", { type: "success", title: "", message: "متادیتا با موفقیت ویرایش شد" });
                 })
                 .catch((e) => {
                     if (typeof e.response !== "undefined" && e.response.data && typeof e.response.data.message === "object") {
