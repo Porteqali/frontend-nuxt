@@ -19,6 +19,7 @@ h3::after {
     backdrop-filter: blur(8px);
 }
 </style>
+
 <template>
     <section class="flex flex-col gap-6 p-4 md:p-6 w-screen max-w-full">
         <header class="flex flex-wrap items-center justify-between gap-4">
@@ -99,7 +100,7 @@ export default {
             if (this.isDataLoading) return;
             this.isDataLoading = true;
 
-            let url = `/api/admin/dashboard/most-sold-courses`;
+            let url = `/api/admin/dashboard/most-sold-courses?period=${this.period.value}`;
             let headers = {};
             if (process.server) {
                 url = `${process.env.BASE_URL}${url}`;
@@ -113,6 +114,10 @@ export default {
                 })
                 .catch((e) => {})
                 .finally(() => (this.isDataLoading = false));
+        },
+
+        async updatePeriod() {
+            await this.getCourses();
         },
     },
 };

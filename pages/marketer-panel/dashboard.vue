@@ -33,7 +33,6 @@
         </div>
         <RecentTransactionsSection class="card" />
 
-        <!-- // TODO : add permission for every group section of dashboard -->
         <ul class="flex flex-col gap-2 bg-white bg-opacity-90 shadow-md p-4 rounded-xl">
             <li class="flex items-center gap-1">
                 <img src="/icons/admin/TickSquareBox.svg" width="18" />
