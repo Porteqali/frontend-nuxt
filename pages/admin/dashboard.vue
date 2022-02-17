@@ -14,12 +14,13 @@
             <div class="flex flex-col gap-4 md:gap-6 w-full lg:w-7/12">
                 <GeneralDetailsSection />
                 <MainChartSection class="card" />
-                <span class="card h-6"></span>
+                <span class="card h-16"></span>
+                <span class="card h-16"></span>
             </div>
             <div class="flex flex-col gap-4 md:gap-6 w-full lg:w-5/12">
                 <MostViewedCoursesSection class="card" />
                 <MostSoldCoursesSection class="card" />
-                <span class="card h-80" name="users-device-pie"></span>
+                <DeviceChartSection class="card" />
             </div>
         </div>
         <div class="flex flex-wrap-reverse items-end gap-4 md:gap-6 w-full">
@@ -29,7 +30,6 @@
                 <RecentTransactionsSection class="card" />
             </div>
         </div>
-
         <!-- // TODO : add permission for every group section of dashboard -->
     </main>
 </template>
@@ -42,6 +42,7 @@ import MostViewedCoursesSection from "~/components/admin/dashboard/MostViewedCou
 import MostSoldCoursesSection from "~/components/admin/dashboard/MostSoldCourses.section.vue";
 import GeneralDetailsSection from "~/components/admin/dashboard/GeneralDetails.section.vue";
 import MainChartSection from "~/components/admin/dashboard/MainChart.section.vue";
+import DeviceChartSection from "~/components/admin/dashboard/DeviceChart.section.vue";
 
 export default {
     layout: "admin",
@@ -53,6 +54,7 @@ export default {
         MostSoldCoursesSection,
         GeneralDetailsSection,
         MainChartSection,
+        DeviceChartSection,
     },
 };
 </script>

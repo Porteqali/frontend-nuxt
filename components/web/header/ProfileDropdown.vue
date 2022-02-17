@@ -10,6 +10,9 @@
 ul li {
     border-bottom: 1px solid #ffffff22;
 }
+ul li:last-of-type {
+    border: none;
+}
 ul li:hover {
     transform: scale(1.05, 1.05);
 }
@@ -47,6 +50,21 @@ ul li:hover {
                         <img src="/icons/Logout.blue.svg" width="24" height="24" alt="Logout" />
                         <span>خروج</span>
                     </button>
+                </li>
+                <hr class="w-full opacity-35" />
+                <li class="p-3" v-if="user.info.role == 'admin' || user.info.role == 'marketer' || user.info.role == 'teacher'">
+                    <nuxt-link to="/admin" class="flex items-center gap-2" v-if="user.info.role == 'admin'">
+                        <img src="/icons/admin/Activity.svg" width="24" height="24" />
+                        <span>پنل ادمین</span>
+                    </nuxt-link>
+                    <nuxt-link to="/marketer-panel" class="flex items-center gap-2" v-if="user.info.role == 'marketer'">
+                        <img src="/icons/admin/Activity.svg" width="24" height="24" />
+                        <span>پنل بازاریاب</span>
+                    </nuxt-link>
+                    <nuxt-link to="/teacher-panel" class="flex items-center gap-2" v-if="user.info.role == 'teacher'">
+                        <img src="/icons/admin/Activity.svg" width="24" height="24" />
+                        <span>پنل استاد</span>
+                    </nuxt-link>
                 </li>
             </ul>
         </div>

@@ -7,6 +7,7 @@ const state = {
         family: "",
         email: "",
         wallet: 0,
+        role: "",
         permissions: [],
     },
 };
@@ -55,6 +56,7 @@ const actions = {
             email: "",
             mobile: "",
             wallet: 0,
+            role: "",
             permissions: [],
         });
     },
