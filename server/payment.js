@@ -8,13 +8,14 @@ app.use(csrf);
 
 const handlePayment = async (req, res, url) => {
     const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
+    delete req.headers["host"];
 
     await axios
         .request({
             method: req.method,
             url: `${process.env.API_BASE_URL}${url}`,
             timeout: 30 * 1000,
-            headers: { ...req.headers, "x-forwarded-for": ip, server_secret: process.env.SERVER_SECRET, tt: Date.now() },
+            headers: { ...req.headers, "x-forwarded-for": ip, serversecret: process.env.SERVER_SECRET, tt: Date.now() },
         })
         .then((response) => {
             return res.json({ link: response.data.redirectUrl });

@@ -14,8 +14,10 @@ app.use(passport.initialize());
 const tokenExpireTime = 3600 * 24 * 7; // 1 week
 
 const auth = async (req, res, url, redirect = false) => {
+    delete req.headers["host"];
+    
     await axios
-        .post(`${process.env.API_BASE_URL}${url}`, { ...req.body }, { headers: { ...req.headers, server_secret: process.env.SERVER_SECRET, tt: Date.now() } })
+        .post(`${process.env.API_BASE_URL}${url}`, { ...req.body }, { headers: { ...req.headers, serversecret: process.env.SERVER_SECRET, tt: Date.now() } })
         .then((results) => {
             const returnResponse = { ...results.data };
             if (!!results.data.token) {

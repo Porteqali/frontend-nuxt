@@ -56,7 +56,7 @@ ul li:hover {
                     <ul class="flex flex-col w-full" v-if="!suggestedCoursesLoading">
                         <li class="flex w-full" v-for="(suggestedCourse, i) in suggestedCourses" :key="i">
                             <nuxt-link
-                                v-if="suggestedCourse.name"
+                                v-if="!!suggestedCourse && suggestedCourse.name"
                                 :to="`/course/${suggestedCourse._id}/${suggestedCourse.name.replace(/ /g, '-')}`"
                                 class="flex items-center justify-between gap-2 p-3 w-full"
                             >

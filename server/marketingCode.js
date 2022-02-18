@@ -7,6 +7,7 @@ app.use(require("cookie-parser")());
 app.use(csrf);
 
 app.post("/set-marketer-code/:code", async (req, res) => {
+    delete req.headers["host"];
     let code = req.params.code;
     const strips = [
         "~",
@@ -46,11 +47,12 @@ app.post("/set-marketer-code/:code", async (req, res) => {
     let data = {};
     await axios
         .post(`${process.env.API_BASE_URL}/marketers/check-code/${code}`, data, {
-            headers: { ...req.headers, server_secret: process.env.SERVER_SECRET, tt: Date.now() },
+            headers: { ...req.headers, serversecret: process.env.SERVER_SECRET, tt: Date.now() },
         })
         .then((results) => (marketerExists = true))
         .catch((e) => {});
 
+    console.log({ marketerExists });
     if (marketerExists) {
         res.cookie("marketing_code", code, { sameSite: "strict", path: "/", httpOnly: true, secure: true, maxAge: 3600 * 2 * 1000 });
         return res.end();

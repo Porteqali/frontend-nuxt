@@ -12,8 +12,8 @@ RUN yarn install \
 
 RUN yarn build
 
-RUN rm -rf node_modules && \
-    NODE_ENV=production yarn install \
+# RUN rm -rf node_modules && \
+RUN NODE_ENV=production yarn install \
     --prefer-offline \
     --pure-lockfile \
     --non-interactive \
@@ -25,7 +25,7 @@ FROM node:16-alpine
 
 WORKDIR /usr/src/app
 
-COPY --from=builder /usr/src/app  .
+COPY --from=builder /usr/src/app .
 
 ENV HOST 0.0.0.0
 EXPOSE 80
