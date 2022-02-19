@@ -156,7 +156,7 @@ export default {
                     this.code = response.data.code;
                     this.link = response.data.link;
                     this.endDate = JDate(response.data.endDate).locale("fa").format("yyyy-MM-DDThh:mm:ss");
-                    this.status = this.statusOptions[response.data.status];
+                    this.status = this.statusOptions[response.data.status] || { name: "فعال", value: "active" };
                 })
                 .catch((e) => {
                     if (typeof e.response !== "undefined" && e.response.data && typeof e.response.data.message === "object") {
