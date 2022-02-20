@@ -30,7 +30,7 @@
                     <span class="kalameh_bold font-bold">آموزش ببینید</span>
                 </h1>
                 <form class="search_box flex items-center gap-4 p-2 rounded-xl shadow-lg" @submit="goToSearchPage($event)">
-                    <img class="flex-shrink-0 mr-2 hidden md:inline-block" src="/icons/Search.black.svg" width="24" height="24" alt="Search" />
+                    <img class="flex-shrink-0 mr-2 hidden md:inline-block" src="/icons/Search.duo.svg" width="24" height="24" alt="Search" />
                     <input class="flex-grow outline-none bg-transparent w-64" v-model="search" type="text" placeholder="دوست داری چی یاد بگیری؟" />
                     <button type="submit" class="orange_gradient_v flex-shrink-0 p-2 md:px-8 rounded-xl shadow-lg flex items-center justify-center">
                         <span class="hidden md:inline-block">جستجو</span>
@@ -47,7 +47,7 @@
         <MostViewedCoursesSection />
 
         <section class="flex flex-wrap-reverse items-center justify-evenly gap-8 lg:gap-20 w-full my-12" id="roadmap">
-            <img class="absolute w-auto right-0" src="/backgrounds/Background.side.png" alt="porteqali-background" style="max-height: 1920px; margin-top: 20%" />
+            <img class="absolute w-auto right-0" src="/backgrounds/Background.side.svg" alt="porteqali-background" style="max-height: 1920px; margin-top: 20%" />
             <div class="flex flex-col gap-6 z-10">
                 <h2 class="text-3xl font-bold">دوست داری تو چه حوزه ی فعالیت کنی؟</h2>
                 <p class="max-w-screen-2sm text-lg">

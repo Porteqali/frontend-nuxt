@@ -15,14 +15,14 @@ header {
     <header class="blur flex items-center justify-between gap-6 p-3 px-6 w-full max-w-screen-4xl rounded-2xl shadow-lg z-20">
         <div class="flex items-center gap-6">
             <button @click="sideMenuToggle()"><img class="sidenav_toggler" src="/icons/admin/Hamburger.svg" width="24" /></button>
-            <nuxt-link class="" to="/"><img class="h-8 md:h-10" src="/logo_orange.png" alt="porteqal" /></nuxt-link>
+            <nuxt-link class="" to="/"><img class="h-8 md:h-10" src="/logo_orange.svg" alt="porteqal" /></nuxt-link>
         </div>
         <div class="flex items-center gap-4">
             <img class="cursor-pointer" src="/icons/admin/Notification.svg" width="24" @click="notificationOpen = !notificationOpen" />
             <i class="absolute w-2.5 h-2.5 top-5 rounded-full bg-orange-600" v-if="!!notifications.length"></i>
             <transition name="slidedown" appear="">
-                <div class="absolute w-full max-w-xs max-h-96 p-4 rounded-2xl bg-white shadow-lg top-20 left-0" v-if="notificationOpen">
-                    <ul class="flex flex-col gap-2" v-if="notifications.length">
+                <div class="absolute w-full max-w-xs max-h-96 p-4 rounded-2xl bg-white shadow-lg top-20 left-0 overflow-auto" v-if="notificationOpen">
+                    <ul class="flex flex-col gap-2 h-full" v-if="notifications.length">
                         <li class="flex flex-col gap-2" v-for="(item, i) in notifications" :key="i">
                             <nuxt-link class="flex items-start gap-2 w-full" :to="item.link">
                                 <img class="p-2 shadow-lg rounded-full bg-warmgray-50 flex-shrink-0 w-10" :src="item.icon" width="32" alt="" />

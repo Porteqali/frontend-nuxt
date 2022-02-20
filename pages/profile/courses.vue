@@ -25,7 +25,7 @@
                         <div class="flex flex-col gap-2 w-full">
                             <h4>{{ item.course[0].name }}</h4>
                             <div class="flex items-center gap-2">
-                                <img :src="item.teacher[0].image" alt="Figma" width="32" height="32" />
+                                <img class="rounded-full object-cover" :src="item.teacher[0].image" alt="Figma" width="32" height="32" />
                                 <span class="text-sm opacity-75">{{ `${item.teacher[0].name} ${item.teacher[0].family}` }}</span>
                             </div>
                         </div>

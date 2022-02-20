@@ -214,7 +214,9 @@
                 </ul>
 
                 <hr class="w-full" />
-                <small class="opacity-75 w-max bg-amber-100 p-2 py-1 rounded-lg text-amber-900">*سرفصل های دوره پس از ایجاد دوره قابل افزودن و ویرایش میباشند</small>
+                <small class="opacity-75 w-max max-w-full bg-amber-100 p-2 py-1 rounded-lg text-amber-900">
+                    *سرفصل های دوره پس از ایجاد دوره قابل افزودن و ویرایش میباشند
+                </small>
             </form>
             <hr class="w-full" />
             <small class="flex items-center gap-2 bg-rose-100 text-red-800 text-sm p-2 rounded-lg w-max" v-if="errorMsg">

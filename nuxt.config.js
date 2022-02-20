@@ -59,11 +59,16 @@ export default {
     // PWA module configuration: https://go.nuxtjs.dev/pwa
     pwa: {
         manifest: {
-            name: "Porteqali",
-            description: "",
+            short_name: "پرتقال",
+            name: "گروه آموزشی پرتقال",
+            description: "گروه آموزشی پرتقال",
             lang: "fa",
             theme_color: "#ff7952",
             dir: "rtl",
+            display: "standalone",
+            crossorigin: "use-credentials",
+            start_url: "/?source=pwa",
+            scope: "/",
         },
         icon: {
             source: "~static/icon.png",
@@ -75,7 +80,7 @@ export default {
             lang: "fa",
             ogSiteName: "porteqali.com",
             ogDescription: "",
-            ogHost: "http://localhost",
+            ogHost: process.env.BASE_URL || "https://porteqali.com",
 
             twitterCard: "",
             twitterSite: "porteqali.com",
@@ -83,14 +88,22 @@ export default {
 
             nativeUI: true,
         },
+        workbox: {
+            runtimeCaching: [
+                {
+                    urlPattern: "/api/users/*",
+                    strategyOptions: { cacheName: "user-cache" },
+                    strategyPlugins: [
+                        { use: "Expiration", config: { maxAgeSeconds: 30 } },
+                        { use: "CacheableResponse", config: { statuses: [200, 404, 401, 403] } },
+                    ],
+                },
+            ],
+        },
     },
 
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {},
-
-    // server: {
-    //     host: "0.0.0.0", // default: localhost
-    // },
 
     serverMiddleware: [
         "~/server/csrf.js",

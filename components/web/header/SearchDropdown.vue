@@ -50,7 +50,7 @@ ul li:hover {
             <transition name="fade" mode="out-in" appear>
                 <div class="flex flex-col gap-4" v-if="searchResults.length == 0">
                     <div class="flex items-center gap-2">
-                        <h4 class="flex-shrink-0 text-lg">دوره های پیشنهادی</h4>
+                        <span class="flex-shrink-0 text-lg">دوره های پیشنهادی</span>
                         <hr class="w-full opacity-50" />
                     </div>
                     <ul class="flex flex-col w-full" v-if="!suggestedCoursesLoading">
@@ -80,7 +80,7 @@ ul li:hover {
                         </li>
                     </ul>
                     <div class="flex items-center gap-2">
-                        <h4 class="flex-shrink-0 text-lg">دسترسی سریع</h4>
+                        <span class="flex-shrink-0 text-lg">دسترسی سریع</span>
                         <hr class="w-full opacity-50" />
                     </div>
                     <ul class="flex flex-col w-full">
@@ -106,7 +106,7 @@ ul li:hover {
                 </div>
                 <div class="flex flex-col gap-4" v-else>
                     <div class="flex items-center gap-2">
-                        <h4 class="flex-shrink-0 text-lg">دوره ها</h4>
+                        <span class="flex-shrink-0 text-lg">دوره ها</span>
                         <hr class="w-full opacity-50" />
                     </div>
                     <ul class="flex flex-col w-full max-h-96 overflow-auto overflow-x-hidden">

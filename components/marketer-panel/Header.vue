@@ -15,7 +15,7 @@ header {
     <header class="blur flex items-center justify-between gap-6 p-3 px-6 w-full max-w-screen-4xl rounded-2xl shadow-lg z-20">
         <div class="flex items-center gap-6">
             <button @click="sideMenuToggle()"><img class="sidenav_toggler" src="/icons/admin/Hamburger.svg" width="24" /></button>
-            <nuxt-link class="" to="/"><img class="h-8 md:h-10" src="/logo_orange.png" alt="porteqal" /></nuxt-link>
+            <nuxt-link class="" to="/"><img class="h-8 md:h-10" src="/logo_orange.svg" alt="porteqal" /></nuxt-link>
         </div>
         <div class="flex items-center gap-4">
             <div class="flex items-center gap-2">

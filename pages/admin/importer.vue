@@ -86,6 +86,21 @@ export default {
             collectionOptions: [
                 { name: "انتخاب کالکشن", value: "---" },
                 { name: "Contact Requests", value: "ContactRequests" },
+                { name: "Collaborate Requests", value: "CollaborateRequests" },
+                { name: "Course Groups", value: "CourseGroups" },
+                { name: "Commissions", value: "Commissions" },
+                { name: "Faqs", value: "Faqs" },
+                { name: "Admins", value: "Admins" },
+                { name: "Teachers", value: "Teachers" },
+                { name: "Marketers", value: "Marketers" },
+                { name: "Users", value: "Users" },
+                { name: "Articles", value: "Articles" },
+                { name: "Courses", value: "Courses" },
+                { name: "Comments", value: "Comments" },
+                { name: "Commission Payments", value: "CommissionPayments" },
+                { name: "Course Rating", value: "CourseRating" },
+                { name: "Marketer Courses", value: "MarketerCourses" },
+                { name: "User Courses", value: "UserCourses" },
             ],
 
             JsonFiles: [

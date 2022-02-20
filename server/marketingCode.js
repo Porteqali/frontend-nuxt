@@ -52,7 +52,6 @@ app.post("/set-marketer-code/:code", async (req, res) => {
         .then((results) => (marketerExists = true))
         .catch((e) => {});
 
-    console.log({ marketerExists });
     if (marketerExists) {
         res.cookie("marketing_code", code, { sameSite: "strict", path: "/", httpOnly: true, secure: true, maxAge: 3600 * 2 * 1000 });
         return res.end();

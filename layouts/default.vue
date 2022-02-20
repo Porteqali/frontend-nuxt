@@ -48,8 +48,8 @@ footer {
 
         <header class="flex items-center justify-between gap-8 py-8 w-full max-w-screen-4xl z-20">
             <nuxt-link title="پرتقال" to="/" class="flex-shrink-0">
-                <img v-if="!!$nuxt.$route.matched[0] && !!topBackground[$nuxt.$route.matched[0].path]" src="/logo_white.png" alt="پرتقال" />
-                <img v-else src="/logo_orange.png" alt="پرتقال" />
+                <img v-if="!!$nuxt.$route.matched[0] && !!topBackground[$nuxt.$route.matched[0].path]" src="/logo_white.svg" alt="پرتقال" />
+                <img v-else src="/logo_orange.svg" alt="پرتقال" />
             </nuxt-link>
             <Menu />
         </header>
@@ -84,7 +84,7 @@ footer {
                         </ul>
                     </div>
                     <div class="flex flex-col gap-6">
-                        <img class="w-max" src="/logo_orange.png" height="50" alt="پرتقال" />
+                        <img class="w-max" src="/logo_orange.svg" height="50" alt="پرتقال" />
                         <p class="max-w-screen-xs">
                             لورم چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف
                             بهبود ابزارهای کاربردی.می باشد، کتابهای زیادی در شصت و سه درصد گذشته

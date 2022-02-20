@@ -59,7 +59,7 @@ export default {
             if (this.loading) return;
             this.loading = true;
 
-            let url = `/api/static-pages/privacy_policy`;
+            let url = `/api/static-pages/terms_and_conditions`;
             let headers = {};
             if (process.server) {
                 url = `${process.env.BASE_URL}${url}`;

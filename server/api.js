@@ -65,7 +65,6 @@ app.all("/api/*", multer().any(), async (req, res) => {
                 resData = error.response.data;
             } else {
                 console.log(error);
-                resData = error;
             }
         })
         .finally(() => {

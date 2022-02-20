@@ -69,7 +69,7 @@
                     <p class="hidden md:flex">{{ article.description }}</p>
                     <div class="flex flex-wrap justify-between items-center gap-4">
                         <div class="flex items-start gap-2">
-                            <img src="/misc/Figma.svg" alt="Figma" width="32" height="32" />
+                            <img class="rounded-full object-cover" src="/misc/Figma.svg" alt="Figma" width="32" height="32" />
                             <div class="flex flex-col gap-1">
                                 <small v-if="!!article.author">{{ `${article.author.name} ${article.author.family}` }}</small>
                                 <small class="opacity-75">{{ new Date(article.publishedAt).toLocaleDateString("fa") }}</small>
@@ -167,7 +167,7 @@
                                     <p class="max-w-xs opacity-75 flex-grow max-h-24 overflow-hidden">{{ item.description }}</p>
                                     <div class="flex flex-wrap justify-between items-center gap-4">
                                         <div class="flex items-start gap-2">
-                                            <img src="/misc/Figma.svg" alt="Figma" width="32" height="32" />
+                                            <img class="rounded-full object-cover" src="/misc/Figma.svg" alt="Figma" width="32" height="32" />
                                             <div class="flex flex-col gap-1">
                                                 <small v-if="!!item.author">{{ `${item.author.name} ${item.author.family}` }}</small>
                                                 <small class="opacity-75">{{ new Date(item.publishedAt).toLocaleDateString("fa") }}</small>
@@ -247,7 +247,7 @@
                         <p class="max-w-xs opacity-75 flex-grow max-h-24 overflow-hidden">{{ popularArticle.description }}</p>
                         <div class="flex flex-wrap justify-between items-center gap-4">
                             <div class="flex items-start gap-2">
-                                <img src="/misc/Figma.svg" alt="Figma" width="32" height="32" />
+                                <img class="rounded-full object-cover" src="/misc/Figma.svg" alt="Figma" width="32" height="32" />
                                 <div class="flex flex-col gap-1">
                                     <small v-if="!!popularArticle.author">{{ `${popularArticle.author.name} ${popularArticle.author.family}` }}</small>
                                     <small class="opacity-75">{{ new Date(popularArticle.publishedAt).toLocaleDateString("fa") }}</small>

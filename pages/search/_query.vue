@@ -92,7 +92,7 @@
             <h1 class="kalameh_bold font-bold text-4xl md:text-6xl">جستجو در پرتقال</h1>
             <p class="text-lg mt-4 text-center">بیش از 2،000 ویدیو آموزشی از اساتید برتر در حوزه های مختلف</p>
             <form class="search_box flex items-center gap-4 p-2 rounded-xl shadow-lg w-10/12 max-w-sm md:max-w-xl" @submit="research($event)">
-                <img class="flex-shrink-0 mr-2" src="/icons/Search.black.svg" width="24" height="24" alt="Search" />
+                <img class="flex-shrink-0 mr-2" src="/icons/Search.duo.svg" width="24" height="24" alt="Search" />
                 <input class="flex-grow outline-none bg-transparent w-full h-10" v-model="searchQuery" type="text" placeholder="جستجو..." />
             </form>
         </section>
@@ -131,7 +131,7 @@
                 >
                     <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="relative overflow-hidden rounded-xl shadow-lg w-full h-72">
                         <img class="absolute inset-0 object-cover" :src="course.image || `/misc/course.png`" alt="course" draggable="false" />
-                        <img class="absolute top-2 right-2" :src="course.groups[0].icon" width="32" height="32" alt="Figma" />
+                        <img class="absolute top-2 right-2 rounded-full object-cover" :src="course.groups[0].icon" width="32" height="32" alt="Figma" />
                         <span
                             class="course_tag flex items-center justify-center p-4 w-auto h-16 rounded-xl absolute top-2 left-2"
                             v-if="course.discountInfo && course.discountInfo.tag != ''"
@@ -144,7 +144,7 @@
                             <h3 class="font-bold text-xl overflow-hidden overflow-ellipsis whitespace-nowrap">{{ course.name }}</h3>
                         </nuxt-link>
                         <nuxt-link :to="`/teacher/${course.teacher[0]._id}`" class="flex items-center gap-2">
-                            <img :src="course.teacher[0].image" alt="Figma" width="40" height="40" />
+                            <img class="rounded-full object-cover" :src="course.teacher[0].image" alt="Figma" width="40" height="40" />
                             <span>{{ `${course.teacher[0].name} ${course.teacher[0].family}` }}</span>
                         </nuxt-link>
                         <div class="flex flex-wrap justify-between gap-4">

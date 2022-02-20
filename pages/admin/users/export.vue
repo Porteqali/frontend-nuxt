@@ -14,7 +14,7 @@
 
         <section class="flex flex-col gap-4 bg-white rounded-2xl shadow-lg mx-auto w-full max-w-screen-lg flex-grow p-4">
             <form class="flex flex-col gap-4 p-1 flex-grow max-h-full overflow-y-auto" @submit="$event.preventDefault()">
-                <div class="flex items-center gap-2 cursor-pointer select-none w-max" @click="applyDateFilter = !applyDateFilter">
+                <div class="flex flex-wrap items-center gap-2 cursor-pointer select-none w-max max-w-full" @click="applyDateFilter = !applyDateFilter">
                     <transition name="check" mode="out-in" appear>
                         <img src="/icons/admin/TickSquare.svg" width="24" v-if="applyDateFilter" />
                         <img src="/icons/admin/TickSquareBox.svg" width="24" v-else />
@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <hr class="w-full" />
-                <div class="flex items-center gap-2 cursor-pointer select-none w-max" @click="applyCourseFilter = !applyCourseFilter">
+                <div class="flex flex-wrap items-center gap-2 cursor-pointer select-none w-max max-w-full" @click="applyCourseFilter = !applyCourseFilter">
                     <transition name="check" mode="out-in" appear>
                         <img src="/icons/admin/TickSquare.svg" width="24" v-if="applyCourseFilter" />
                         <img src="/icons/admin/TickSquareBox.svg" width="24" v-else />
