@@ -61,7 +61,7 @@ ul li:hover {
                                 class="flex items-center justify-between gap-2 p-3 w-full"
                             >
                                 <div class="flex items-center gap-2">
-                                    <img :src="suggestedCourse.groups[0].icon" width="28" height="28" :alt="suggestedCourse.groups[0].name" />
+                                    <img :src="suggestedCourse.groups[0].icon" width="28" height="28" loading="lazy" :alt="suggestedCourse.groups[0].name" />
                                     <span class="text-sm max-w-screen-2xs">{{ suggestedCourse.name }}</span>
                                 </div>
                                 <span class="rounded-md p-2 px-3 text-xs tag">{{ suggestedCourse.totalTime }}</span>
@@ -113,7 +113,7 @@ ul li:hover {
                         <li class="flex w-full" v-for="(course, i) in searchResults" :key="i">
                             <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="flex items-center justify-between gap-2 p-3 w-full">
                                 <div class="flex items-center gap-2">
-                                    <img :src="course.groups[0].icon" width="28" height="28" :alt="course.groups[0].name" />
+                                    <img :src="course.groups[0].icon" width="28" height="28" loading="lazy" :alt="course.groups[0].name" />
                                     <div class="flex flex-col gap-2">
                                         <span class="text-sm max-w-screen-2xs text-orange-300">{{ course.name }}</span>
                                         <p class="w-full max-w-screen-2xs text-xs opacity-80">

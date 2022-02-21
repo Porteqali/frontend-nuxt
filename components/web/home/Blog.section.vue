@@ -39,7 +39,7 @@
                             {{ articles[0].category[0].name }}
                         </span>
                     </div>
-                    <div class="flex flex-col gap-6 pt-2">
+                    <div class="flex flex-col gap-6 pt-2 flex-grow">
                         <h3 class="font-bold text-2xl max-w-xs overflow-hidden overflow-ellipsis whitespace-nowrap">{{ articles[0].title }}</h3>
                         <p class="max-w-xs flex-grow opacity-75">{{ articles[0].description }}</p>
                         <div class="flex flex-wrap justify-between items-center gap-4">
@@ -47,6 +47,7 @@
                                 <img
                                     class="w-8 h-8 rounded-full shadow-md"
                                     :src="articles[0].author[0].image"
+                                    loading="lazy"
                                     :alt="`${articles[0].author[0].name} ${articles[0].author[0].family}`"
                                     v-if="!!articles[0].author[0]"
                                 />
@@ -76,7 +77,7 @@
                     v-if="articles[1]"
                 >
                     <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full h-48">
-                        <img class="max-w-screen-sm w-full object-cover" :src="articles[1].image" alt="course" loading="lazy" />
+                        <img class="max-w-screen-sm w-full h-full object-cover" :src="articles[1].image" alt="course" loading="lazy" />
                         <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2" v-if="!!articles[1].category[0]">
                             {{ articles[1].category[0].name }}
                         </span>
@@ -88,6 +89,7 @@
                             <img
                                 class="w-8 h-8 rounded-full shadow-md"
                                 :src="articles[1].author[0].image"
+                                loading="lazy"
                                 :alt="`${articles[1].author[0].name} ${articles[1].author[0].family}`"
                                 v-if="!!articles[1].author[0]"
                             />
@@ -109,7 +111,7 @@
                     v-if="articles[2]"
                 >
                     <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full h-48">
-                        <img class="max-w-screen-sm w-full object-cover" :src="articles[2].image" alt="course" loading="lazy" />
+                        <img class="max-w-screen-sm w-full h-full object-cover" :src="articles[2].image" alt="course" loading="lazy" />
                         <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2" v-if="!!articles[2].category[0]">
                             {{ articles[2].category[0].name }}
                         </span>
@@ -120,6 +122,7 @@
                         <div class="flex items-start gap-2">
                             <img
                                 class="w-8 h-8 rounded-full shadow-md"
+                                loading="lazy"
                                 :src="articles[2].author[0].image"
                                 :alt="`${articles[2].author[0].name} ${articles[2].author[0].family}`"
                                 v-if="!!articles[2].author[0]"
@@ -144,7 +147,7 @@
                     v-if="articles[3]"
                 >
                     <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full h-48">
-                        <img class="max-w-screen-sm w-full object-cover" :src="articles[3].image" alt="course" loading="lazy" />
+                        <img class="max-w-screen-sm w-full h-full object-cover" :src="articles[3].image" alt="course" loading="lazy" />
                         <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2" v-if="!!articles[3].category[0]">
                             {{ articles[3].category[0].name }}
                         </span>
@@ -155,6 +158,7 @@
                         <div class="flex items-start gap-2">
                             <img
                                 class="w-8 h-8 rounded-full shadow-md"
+                                loading="lazy"
                                 :src="articles[3].author[0].image"
                                 :alt="`${articles[3].author[0].name} ${articles[3].author[0].family}`"
                                 v-if="!!articles[3].author[0]"
@@ -177,7 +181,7 @@
                     v-if="articles[4]"
                 >
                     <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full h-48">
-                        <img class="max-w-screen-sm w-full object-cover" :src="articles[4].image" alt="course" loading="lazy" />
+                        <img class="max-w-screen-sm w-full h-full object-cover" :src="articles[4].image" alt="course" loading="lazy" />
                         <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2" v-if="!!articles[4].category[0]">
                             {{ articles[4].category[0].name }}
                         </span>
@@ -188,6 +192,7 @@
                         <div class="flex items-start gap-2">
                             <img
                                 class="w-8 h-8 rounded-full shadow-md"
+                                loading="lazy"
                                 :src="articles[4].author[0].image"
                                 :alt="`${articles[4].author[0].name} ${articles[4].author[0].family}`"
                                 v-if="!!articles[4].author[0]"
@@ -210,13 +215,14 @@
                             {{ articles[5].category[0].name }}
                         </span>
                     </div>
-                    <div class="flex flex-col gap-6 pt-2">
+                    <div class="flex flex-col gap-6 pt-2 flex-grow">
                         <h3 class="font-bold text-2xl max-w-xs overflow-hidden overflow-ellipsis whitespace-nowrap">{{ articles[5].title }}</h3>
                         <p class="max-w-xs flex-grow opacity-75">{{ articles[5].description }}</p>
                         <div class="flex flex-wrap justify-between items-center gap-4">
                             <div class="flex items-start gap-2">
                                 <img
                                     class="w-8 h-8 rounded-full shadow-md"
+                                    loading="lazy"
                                     :src="articles[5].author[0].image"
                                     :alt="`${articles[5].author[0].name} ${articles[5].author[0].family}`"
                                     v-if="!!articles[5].author[0]"

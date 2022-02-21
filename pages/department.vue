@@ -47,7 +47,7 @@
 </style>
 
 <template>
-    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-4xl w-full">
+    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full">
         <section class="relative flex flex-col lg:flex-row justify-center items-center w-full" id="top">
             <div class="flex flex-wrap items-start justify-center gap-10 flex-grow w-full">
                 <div class="flex flex-col gap-10 mt-28">
@@ -93,10 +93,18 @@
                             </span>
                             <div class="absolute flex flex-col gap-2 top-2 right-2">
                                 <span class="w-10 h-10 rounded-full" :title="course.groups[0].name">
-                                    <img class="w-full h-full object-cover" :src="course.groups[0].icon || `/misc/Figma.svg`" :alt="course.groups[0].name" />
+                                    <img
+                                        class="w-full h-full object-cover rounded-full"
+                                        :src="course.groups[0].icon || `/misc/Figma.svg`"
+                                        :alt="course.groups[0].name"
+                                    />
                                 </span>
                                 <span class="w-10 h-10 rounded-full" :title="`${course.teacher.name} ${course.teacher.family}`">
-                                    <img class="w-full h-full object-cover" :src="course.teacher.image" :alt="`${course.teacher.name} ${course.teacher.family}`" />
+                                    <img
+                                        class="w-full h-full object-cover rounded-full"
+                                        :src="course.teacher.image"
+                                        :alt="`${course.teacher.name} ${course.teacher.family}`"
+                                    />
                                 </span>
                             </div>
                             <div class="gray_gradient absolute bottom-0 flex flex-col gap-4 p-6 w-full">
@@ -197,7 +205,7 @@
                                 <li class="w-full" v-for="(course, i) in teacher.courses" :key="i">
                                     <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="flex items-start gap-4 w-full">
                                         <span class="flex items-center justify-center flex-shrink-0 w-8 h-8 rounded-full">
-                                            <img class="w-full h-full object-cover" :src="course.groups[0].icon || `/misc/Figma.svg`" :alt="course.groups[0].name" />
+                                            <img class="w-full h-full object-cover rounded-full" :src="course.groups[0].icon || `/misc/Figma.svg`" :alt="course.groups[0].name" />
                                         </span>
                                         <div class="flex flex-wrap items-start justify-between gap-2 w-full">
                                             <div class="flex flex-col gap-1 flex-grow">

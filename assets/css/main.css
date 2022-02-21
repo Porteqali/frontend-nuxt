@@ -10,6 +10,7 @@
 @font-face { font-family: "IranYekanWebRegularFaNum"; src: url("~/assets/fonts/IranYekanWebRegularFaNum.woff") format("woff"); }
 @font-face { font-family: "KalamehWebRegular"; src: url("~/assets/fonts/KalamehWebRegular.woff2") format("woff2"); }
 @font-face { font-family: "KalamehWebBold"; src: url("~/assets/fonts/KalamehWebBold.woff2") format("woff2"); }
+@font-face { font-family: "KalamehWebExtraBold"; src: url("~/assets/fonts/KalamehWebExtraBold.woff2") format("woff2"); }
 
 *::-moz-selection { background: #414141; color: white; }
 *::selection { background: #414141; color: white; }
@@ -34,6 +35,7 @@ body {
 
 .kalameh { font-family: "KalamehWebRegular" !important; }
 .kalameh_bold { font-family: "KalamehWebBold" !important; }
+.kalameh_extra_bold { font-family: "KalamehWebExtraBold" !important; }
 
 .dashboard_body {
     /* width: 100%; */

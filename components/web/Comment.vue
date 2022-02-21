@@ -4,6 +4,7 @@
     <div class="flex flex-col items-start md:flex-row gap-4 md:gap-8 w-full">
         <img
             class="rounded-full shadow-xl w-16 md:w-36 h-16 md:h-36"
+            loading="lazy"
             v-if="comment.author[0]"
             :src="comment.author[0].image || `/misc/avatar.svg`"
             :alt="`${comment.author[0].name} ${comment.author[0].family}`"

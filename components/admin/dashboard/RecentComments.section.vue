@@ -24,7 +24,7 @@ h3::after {
         </header>
         <ul class="flex flex-col gap-4">
             <li class="flex flex-wrap items-start gap-2 shadow-lg p-4 rounded-xl" v-for="(comment, i) in comments" :key="i">
-                <img class="w-14 h-14 rounded-full object-cover shadow-md" :src="comment.user[0].image" v-if="comment.user[0].image" alt="" />
+                <img class="w-14 h-14 rounded-full object-cover shadow-md" :src="comment.user[0].image" loading="lazy" v-if="comment.user[0].image" alt="" />
                 <div class="flex flex-col gap-1 flex-grow">
                     <div class="flex flex-wrap items-center gap-2">
                         <span class="text-lg">{{ comment.fullname }}</span>

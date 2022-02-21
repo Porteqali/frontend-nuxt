@@ -92,11 +92,12 @@ export default {
             runtimeCaching: [
                 {
                     urlPattern: "/api/users/*",
-                    strategyOptions: { cacheName: "user-cache" },
-                    strategyPlugins: [
-                        { use: "Expiration", config: { maxAgeSeconds: 30 } },
-                        { use: "CacheableResponse", config: { statuses: [200, 404, 401, 403] } },
-                    ],
+                    handler: 'NetworkOnly',
+                    // strategyOptions: { cacheName: "user-cache" },
+                    // strategyPlugins: [
+                    //     { use: "Expiration", config: { maxAgeSeconds: 30 } },
+                    //     { use: "CacheableResponse", config: { statuses: [200, 404, 401, 403] } },
+                    // ],
                 },
             ],
         },

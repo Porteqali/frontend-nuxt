@@ -69,7 +69,14 @@
                     <p class="hidden md:flex">{{ article.description }}</p>
                     <div class="flex flex-wrap justify-between items-center gap-4">
                         <div class="flex items-start gap-2">
-                            <img class="rounded-full object-cover" src="/misc/Figma.svg" alt="Figma" width="32" height="32" />
+                            <img
+                                class="rounded-full object-cover w-8 h-8"
+                                v-if="!!article.author"
+                                :src="article.author.image"
+                                :alt="`${article.author.name} ${article.author.family}`"
+                                width="32"
+                                height="32"
+                            />
                             <div class="flex flex-col gap-1">
                                 <small v-if="!!article.author">{{ `${article.author.name} ${article.author.family}` }}</small>
                                 <small class="opacity-75">{{ new Date(article.publishedAt).toLocaleDateString("fa") }}</small>
@@ -110,7 +117,11 @@
                         :style="`background-image: url('/misc/Figma.svg')`"
                         v-if="!!article.author"
                     >
-                        <img class="w-24 h-24 rounded-full shadow-md" src="/misc/Figma.svg" :alt="`${article.author.name} ${article.author.family}`" />
+                        <img
+                            class="w-24 h-24 rounded-full object-cover shadow-md"
+                            :src="article.author.image"
+                            :alt="`${article.author.name} ${article.author.family}`"
+                        />
                         <b class="text-2xl">{{ `${article.author.name} ${article.author.family}` }}</b>
                         <small class="text-lightblue-400">{{ article.author.title }}</small>
                         <p class="opacity-75 text-center max-w-xs">{{ article.author.description }}</p>
@@ -158,7 +169,7 @@
                                     :title="item.title"
                                 >
                                     <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full h-48">
-                                        <img class="max-w-screen-sm w-full object-cover" src="/misc/course.png" alt="course" loading="lazy" />
+                                        <img class="max-w-screen-sm w-full h-full object-cover" :src="item.image" :alt="item.title" loading="lazy" />
                                         <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2" v-if="!!item.category">
                                             {{ item.category.name }}
                                         </span>
@@ -167,7 +178,14 @@
                                     <p class="max-w-xs opacity-75 flex-grow max-h-24 overflow-hidden">{{ item.description }}</p>
                                     <div class="flex flex-wrap justify-between items-center gap-4">
                                         <div class="flex items-start gap-2">
-                                            <img class="rounded-full object-cover" src="/misc/Figma.svg" alt="Figma" width="32" height="32" />
+                                            <img
+                                                class="rounded-full object-cover w-8 h-8"
+                                                :src="item.author.image"
+                                                :alt="`${item.author.name} ${item.author.family}`"
+                                                v-if="!!item.author"
+                                                width="32"
+                                                height="32"
+                                            />
                                             <div class="flex flex-col gap-1">
                                                 <small v-if="!!item.author">{{ `${item.author.name} ${item.author.family}` }}</small>
                                                 <small class="opacity-75">{{ new Date(item.publishedAt).toLocaleDateString("fa") }}</small>
@@ -184,7 +202,7 @@
                         <ul class="flex flex-wrap flex-row xl:flex-col gap-6" v-else>
                             <li class="flex flex-col gap-4 w-full sm:max-w-xs" v-for="(item, i) in articleSkeleton" :key="i">
                                 <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full h-48">
-                                    <img class="max-w-screen-sm w-full object-cover" src="/misc/course.png" alt="course" loading="lazy" />
+                                    <img class="max-w-screen-sm w-full h-full object-cover" src="/misc/course.png" alt="course" loading="lazy" />
                                     <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2">
                                         <span class="skeleton w-6"></span>
                                     </span>
@@ -210,7 +228,7 @@
                         <ul class="article_card blur flex flex-col gap-6 rounded-2xl p-4 w-full sm:max-w-xs">
                             <li class="w-full" v-for="(item, i) in newArticles" :key="i">
                                 <nuxt-link class="w-full flex flex-wrap gap-4" :to="`/article/${item.slug}`" :title="item.title">
-                                    <img class="w-20 h-20 rounded-xl object-cover" src="/misc/course.png" :alt="item.title" loading="lazy" />
+                                    <img class="w-20 h-20 rounded-xl object-cover shadow-md" :src="item.image" :alt="item.title" loading="lazy" />
                                     <div class="flex flex-wrap flex-col gap-2">
                                         <h3 class="max-w-screen-2xs">{{ item.title }}</h3>
                                         <span class="text-lightblue-300">بیشتر</span>
@@ -238,7 +256,7 @@
                         :title="popularArticle.title"
                     >
                         <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full h-48">
-                            <img class="max-w-screen-sm w-full object-cover" :src="popularArticle.image" :alt="popularArticle.title" loading="lazy" />
+                            <img class="max-w-screen-sm w-full h-full object-cover" :src="popularArticle.image" :alt="popularArticle.title" loading="lazy" />
                             <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2" v-if="!!popularArticle.category">
                                 {{ popularArticle.category.name }}
                             </span>
@@ -247,7 +265,14 @@
                         <p class="max-w-xs opacity-75 flex-grow max-h-24 overflow-hidden">{{ popularArticle.description }}</p>
                         <div class="flex flex-wrap justify-between items-center gap-4">
                             <div class="flex items-start gap-2">
-                                <img class="rounded-full object-cover" src="/misc/Figma.svg" alt="Figma" width="32" height="32" />
+                                <img
+                                    class="rounded-full object-cover w-8 h-8"
+                                    :src="popularArticle.author.image"
+                                    :alt="`${popularArticle.author.name} ${popularArticle.author.family}`"
+                                    v-if="!!popularArticle.author"
+                                    width="32"
+                                    height="32"
+                                />
                                 <div class="flex flex-col gap-1">
                                     <small v-if="!!popularArticle.author">{{ `${popularArticle.author.name} ${popularArticle.author.family}` }}</small>
                                     <small class="opacity-75">{{ new Date(popularArticle.publishedAt).toLocaleDateString("fa") }}</small>

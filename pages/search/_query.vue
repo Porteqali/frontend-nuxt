@@ -87,7 +87,7 @@
 </style>
 
 <template>
-    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-4xl w-full">
+    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full">
         <section class="relative flex flex-col items-center gap-10 p-8 py-16 w-full rounded-3xl shadow-md" id="top">
             <h1 class="kalameh_bold font-bold text-4xl md:text-6xl">جستجو در پرتقال</h1>
             <p class="text-lg mt-4 text-center">بیش از 2،000 ویدیو آموزشی از اساتید برتر در حوزه های مختلف</p>
@@ -130,7 +130,7 @@
                     :key="i"
                 >
                     <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="relative overflow-hidden rounded-xl shadow-lg w-full h-72">
-                        <img class="absolute inset-0 object-cover" :src="course.image || `/misc/course.png`" alt="course" draggable="false" />
+                        <img class="absolute inset-0 object-cover w-full h-full" :src="course.image || `/misc/course.png`" alt="course" draggable="false" />
                         <img class="absolute top-2 right-2 rounded-full object-cover" :src="course.groups[0].icon" width="32" height="32" alt="Figma" />
                         <span
                             class="course_tag flex items-center justify-center p-4 w-auto h-16 rounded-xl absolute top-2 left-2"
@@ -144,7 +144,7 @@
                             <h3 class="font-bold text-xl overflow-hidden overflow-ellipsis whitespace-nowrap">{{ course.name }}</h3>
                         </nuxt-link>
                         <nuxt-link :to="`/teacher/${course.teacher[0]._id}`" class="flex items-center gap-2">
-                            <img class="rounded-full object-cover" :src="course.teacher[0].image" alt="Figma" width="40" height="40" />
+                            <img class="rounded-full object-cover w-10 h-10" :src="course.teacher[0].image" alt="Figma" width="40" height="40" />
                             <span>{{ `${course.teacher[0].name} ${course.teacher[0].family}` }}</span>
                         </nuxt-link>
                         <div class="flex flex-wrap justify-between gap-4">
@@ -163,7 +163,7 @@
                         </div>
                         <nuxt-link
                             :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`"
-                            class="orange_gradient_h flex items-center justify-center gap-4 py-4 px-8 rounded-xl"
+                            class="orange_gradient_h flex items-center justify-center gap-4 py-4 px-8 rounded-2xl"
                         >
                             <span v-if="course.price">
                                 <b class="text-3xl">{{ new Intl.NumberFormat("fa").format(course.discountInfo.discountedPrice) }}</b>
@@ -185,7 +185,7 @@
                         :title="article.title"
                     >
                         <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full h-64">
-                            <img class="max-w-screen-sm w-full object-cover" :src="article.image" alt="course" loading="lazy" />
+                            <img class="max-w-screen-sm w-full h-full object-cover" :src="article.image" alt="course" loading="lazy" />
                             <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2" v-if="!!article.category[0]">
                                 {{ article.category[0].name }}
                             </span>
@@ -195,6 +195,7 @@
                         <div class="flex flex-wrap justify-between items-center gap-4">
                             <div class="flex items-start gap-2">
                                 <img
+                                    class="rounded-full object-cover w-8 h-8"
                                     v-if="!!article.author"
                                     :src="article.author[0].image"
                                     :alt="`${article.author[0].name} ${article.author[0].family}`"

@@ -5,7 +5,7 @@
 </style>
 
 <template>
-    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-4xl w-full">
+    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full">
         <section class="card flex flex-col items-center justify-center gap-8 p-4 md:p-6 rounded-3xl shadow-xl w-full max-w-screen-lg" v-if="!loading">
             <div class="flex flex-col items-center justify-center gap-4 w-full" v-if="status >= '200' && status < '300'">
                 <img class="w-11/12 max-w-screen-2xs" src="/pages/payment-results/success.png" alt="success" />

@@ -66,14 +66,14 @@
             </div>
         </div>
         <ul class="grid gap-10" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr))" v-if="!articlesLoading">
-            <li class="flex w-full shadow-lg rounded-xl mx-auto" v-for="(article, i) in articles" :key="i">
+            <li class="flex w-full shadow-lg rounded-xl mx-auto max-w-md" v-for="(article, i) in articles" :key="i">
                 <nuxt-link
                     class="article_card flex flex-col gap-4 flex-grow p-4 rounded-2xl shadow-xl w-full"
                     :to="`/article/${article.slug}`"
                     :title="article.title"
                 >
                     <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full h-64">
-                        <img class="max-w-screen-sm w-full object-cover" :src="article.image" alt="course" loading="lazy" />
+                        <img class="max-w-screen-sm w-full h-full object-cover" :src="article.image" alt="course" loading="lazy" />
                         <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2" v-if="!!article.category[0]">
                             {{ article.category[0].name }}
                         </span>
@@ -83,6 +83,7 @@
                     <div class="flex flex-wrap justify-between items-center gap-4">
                         <div class="flex items-start gap-2">
                             <img
+                                class="rounded-full object-cover w-8 h-8"
                                 v-if="!!article.author"
                                 :src="article.author[0].image"
                                 :alt="`${article.author[0].name} ${article.author[0].family}`"
@@ -129,13 +130,13 @@
         <ul class="flex items-center justify-center gap-4">
             <li>
                 <nuxt-link
-                    class="flex items-center justify-center p-3 w-8 h-8 rounded-full"
+                    class="flex items-center justify-center rounded-full"
                     :to="`${`/blog/:page?order=${selectedArticleOrder.value}&category=${selectedArticleCategory.value}`.replace(
                         ':page',
                         Math.max(articlesPage - 1, 1),
                     )}`"
                 >
-                    &lt;
+                    <img src="/icons/ArrowRight.line.svg" width="24" height="24" alt="ArrowRight">
                 </nuxt-link>
             </li>
             <li v-for="(item, i) in articlesPages" :key="i">
@@ -151,13 +152,13 @@
             </li>
             <li>
                 <nuxt-link
-                    class="flex items-center justify-center p-3 w-8 h-8 rounded-full"
+                    class="flex items-center justify-center rounded-full"
                     :to="`${`/blog/:page?order=${selectedArticleOrder.value}&category=${selectedArticleCategory.value}`.replace(
                         ':page',
                         Math.min(articlesPage + 1, articlesPageTotal),
                     )}`"
                 >
-                    &gt;
+                    <img src="/icons/ArrowLeft.line.svg" width="24" height="24" alt="ArrowLeft">
                 </nuxt-link>
             </li>
         </ul>

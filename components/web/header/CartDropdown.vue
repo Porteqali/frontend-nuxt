@@ -23,7 +23,7 @@
             <ul class="flex flex-col gap-6 w-full max-h-96 overflow-auto overflow-x-hidden" v-if="Object.keys(cart.list).length">
                 <transition-group class="flex flex-col gap-4" name="slideleft" appear>
                     <li class="flex items-center gap-4" v-for="item in cart.list" :key="item._id">
-                        <img class="w-24 h-auto rounded-xl shadow-md" :src="item.image" width="100" :alt="item.name" />
+                        <img class="w-24 h-auto rounded-xl shadow-md" :src="item.image" width="100" loading="lazy" :alt="item.name" />
                         <div class="flex flex-wrap items-center gap-4 w-full">
                             <div class="flex flex-col gap-2 flex-grow">
                                 <h5 class="w-48">{{ item.name }}</h5>

@@ -6,7 +6,7 @@
 </style>
 
 <template>
-    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-4xl w-full">
+    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full">
         <!-- <Background src="/backgrounds/Background2.png" :topOffset="-30" :rightOffset="-10" :minWidth="2420" /> -->
 
         <section class="relative flex flex-wrap justify-evenly gap-8 lg:gap-20" id="top">

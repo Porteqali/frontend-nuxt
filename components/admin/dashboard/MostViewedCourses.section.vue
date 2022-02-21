@@ -36,12 +36,16 @@ h3::after {
             <ul class="swiper-wrapper flex items-center w-screen pb-4">
                 <li class="swiper-slide course_card flex flex-col gap-2 shadow-md p-1 ml-4 rounded-2xl" v-for="(item, i) in courses" :key="i">
                     <div class="relative flex flex-col items-center p-1 overflow-hidden">
-                        <!-- <img class="w-full h-36 object-cover rounded-2xl scale-50" :src="item.image || `/misc/course.png`" alt="" /> -->
-                        <img class="w-full h-36 object-cover rounded-2xl scale-50" :src="`/misc/course.png`" alt="" />
+                        <img class="w-full h-36 object-cover rounded-2xl scale-50" :src="item.image || `/misc/course.png`" loading="lazy" alt="" />
                         <div class="card_bar absolute bottom-2 gray_gradient flex flex-col gap-2 p-2 rounded-2xl w-screen" style="max-width: 186px">
                             <h5 class="w-full overflow-hidden whitespace-nowrap overflow-ellipsis text-sm">{{ item.name }}</h5>
                             <div class="flex items-center gap-1 w-full">
-                                <img class="w-5 h-5 rounded-full object-cover" :src="item.teacher.image" alt="" />
+                                <img
+                                    class="w-5 h-5 rounded-full object-cover"
+                                    :src="item.teacher.image"
+                                    loading="lazy"
+                                    :alt="`${item.teacher.name} ${item.teacher.family}`"
+                                />
                                 <small class="w-full overflow-hidden whitespace-nowrap overflow-ellipsis text-xs">
                                     {{ `${item.teacher.name} ${item.teacher.family}` }}
                                 </small>

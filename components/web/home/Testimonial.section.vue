@@ -17,7 +17,7 @@
                     v-for="(testimonial, i) in testimonials"
                     :key="i"
                 >
-                    <img class="mr-auto" src="/misc/comma.svg" alt="comma" width="34" />
+                    <img class="mr-auto" src="/misc/comma.svg" alt="comma" loading="lazy" width="34" />
                     <p class="">
                         {{ testimonial.comment }}
                     </p>
@@ -26,6 +26,7 @@
                             class="border-2 border-solid border-orange-500 rounded-full"
                             :src="testimonial.image"
                             :alt="testimonial.fullname"
+                            loading="lazy"
                             width="78"
                             height="78"
                         />

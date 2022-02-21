@@ -26,7 +26,7 @@
 </style>
 
 <template>
-    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-4xl w-full">
+    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full">
         <section class="relative flex flex-wrap-reverse justify-evenly gap-8 lg:gap-20" id="top">
             <div class="flex flex-col gap-10 mt-28">
                 <h1 class="flex flex-col gap-4 text-7xl">
@@ -41,13 +41,13 @@
             <img class="" src="/pages/teachers/group.png" alt="porteqali-UpStairsMan" style="max-height: 1920px" />
         </section>
 
-        <section class="flex flex-wrap-reverse justify-evenly gap-8 w-full" v-if="!groupsLoading">
+        <section class="flex flex-wrap-reverse justify-evenly gap-8 w-full max-w-screen-2xl" v-if="!groupsLoading">
             <div class="w-full flex flex-col gap-4" v-for="(group, i) in groups" :key="i">
                 <h3 class="font-bold text-3xl">اساتید دوره های {{ departments[i].name }}</h3>
                 <div v-swiper="swiperOptions" class="w-full max-w-screen-4xl select-none overflow-hidden py-4">
                     <ul class="swiper-wrapper flex gap-6">
                         <li
-                            class="swiper-slide teacher_card flex flex-col items-center justify-start gap-4 p-8 md:p-16 w-full rounded-3xl shadow-lg max-w-md"
+                            class="swiper-slide teacher_card flex flex-col items-center justify-start gap-4 p-8 md:p-16 w-full rounded-3xl shadow-lg max-w-sm"
                             :style="`background-image: url('${teacher.image}')`"
                             v-for="(teacher, j) in group"
                             :key="j"

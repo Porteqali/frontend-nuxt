@@ -16,7 +16,7 @@ textarea {
 </style>
 
 <template>
-    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-4xl w-full">
+    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full">
         <section class="relative flex flex-wrap-reverse justify-evenly gap-8 lg:gap-20" id="top">
             <img class="" src="/pages/contact-us/PhoneCallMan.png" alt="porteqali-PhoneCallMan" style="max-height: 1920px" />
             <div class="flex flex-col gap-10 mt-28">

@@ -17,7 +17,7 @@
 </style>
 
 <template>
-    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-4xl w-full" v-if="!loading">
+    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full" v-if="!loading">
         <!-- <Background src="/backgrounds/Background.404.png" :topOffset="30" :rightOffset="20" :minWidth="2320" /> -->
         <section class="relative flex flex-col justify-center items-center z-10" id="top">
             <div class="flex flex-col items-center gap-10 mt-12">

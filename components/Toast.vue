@@ -15,7 +15,7 @@
             <span class="w-full h-1 rounded-full" :class="{ [bgColor]: 1 }" v-if="bgColor != ''"></span>
             <div class="flex items-center justify-between gap-8">
                 <h4 v-if="toastOptions.title" class="flex items-center gap-4 text-xl max-w-xs">
-                    <img v-if="toastOptions.icon" :src="toastOptions.icon" width="20" height="20" />
+                    <img v-if="toastOptions.icon" :src="toastOptions.icon" loading="lazy" width="20" height="20" />
                     <b>{{ toastOptions.title }}</b>
                 </h4>
                 <button class="flex items-center justify-center bg-black bg-opacity-20 p-2 rounded-full" @click="close()" v-if="toastOptions.dismissible">

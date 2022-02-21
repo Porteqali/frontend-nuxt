@@ -153,20 +153,20 @@ export default {
     data() {
         return {
             topBackground: {
-                "": { src: "/backgrounds/Background.png", topOffset: 0, rightOffset: -10, minWidth: 2220 },
-                "/privacy-policy": { src: "/backgrounds/Background2.png", topOffset: -20, rightOffset: -15, minWidth: 2420 },
-                "/terms-and-conditions": { src: "/backgrounds/Background2.png", topOffset: -20, rightOffset: -15, minWidth: 2420 },
-                "/about-us": { src: "/backgrounds/Background2.png", topOffset: -20, rightOffset: -15, minWidth: 2420 },
-                "/contact-us": { src: "/backgrounds/Background2.png", topOffset: -20, rightOffset: -15, minWidth: 2420 },
-                "/teachers": { src: "/backgrounds/Background2.png", topOffset: -20, rightOffset: -15, minWidth: 2420 },
-                "/work-with-us": { src: "/backgrounds/Background4.png", topOffset: 0, rightOffset: 0, minWidth: 2220 },
-                "/faqs": { src: "/backgrounds/Background5.png", topOffset: -15, rightOffset: -10, minWidth: 2420 },
+                "": { src: "/backgrounds/Background.svg", topOffset: 0, rightOffset: -10, minWidth: 2220 },
+                "/privacy-policy": { src: "/backgrounds/Background2.svg", topOffset: -20, rightOffset: -15, minWidth: 2420 },
+                "/terms-and-conditions": { src: "/backgrounds/Background2.svg", topOffset: -20, rightOffset: -15, minWidth: 2420 },
+                "/about-us": { src: "/backgrounds/Background2.svg", topOffset: -20, rightOffset: -15, minWidth: 2420 },
+                "/contact-us": { src: "/backgrounds/Background2.svg", topOffset: -20, rightOffset: -15, minWidth: 2420 },
+                "/teachers": { src: "/backgrounds/Background2.svg", topOffset: -20, rightOffset: -15, minWidth: 2420 },
+                "/work-with-us": { src: "/backgrounds/Background4.svg", topOffset: 0, rightOffset: 0, minWidth: 2220 },
+                "/faqs": { src: "/backgrounds/Background5.svg", topOffset: -15, rightOffset: -10, minWidth: 2420 },
 
-                "/blog/:page?": { src: "/backgrounds/Background3.png", topOffset: -30, rightOffset: -80, minWidth: 3220 },
-                "/blog": { src: "/backgrounds/Background3.png", topOffset: -30, rightOffset: -80, minWidth: 3220 },
+                "/blog/:page?": { src: "/backgrounds/Background3.svg", topOffset: -30, rightOffset: -80, minWidth: 3220 },
+                "/blog": { src: "/backgrounds/Background3.svg", topOffset: -30, rightOffset: -80, minWidth: 3220 },
 
-                "/department/:page?": { src: "/backgrounds/Background7.png", topOffset: -2, rightOffset: -15, minWidth: 2020 },
-                "/department": { src: "/backgrounds/Background7.png", topOffset: -2, rightOffset: -15, minWidth: 2020 },
+                "/department/:page?": { src: "/backgrounds/Background7.svg", topOffset: -2, rightOffset: -15, minWidth: 2020 },
+                "/department": { src: "/backgrounds/Background7.svg", topOffset: -2, rightOffset: -15, minWidth: 2020 },
             },
 
             contact_info: this.contact_info || {},

@@ -214,7 +214,7 @@
                         :key="i"
                     >
                         <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="relative overflow-hidden rounded-xl shadow-lg w-full h-72">
-                            <img class="absolute inset-0 object-cover" :src="course.image || `/misc/course.png`" alt="course" draggable="false" />
+                            <img class="absolute inset-0 object-cover w-full h-full" :src="course.image || `/misc/course.png`" alt="course" draggable="false" />
                             <img class="absolute top-2 right-2 rounded-full object-cover" :src="course.groups[0].icon" width="32" height="32" alt="Figma" />
                             <span class="course_tag flex items-center justify-center p-4 w-auto h-16 rounded-xl absolute top-2 left-2">جدید</span>
                         </nuxt-link>
@@ -223,7 +223,7 @@
                                 <h3 class="font-bold text-xl max-w-xs overflow-hidden overflow-ellipsis whitespace-nowrap">{{ course.name }}</h3>
                             </nuxt-link>
                             <nuxt-link :to="`/teacher/${course.teacher._id}`" class="flex items-center gap-2">
-                                <img class="rounded-full object-cover" :src="course.teacher.image" alt="Figma" width="40" height="40" />
+                                <img class="rounded-full object-cover w-10 h-10" :src="course.teacher.image" alt="Figma" width="40" height="40" />
                                 <span>{{ `${course.teacher.name} ${course.teacher.family}` }}</span>
                             </nuxt-link>
                             <div class="flex flex-wrap justify-between gap-4">
@@ -242,7 +242,7 @@
                             </div>
                             <nuxt-link
                                 :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`"
-                                class="orange_gradient_h flex items-center justify-center gap-4 py-4 px-8 rounded-xl"
+                                class="orange_gradient_h flex items-center justify-center gap-4 py-4 px-8 rounded-2xl"
                             >
                                 <span v-if="course.price">
                                     <b class="text-3xl">{{ new Intl.NumberFormat("fa").format(course.price) }}</b>

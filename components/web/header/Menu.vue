@@ -35,7 +35,7 @@
 <template>
     <div class="flex items-center gap-4 w-max lg:w-full">
         <button class="nav_toggle blur flex justify-center items-center p-6 rounded-3xl shadow-lg lg:hidden" @click="open = !open">
-            <img src="/icons/Category.svg" width="24" alt="Category" />
+            <img src="/icons/Category.svg" width="24" loading="lazy" alt="Category" />
         </button>
         <transition name="slidedown" appear>
             <div class="header_nav_container menu blur flex flex-wrap items-start md:items-center gap-1 lg:gap-8 p-8 py-0 rounded-3xl shadow-lg" v-show="open">

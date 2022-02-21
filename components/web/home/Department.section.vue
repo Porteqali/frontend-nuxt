@@ -72,7 +72,7 @@
                     :key="i"
                     @click="groupChanged(department._id)"
                 >
-                    <img class="title_alt cursor-pointer" :src="department.icon" width="48" height="48" :alt="department.slug" />
+                    <img class="title_alt cursor-pointer rounded-full" :src="department.icon" width="48" height="48" loading="lazy" :alt="department.slug" />
                     <span class="blur title_alt_text w-max">{{ department.name }}</span>
                 </li>
             </ul>
@@ -85,8 +85,14 @@
                     :key="i"
                 >
                     <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="relative overflow-hidden rounded-xl shadow-lg w-full h-72">
-                        <img class="absolute inset-0 object-cover" :src="course.image || `/misc/course.png`" alt="course" draggable="false" />
-                        <img class="absolute top-2 right-2 rounded-full object-cover" :src="course.groups[0].icon" width="32" height="32" alt="Figma" />
+                        <img
+                            class="absolute inset-0 object-cover w-full h-full"
+                            :src="course.image || `/misc/course.png`"
+                            loading="lazy"
+                            alt="course"
+                            draggable="false"
+                        />
+                        <img class="absolute top-2 right-2 rounded-full object-cover" :src="course.groups[0].icon" width="32" height="32" loading="lazy" />
                         <span
                             class="course_tag flex items-center justify-center p-4 w-auto h-16 rounded-xl absolute top-2 left-2"
                             v-if="course.discountInfo && course.discountInfo.tag != ''"
@@ -99,7 +105,7 @@
                             <h3 class="font-bold text-xl overflow-hidden overflow-ellipsis whitespace-nowrap">{{ course.name }}</h3>
                         </nuxt-link>
                         <nuxt-link :to="`/teacher/${course.teacher[0]._id}`" class="flex items-center gap-2">
-                            <img class="rounded-full object-cover" :src="course.teacher[0].image" alt="Figma" width="40" height="40" />
+                            <img class="rounded-full object-cover w-10 h-10" :src="course.teacher[0].image" alt="Figma" loading="lazy" width="40" height="40" />
                             <span>{{ `${course.teacher[0].name} ${course.teacher[0].family}` }}</span>
                         </nuxt-link>
                         <div class="flex flex-wrap justify-between gap-4">
@@ -118,7 +124,7 @@
                         </div>
                         <nuxt-link
                             :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`"
-                            class="orange_gradient_h flex items-center justify-center gap-4 py-4 px-8 rounded-xl"
+                            class="orange_gradient_h flex items-center justify-center gap-4 py-4 px-8 rounded-2xl"
                         >
                             <span v-if="course.price">
                                 <b class="text-3xl">{{ new Intl.NumberFormat("fa").format(course.discountInfo.discountedPrice) }}</b>
@@ -133,10 +139,10 @@
             <div class="flex justify-center mt-8 swiper-pagination2 swiper-pagination-bullets"></div>
         </div>
         <div class="flex items-center justify-center w-full">
-            <button class="more_courses_btn blur flex items-center gap-2 py-3 px-6 rounded-xl w-max">
+            <nuxt-link to="/department" class="more_courses_btn blur flex items-center gap-2 py-3 px-6 rounded-xl w-max">
                 <img src="/icons/BookOpenOutlineColor.orange.svg" width="24" height="24" alt="BookOpenOutlineColor" />
                 <span>مشاهده همه دوره ها</span>
-            </button>
+            </nuxt-link>
         </div>
     </section>
 </template>

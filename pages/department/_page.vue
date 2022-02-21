@@ -89,7 +89,7 @@
                     :key="i"
                     @click="groupChanged(department._id)"
                 >
-                    <img class="title_alt cursor-pointer" :src="department.icon" width="48" height="48" :alt="department.slug" />
+                    <img class="title_alt cursor-pointer rounded-full" :src="department.icon" width="48" height="48" :alt="department.slug" />
                     <span class="blur title_alt_text w-max">{{ department.name }}</span>
                 </li>
             </ul>
@@ -97,7 +97,7 @@
         <ul class="courses_list grid gap-10 w-full" v-if="!coursesLoading">
             <li class="gray_gradient course_card shadow-lg flex flex-col gap-4 p-4 rounded-3xl max-w-md w-full mx-auto" v-for="(course, i) in courses" :key="i">
                 <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="relative overflow-hidden rounded-xl shadow-lg w-full h-72">
-                    <img class="absolute inset-0 object-cover" :src="course.image || `/misc/course.png`" alt="course" draggable="false" />
+                    <img class="absolute inset-0 object-cover w-full h-full" :src="course.image || `/misc/course.png`" alt="course" draggable="false" />
                     <img class="absolute top-2 right-2 rounded-full object-cover" :src="course.groups[0].icon" width="32" height="32" alt="Figma" />
                     <span
                         class="course_tag flex items-center justify-center p-4 w-auto h-16 rounded-xl absolute top-2 left-2"
@@ -111,7 +111,7 @@
                         <h3 class="font-bold text-xl overflow-hidden overflow-ellipsis whitespace-nowrap">{{ course.name }}</h3>
                     </nuxt-link>
                     <nuxt-link :to="`/teacher/${course.teacher[0]._id}`" class="flex items-center gap-2">
-                        <img class="rounded-full object-cover" :src="course.teacher[0].image" alt="Figma" width="40" height="40" />
+                        <img class="rounded-full object-cover w-10 h-10" :src="course.teacher[0].image" alt="Figma" width="40" height="40" />
                         <span>{{ `${course.teacher[0].name} ${course.teacher[0].family}` }}</span>
                     </nuxt-link>
                     <div class="flex flex-wrap justify-between gap-4">
@@ -130,7 +130,7 @@
                     </div>
                     <nuxt-link
                         :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`"
-                        class="orange_gradient_h flex items-center justify-center gap-4 py-4 px-8 rounded-xl"
+                        class="orange_gradient_h flex items-center justify-center gap-4 py-4 px-8 rounded-2xl"
                     >
                         <span v-if="course.price">
                             <b class="text-3xl">{{ new Intl.NumberFormat("fa").format(course.discountInfo.discountedPrice) }}</b>
@@ -163,7 +163,7 @@
                         <img src="/icons/User.line.svg" alt="User" width="20" height="20" />
                         <img src="/icons/Star.line.svg" alt="Star" width="20" height="20" />
                     </div>
-                    <button class="orange_gradient_h flex items-center justify-center gap-4 py-4 px-8 rounded-xl">
+                    <button class="orange_gradient_h flex items-center justify-center gap-4 py-4 px-8 rounded-2xl">
                         <span class="skeleton w-8/12 h-4"></span>
                         <img src="/icons/Buy.svg" alt="Buy" width="24" height="24" />
                     </button>
@@ -174,10 +174,10 @@
         <ul class="flex items-center justify-center gap-4">
             <li>
                 <nuxt-link
-                    class="flex items-center justify-center p-3 w-8 h-8 rounded-full"
+                    class="flex items-center justify-center rounded-full"
                     :to="`/department/:page?order=${order}&group=${group.slug}&search=${search}`.replace(':page', Math.max(coursesPage - 1, 1))"
                 >
-                    &lt;
+                    <img src="/icons/ArrowRight.line.svg" width="24" height="24" alt="ArrowRight">
                 </nuxt-link>
             </li>
             <li v-for="(item, i) in coursesPages" :key="i">
@@ -193,10 +193,10 @@
             </li>
             <li>
                 <nuxt-link
-                    class="flex items-center justify-center p-3 w-8 h-8 rounded-full"
+                    class="flex items-center justify-center rounded-full"
                     :to="`/department/:page?order=${order}&group=${group.slug}&search=${search}`.replace(':page', Math.min(coursesPage + 1, coursesPageTotal))"
                 >
-                    &gt;
+                    <img src="/icons/ArrowLeft.line.svg" width="24" height="24" alt="ArrowLeft">
                 </nuxt-link>
             </li>
         </ul>

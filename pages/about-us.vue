@@ -35,11 +35,11 @@
 </style>
 
 <template>
-    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-4xl w-full">
+    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full">
         <!-- <Background src="/backgrounds/Background2.png" :topOffset="-30" :rightOffset="-10" :minWidth="2420" /> -->
 
         <section class="relative flex flex-wrap-reverse justify-evenly gap-8 lg:gap-20" id="top">
-            <img class="" src="/pages/about-us/UpStairsMan.png" alt="porteqali-UpStairsMan" style="max-height: 1920px" />
+            <img class="" src="/pages/about-us/UpStairsMan.png" alt="porteqali-UpStairsMan" loading="lazy" style="max-height: 1920px" />
             <div class="flex flex-col gap-10 mt-28">
                 <h1 class="flex flex-col gap-4 text-7xl">
                     <span class="kalameh_bold font-bold">درباره ما</span>
@@ -62,10 +62,10 @@
                         یادگیری در وب ایران که در گذشته تجربه کرده اید را کرده و لحظات و خاطرات آینده ساز و آرامش بخشی را با آموزش های ما تجربه کنید!
                     </p>
                 </div>
-                <img class="shadow-xl rounded-3xl" src="/pages/about-us/img2.crop.png" alt="معرفی گروه آموزشی پرتقال" />
+                <img class="shadow-xl rounded-3xl" src="/pages/about-us/img2.crop.png" loading="lazy" alt="معرفی گروه آموزشی پرتقال" />
             </div>
             <div class="flex flex-wrap-reverse items-center justify-evenly gap-8">
-                <img class="shadow-xl rounded-3xl" src="/pages/about-us/img1.crop.png" alt="معرفی گروه آموزشی پرتقال" />
+                <img class="shadow-xl rounded-3xl" src="/pages/about-us/img1.crop.png" loading="lazy" alt="معرفی گروه آموزشی پرتقال" />
                 <div class="flex flex-col gap-4">
                     <h2 class="text-2xl font-bold">معرفی گروه آموزشی پرتقال</h2>
                     <p class="max-w-screen-sm text-lg">
@@ -78,13 +78,13 @@
             <div class="flex flex-col items-center justify-center w-full mx-auto">
                 <div class="bg-gray-700 bg-opacity-80 text-white blur flex flex-col lg:flex-row items-center rounded-3xl p-8 pb-16 w-max">
                     <div class="flex flex-col gap-16 flex-shrink-0">
-                        <h3 class="kalameh text-6xl font-extrabold">داستان پرتقال</h3>
-                        <p class="text-2xl max-w-screen-xs text-justify">
+                        <h3 class="kalameh_extra_bold text-6xl font-extrabold">داستان پرتقال</h3>
+                        <p class="text-2xl max-w-sm text-justify">
                             بهمن 1396 بود که تولید فیلم آموزشی فارسی زبان را شروع کردیم و مفتخریم این روز ها عنوان یکی از بزرگترین و معتبر ترین وب سایت های آموزش
                             ویدئویی کشور از دید شما کاربران عزیز را به خود اختصاص داده ایم.
                         </p>
                     </div>
-                    <img class="lg:-mt-28 lg:-ml-24 m-0 w-6/12 lg:w-full" src="/pages/about-us/Saly.png" alt="Saly" />
+                    <img class="lg:-mt-28 lg:-ml-24 m-0 w-6/12 lg:w-full" src="/pages/about-us/Saly.png" loading="lazy" alt="Saly" />
                 </div>
                 <div class="flex flex-wrap items-center justify-center gap-8 w-full -mt-16 z-10">
                     <div class="orange_gradient_h flex flex-col items-center justify-center gap-8 w-64 h-64 p-6 rounded-3xl shadow-xl">
@@ -103,18 +103,18 @@
             </div>
         </article>
 
-        <section class="relative flex flex-col gap-8 mt-16 w-full" id="teachers">
+        <section class="relative flex flex-col gap-8 mt-16 w-full max-w-screen-2xl" id="teachers">
             <div class="flex flex-wrap justify-between gap-8 w-full">
                 <h2 class="font-bold text-4xl">اساتید گروه آموزشی پرتقال</h2>
             </div>
             <ul class="flex flex-wrap justify-center gap-6" v-if="!teachersLoading">
                 <li
-                    class="teacher_card flex flex-col items-center justify-start gap-4 p-8 md:p-16 w-full rounded-3xl shadow-2xl max-w-md"
+                    class="teacher_card flex flex-col items-center justify-start gap-4 p-8 md:p-16 w-full rounded-3xl shadow-2xl max-w-sm"
                     :style="`background-image: url('${teacher.image}')`"
                     v-for="(teacher, i) in teachers"
                     :key="i"
                 >
-                    <img class="w-24 h-24 rounded-full shadow-md" :src="teacher.image" :alt="`${teacher.name} ${teacher.family}`" />
+                    <img class="w-24 h-24 rounded-full shadow-md" :src="teacher.image" loading="lazy" :alt="`${teacher.name} ${teacher.family}`" />
                     <b class="text-2xl">{{ `${teacher.name} ${teacher.family}` }}</b>
                     <small class="text-lightblue-400">{{ teacher.title }}</small>
                     <p class="opacity-75 text-center max-w-xs">{{ teacher.description }}</p>

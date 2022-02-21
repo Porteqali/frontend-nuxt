@@ -39,7 +39,7 @@ textarea {
 </style>
 
 <template>
-    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-4xl w-full">
+    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full">
         <section class="relative flex flex-col justify-center items-center" id="top">
             <div class="flex flex-col gap-10 mt-28">
                 <h1 class="flex flex-col gap-4 text-7xl">

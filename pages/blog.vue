@@ -9,7 +9,7 @@
     font-weight: initial;
     width: 90vw;
     margin-right: 20%;
-    margin-left: -10vw;
+    margin-left: -11vw;
 }
 .article_card {
     background-color: #3f0e4780;
@@ -31,7 +31,7 @@
 </style>
 
 <template>
-    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-4xl w-full">
+    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full">
         <section class="relative flex flex-col lg:flex-row justify-center items-center w-full" id="top">
             <div class="flex flex-wrap-reverse items-end justify-center flex-grow w-full">
                 <img class="" src="/pages/blog/SchoolMan.png" alt="porteqali-SchoolMan" style="max-height: 1920px" />
@@ -113,8 +113,10 @@
                                 <div class="flex flex-wrap justify-between items-center gap-4">
                                     <div class="flex items-start gap-2">
                                         <img
+                                            class="rounded-full object-cover w-8 h-8"
                                             :src="popularArticle.author.image"
                                             :alt="`${popularArticle.author.name} ${popularArticle.author.family}`"
+                                            loading="lazy"
                                             width="32"
                                             height="32"
                                         />
