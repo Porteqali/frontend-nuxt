@@ -8,26 +8,25 @@
 }
 
 #top h1 {
-    color: var(--top-h1-color);
     font-weight: 900;
 }
 
 #roadmap .roadmap_vision_img {
-    background-color: var(--header-nav-container-bg-color);
-    /* background-color: #ffffff55; */
+    /* background-color: var(--header-nav-container-bg-color); */
+    background-color: #ffffff55;
 }
 </style>
 
 <template>
     <main role="main" class="flex flex-col items-center gap-24 lg:gap-28 max-w-screen-2xl w-full mt-10 lg:mt-0">
-        <!-- <Background src="/backgrounds/Background.png" :topOffset="0" :rightOffset="0" :minWidth="2020" /> -->
+        <img src="/backgrounds/Background.svg" class="absolute left-0 w-1/2 max-w-3xl hidden xl:flex" alt="Background">
 
         <section class="relative flex flex-wrap items-center justify-evenly gap-8 lg:gap-20" id="top">
             <div class="flex flex-col gap-10">
-                <h1 class="flex flex-col gap-4 text-5xl lg:text-7xl">
-                    <span class="kalameh_bold font-bold">با پرتقال</span>
-                    <span class="kalameh_bold font-bold">همه جا،</span>
-                    <span class="kalameh_bold font-bold">آموزش ببینید</span>
+                <h1 class="flex flex-col gap-4 text-5xl lg:text-7xl text-orange-500">
+                    <span class="kalameh_extra_bold font-bold">با پرتقال</span>
+                    <span class="kalameh_extra_bold font-bold">همه جا،</span>
+                    <span class="kalameh_extra_bold font-bold">آموزش ببینید</span>
                 </h1>
                 <form class="search_box flex items-center gap-4 p-2 rounded-xl shadow-lg" @submit="goToSearchPage($event)">
                     <img class="flex-shrink-0 mr-2 hidden md:inline-block" src="/icons/Search.duo.svg" width="24" height="24" alt="Search" />
@@ -103,14 +102,13 @@ import TestimonialSection from "~/components/web/home/Testimonial.section";
 import FaqSection from "~/components/web/home/FAQ.section";
 import BlogSection from "~/components/web/home/Blog.section";
 import NewsSection from "~/components/web/home/News.section";
-import getMetadata from "~/mixins/getMetadata";
 
 export default {
-    scrollToTop: true,
-    head() {
-        return { title: this.metadata.title, meta: [...this.metadata.meta], link: [...this.metadata.link] };
+    layout: "default2",
+    head: {
+        title: "گروه آموزشی پرتقال",
+        meta: [{ hid: "description", name: "description", content: "" }],
     },
-    mixins: [getMetadata],
     components: {
         Background,
         DepartmentSection,
@@ -119,12 +117,6 @@ export default {
         FaqSection,
         BlogSection,
         NewsSection,
-    },
-    async fetch() {
-        let headers = {};
-        if (process.server) headers = this.$nuxt.context.req.headers;
-
-        await Promise.all([await this.getMetadata("home")]);
     },
     data() {
         return {

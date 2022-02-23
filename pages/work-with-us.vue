@@ -39,10 +39,10 @@ textarea {
 </style>
 
 <template>
-    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full">
+    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full mt-10 lg:mt-0">
         <section class="relative flex flex-col justify-center items-center" id="top">
-            <div class="flex flex-col gap-10 mt-28">
-                <h1 class="flex flex-col gap-4 text-7xl">
+            <div class="flex flex-col gap-10">
+                <h1 class="flex flex-col gap-4 text-5xl lg:text-7xl">
                     <span class="kalameh_bold font-bold">همکاری با ما</span>
                 </h1>
                 <ul class="flex items-center gap-2 font-light">
@@ -128,11 +128,11 @@ textarea {
                 </form>
                 <div class="flex flex-col gap-4">
                     <h3 class="text-2xl text-center font-bold">نظر مدرسین پرتقال</h3>
-                    <div class="card w-full max-w-md rounded-3xl p-8" v-if="!testimonialsLoading && testimonials.length > 0">
+                    <div class="card w-full max-w-xs lg:max-w-md rounded-3xl p-8" v-if="!testimonialsLoading && testimonials.length > 0">
                         <div v-swiper="testimonialsSwiperOptions" class="w-full max-w-md select-none overflow-hidden">
                             <ul class="swiper-wrapper flex w-max">
                                 <li class="swiper-slide flex flex-wrap items-center gap-4 p-4 max-w-sm w-full" v-for="(testimonial, i) in testimonials" :key="i">
-                                    <img class="w-28 h-28 rounded-full" :src="testimonial.image" :alt="testimonial.fullname" />
+                                    <img class="w-28 h-28 rounded-full object-cover" :src="testimonial.image" :alt="testimonial.fullname" />
                                     <div class="flex flex-col items-start gap-2">
                                         <b class="font-bold text-2xl">{{ testimonial.fullname }}</b>
                                         <span>{{ testimonial.title }}</span>

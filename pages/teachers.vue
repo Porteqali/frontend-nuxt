@@ -26,10 +26,10 @@
 </style>
 
 <template>
-    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full">
-        <section class="relative flex flex-wrap-reverse justify-evenly gap-8 lg:gap-20" id="top">
-            <div class="flex flex-col gap-10 mt-28">
-                <h1 class="flex flex-col gap-4 text-7xl">
+    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full mt-10 lg:mt-0">
+        <section class="relative flex flex-wrap-reverse items-center justify-evenly gap-8 lg:gap-20" id="top">
+            <div class="flex flex-col gap-10">
+                <h1 class="flex flex-col gap-4 text-5xl lg:text-7xl">
                     <span class="kalameh_bold font-bold">مدرسان پرتقال</span>
                 </h1>
                 <ul class="flex items-center gap-2 font-light">
