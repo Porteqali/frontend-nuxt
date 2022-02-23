@@ -49,7 +49,7 @@ app.all("/api/*", multer().any(), async (req, res) => {
             method: req.method,
             url: `${process.env.API_BASE_URL}${req.url}`.replace("/api/", "/"),
             data: data,
-            timeout: 10 * 1000,
+            timeout: 30 * 1000,
             headers: { ...req.headers, ...formdataHeaders, "x-forwarded-for": ip, serversecret: process.env.SERVER_SECRET, tt: Date.now() },
             maxBodyLength: Infinity,
             // maxContentLength: Infinity,

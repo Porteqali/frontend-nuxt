@@ -157,7 +157,7 @@ export default {
             if (this.JsonFiles[index].importing) return;
             this.JsonFiles[index].importing = true;
 
-            await this.sleep(1000);
+            await this.sleep(500);
 
             const formData = new FormData();
             formData.append("files", this.JsonFiles[index].fileRaw);

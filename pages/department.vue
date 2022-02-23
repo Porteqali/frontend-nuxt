@@ -118,7 +118,7 @@
                                     <span class="flex items-center justify-center flex-shrink-0 w-8 h-8 p-2 bg-indigo-100 text-indigo-800 rounded-full">
                                         {{ i + 1 }}
                                     </span>
-                                    <div class="flex flex-wrap items-start justify-between gap-2 w-full">
+                                    <div class="flex flex-wrap items-start justify-between gap-2 w-full" v-if="topic">
                                         <div class="flex flex-col gap-1 flex-grow">
                                             <strong class="overflow-hidden overflow-ellipsis whitespace-nowrap">{{ topic.name }}</strong>
                                             <span class="relative w-full h-1 bg-indigo-100"><b class="absolute w-8/12 h-1 bg-indigo-800"></b></span>

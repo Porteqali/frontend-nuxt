@@ -210,16 +210,7 @@ export default {
     name: "DepartmentSection",
     data() {
         return {
-            departments: {
-                network: { name: "امنیت شبکه", slug: "network", icon: "/misc/Figma.svg" },
-                languages: { name: "زبان های خارجی", slug: "languages", icon: "/misc/Figma.svg" },
-                graphic: { name: "طراحی گرافیک", slug: "graphic", icon: "/misc/Figma.svg" },
-                university: { name: "دروس دانشگاهی", slug: "university", icon: "/misc/Figma.svg" },
-                programming: { name: "برنامه نویسی", slug: "programming", icon: "/misc/Figma.svg" },
-                "web-design": { name: "طراحی وب", slug: "web-design", icon: "/misc/Figma.svg" },
-                business: { name: "کسب و کار", slug: "business", icon: "/misc/Figma.svg" },
-                free: { name: "دوره های رایگان", slug: "free", icon: "/misc/Figma.svg" },
-            },
+            departments: this.departments || {},
 
             search: this.search || "",
             order: this.order || "newest", // newest | most-popular
