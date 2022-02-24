@@ -41,7 +41,7 @@
                 :style="`background-image: url('${teacher.image}')`"
                 v-if="!teacherLoading"
             >
-                <img class="w-24 h-24 rounded-full shadow-md" :src="teacher.image" :alt="`${teacher.name} ${teacher.family}`" />
+                <img class="w-24 h-24 rounded-full shadow-md object-cover" :src="teacher.image" :alt="`${teacher.name} ${teacher.family}`" />
                 <b class="text-2xl">{{ `${teacher.name} ${teacher.family}` }}</b>
                 <small class="text-lightblue-400">{{ teacher.title }}</small>
                 <div class="flex flex-col gap-4 w-full">
@@ -65,7 +65,7 @@
                 </div>
                 <div class="flex flex-col gap-4 w-full">
                     <h5 class="text-xl border-b border-solid border-gray-300 border-opacity-30 py-2 w-full">درباره مدرس</h5>
-                    <p class="opacity-75 max-w-xs">{{ teacher.description }}</p>
+                    <p class="opacity-75 max-w-xs break-words">{{ teacher.description }}</p>
                 </div>
                 <ul class="flex flex-wrap items-center gap-2">
                     <li v-for="(social, j) in teacher.social" :key="j">

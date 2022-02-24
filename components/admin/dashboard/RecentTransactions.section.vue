@@ -37,10 +37,10 @@ h3::after {
             <li class="flex items-start gap-2 w-full" style="min-width: 720px" v-for="(record, i) in transactions" :key="i">
                 <div class="flex items-center justify-between gap-2 w-full" v-if="tab == 'course-transactions' && record.info">
                     <div class="flex items-center gap-2">
-                        <img class="w-8 h-8 rounded-full object-cover" :src="record.info[0].user[0].image" v-if="record.info[0].user[0].image" alt="" />
-                        <span class="text-sm">{{ record.info[0].fullname }}</span>
+                        <img class="w-8 h-8 rounded-full object-cover" :src="record.info[0].userImage" v-if="record.info[0].userImage" alt="" />
+                        <span class="text-sm">{{ record.info[0].userFullname }}</span>
                     </div>
-                    <span class="bg-bluegray-100 p-1 text-xs rounded-lg shadow-sm">{{ record.info[0].course[0].name }}</span>
+                    <span class="bg-bluegray-100 p-1 text-xs rounded-lg shadow-sm">{{ record.info[0].courseName }}</span>
                     <div class="flex items-center gap-1 font-bold">
                         {{ new Intl.NumberFormat("fa").format(record.info[0].totalPrice) }}
                         <small>تومان</small>

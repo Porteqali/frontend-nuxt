@@ -126,7 +126,7 @@
                             :class="teacherDescHeightOpen ? 'max-h-full' : 'max-h-64'"
                             @click="teacherDescHeightOpen = !teacherDescHeightOpen"
                         >
-                            {{ course.teacher.description }}
+                            {{ course.teacher.description.length > 256 ? course.teacher.description.substr(0, 256) + "..." : course.teacher.description }}
                         </p>
                         <nuxt-link :to="`/teacher/${course.teacher._id}`" class="gray_gradient rounded-2xl p-4 w-full text-center">
                             مشاهده دیگر دوره های استاد

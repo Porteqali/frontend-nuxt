@@ -107,7 +107,7 @@
                                     />
                                 </span>
                             </div>
-                            <div class="gray_gradient absolute bottom-0 flex flex-col gap-4 p-6 w-full">
+                            <div class="gray_gradient absolute bottom-0 flex flex-col gap-4 p-6 w-full" style="backdrop-filter: blur(10px)">
                                 <h3 class="text-2xl">{{ course.name }}</h3>
                                 <span class="text-lightblue-300">{{ `${course.totalTime} آموزش - ${course.topicsTotal} ویدیو` }}</span>
                             </div>
@@ -120,7 +120,7 @@
                                     </span>
                                     <div class="flex flex-wrap items-start justify-between gap-2 w-full" v-if="topic">
                                         <div class="flex flex-col gap-1 flex-grow">
-                                            <strong class="overflow-hidden overflow-ellipsis whitespace-nowrap">{{ topic.name }}</strong>
+                                            <strong class="overflow-hidden overflow-ellipsis whitespace-nowrap max-w-xs">{{ topic.name }}</strong>
                                             <span class="relative w-full h-1 bg-indigo-100"><b class="absolute w-8/12 h-1 bg-indigo-800"></b></span>
                                         </div>
                                         <small class="bg-indigo-100 text-indigo-800 py-1 p-2 rounded-md">
@@ -186,13 +186,15 @@
                         :key="i"
                     >
                         <div
-                            class="teacher_card relative flex flex-col items-center justify-center gap-4 flex-shrink-0 p-8 w-full sm:w-64 rounded-2xl shadow-lg max-w-md"
+                            class="teacher_card relative flex flex-col items-center justify-start gap-4 flex-shrink-0 p-8 w-full sm:w-64 rounded-2xl shadow-lg max-w-md"
                             :style="`background-image: url('${teacher.image}')`"
                         >
                             <img class="w-24 h-24 rounded-full shadow-md" :src="teacher.image" :alt="`${teacher.name} ${teacher.family}`" />
                             <b class="text-2xl text-center">{{ `${teacher.name} ${teacher.family}` }}</b>
                             <small class="text-lightblue-400">{{ teacher.title }}</small>
-                            <p class="opacity-75 text-center max-w-xs">{{ teacher.description }}</p>
+                            <p class="opacity-75 text-center max-w-xs">
+                                {{ teacher.description.length > 256 ? teacher.description.substr(0, 256) + "..." : teacher.description }}
+                            </p>
                             <ul class="flex flex-wrap items-center gap-2">
                                 <li v-for="(social, j) in teacher.social" :key="j">
                                     <a :href="social.link"><Icon class="w-8 h-8 bg-gray-200" folder="social" :name="social.name" /></a>
@@ -205,7 +207,11 @@
                                 <li class="w-full" v-for="(course, i) in teacher.courses" :key="i">
                                     <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="flex items-start gap-4 w-full">
                                         <span class="flex items-center justify-center flex-shrink-0 w-8 h-8 rounded-full">
-                                            <img class="w-full h-full object-cover rounded-full" :src="course.groups[0].icon || `/misc/Figma.svg`" :alt="course.groups[0].name" />
+                                            <img
+                                                class="w-full h-full object-cover rounded-full"
+                                                :src="course.groups[0].icon || `/misc/Figma.svg`"
+                                                :alt="course.groups[0].name"
+                                            />
                                         </span>
                                         <div class="flex flex-wrap items-start justify-between gap-2 w-full">
                                             <div class="flex flex-col gap-1 flex-grow">

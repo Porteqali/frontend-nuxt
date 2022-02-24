@@ -53,8 +53,8 @@
             <template v-slot:tbody="{ record, index }">
                 <td>
                     <div class="flex items-center gap-2">
-                        <img class="w-8 h-8 rounded-full object-cover" :src="record.user[0].image" v-if="record.user[0].image" alt="" />
-                        <span>{{ record.fullname }}</span>
+                        <img class="w-8 h-8 rounded-full object-cover" :src="record.userImage" v-if="record.userImage" :alt="record.userFullname" />
+                        <span>{{ record.userFullname }}</span>
                     </div>
                 </td>
                 <td>

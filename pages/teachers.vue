@@ -41,26 +41,31 @@
             <img class="" src="/pages/teachers/group.png" alt="porteqali-UpStairsMan" style="max-height: 1920px" />
         </section>
 
-        <section class="flex flex-wrap-reverse justify-evenly gap-8 w-full max-w-screen-2xl" v-if="!groupsLoading">
+        <section class="flex flex-wrap-reverse justify-evenly gap-8 w-screen max-w-screen-2xl" v-if="!groupsLoading">
             <div class="w-full flex flex-col gap-4" v-for="(group, i) in groups" :key="i">
                 <h3 class="font-bold text-3xl">اساتید دوره های {{ departments[i].name }}</h3>
-                <div v-swiper="swiperOptions" class="w-full max-w-screen-4xl select-none overflow-hidden py-4">
-                    <ul class="swiper-wrapper flex gap-6">
+                <div v-swiper:[departments[i].name]="swiperOptions" class="w-full max-w-screen-2xl select-none overflow-hidden py-4">
+                    <ul class="swiper-wrapper flex w-full">
                         <li
-                            class="swiper-slide teacher_card flex flex-col items-center justify-start gap-4 p-8 md:p-16 w-full rounded-3xl shadow-lg max-w-sm"
+                            class="swiper-slide teacher_card flex flex-col items-center justify-start gap-4 p-8 md:p-16 w-screen rounded-3xl shadow-lg max-w-sm flex-shrink-0 ml-6"
                             :style="`background-image: url('${teacher.image}')`"
                             v-for="(teacher, j) in group"
                             :key="j"
                         >
-                            <img class="w-24 h-24 rounded-full shadow-md" :src="teacher.image" :alt="`${teacher.name} ${teacher.family}`" />
+                            <img class="w-24 h-24 rounded-full shadow-md object-cover" :src="teacher.image" :alt="`${teacher.name} ${teacher.family}`" />
                             <b class="text-2xl">{{ `${teacher.name} ${teacher.family}` }}</b>
                             <small class="text-lightblue-400">{{ teacher.title }}</small>
-                            <p class="opacity-75 text-center max-w-xs">{{ teacher.description }}</p>
+                            <p class="opacity-75 text-center max-w-sm w-full break-words">
+                                {{ teacher.description.length > 256 ? teacher.description.substr(0, 256) + "..." : teacher.description }}
+                            </p>
                             <ul class="flex flex-wrap items-center gap-2">
                                 <li v-for="(social, j) in teacher.social" :key="j">
                                     <a :href="social.link"><Icon class="w-8 h-8 bg-gray-200" folder="social" :name="social.name" /></a>
                                 </li>
                             </ul>
+                            <nuxt-link :to="`/teacher/${teacher._id}`" class="flex items-center justify-center gray_gradient w-full p-4 rounded-xl mt-auto">
+                                مشاهده دوره ها
+                            </nuxt-link>
                         </li>
                     </ul>
                 </div>
@@ -120,7 +125,7 @@ export default {
 
             groupsLoading: false,
             groupsSkeleton: [0, 0, 0],
-            groups: this.groups || [],
+            groups: this.groups || {},
         };
     },
     async fetch() {
@@ -143,7 +148,9 @@ export default {
 
             await axios
                 .get(url, { headers })
-                .then((results) => (this.groups = results.data))
+                .then((results) => {
+                    this.groups = results.data;
+                })
                 .catch((e) => {})
                 .finally(() => (this.groupsLoading = false));
         },
