@@ -12,7 +12,7 @@
                     type="text"
                     v-model="commentText"
                     placeholder="دیدگاه خود را وارد کنید..."
-                    class="p-3 w-full rounded-xl shadow-xl resize-none"
+                    class="p-6 w-full rounded-3xl shadow-xl resize-none"
                     rows="8"
                 ></textarea>
                 <span
@@ -23,7 +23,7 @@
                     {{ message }}
                 </span>
                 <button
-                    class="orange_gradient_h flex items-center justify-center gap-2 py-3 px-4 w-max rounded-xl hover:shadow-lg"
+                    class="orange_gradient_h flex items-center justify-center gap-2 py-3 px-8 w-max rounded-2xl hover:shadow-lg"
                     :class="{ 'opacity-50': sending }"
                     @click="sendComment($event)"
                 >

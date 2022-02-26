@@ -15,7 +15,7 @@
         </div>
         <ul class="flex flex-col items-center gap-8" v-if="!faqsLoading">
             <li
-                class="card shadow-xl flex flex-wrap md:flex-nowrap items-center gap-8 p-8 w-full rounded-2xl max-w-screen-2xl"
+                class="card shadow-xl flex flex-wrap md:flex-nowrap items-center gap-4 md:gap-8 p-4 md:p-8 w-full rounded-2xl max-w-screen-xl"
                 v-for="(faq, i) in faqs"
                 :key="i"
                 @click="faq.open = !faq.open"

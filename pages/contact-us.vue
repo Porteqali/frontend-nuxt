@@ -1,12 +1,13 @@
 <style scoped>
 #top {
-    color: var(--top-h1-color);
+    /* color: var(--top-h1-color); */
     font-weight: 900;
 }
 
 .card {
     background-color: var(--header-nav-container-bg-color);
     color: var(--header-nav-text-color);
+    border-radius: 3rem;
 }
 
 input,
@@ -19,9 +20,9 @@ textarea {
     <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full mt-10 lg:mt-0">
         <section class="relative flex flex-wrap-reverse items-center justify-evenly gap-8 lg:gap-20" id="top">
             <img class="" src="/pages/contact-us/PhoneCallMan.png" alt="porteqali-PhoneCallMan" style="max-height: 1920px" />
-            <div class="flex flex-col gap-10">
+            <div class="flex flex-col gap-10 text-bluegray-900">
                 <h1 class="flex flex-col gap-4 text-5xl lg:text-7xl">
-                    <span class="kalameh_bold font-bold">تماس با ما</span>
+                    <span class="kalameh_black font-bold">تماس با ما</span>
                 </h1>
                 <ul class="flex items-center gap-2 font-light">
                     <li><nuxt-link title="صفحه اصلی" to="/">صفحه اصلی</nuxt-link></li>
@@ -102,7 +103,7 @@ textarea {
                 </form>
                 <div class="flex flex-col gap-4">
                     <h3 class="text-2xl text-center font-bold">راه های ارتباطی</h3>
-                    <ul class="card flex flex-col gap-8 rounded-3xl p-8 w-full max-w-sm">
+                    <ul class="card flex flex-col gap-8 p-8 lg:py-16 w-full max-w-sm">
                         <li class="flex flex-wrap items-center justify-between gap-4">
                             <h5 class="flex items-center gap-2">
                                 <img src="/icons/Location.orange.line.svg" alt="Calling" width="24" height="24" />

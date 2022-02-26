@@ -2,6 +2,15 @@
 .card {
     background-color: var(--testimonial-section-card-bg-color);
     color: var(--testimonial-section-card-color);
+    border: 1px solid #bebebe;
+}
+.container {
+}
+
+@media (min-width: 1024px) {
+    .container {
+        margin-right: -10vw;
+    }
 }
 </style>
 
@@ -10,10 +19,10 @@
         <div class="flex flex-wrap justify-between gap-8 w-full">
             <h2 class="font-bold text-4xl">نظرات دانشجویان پرتقال</h2>
         </div>
-        <div v-swiper="testimonialsSwiperOptions" class="w-full max-w-screen-4xl select-none overflow-hidden">
+        <div v-swiper="testimonialsSwiperOptions" class="container w-screen max-w-screen-4xl select-none overflow-hidden overflow-y-visible pb-16 -mb-8">
             <ul class="swiper-wrapper flex items-start">
                 <li
-                    class="swiper-slide blur card shadow-lg flex flex-col items-center gap-8 p-16 rounded-3xl max-w-screen-2sm z-10 ml-10"
+                    class="swiper-slide blur card shadow-2xl flex flex-col items-center gap-8 p-16 rounded-3xl max-w-screen-2sm z-10 ml-10"
                     v-for="(testimonial, i) in testimonials"
                     :key="i"
                 >
@@ -32,7 +41,7 @@
                         />
                         <div class="flex flex-col gap-2">
                             <b class="text-xl">{{ testimonial.fullname }}</b>
-                            <span class="text-pink-300">{{ testimonial.title }}</span>
+                            <span class="text-pink-500 text-lg">{{ testimonial.title }}</span>
                         </div>
                     </div>
                 </li>

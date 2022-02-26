@@ -1,19 +1,27 @@
 <style scoped>
 #top {
-    color: var(--top-h1-color);
+    /* color: var(--top-h1-color); */
     font-weight: 900;
 }
-
 .top_article_card {
     background-color: #000c7880;
     font-weight: initial;
     width: 90vw;
     margin-right: 20%;
     margin-left: -11vw;
+    box-shadow: 0px 50px 100px rgba(0, 0, 0, 0.25);
 }
+.top_article_card > img {
+    height: 30vw;
+    min-height: 320px;
+    top: -8vw;
+    left: 0;
+}
+
 .article_card {
-    background-color: #3f0e4780;
+    background-color: #3f0e4790;
     color: var(--top-h1-color);
+    box-shadow: 0px 50px 100px rgba(0, 0, 0, 0.25);
 }
 .article_card img {
     max-height: 16rem;
@@ -33,11 +41,11 @@
 <template>
     <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full mt-10 lg:mt-0">
         <section class="relative flex flex-col lg:flex-row justify-center items-center w-full" id="top">
-            <div class="flex flex-wrap-reverse items-end justify-center flex-grow w-full">
+            <div class="flex flex-wrap-reverse items-center justify-center flex-grow w-full">
                 <img class="" src="/pages/blog/SchoolMan.png" alt="porteqali-SchoolMan" style="max-height: 1920px" />
-                <div class="flex flex-col gap-10">
+                <div class="flex flex-col gap-10 text-bluegray-900">
                     <h1 class="flex flex-col gap-4 text-5xl lg:text-7xl">
-                        <span class="kalameh_bold font-bold">وبلاگ</span>
+                        <span class="kalameh_black font-bold">وبلاگ</span>
                     </h1>
                     <ul class="flex items-center gap-2 font-light">
                         <li><nuxt-link title="صفحه اصلی" to="/">صفحه اصلی</nuxt-link></li>
@@ -46,8 +54,8 @@
                     </ul>
                 </div>
             </div>
-            <div class="top_article_card blur rounded-3xl p-8 ml-0 mr-auto" v-if="!topArticleLoading">
-                <div class="flex flex-col gap-4 max-w-xs">
+            <div class="top_article_card blur relative rounded-3xl p-8 lg:p-16 ml-0 mr-auto text-white" v-if="!topArticleLoading">
+                <div class="relative flex flex-col gap-4 max-w-xs z-10">
                     <span class="text-blue-300" v-if="!!topArticle.category">{{ topArticle.category.name }}</span>
                     <h3 class="font-bold text-2xl">{{ topArticle.title }}</h3>
                     <p>{{ topArticle.description }}</p>
@@ -60,6 +68,7 @@
                         <img src="/icons/Document.orange.svg" alt="Document" />
                     </nuxt-link>
                 </div>
+                <img class="absolute h-full" src="/backgrounds/Background7.svg" alt="Background7" />
             </div>
             <div class="top_article_card blur rounded-3xl p-8 ml-0 mr-auto" v-else>
                 <div class="flex flex-col gap-4 max-w-xs">
@@ -89,15 +98,15 @@
                 </nuxt-link>
             </div>
             <div v-if="!popularArticlesLoading">
-                <div v-swiper="popularArticlesSwiperOptions" class="w-full max-w-screen-4xl select-none overflow-hidden">
+                <div v-swiper="popularArticlesSwiperOptions" class="w-full max-w-screen-4xl select-none overflow-hidden shadow-2xl">
                     <ul class="swiper-wrapper flex items-start">
                         <li
-                            class="swiper-slide article_card shadow-lg flex flex-col sm:flex-row gap-4 p-4 rounded-2xl w-full max-w-screen-sm ml-4"
+                            class="swiper-slide article_card shadow-lg flex flex-col sm:flex-row gap-4 p-4 rounded-3xl w-full max-w-screen-sm ml-4"
                             v-for="(popularArticle, i) in popularArticles"
                             :key="i"
                         >
-                            <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full sm:w-64">
-                                <img class="max-w-screen-sm w-full sm:h-full object-cover" :src="popularArticle.image" alt="course" draggable="false" />
+                            <div class="relative overflow-hidden rounded-3xl shadow-lg flex-shrink-0 w-full sm:w-64">
+                                <img class="max-w-screen-sm w-full h-52 sm:h-96 object-cover" :src="popularArticle.image" alt="course" draggable="false" />
                                 <span
                                     class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2"
                                     v-if="!!popularArticle.category"
@@ -105,7 +114,7 @@
                                     {{ popularArticle.category.name }}
                                 </span>
                             </div>
-                            <div class="flex flex-col gap-6 pt-2 w-full">
+                            <div class="flex flex-col gap-6 p-4 w-full">
                                 <h3 class="font-bold text-2xl w-full md:w-screen max-w-xs overflow-hidden overflow-ellipsis whitespace-nowrap">
                                     {{ popularArticle.title }}
                                 </h3>

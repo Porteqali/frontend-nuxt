@@ -1,14 +1,7 @@
 <style scoped>
 #top h1,
 #top p {
-    color: var(--top-h1-color);
-}
-
-#top {
-    background-image: url("/backgrounds/Background.png");
-    background-size: 150%;
-    background-repeat: no-repeat;
-    background-position: center 33%;
+    /* color: var(--top-h1-color); */
 }
 
 .search_box {
@@ -42,8 +35,9 @@
 }
 
 .article_card {
-    background-color: #3f0e4780;
+    background-color: #3f0e4790;
     color: var(--top-h1-color);
+    box-shadow: 0px 50px 100px rgba(0, 0, 0, 0.25);
 }
 .article_card img {
     max-height: 16rem;
@@ -70,7 +64,7 @@
     position: absolute;
     inset: 0;
     backdrop-filter: blur(15px);
-    border-radius: 2rem;
+    border-radius: 1.5rem;
 }
 
 @media (min-width: 768px) {
@@ -88,13 +82,16 @@
 
 <template>
     <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full">
-        <section class="relative flex flex-col items-center gap-10 p-8 py-16 w-full rounded-3xl shadow-md" id="top">
-            <h1 class="kalameh_bold font-bold text-4xl md:text-6xl">جستجو در پرتقال</h1>
-            <p class="text-lg mt-4 text-center">بیش از 2،000 ویدیو آموزشی از اساتید برتر در حوزه های مختلف</p>
-            <form class="search_box flex items-center gap-4 p-2 rounded-xl shadow-lg w-10/12 max-w-sm md:max-w-xl" @submit="research($event)">
-                <img class="flex-shrink-0 mr-2" src="/icons/Search.duo.svg" width="24" height="24" alt="Search" />
-                <input class="flex-grow outline-none bg-transparent w-full h-10" v-model="searchQuery" type="text" placeholder="جستجو..." />
-            </form>
+        <section class="relative flex flex-col items-center w-full" id="top">
+            <div class="relative flex flex-col items-center gap-10 w-full p-8 py-16 z-10">
+                <h1 class="kalameh_black font-bold text-4xl md:text-6xl text-gray-700">جستجو در پرتقال</h1>
+                <p class="text-lg mt-4 text-center text-gray-700">بیش از 2،000 ویدیو آموزشی از اساتید برتر در حوزه های مختلف</p>
+                <form class="search_box flex items-center gap-4 p-2 rounded-xl shadow-lg w-10/12 max-w-sm md:max-w-3xl" @submit="research($event)">
+                    <img class="flex-shrink-0 mr-2" src="/icons/Search.duo.svg" width="24" height="24" alt="Search" />
+                    <input class="flex-grow outline-none bg-transparent w-full h-10" v-model="searchQuery" type="text" placeholder="جستجو..." />
+                </form>
+            </div>
+            <img class="absolute w-screen max-w-xl -left-0 -top-1/4" style="z-index: -1" src="/backgrounds/Background.svg" alt="Background" />
         </section>
         <strong v-if="resultsTotal > 0 && !resultsLoading">
             {{ resultsTotal }} نتیجه برای "{{ $route.params.query }}" در بخش {{ selectedSearchSection.name }} پیدا کردیم
@@ -178,39 +175,41 @@
         </section>
         <section class="w-full" id="articles" v-if="selectedSearchSection.value == 'article'">
             <ul class="grid gap-10" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr))">
-                <li class="flex w-full shadow-lg rounded-xl mx-auto" v-for="(article, i) in results" :key="i">
+                <li class="flex w-full rounded-xl mx-auto" v-for="(article, i) in results" :key="i">
                     <nuxt-link
-                        class="article_card blur flex flex-col gap-4 flex-grow p-4 rounded-2xl shadow-xl w-full"
+                        class="article_card blur flex flex-col gap-4 flex-grow rounded-3xl w-full"
                         :to="`/article/${article.slug}`"
                         :title="article.title"
                     >
-                        <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full h-64">
+                        <div class="relative overflow-hidden rounded-3xl shadow-lg flex-shrink-0 w-full h-64">
                             <img class="max-w-screen-sm w-full h-full object-cover" :src="article.image" alt="course" loading="lazy" />
                             <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2" v-if="!!article.category[0]">
                                 {{ article.category[0].name }}
                             </span>
                         </div>
-                        <h3 class="font-bold text-2xl max-w-screen-xs overflow-hidden overflow-ellipsis whitespace-nowrap">{{ article.title }}</h3>
-                        <p class="max-w-xs opacity-75 flex-grow">{{ article.description }}</p>
-                        <div class="flex flex-wrap justify-between items-center gap-4">
-                            <div class="flex items-start gap-2">
-                                <img
-                                    class="rounded-full object-cover w-8 h-8"
-                                    v-if="!!article.author"
-                                    :src="article.author[0].image"
-                                    :alt="`${article.author[0].name} ${article.author[0].family}`"
-                                    width="32"
-                                    height="32"
-                                />
-                                <div class="flex flex-col gap-1">
-                                    <small v-if="!!article.author">{{ `${article.author[0].name} ${article.author[0].family}` }}</small>
-                                    <small class="opacity-75">{{ new Date(article.publishedAt).toLocaleDateString("fa") }}</small>
+                        <div class="flex flex-col gap-4 p-4 pt-0 h-full">
+                            <h3 class="text-2xl max-w-screen-xs overflow-hidden overflow-ellipsis whitespace-nowrap">{{ article.title }}</h3>
+                            <p class="max-w-xs opacity-75 flex-grow">{{ article.description }}</p>
+                            <div class="flex flex-wrap justify-between items-center gap-4">
+                                <div class="flex items-start gap-2">
+                                    <img
+                                        class="rounded-full object-cover w-8 h-8"
+                                        v-if="!!article.author"
+                                        :src="article.author[0].image"
+                                        :alt="`${article.author[0].name} ${article.author[0].family}`"
+                                        width="32"
+                                        height="32"
+                                    />
+                                    <div class="flex flex-col gap-1">
+                                        <small v-if="!!article.author">{{ `${article.author[0].name} ${article.author[0].family}` }}</small>
+                                        <small class="opacity-75">{{ new Date(article.publishedAt).toLocaleDateString("fa") }}</small>
+                                    </div>
                                 </div>
+                                <span class="flex items-end gap-1">
+                                    <img src="/icons/Heart.svg" alt="Heart" width="20" height="20" />
+                                    <small>{{ article.likes }}</small>
+                                </span>
                             </div>
-                            <span class="flex items-end gap-1">
-                                <img src="/icons/Heart.svg" alt="Heart" width="20" height="20" />
-                                <small>{{ article.likes }}</small>
-                            </span>
                         </div>
                     </nuxt-link>
                 </li>

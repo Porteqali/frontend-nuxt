@@ -1,6 +1,6 @@
 <style scoped>
 #top {
-    color: var(--top-h1-color);
+    /* color: var(--top-h1-color); */
     font-weight: 900;
 }
 </style>
@@ -10,9 +10,9 @@
         <!-- <Background src="/backgrounds/Background2.png" :topOffset="-30" :rightOffset="-10" :minWidth="2420" /> -->
 
         <section class="relative flex flex-wrap justify-evenly gap-8 lg:gap-20" id="top">
-            <div class="flex flex-col gap-10">
+            <div class="flex flex-col gap-10 text-bluegray-900">
                 <h1 class="flex flex-col gap-4 text-5xl lg:text-7xl">
-                    <span class="kalameh_bold font-bold">قوانین و مقررات</span>
+                    <span class="kalameh_black font-bold">قوانین و مقررات</span>
                 </h1>
                 <ul class="flex items-center gap-2 font-light">
                     <li><nuxt-link title="صفحه اصلی" to="/">صفحه اصلی</nuxt-link></li>
@@ -22,7 +22,7 @@
             </div>
         </section>
 
-        <article class="article_body w-full p-8 mt-20 rounded-2xl max-w-screen-lg shadow-2xl z-10 bg-white">
+        <article class="article_body w-full p-8 rounded-2xl max-w-screen-lg shadow-2xl z-10 bg-white">
             <div class="w-full h-full" v-html="htmlText"></div>
         </article>
     </main>

@@ -1,6 +1,6 @@
 <style scoped>
 #top {
-    color: var(--top-h1-color);
+    /* color: var(--top-h1-color); */
     font-weight: 900;
 }
 
@@ -12,7 +12,7 @@
 }
 .top_course_cart .topics {
     /* height: 20rem; */
-    min-width: 20rem;
+    /* min-width: 20rem; */
     overflow: auto;
 }
 .article_category {
@@ -23,6 +23,9 @@
 
 .most_viewed_courses_list {
     grid-template-columns: repeat(auto-fit, minmax(640px, 1fr));
+}
+.most_viewed_courses_list_info:hover {
+    margin-bottom: 0;
 }
 
 .teacher_card {
@@ -49,10 +52,10 @@
 <template>
     <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full mt-10 lg:mt-0">
         <section class="relative flex flex-col lg:flex-row justify-center items-center w-full" id="top">
-            <div class="flex flex-wrap items-start justify-center gap-10 flex-grow w-full">
-                <div class="flex flex-col gap-10">
+            <div class="flex flex-wrap items-center justify-center gap-10 flex-grow w-full">
+                <div class="flex flex-col gap-10 text-bluegray-900">
                     <h1 class="flex flex-col gap-4 text-5xl lg:text-7xl">
-                        <span class="kalameh_bold font-bold">دپارتمان ها</span>
+                        <span class="kalameh_black font-bold">دپارتمان ها</span>
                     </h1>
                     <ul class="flex items-center gap-2 font-light">
                         <li><nuxt-link title="صفحه اصلی" to="/">صفحه اصلی</nuxt-link></li>
@@ -107,29 +110,32 @@
                                     />
                                 </span>
                             </div>
-                            <div class="gray_gradient absolute bottom-0 flex flex-col gap-4 p-6 w-full" style="backdrop-filter: blur(10px)">
+                            <div
+                                class="most_viewed_courses_list_info gray_gradient absolute bottom-0 flex flex-col gap-4 p-6 w-full -mb-16"
+                                style="backdrop-filter: blur(10px)"
+                            >
                                 <h3 class="text-2xl">{{ course.name }}</h3>
                                 <span class="text-lightblue-300">{{ `${course.totalTime} آموزش - ${course.topicsTotal} ویدیو` }}</span>
+                                <button class="orange_gradient_h p-2 px-4 w-full rounded-xl">شروع آموزش</button>
                             </div>
                         </nuxt-link>
-                        <div class="flex flex-col gap-6 pt-2 w-full">
-                            <ul class="topics flex flex-col justify-between items-stretch gap-7 w-full">
-                                <li class="flex items-start gap-4 w-full" v-for="(topic, i) in course.topics" :key="i">
-                                    <span class="flex items-center justify-center flex-shrink-0 w-8 h-8 p-2 bg-indigo-100 text-indigo-800 rounded-full">
-                                        {{ i + 1 }}
-                                    </span>
-                                    <div class="flex flex-wrap items-start justify-between gap-2 w-full" v-if="topic">
-                                        <div class="flex flex-col gap-1 flex-grow">
-                                            <strong class="overflow-hidden overflow-ellipsis whitespace-nowrap max-w-xs">{{ topic.name }}</strong>
-                                            <span class="relative w-full h-1 bg-indigo-100"><b class="absolute w-8/12 h-1 bg-indigo-800"></b></span>
-                                        </div>
-                                        <small class="bg-indigo-100 text-indigo-800 py-1 p-2 rounded-md">
-                                            {{ `${topic.time.hours}:${topic.time.minutes}:${topic.time.seconds}` }}
-                                        </small>
+                        <ul class="topics flex flex-col justify-between items-stretch gap-7 w-full">
+                            <li class="flex items-start gap-2 w-full" v-for="(topic, i) in course.topics" :key="i">
+                                <span class="flex items-center justify-center flex-shrink-0 w-8 h-8 p-2 bg-indigo-100 text-indigo-800 rounded-full">
+                                    {{ i + 1 }}
+                                </span>
+                                <div class="flex flex-wrap items-center justify-between gap-2 w-full" v-if="topic">
+                                    <div class="flex flex-col gap-1 flex-grow">
+                                        <strong class="text-sm overflow-hidden overflow-ellipsis whitespace-nowrap max-w-screen-2xs 2xl:max-w-xs">
+                                            {{ topic.name }}
+                                        </strong>
                                     </div>
-                                </li>
-                            </ul>
-                        </div>
+                                    <small class="bg-indigo-100 text-indigo-800 py-1 p-2 rounded-md text-xs sm:text-base">
+                                        {{ `${topic.time.hours}:${topic.time.minutes}:${topic.time.seconds}` }}
+                                    </small>
+                                </div>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div>

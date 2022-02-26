@@ -1,6 +1,6 @@
 <style scoped>
 #top {
-    color: var(--top-h1-color);
+    /* color: var(--top-h1-color); */
     font-weight: 900;
 }
 
@@ -41,9 +41,9 @@ textarea {
 <template>
     <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full mt-10 lg:mt-0">
         <section class="relative flex flex-col justify-center items-center" id="top">
-            <div class="flex flex-col gap-10">
+            <div class="flex flex-col gap-10 text-bluegray-900">
                 <h1 class="flex flex-col gap-4 text-5xl lg:text-7xl">
-                    <span class="kalameh_bold font-bold">همکاری با ما</span>
+                    <span class="kalameh_black font-bold">همکاری با ما</span>
                 </h1>
                 <ul class="flex items-center gap-2 font-light">
                     <li><nuxt-link title="صفحه اصلی" to="/">صفحه اصلی</nuxt-link></li>

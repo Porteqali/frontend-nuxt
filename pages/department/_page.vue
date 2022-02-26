@@ -177,7 +177,7 @@
                     class="flex items-center justify-center rounded-full"
                     :to="`/department/:page?order=${order}&group=${group.slug}&search=${search}`.replace(':page', Math.max(coursesPage - 1, 1))"
                 >
-                    <img src="/icons/ArrowRight.line.svg" width="24" height="24" alt="ArrowRight">
+                    <img src="/icons/ArrowRight.line.svg" width="24" height="24" alt="ArrowRight" />
                 </nuxt-link>
             </li>
             <li v-for="(item, i) in coursesPages" :key="i">
@@ -196,7 +196,7 @@
                     class="flex items-center justify-center rounded-full"
                     :to="`/department/:page?order=${order}&group=${group.slug}&search=${search}`.replace(':page', Math.min(coursesPage + 1, coursesPageTotal))"
                 >
-                    <img src="/icons/ArrowLeft.line.svg" width="24" height="24" alt="ArrowLeft">
+                    <img src="/icons/ArrowLeft.line.svg" width="24" height="24" alt="ArrowLeft" />
                 </nuxt-link>
             </li>
         </ul>
@@ -229,10 +229,12 @@ export default {
         let headers = {};
         if (process.server) headers = this.$nuxt.context.req.headers;
 
+        await this.getCourseGroups({ headers });
+
         const route = this.$nuxt.context.route;
         this.processRoute(route);
 
-        await Promise.all([this.getCourses({ headers }), this.getCourseGroups({ headers })]);
+        await this.getCourses({ headers });
     },
     async beforeRouteUpdate(to, from, next) {
         if (to.params.page) this.$route.params.page = to.params.page;
@@ -324,7 +326,10 @@ export default {
         processRoute(route) {
             if (route.params.page && !isNaN(parseInt(route.params.page))) this.coursesPages = parseInt(route.params.page);
             if (route.query.order) this.order = route.query.order;
-            if (route.query.group && !!this.departments[route.query.group]) this.group = this.departments[route.query.group];
+            if (route.query.group) {
+                const _id = Object.keys(this.departments).find((key) => this.departments[key]['slug'] == route.query.group);
+                if (!!this.departments[_id]) this.group = this.departments[_id];
+            }
             if (route.query.search) this.search = route.query.search;
         },
 

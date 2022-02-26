@@ -1,7 +1,7 @@
 <style scoped>
 #top h1,
 #top ul {
-    color: var(--top-h1-color);
+    /* color: var(--top-h1-color); */
     font-weight: 900;
 }
 .search_box {
@@ -33,10 +33,10 @@
 <template>
     <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full mt-10 lg:mt-0">
         <section class="relative flex flex-wrap-reverse items-center justify-evenly gap-8 lg:gap-20" id="top">
-            <img class="" src="/pages/faqs/ResearchMan.png" alt="porteqali-PhoneCallMan" style="max-height: 1920px" />
-            <div class="flex flex-col gap-10">
+            <img class="-mb-48" src="/pages/faqs/ResearchMan.png" alt="porteqali-PhoneCallMan" style="max-height: 1920px" />
+            <div class="flex flex-col gap-10 text-bluegray-900">
                 <h1 class="flex flex-col gap-4 text-5xl lg:text-7xl">
-                    <span class="kalameh_bold font-bold">سوالات متداول</span>
+                    <span class="kalameh_black font-bold">سوالات متداول</span>
                 </h1>
                 <ul class="flex items-center gap-2 font-light">
                     <li><nuxt-link title="صفحه اصلی" to="/">صفحه اصلی</nuxt-link></li>
@@ -53,37 +53,37 @@
             </div>
         </section>
 
-        <ul class="flex flex-wrap justify-center gap-8 w-full max-w-screen-xl mx-auto -mt-52">
+        <ul class="flex flex-wrap justify-center gap-4 md:gap-8 w-full max-w-screen-xl mx-auto">
             <li
-                class="category_card blur flex flex-col items-center justify-center gap-4 p-8 md:px-16 rounded-2xl"
+                class="category_card blur flex flex-col items-center justify-center gap-4 p-4 md:px-16 rounded-3xl w-full max-w-screen-2xs md:max-w-max"
                 :class="{ 'border-4 border-solid border-orange-300': selectedGroup == 'education' }"
                 @click="selectCategory('education')"
             >
-                <img src="/pages/faqs/Book.svg" class="w-24 md:w-32" alt="Book" />
+                <img src="/pages/faqs/Book.svg" class="w-20 md:w-32" alt="Book" />
                 <strong class="text-lg md:text-2xl">آموزش</strong>
             </li>
             <li
-                class="category_card blur flex flex-col items-center justify-center gap-4 p-8 md:px-16 rounded-2xl"
+                class="category_card blur flex flex-col items-center justify-center gap-4 p-4 md:px-16 rounded-3xl w-full max-w-screen-2xs md:max-w-max"
                 :class="{ 'border-4 border-solid border-orange-300': selectedGroup == 'support' }"
                 @click="selectCategory('support')"
             >
-                <img src="/pages/faqs/Window.svg" class="w-24 md:w-32" alt="Window" />
+                <img src="/pages/faqs/Window.svg" class="w-20 md:w-32" alt="Window" />
                 <strong class="text-lg md:text-2xl">پشتیبانی</strong>
             </li>
             <li
-                class="category_card blur flex flex-col items-center justify-center gap-4 p-8 md:px-16 rounded-2xl"
+                class="category_card blur flex flex-col items-center justify-center gap-4 p-4 md:px-16 rounded-3xl w-full max-w-screen-2xs md:max-w-max"
                 :class="{ 'border-4 border-solid border-orange-300': selectedGroup == 'collab' }"
                 @click="selectCategory('collab')"
             >
-                <img src="/pages/faqs/Mail.svg" class="w-24 md:w-32" alt="Mail" />
+                <img src="/pages/faqs/Mail.svg" class="w-20 md:w-32" alt="Mail" />
                 <strong class="text-lg md:text-2xl">همکاری</strong>
             </li>
             <li
-                class="category_card blur flex flex-col items-center justify-center gap-4 p-8 md:px-16 rounded-2xl"
+                class="category_card blur flex flex-col items-center justify-center gap-4 p-4 md:px-16 rounded-3xl w-full max-w-screen-2xs md:max-w-max"
                 :class="{ 'border-4 border-solid border-orange-300': selectedGroup == 'wallet' }"
                 @click="selectCategory('wallet')"
             >
-                <img src="/pages/faqs/Wallet.svg" class="w-24 md:w-32" alt="Wallet" />
+                <img src="/pages/faqs/Wallet.svg" class="w-20 md:w-32" alt="Wallet" />
                 <strong class="text-lg md:text-2xl">کارت اعتباری</strong>
             </li>
         </ul>

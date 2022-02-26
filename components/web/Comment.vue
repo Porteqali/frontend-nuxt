@@ -10,7 +10,7 @@
             :alt="`${comment.author[0].name} ${comment.author[0].family}`"
         />
         <div class="flex flex-col items-start gap-4 w-full">
-            <div class="flex flex-col gap-2 w-full p-4 rounded-xl shadow-xl bg-white">
+            <div class="flex flex-col gap-2 w-full p-4 rounded-3xl shadow-xl bg-white">
                 <b v-if="comment.author[0]">{{ `${comment.author[0].name} ${comment.author[0].family}` }}</b>
                 <small>{{ comment.createdAt }}</small>
                 <p class="p-3 my-2" v-if="comment.text">{{ comment.text }}</p>
@@ -27,7 +27,7 @@
                     :comment="subcomment"
                 />
                 <button
-                    class="gray_gradient blur flex items-center gap-2 py-3 px-6 rounded-xl w-max"
+                    class="gray_gradient blur flex items-center gap-2 py-3 px-6 rounded-3xl w-max"
                     v-if="!repliesLoading && repliesPage <= repliesPageTotal"
                     @click="getReplies()"
                 >

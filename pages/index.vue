@@ -8,7 +8,7 @@
 }
 
 #top h1 {
-    color: var(--top-h1-color);
+    /* color: var(--top-h1-color); */
     font-weight: 900;
 }
 
@@ -20,14 +20,12 @@
 
 <template>
     <main role="main" class="flex flex-col items-center gap-24 lg:gap-28 max-w-screen-2xl w-full mt-10 lg:mt-0">
-        <!-- <Background src="/backgrounds/Background.png" :topOffset="0" :rightOffset="0" :minWidth="2020" /> -->
-
         <section class="relative flex flex-wrap items-center justify-evenly gap-8 lg:gap-20" id="top">
             <div class="flex flex-col gap-10">
-                <h1 class="flex flex-col gap-4 text-5xl lg:text-7xl">
-                    <span class="kalameh_bold font-bold">با پرتقال</span>
-                    <span class="kalameh_bold font-bold">همه جا،</span>
-                    <span class="kalameh_bold font-bold">آموزش ببینید</span>
+                <h1 class="flex flex-col gap-4 text-5xl lg:text-7xl text-bluegray-900">
+                    <span class="kalameh_black font-bold">با پرتقال</span>
+                    <span class="kalameh_black font-bold">همه جا،</span>
+                    <span class="kalameh_black font-bold">آموزش ببینید</span>
                 </h1>
                 <form class="search_box flex items-center gap-4 p-2 rounded-xl shadow-lg" @submit="goToSearchPage($event)">
                     <img class="flex-shrink-0 mr-2 hidden md:inline-block" src="/icons/Search.duo.svg" width="24" height="24" alt="Search" />
@@ -38,8 +36,16 @@
                     </button>
                 </form>
             </div>
-            <!-- <img ref="boyImg" src="/pages/home/Video Call (Man).webp" width="768px" alt="porteqali-online-learning-platform" /> -->
-            <img class="boyImg w-full max-w-2xl" loading="lazy" :src="topImageList[topImageIndex]" alt="porteqali-online-learning-platform" @click="changeBoy()" />
+            <div class="relative flex items-center justify-center">
+                <img
+                    class="boyImg relative w-full max-w-2xl z-10"
+                    loading="lazy"
+                    :src="topImageList[topImageIndex]"
+                    alt="porteqali-online-learning-platform"
+                    @click="changeBoy()"
+                />
+                <img class="absolute -left-1/2 w-screen max-w-3xl" src="/backgrounds/Background.svg" alt="Background" />
+            </div>
         </section>
 
         <DepartmentSection />
@@ -60,12 +66,12 @@
                     اگر نمیدونی به چی علاقه داری، کافیه جواب سوالایی که براتون میفرستیم رو بدید تا ما بگیم به چی علاقه داری و نقشه راهی بدیم بهت که کارتو خیلی جلو
                     میندازه
                 </p>
-                <button class="orange_gradient_h flex items-center rounded-xl shadow-lg gap-2 p-4 w-max cursor-pointer">
+                <button class="orange_gradient_h flex items-center rounded-2xl shadow-lg gap-2 p-4 w-max cursor-pointer">
                     <span class="text-xl">دوست داری چی یاد بگیری؟</span>
                     <img src="/icons/Discovery.gray.svg" width="32" height="32" alt="Search" />
                 </button>
             </div>
-            <div class="roadmap_vision_img rounded-3xl shadow-xl py-2 blur z-10">
+            <div class="roadmap_vision_img rounded-3xl shadow-xl py-2 z-10">
                 <img class="" src="/pages/home/Vision&Missi.png" loading="lazy" alt="porteqali-vision" />
             </div>
         </section>
@@ -80,7 +86,7 @@
                 <p class="max-w-screen-sm text-xl font-bold" style="line-height: 2.25rem">
                     دسترسی به همه دوره های آموزشی، دریافت گواهینامه های پایان دوره و خیلی امکانات دیگر را با پیشنهاد های عالی از پرتقال دریافت کن!
                 </p>
-                <button class="orange_gradient_h flex items-center gap-2 rounded-xl shadow-lg mt-20 p-4 w-max cursor-pointer">
+                <button class="orange_gradient_h flex items-center gap-2 rounded-2xl shadow-lg mt-20 p-4 w-max cursor-pointer">
                     <span class="text-xl">استعلام گواهینامه آموزشی</span>
                     <img src="/icons/Scan.svg" width="32" height="32" alt="Scan" />
                 </button>

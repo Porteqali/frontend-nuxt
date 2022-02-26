@@ -118,6 +118,11 @@
         width: 240px;
     }
 }
+@media (min-width: 320px) {
+    .dashbaord_table table.card tbody tr {
+        width: 100%; margin: 0;
+    }
+}
 </style>
 
 <template>

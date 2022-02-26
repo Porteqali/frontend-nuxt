@@ -77,7 +77,7 @@
             <div class="flex justify-center mt-8 swiper-pagination2 swiper-pagination-bullets"></div>
         </div>
         <div class="flex items-center justify-center w-full">
-            <nuxt-link to="/department?order=most-popular" class="more_courses_btn blur flex items-center gap-2 py-3 px-6 rounded-xl w-max">
+            <nuxt-link to="/department?order=most-popular" class="more_courses_btn blur flex items-center gap-2 py-4 px-8 rounded-2xl w-max">
                 <img src="/icons/BookOpenOutlineColor.orange.svg" width="24" height="24" alt="BookOpenOutlineColor" />
                 <span>مشاهده همه دوره ها</span>
             </nuxt-link>

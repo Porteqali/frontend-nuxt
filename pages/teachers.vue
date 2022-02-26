@@ -1,6 +1,6 @@
 <style scoped>
 #top {
-    color: var(--top-h1-color);
+    /* color: var(--top-h1-color); */
     font-weight: 900;
 }
 
@@ -21,16 +21,16 @@
     position: absolute;
     inset: 0;
     backdrop-filter: blur(15px);
-    border-radius: 2rem;
+    border-radius: 1.5rem;
 }
 </style>
 
 <template>
     <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full mt-10 lg:mt-0">
         <section class="relative flex flex-wrap-reverse items-center justify-evenly gap-8 lg:gap-20" id="top">
-            <div class="flex flex-col gap-10">
+            <div class="flex flex-col gap-10 text-bluegray-900">
                 <h1 class="flex flex-col gap-4 text-5xl lg:text-7xl">
-                    <span class="kalameh_bold font-bold">مدرسان پرتقال</span>
+                    <span class="kalameh_black font-bold">مدرسان پرتقال</span>
                 </h1>
                 <ul class="flex items-center gap-2 font-light">
                     <li><nuxt-link title="صفحه اصلی" to="/">صفحه اصلی</nuxt-link></li>
@@ -41,7 +41,7 @@
             <img class="" src="/pages/teachers/group.png" alt="porteqali-UpStairsMan" style="max-height: 1920px" />
         </section>
 
-        <section class="flex flex-wrap-reverse justify-evenly gap-8 w-screen max-w-screen-2xl" v-if="!groupsLoading">
+        <section class="flex flex-wrap-reverse justify-evenly gap-8 w-full max-w-screen-2xl" v-if="!groupsLoading">
             <div class="w-full flex flex-col gap-4" v-for="(group, i) in groups" :key="i">
                 <h3 class="font-bold text-3xl">اساتید دوره های {{ departments[i].name }}</h3>
                 <div v-swiper:[departments[i].name]="swiperOptions" class="w-full max-w-screen-2xl select-none overflow-hidden py-4">

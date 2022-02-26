@@ -11,7 +11,8 @@
 }
 
 header {
-    color: var(--header-nav-text-color);
+    /* color: var(--header-nav-text-color); */
+    color: #333;
 }
 
 .footer_container {
@@ -21,8 +22,8 @@ header {
 .footer_bg {
     bottom: 0;
     /* right: 10%; */
-    width: 70%;
-    margin-right: -10%;
+    width: 60%;
+    margin-right: 0;
     margin-bottom: 0;
     min-width: 768px;
     max-width: 1280px;
@@ -34,7 +35,9 @@ header {
 }
 footer {
     color: var(--header-nav-text-color);
-    background-color: var(--header-nav-container-bg-color);
+    /* background-color: var(--header-nav-container-bg-color); */
+    background-color: rgba(0, 0, 0, 67%);
+    box-shadow: 0px 30px 100px rgba(0, 0, 0, 25%);
 }
 .go_up_btn {
     margin-left: 10%;
@@ -48,28 +51,29 @@ footer {
 
         <header class="flex items-center justify-between gap-8 py-8 w-full max-w-screen-4xl z-20">
             <nuxt-link title="پرتقال" to="/" class="flex-shrink-0">
-                <img v-if="!!$nuxt.$route.matched[0] && !!topBackground[$nuxt.$route.matched[0].path]" src="/logo_white.svg" alt="پرتقال" />
-                <img v-else src="/logo_orange.svg" alt="پرتقال" />
+                <!-- <img v-if="!!$nuxt.$route.matched[0] && !!topBackground[$nuxt.$route.matched[0].path]" src="/logo_white.svg" alt="پرتقال" />
+                <img v-else src="/logo_orange.svg" alt="پرتقال" /> -->
+                <img src="/logo_orange.svg" alt="پرتقال" />
             </nuxt-link>
             <Menu />
         </header>
 
-        <Background
+        <!-- <Background
             v-if="!!$nuxt.$route.matched[0] && !!topBackground[$nuxt.$route.matched[0].path]"
             :src="topBackground[$nuxt.$route.matched[0].path].src"
             :topOffset="topBackground[$nuxt.$route.matched[0].path].topOffset"
             :rightOffset="topBackground[$nuxt.$route.matched[0].path].rightOffset"
             :minWidth="topBackground[$nuxt.$route.matched[0].path].minWidth"
-        />
+        /> -->
 
         <Nuxt class="z-10" nuxt-child-key="default" />
 
-        <div class="footer_container relative w-full mt-20">
+        <div class="footer_container relative w-screen mt-20">
             <button class="go_up_btn orange_gradient_v relative flex items-center justify-center rounded-xl p-6 -mb-8 mr-auto" @click="scrollUp()">
                 <img src="/icons/GoUp.svg" alt="GoUp" width="16" height="16" />
             </button>
-            <footer class="blur flex flex-col items-center gap-4 max-w-screen-4xl shadow-xl w-full rounded-3xl mx-auto mb-4 p-4 lg:p-8 z-10">
-                <div class="flex flex-wrap items-center justify-evenly gap-16 w-full">
+            <footer class="blur flex flex-col items-center gap-4 shadow-xl w-full mx-auto p-4 lg:p-8 z-10">
+                <div class="flex flex-wrap items-center justify-evenly gap-16 w-full max-w-screen-2xl">
                     <div class="flex flex-col gap-4 p-6 lg:p-0">
                         <h4 class="font-bold text-2xl">همراه پرتقال</h4>
                         <ul class="flex flex-wrap flex-row lg:flex-col gap-6 lg:gap-2">
@@ -100,12 +104,12 @@ footer {
                     <div class="flex flex-col gap-6">
                         <Newsletter />
                         <div class="flex flex-wrap gap-4">
-                            <span class="bg-white shadow-xl p-2 rounded-xl">
+                            <span class="bg-white shadow-xl p-2 rounded-xl w-32">
                                 <a target="_blank" rel="nofollow" href="https://trustseal.enamad.ir/?id=188225&Code=U2OkUKhLJGtzDqjP0Iq1">
                                     <img src="https://Trustseal.eNamad.ir/logo.aspx?id=188225&Code=U2OkUKhLJGtzDqjP0Iq1" id="U2OkUKhLJGtzDqjP0Iq1" />
                                 </a>
                             </span>
-                            <span class="bg-white shadow-xl p-2 rounded-xl">
+                            <span class="bg-white shadow-xl p-2 rounded-xl w-32">
                                 <img src="/misc/namad.png" alt="پروانه نشر دیجیتال" />
                             </span>
                         </div>

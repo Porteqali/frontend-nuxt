@@ -1,19 +1,21 @@
 <style scoped>
 #top {
-    color: var(--top-h1-color);
+    /* color: var(--top-h1-color); */
     font-weight: 900;
 }
 
 .top_article_card {
-    background-color: #000c7880;
+    background-color: #3f0e4790;
     font-weight: initial;
     width: 110vw;
     margin-right: 10%;
     margin-left: -10vw;
+    box-shadow: 0px 50px 100px rgba(0, 0, 0, 0.25);
 }
 .article_card {
-    background-color: #3f0e4780;
+    background-color: #3f0e4790;
     color: var(--top-h1-color);
+    box-shadow: 0px 50px 100px rgba(0, 0, 0, 0.25);
 }
 .article_card img {
     max-height: 16rem;
@@ -66,39 +68,41 @@
             </div>
         </div>
         <ul class="grid gap-10" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr))" v-if="!articlesLoading">
-            <li class="flex w-full shadow-lg rounded-xl mx-auto max-w-md" v-for="(article, i) in articles" :key="i">
+            <li class="flex w-full rounded-xl mx-auto max-w-md" v-for="(article, i) in articles" :key="i">
                 <nuxt-link
-                    class="article_card flex flex-col gap-4 flex-grow p-4 rounded-2xl shadow-xl w-full"
+                    class="article_card flex flex-col gap-4 flex-grow rounded-3xl shadow-xl w-full"
                     :to="`/article/${article.slug}`"
                     :title="article.title"
                 >
-                    <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full h-64">
+                    <div class="relative overflow-hidden rounded-3xl shadow-lg flex-shrink-0 w-full h-64">
                         <img class="max-w-screen-sm w-full h-full object-cover" :src="article.image" alt="course" loading="lazy" />
                         <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2" v-if="!!article.category[0]">
                             {{ article.category[0].name }}
                         </span>
                     </div>
-                    <h3 class="font-bold text-2xl max-w-screen-xs overflow-hidden overflow-ellipsis whitespace-nowrap">{{ article.title }}</h3>
-                    <p class="max-w-xs opacity-75 flex-grow">{{ article.description }}</p>
-                    <div class="flex flex-wrap justify-between items-center gap-4">
-                        <div class="flex items-start gap-2">
-                            <img
-                                class="rounded-full object-cover w-8 h-8"
-                                v-if="!!article.author"
-                                :src="article.author[0].image"
-                                :alt="`${article.author[0].name} ${article.author[0].family}`"
-                                width="32"
-                                height="32"
-                            />
-                            <div class="flex flex-col gap-1">
-                                <small v-if="!!article.author">{{ `${article.author[0].name} ${article.author[0].family}` }}</small>
-                                <small class="opacity-75">{{ new Date(article.publishedAt).toLocaleDateString("fa") }}</small>
+                    <div class="flex flex-col gap-4 p-4 pt-0 h-full">
+                        <h3 class="text-2xl max-w-screen-xs overflow-hidden overflow-ellipsis whitespace-nowrap">{{ article.title }}</h3>
+                        <p class="max-w-xs opacity-75 flex-grow">{{ article.description }}</p>
+                        <div class="flex flex-wrap justify-between items-center gap-4">
+                            <div class="flex items-start gap-2">
+                                <img
+                                    class="rounded-full object-cover w-8 h-8"
+                                    v-if="!!article.author"
+                                    :src="article.author[0].image"
+                                    :alt="`${article.author[0].name} ${article.author[0].family}`"
+                                    width="32"
+                                    height="32"
+                                />
+                                <div class="flex flex-col gap-1">
+                                    <small v-if="!!article.author">{{ `${article.author[0].name} ${article.author[0].family}` }}</small>
+                                    <small class="opacity-75">{{ new Date(article.publishedAt).toLocaleDateString("fa") }}</small>
+                                </div>
                             </div>
+                            <span class="flex items-end gap-1">
+                                <img src="/icons/Heart.svg" alt="Heart" width="20" height="20" />
+                                <small>{{ article.likes }}</small>
+                            </span>
                         </div>
-                        <span class="flex items-end gap-1">
-                            <img src="/icons/Heart.svg" alt="Heart" width="20" height="20" />
-                            <small>{{ article.likes }}</small>
-                        </span>
                     </div>
                 </nuxt-link>
             </li>
@@ -136,7 +140,7 @@
                         Math.max(articlesPage - 1, 1),
                     )}`"
                 >
-                    <img src="/icons/ArrowRight.line.svg" width="24" height="24" alt="ArrowRight">
+                    <img src="/icons/ArrowRight.line.svg" width="24" height="24" alt="ArrowRight" />
                 </nuxt-link>
             </li>
             <li v-for="(item, i) in articlesPages" :key="i">
@@ -158,7 +162,7 @@
                         Math.min(articlesPage + 1, articlesPageTotal),
                     )}`"
                 >
-                    <img src="/icons/ArrowLeft.line.svg" width="24" height="24" alt="ArrowLeft">
+                    <img src="/icons/ArrowLeft.line.svg" width="24" height="24" alt="ArrowLeft" />
                 </nuxt-link>
             </li>
         </ul>

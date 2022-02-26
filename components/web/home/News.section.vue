@@ -6,14 +6,16 @@
 </style>
 
 <template>
-    <section class="flex flex-wrap items-start justify-evenly gap-8 lg:gap-20 w-full my-16" id="news" v-if="newsInfo.status == 'active'">
+    <section class="flex flex-wrap justify-evenly gap-8 lg:gap-20 w-full my-16" id="news" v-if="newsInfo.status == 'active'">
         <div class="flex flex-col gap-6" v-if="!loading">
             <h2 class="text-4xl font-bold">آخرین اخبار سایت</h2>
-            <h3 class="text-2xl font-bold mt-6">{{ newsInfo.title }}</h3>
-            <p class="max-w-screen-sm text-xl font-bold" style="line-height: 2.25rem">
-                {{ newsInfo.text }}
-            </p>
-            <a :href="newsInfo.link" class="orange_gradient_h flex items-center gap-2 rounded-xl shadow-lg p-4 w-max">
+            <div class="flex flex-col gap-2">
+                <h3 class="text-2xl font-bold mt-6">{{ newsInfo.title }}</h3>
+                <p class="max-w-screen-2sm text-lg font-semibold" style="line-height: 2.25rem">
+                    {{ newsInfo.text }}
+                </p>
+            </div>
+            <a :href="newsInfo.link" class="orange_gradient_h flex items-center gap-2 text-lg rounded-2xl shadow-lg p-4 px-6 mt-auto w-max">
                 {{ newsInfo.link_text }}
             </a>
         </div>
@@ -29,7 +31,7 @@
                 <span class="skeleton w-12 h-2"></span>
             </a>
         </div>
-        <div class="video-js relative rounded-3xl overflow-hidden w-full max-w-xl h-64 lg:h-80">
+        <div class="video-js relative rounded-3xl overflow-hidden w-full max-w-2xl h-72 lg:h-96">
             <div class="vjs-big-play-button absolute cursor-pointer" v-show="videoPaused"></div>
             <video class="w-full h-full" controls @play="videoPaused = false" @pause="videoPaused = true" v-if="!loading">
                 <source :src="playerOptions.sources[0].src" :type="playerOptions.sources[0].type" />

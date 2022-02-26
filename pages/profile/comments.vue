@@ -14,7 +14,7 @@
         <ul class="flex flex-col gap-4 w-full">
             <transition-group class="flex flex-col gap-4" name="slideleft" appear>
                 <li class="cart_item flex flex-col items-start gap-4 p-4 rounded-2xl w-full shadow-lg" v-for="comment in comments" :key="comment._id">
-                    <div class="flex items-start gap-4 w-full">
+                    <div class="flex items-start gap-4 w-full" v-if="comment.item">
                         <img class="w-16 h-auto rounded-xl shadow-md flex-shrink-0" :src="comment.item.image" width="100" :alt="comment.item.name" />
                         <div class="flex flex-wrap items-start justify-between gap-2 w-full">
                             <div class="flex flex-col items-start gap-1">

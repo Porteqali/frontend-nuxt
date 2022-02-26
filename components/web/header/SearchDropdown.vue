@@ -125,7 +125,13 @@ ul li:hover {
                             </nuxt-link>
                         </li>
                     </ul>
-                    <nuxt-link :to="`/search/${searchQuery}`" class="w-full py-2 px-4 text-center view_cart_btn rounded-xl shadow-lg">مشاهده نتایج بیشتر</nuxt-link>
+                    <nuxt-link
+                        :to="`/search/${searchQuery}`"
+                        class="w-full py-2 px-4 text-center view_cart_btn rounded-xl shadow-lg"
+                        @click="updateOpenState(false)"
+                    >
+                        مشاهده نتایج بیشتر
+                    </nuxt-link>
                 </div>
             </transition>
         </div>

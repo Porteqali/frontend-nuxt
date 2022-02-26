@@ -15,8 +15,9 @@
 }
 
 .article_card {
-    background-color: #3f0e4780;
+    background-color: #3f0e4790;
     color: var(--top-h1-color);
+    box-shadow: 0px 50px 100px rgba(0, 0, 0, 0.25);
 }
 .article_card img {
     max-height: 16rem;
@@ -57,11 +58,11 @@
     <section class="relative flex flex-col gap-8 mt-4 w-full" id="article">
         <article class="flex flex-col gap-8 max-w-screen-xl w-full mx-auto">
             <header class="relative w-full" v-if="article">
-                <img class="article_img w-full h-64 md:h-96 object-contain shadow-lg rounded-2xl" :src="article.image" :alt="article.title" loading="lazy" />
+                <img class="article_img w-full h-64 md:h-96 object-contain shadow-2xl rounded-3xl" :src="article.image" :alt="article.title" loading="lazy" />
                 <meta itemprop="thumbnailUrl" content="/misc/singleCourse.png" />
 
                 <div
-                    class="header_card blur -bottom-20 md:-bottom-8 md:-right-8 flex flex-col gap-8 p-8 w-full max-w-xl shadow-xl rounded-2xl"
+                    class="header_card blur -bottom-20 md:-bottom-16 flex flex-col gap-8 p-8 lg:p-16 w-full max-w-2xl shadow-2xl rounded-3xl"
                     v-if="!loadingArticle"
                 >
                     <h1 class="font-bold text-xl md:text-3xl" itemprop="headline">{{ article.title }}</h1>
@@ -164,37 +165,39 @@
                         <ul class="flex flex-wrap flex-row xl:flex-col gap-6" v-if="!loadingArticle">
                             <li class="w-full sm:max-w-xs" v-for="(item, i) in similarArticles" :key="i">
                                 <nuxt-link
-                                    class="article_card blur flex flex-col gap-4 flex-grow p-4 rounded-2xl shadow-xl"
+                                    class="article_card blur flex flex-col gap-4 flex-grow rounded-3xl shadow-xl"
                                     :to="`/article/${item.slug}`"
                                     :title="item.title"
                                 >
-                                    <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full h-48">
+                                    <div class="relative overflow-hidden rounded-3xl shadow-lg flex-shrink-0 w-full h-52">
                                         <img class="max-w-screen-sm w-full h-full object-cover" :src="item.image" :alt="item.title" loading="lazy" />
                                         <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2" v-if="!!item.category">
                                             {{ item.category.name }}
                                         </span>
                                     </div>
-                                    <h3 class="font-bold text-2xl max-w-screen-xs overflow-hidden overflow-ellipsis whitespace-nowrap">{{ item.title }}</h3>
-                                    <p class="max-w-xs opacity-75 flex-grow max-h-24 overflow-hidden">{{ item.description }}</p>
-                                    <div class="flex flex-wrap justify-between items-center gap-4">
-                                        <div class="flex items-start gap-2">
-                                            <img
-                                                class="rounded-full object-cover w-8 h-8"
-                                                :src="item.author.image"
-                                                :alt="`${item.author.name} ${item.author.family}`"
-                                                v-if="!!item.author"
-                                                width="32"
-                                                height="32"
-                                            />
-                                            <div class="flex flex-col gap-1">
-                                                <small v-if="!!item.author">{{ `${item.author.name} ${item.author.family}` }}</small>
-                                                <small class="opacity-75">{{ new Date(item.publishedAt).toLocaleDateString("fa") }}</small>
+                                    <div class="flex flex-col gap-4 p-4 pt-0 h-full">
+                                        <h3 class="text-2xl max-w-screen-xs overflow-hidden overflow-ellipsis whitespace-nowrap">{{ item.title }}</h3>
+                                        <p class="max-w-xs opacity-75 flex-grow max-h-24 overflow-hidden">{{ item.description }}</p>
+                                        <div class="flex flex-wrap justify-between items-center gap-4">
+                                            <div class="flex items-start gap-2">
+                                                <img
+                                                    class="rounded-full object-cover w-8 h-8"
+                                                    :src="item.author.image"
+                                                    :alt="`${item.author.name} ${item.author.family}`"
+                                                    v-if="!!item.author"
+                                                    width="32"
+                                                    height="32"
+                                                />
+                                                <div class="flex flex-col gap-1">
+                                                    <small v-if="!!item.author">{{ `${item.author.name} ${item.author.family}` }}</small>
+                                                    <small class="opacity-75">{{ new Date(item.publishedAt).toLocaleDateString("fa") }}</small>
+                                                </div>
                                             </div>
+                                            <span class="flex items-end gap-1">
+                                                <img src="/icons/Heart.svg" alt="Heart" width="20" height="20" />
+                                                <small>{{ item.likes }}</small>
+                                            </span>
                                         </div>
-                                        <span class="flex items-end gap-1">
-                                            <img src="/icons/Heart.svg" alt="Heart" width="20" height="20" />
-                                            <small>{{ item.likes }}</small>
-                                        </span>
                                     </div>
                                 </nuxt-link>
                             </li>
@@ -249,39 +252,41 @@
                 <h4 class="font-bold text-4xl">محبوب ترین بلاگ ها</h4>
             </div>
             <ul class="flex flex-wrap items-start justify-evenly gap-4">
-                <li class="flex w-full sm:max-w-xs shadow-lg rounded-xl" v-for="(popularArticle, i) in popularArticles" :key="i">
+                <li class="flex w-full sm:max-w-xs rounded-xl" v-for="(popularArticle, i) in popularArticles" :key="i">
                     <nuxt-link
-                        class="article_card blur flex flex-col gap-4 flex-grow p-4 rounded-2xl shadow-xl w-full sm:max-w-xs"
+                        class="article_card flex flex-col gap-4 flex-grow rounded-3xl w-full sm:max-w-xs"
                         :to="`/article/${popularArticle.slug}`"
                         :title="popularArticle.title"
                     >
-                        <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full h-48">
+                        <div class="relative overflow-hidden rounded-3xl shadow-lg flex-shrink-0 w-full h-52">
                             <img class="max-w-screen-sm w-full h-full object-cover" :src="popularArticle.image" :alt="popularArticle.title" loading="lazy" />
                             <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2" v-if="!!popularArticle.category">
                                 {{ popularArticle.category.name }}
                             </span>
                         </div>
-                        <h3 class="font-bold text-2xl max-w-screen-xs overflow-hidden overflow-ellipsis whitespace-nowrap">{{ popularArticle.title }}</h3>
-                        <p class="max-w-xs opacity-75 flex-grow max-h-24 overflow-hidden">{{ popularArticle.description }}</p>
-                        <div class="flex flex-wrap justify-between items-center gap-4">
-                            <div class="flex items-start gap-2">
-                                <img
-                                    class="rounded-full object-cover w-8 h-8"
-                                    :src="popularArticle.author.image"
-                                    :alt="`${popularArticle.author.name} ${popularArticle.author.family}`"
-                                    v-if="!!popularArticle.author"
-                                    width="32"
-                                    height="32"
-                                />
-                                <div class="flex flex-col gap-1">
-                                    <small v-if="!!popularArticle.author">{{ `${popularArticle.author.name} ${popularArticle.author.family}` }}</small>
-                                    <small class="opacity-75">{{ new Date(popularArticle.publishedAt).toLocaleDateString("fa") }}</small>
+                        <div class="flex flex-col gap-4 p-4 pt-0 h-full">
+                            <h3 class="text-2xl max-w-screen-xs overflow-hidden overflow-ellipsis whitespace-nowrap">{{ popularArticle.title }}</h3>
+                            <p class="max-w-xs opacity-75 flex-grow max-h-24 overflow-hidden">{{ popularArticle.description }}</p>
+                            <div class="flex flex-wrap justify-between items-center gap-4">
+                                <div class="flex items-start gap-2">
+                                    <img
+                                        class="rounded-full object-cover w-8 h-8"
+                                        :src="popularArticle.author.image"
+                                        :alt="`${popularArticle.author.name} ${popularArticle.author.family}`"
+                                        v-if="!!popularArticle.author"
+                                        width="32"
+                                        height="32"
+                                    />
+                                    <div class="flex flex-col gap-1">
+                                        <small v-if="!!popularArticle.author">{{ `${popularArticle.author.name} ${popularArticle.author.family}` }}</small>
+                                        <small class="opacity-75">{{ new Date(popularArticle.publishedAt).toLocaleDateString("fa") }}</small>
+                                    </div>
                                 </div>
+                                <span class="flex items-end gap-1">
+                                    <img src="/icons/Heart.svg" alt="Heart" width="20" height="20" />
+                                    <small>{{ popularArticle.likes }}</small>
+                                </span>
                             </div>
-                            <span class="flex items-end gap-1">
-                                <img src="/icons/Heart.svg" alt="Heart" width="20" height="20" />
-                                <small>{{ popularArticle.likes }}</small>
-                            </span>
                         </div>
                     </nuxt-link>
                 </li>

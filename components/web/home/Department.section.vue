@@ -80,11 +80,11 @@
         <div v-swiper="coursesSwiperOptions" class="w-full max-w-screen-4xl select-none overflow-hidden">
             <ul class="swiper-wrapper flex items-start">
                 <li
-                    class="swiper-slide gray_gradient course_card shadow-lg flex flex-col gap-4 p-4 rounded-3xl max-w-sm ml-10"
+                    class="swiper-slide gray_gradient course_card shadow-lg flex flex-col gap-4 rounded-3xl max-w-sm ml-10"
                     v-for="(course, i) in courses"
                     :key="i"
                 >
-                    <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="relative overflow-hidden rounded-xl shadow-lg w-full h-72">
+                    <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="relative overflow-hidden rounded-3xl w-full h-72">
                         <img
                             class="absolute inset-0 object-cover w-full h-full"
                             :src="course.image || `/misc/course.png`"
@@ -94,19 +94,19 @@
                         />
                         <img class="absolute top-2 right-2 rounded-full object-cover" :src="course.groups[0].icon" width="32" height="32" loading="lazy" />
                         <span
-                            class="course_tag flex items-center justify-center p-4 w-auto h-16 rounded-xl absolute top-2 left-2"
+                            class="course_tag flex items-center justify-center p-4 w-auto h-16 rounded-2xl absolute top-2 left-2"
                             v-if="course.discountInfo && course.discountInfo.tag != ''"
                         >
                             {{ course.discountInfo.tag }}
                         </span>
                     </nuxt-link>
-                    <div class="flex flex-col gap-4">
+                    <div class="flex flex-col gap-4 p-4 pt-0">
                         <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="w-full">
-                            <h3 class="font-bold text-xl overflow-hidden overflow-ellipsis whitespace-nowrap">{{ course.name }}</h3>
+                            <h3 class="text-2xl overflow-hidden overflow-ellipsis whitespace-nowrap">{{ course.name }}</h3>
                         </nuxt-link>
                         <nuxt-link :to="`/teacher/${course.teacher[0]._id}`" class="flex items-center gap-2">
                             <img class="rounded-full object-cover w-10 h-10" :src="course.teacher[0].image" alt="Figma" loading="lazy" width="40" height="40" />
-                            <span>{{ `${course.teacher[0].name} ${course.teacher[0].family}` }}</span>
+                            <span class="text-gray-100 text-lg">{{ `${course.teacher[0].name} ${course.teacher[0].family}` }}</span>
                         </nuxt-link>
                         <div class="flex flex-wrap justify-between gap-4">
                             <span class="flex items-end gap-1">
@@ -139,7 +139,7 @@
             <div class="flex justify-center mt-8 swiper-pagination2 swiper-pagination-bullets"></div>
         </div>
         <div class="flex items-center justify-center w-full">
-            <nuxt-link to="/department" class="more_courses_btn blur flex items-center gap-2 py-3 px-6 rounded-xl w-max">
+            <nuxt-link to="/department" class="more_courses_btn blur flex items-center gap-2 py-4 px-8 rounded-2xl w-max">
                 <img src="/icons/BookOpenOutlineColor.orange.svg" width="24" height="24" alt="BookOpenOutlineColor" />
                 <span>مشاهده همه دوره ها</span>
             </nuxt-link>

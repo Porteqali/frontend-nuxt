@@ -165,7 +165,7 @@ export default {
                 .get(url, { headers })
                 .then((response) => {
                     response.data.records.forEach((record) => {
-                        this.permissionGroups[record._id] = { name: record.name, value: record._id };
+                        this.permissionGroups[record._id] = { name: record.name, value: record._id } || { name: "", value: "" };
                     });
                 })
                 .catch((e) => {

@@ -16,7 +16,7 @@
     position: absolute;
     inset: 0;
     backdrop-filter: blur(15px);
-    border-radius: 2rem;
+    border-radius: 1.5rem;
 }
 
 .courses_list {

@@ -19,7 +19,7 @@
             <section class="card relative flex flex-col gap-8 p-4 md:p-6 rounded-3xl shadow-xl w-full max-w-screen-lg flex-grow">
                 <ul v-if="Object.keys(cart.list).length">
                     <transition-group class="flex flex-col gap-4" name="slideleft" appear>
-                        <li class="cart_item flex items-start gap-4 p-4 rounded-2xl" v-for="item in cart.list" :key="item._id">
+                        <li class="cart_item flex flex-wrap lg:flex-nowrap items-start gap-4 p-4 rounded-2xl" v-for="item in cart.list" :key="item._id">
                             <img class="w-32 h-24 rounded-xl shadow-md" :src="item.image" width="100" :alt="item.name" />
                             <div class="flex items-center gap-4 w-full">
                                 <div class="flex flex-col gap-4 flex-grow">
