@@ -122,23 +122,23 @@
         <section class="w-full" id="courses" v-if="selectedSearchSection.value == 'course'">
             <ul class="courses_list grid gap-10 w-full">
                 <li
-                    class="gray_gradient blur course_card shadow-lg flex flex-col gap-4 p-4 rounded-3xl max-w-md w-full mx-auto"
+                    class="gray_gradient blur course_card shadow-lg flex flex-col gap-4 rounded-3xl max-w-md w-full mx-auto"
                     v-for="(course, i) in results"
                     :key="i"
                 >
-                    <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="relative overflow-hidden rounded-xl shadow-lg w-full h-72">
+                    <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="relative overflow-hidden rounded-3xl w-full h-72">
                         <img class="absolute inset-0 object-cover w-full h-full" :src="course.image || `/misc/course.png`" alt="course" draggable="false" />
                         <img class="absolute top-2 right-2 rounded-full object-cover" :src="course.groups[0].icon" width="32" height="32" alt="Figma" />
                         <span
-                            class="course_tag flex items-center justify-center p-4 w-auto h-16 rounded-xl absolute top-2 left-2"
+                            class="course_tag flex items-center justify-center p-4 w-auto h-16 rounded-2xl absolute top-2 left-2"
                             v-if="course.discountInfo && course.discountInfo.tag != ''"
                         >
                             {{ course.discountInfo.tag }}
                         </span>
                     </nuxt-link>
-                    <div class="flex flex-col gap-4">
+                    <div class="flex flex-col gap-4 p-4 pt-0">
                         <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="w-full">
-                            <h3 class="font-bold text-xl overflow-hidden overflow-ellipsis whitespace-nowrap">{{ course.name }}</h3>
+                            <h3 class="text-2xl overflow-hidden overflow-ellipsis whitespace-nowrap">{{ course.name }}</h3>
                         </nuxt-link>
                         <nuxt-link :to="`/teacher/${course.teacher[0]._id}`" class="flex items-center gap-2">
                             <img class="rounded-full object-cover w-10 h-10" :src="course.teacher[0].image" alt="Figma" width="40" height="40" />
@@ -175,7 +175,7 @@
         </section>
         <section class="w-full" id="articles" v-if="selectedSearchSection.value == 'article'">
             <ul class="grid gap-10" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr))">
-                <li class="flex w-full rounded-xl mx-auto" v-for="(article, i) in results" :key="i">
+                <li class="flex w-full rounded-xl mx-auto max-w-sm" v-for="(article, i) in results" :key="i">
                     <nuxt-link
                         class="article_card blur flex flex-col gap-4 flex-grow rounded-3xl w-full"
                         :to="`/article/${article.slug}`"

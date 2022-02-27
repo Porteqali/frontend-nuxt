@@ -32,7 +32,7 @@ h3::after {
                 </Select>
             </div>
         </header>
-        <div v-swiper="coursesSwiperOptions" class="w-full select-none overflow-hidden px-1 -mb-2">
+        <div v-swiper:my="coursesSwiperOptions" class="w-full select-none overflow-hidden px-1 -mb-2">
             <ul class="swiper-wrapper flex items-center w-screen pb-4">
                 <li class="swiper-slide course_card flex flex-col gap-2 shadow-md p-1 ml-4 rounded-2xl" v-for="(item, i) in courses" :key="i">
                     <div class="relative flex flex-col items-center p-1 overflow-hidden">
@@ -53,6 +53,11 @@ h3::after {
                     </div>
                 </li>
             </ul>
+            <div class="flex items-center justify-center gap-2 w-full">
+                <button class="flex items-center justify-center p-2 swiper-prev"><img src="/icons/ArrowRight.line.svg" width="20" alt="ArrowRight" /></button>
+                <div class="flex justify-center gap-2 swiper-pagination2 swiper-pagination-bullets flex-shrink-0"></div>
+                <button class="flex items-center justify-center p-2 swiper-next"><img src="/icons/ArrowLeft.line.svg" width="20" alt="ArrowLeft" /></button>
+            </div>
         </div>
     </section>
 </template>
@@ -85,6 +90,9 @@ export default {
                 initialSlide: 0,
                 loop: false,
                 freeMode: true,
+                pagination: ".swiper-pagination2",
+                prevButton: ".swiper-prev",
+                nextButton: ".swiper-next",
             },
         };
     },

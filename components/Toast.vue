@@ -1,11 +1,18 @@
 <style scoped>
 .toast {
     position: fixed;
-    top: 2rem;
-    right: 2rem;
+    top: 1rem;
+    right: 1rem;
     z-index: 1000;
     background-color: #000000a0;
     color: #fff;
+}
+
+@media (min-width: 1024px) {
+    .toast {
+        top: 2rem;
+        right: 2rem;
+    }
 }
 </style>
 

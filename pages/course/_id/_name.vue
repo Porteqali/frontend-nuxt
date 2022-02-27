@@ -55,32 +55,32 @@
                                     <img src="/icons/Star.orange.svg" alt="Star" />
                                     <span>امتیاز دوره</span>
                                 </h5>
-                                <strong v-if="course.score">{{ course.score.toFixed(1) }} از 8</strong>
+                                <strong class="font-normal" v-if="course.score">{{ course.score.toFixed(1) }} از 8</strong>
                             </li>
                             <li class="flex flex-col items-center gap-2">
                                 <h5 class="flex items-center gap-2">
                                     <img src="/icons/TimeCircle.orange.svg" alt="TimeCircle" />
                                     <span>مدت زمان دوره</span>
                                 </h5>
-                                <strong>{{ course.totalTime }}</strong>
+                                <strong class="font-normal" dir="ltr">{{ course.totalTime }}</strong>
                             </li>
                             <li class="flex flex-col items-center gap-2">
                                 <h5 class="flex items-center gap-2">
                                     <img src="/icons/Video.orange.svg" alt="Video" />
                                     <span>تعداد جلسات</span>
                                 </h5>
-                                <strong v-if="course.topics">{{ course.topics.length }}</strong>
+                                <strong class="font-normal" v-if="course.topics">{{ course.topics.length }}</strong>
                             </li>
                             <li class="flex flex-col items-center gap-2">
                                 <h5 class="flex items-center gap-2">
                                     <img src="/icons/Profile.orange.svg" alt="Profile" />
                                     <span>تعداد دانشجویان</span>
                                 </h5>
-                                <strong>{{ course.buyCount }}</strong>
+                                <strong class="font-normal">{{ course.buyCount }}</strong>
                             </li>
                         </ul>
                         <hr class="border-b border-solid border-gray-300 border-opacity-30" />
-                        <div class="gray_gradient flex items-center rounded-2xl gap-4 p-4" v-if="!purchased">
+                        <div class="redgray_background flex items-center rounded-2xl gap-4 p-4" v-if="!purchased">
                             <b class="orange_gradient_h discount_box w-16 h-16 rounded-2xl text-2xl flex-shrink-0" v-if="course.price > 0 && !!discount">
                                 {{ discount }}%
                             </b>
@@ -128,7 +128,7 @@
                         >
                             {{ course.teacher.description.length > 256 ? course.teacher.description.substr(0, 256) + "..." : course.teacher.description }}
                         </p>
-                        <nuxt-link :to="`/teacher/${course.teacher._id}`" class="gray_gradient rounded-2xl p-4 w-full text-center">
+                        <nuxt-link :to="`/teacher/${course.teacher._id}`" class="redgray_background rounded-2xl p-4 w-full text-center">
                             مشاهده دیگر دوره های استاد
                         </nuxt-link>
                     </div>
@@ -209,18 +209,18 @@
             <div v-swiper="coursesSwiperOptions" class="w-full max-w-screen-4xl select-none overflow-hidden">
                 <ul class="swiper-wrapper flex items-start">
                     <li
-                        class="swiper-slide gray_gradient course_card shadow-lg flex flex-col gap-4 p-4 rounded-3xl max-w-sm ml-10"
+                        class="swiper-slide gray_gradient course_card shadow-lg flex flex-col gap-4 rounded-3xl max-w-sm ml-10"
                         v-for="(course, i) in similarCourses"
                         :key="i"
                     >
-                        <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="relative overflow-hidden rounded-xl shadow-lg w-full h-72">
+                        <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="relative overflow-hidden rounded-3xl w-full h-72">
                             <img class="absolute inset-0 object-cover w-full h-full" :src="course.image || `/misc/course.png`" alt="course" draggable="false" />
                             <img class="absolute top-2 right-2 rounded-full object-cover" :src="course.groups[0].icon" width="32" height="32" alt="Figma" />
-                            <span class="course_tag flex items-center justify-center p-4 w-auto h-16 rounded-xl absolute top-2 left-2">جدید</span>
+                            <span class="course_tag flex items-center justify-center p-4 w-auto h-16 rounded-2xl absolute top-2 left-2">جدید</span>
                         </nuxt-link>
-                        <div class="flex flex-col gap-4">
+                        <div class="flex flex-col gap-4 p-4 pt-0">
                             <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="w-screen max-w-sm">
-                                <h3 class="font-bold text-xl max-w-xs overflow-hidden overflow-ellipsis whitespace-nowrap">{{ course.name }}</h3>
+                                <h3 class="text-2xl max-w-xs overflow-hidden overflow-ellipsis whitespace-nowrap">{{ course.name }}</h3>
                             </nuxt-link>
                             <nuxt-link :to="`/teacher/${course.teacher._id}`" class="flex items-center gap-2">
                                 <img class="rounded-full object-cover w-10 h-10" :src="course.teacher.image" alt="Figma" width="40" height="40" />
@@ -382,9 +382,8 @@ export default {
                     this.course = {
                         ...results.data.course,
                         topics,
-                        totalTime: duration(seconds * 1000)
-                            .locale("fa")
-                            .humanize(),
+                        totalTime: new Date(seconds * 1000).toUTCString().match(/(\d\d:\d\d:\d\d)/)[0].split(':').join(' : '),
+                        // totalTime: duration(seconds * 1000).locale("fa").humanize(),
                     };
 
                     this.similarCourses = results.data.similarCourses.map((course) => {

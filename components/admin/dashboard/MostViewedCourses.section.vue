@@ -58,6 +58,11 @@ h3::after {
                     </div>
                 </li>
             </ul>
+            <div class="flex items-center justify-center gap-2 w-full">
+                <button class="flex items-center justify-center p-2 swiper-prev"><img src="/icons/ArrowRight.line.svg" width="20" alt="ArrowRight" /></button>
+                <div class="flex justify-center gap-2 swiper-pagination2 swiper-pagination-bullets flex-shrink-0"></div>
+                <button class="flex items-center justify-center p-2 swiper-next"><img src="/icons/ArrowLeft.line.svg" width="20" alt="ArrowLeft" /></button>
+            </div>
         </div>
     </section>
 </template>
@@ -90,6 +95,9 @@ export default {
                 initialSlide: 0,
                 loop: false,
                 freeMode: true,
+                pagination: ".swiper-pagination2",
+                prevButton: ".swiper-prev",
+                nextButton: ".swiper-next",
             },
         };
     },

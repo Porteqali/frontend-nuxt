@@ -83,7 +83,7 @@
                             class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full sm:w-64"
                         >
                             <img
-                                class="max-w-screen-sm w-full sm:h-full object-cover"
+                                class="max-w-screen-sm w-full h-64 sm:h-96 object-cover"
                                 :src="course.image ? course.image : `/misc/article.png`"
                                 :alt="course.name"
                                 draggable="false"

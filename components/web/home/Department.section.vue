@@ -106,7 +106,7 @@
                         </nuxt-link>
                         <nuxt-link :to="`/teacher/${course.teacher[0]._id}`" class="flex items-center gap-2">
                             <img class="rounded-full object-cover w-10 h-10" :src="course.teacher[0].image" alt="Figma" loading="lazy" width="40" height="40" />
-                            <span class="text-gray-100 text-lg">{{ `${course.teacher[0].name} ${course.teacher[0].family}` }}</span>
+                            <span class="text-gray-100">{{ `${course.teacher[0].name} ${course.teacher[0].family}` }}</span>
                         </nuxt-link>
                         <div class="flex flex-wrap justify-between gap-4">
                             <span class="flex items-end gap-1">

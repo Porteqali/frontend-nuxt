@@ -2,15 +2,19 @@
 .buy_btn {
     border-radius: 0 0 1rem 1rem;
 }
+.buy_btn:hover {
+    gap: 2rem;
+    box-shadow: 0px -5px 10px rgba(0, 0, 0, 10%);
+}
 </style>
 
 <template>
     <button
-        class="buy_btn flex items-center justify-center gap-2 text-xl p-4 -m-6 mt-0 bg-bluegray-100 text-black"
+        class="buy_btn orange_gradient_h flex items-center justify-center gap-2 text-xl p-6 -m-6 mt-0"
         :class="{ 'opacity-60 cursor-wait': redirectingToGateway }"
         @click="buy()"
     >
-        <img src="/icons/Buy.black.svg" alt="Buy" />
+        <img src="/icons/Buy.svg" width="32" height="32" alt="Buy" />
         <span v-if="coursePrice > 0">افزودن به سبد خرید</span>
         <span v-else>ثبت نام در دوره</span>
     </button>

@@ -92,6 +92,9 @@ body {
     color: #fff;
     background: linear-gradient(154.49deg, rgba(121, 117, 131, 0.2) 5.35%, rgba(54, 53, 103, 0.2) 83.85%), rgba(49, 48, 54, 0.3);
 }
+.redgray_background {
+    background: #3F202080;
+}
 .darkblue_gradient {
     color: #fff;
     background: linear-gradient(0deg, rgba(19, 40, 80, 0.8), rgba(19, 40, 80, 0.8));

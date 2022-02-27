@@ -54,6 +54,7 @@ h3::after {
                     </div>
                 </li>
             </ul>
+            <div class="flex justify-center swiper-pagination2 swiper-pagination-bullets"></div>
         </div>
     </section>
 </template>
@@ -86,6 +87,7 @@ export default {
                 initialSlide: 0,
                 loop: false,
                 freeMode: true,
+                pagination: ".swiper-pagination2",
             },
         };
     },

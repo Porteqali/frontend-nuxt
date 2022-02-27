@@ -56,7 +56,7 @@
             <template v-slot:tbody="{ record, index }">
                 <td>
                     <div class="flex items-center gap-2">
-                        <img class="w-8 h-8 rounded-full object-cover" :src="record.user[0].image" v-if="record.user[0].image" alt="" />
+                        <img class="w-8 h-8 rounded-full object-cover" :src="record.user[0].image" v-if="record.user[0] && record.user[0].image" alt="" />
                         <span>{{ record.fullname }}</span>
                     </div>
                 </td>
@@ -168,7 +168,7 @@ export default {
             isDataLoading: false,
 
             statusFilter: this.statusFilter || [],
-            
+
             search: this.search || "",
             sort: this.sort || { col: "تاریخ ثبت", type: "asc" },
             page: this.page || 1,
