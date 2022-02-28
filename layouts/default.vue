@@ -188,9 +188,8 @@ export default {
             window.history.scrollRestoration = "auto";
         }
 
-        // TODO : uncomment this
         // rayChat register
-        // this.raychatInit();
+        this.raychatInit();
 
         // load back cart list info
         let cartList = localStorage.getItem("cart");

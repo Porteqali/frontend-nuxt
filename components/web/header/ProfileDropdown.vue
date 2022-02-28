@@ -53,18 +53,18 @@ ul li:hover {
                 </li>
                 <hr class="w-full opacity-35" />
                 <li class="p-3" v-if="user.info.role == 'admin' || user.info.role == 'marketer' || user.info.role == 'teacher'">
-                    <nuxt-link to="/admin" class="flex items-center gap-2" v-if="user.info.role == 'admin'">
+                    <a href="/admin" class="flex items-center gap-2" v-if="user.info.role == 'admin'">
                         <img src="/icons/admin/Activity.svg" width="24" height="24" />
                         <span>پنل ادمین</span>
-                    </nuxt-link>
-                    <nuxt-link to="/marketer-panel" class="flex items-center gap-2" v-if="user.info.role == 'marketer'">
+                    </a>
+                    <a href="/marketer-panel" class="flex items-center gap-2" v-if="user.info.role == 'marketer'">
                         <img src="/icons/admin/Activity.svg" width="24" height="24" />
                         <span>پنل بازاریاب</span>
-                    </nuxt-link>
-                    <nuxt-link to="/teacher-panel" class="flex items-center gap-2" v-if="user.info.role == 'teacher'">
+                    </a>
+                    <a href="/teacher-panel" class="flex items-center gap-2" v-if="user.info.role == 'teacher'">
                         <img src="/icons/admin/Activity.svg" width="24" height="24" />
                         <span>پنل استاد</span>
-                    </nuxt-link>
+                    </a>
                 </li>
             </ul>
         </div>

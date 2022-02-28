@@ -50,9 +50,9 @@
         >
             <template v-slot:tbody="{ record }">
                 <td>
-                    <div class="flex items-center gap-2" v-if="!!record.course">
+                    <div class="flex items-center gap-2" v-if="!!record.course[0]">
                         <img class="w-20 h-16 shadow-md object-cover rounded-xl flex-shrink-0" :src="record.course[0].image" alt="" />
-                        <span class="flex text-sm w-screen max-w-screen-2xs" v-if="record.course[0].name">{{ record.course[0].name }}</span>
+                        <span class="flex text-sm w-screen max-w-screen-2xs" v-if="record.course[0]">{{ record.course[0].name }}</span>
                     </div>
                 </td>
                 <td>

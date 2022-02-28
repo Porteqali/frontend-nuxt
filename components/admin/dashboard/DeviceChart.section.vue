@@ -34,8 +34,7 @@ h3::after {
             <h3 class="relative text-2xl"><b class="relative z-10">دستگاه کاربران وبسایت</b></h3>
         </header>
         <div class="flex flex-col items-start w-full">
-            <ul class="tab flex items-center gap-4 w-full">
-                <li class="p-1 cursor-pointer" :class="{ active: type == 'device' }" @click="type = 'device'">دستگاه</li>
+            <ul class="tab flex items-center gap-4 w-full z-10">
                 <li class="p-1 cursor-pointer" :class="{ active: type == 'browser' }" @click="type = 'browser'">مرورگر</li>
                 <li class="p-1 cursor-pointer" :class="{ active: type == 'os' }" @click="type = 'os'">سیستم عامل</li>
             </ul>
@@ -58,7 +57,7 @@ export default {
         return {
             isDataLoading: false,
             chartData: this.chartData || { data: [], label: [] },
-            type: "device", // device | browser | os
+            type: "browser", // browser | os
 
             chart: null,
             chartOptions: {

@@ -32,7 +32,7 @@
             <div class="flex flex-wrap items-center gap-2">
                 <label class="text-xs">کاربرانی که خرید کرده اند:</label>
                 <strong class="opacity-80">{{ new Intl.NumberFormat("fa").format(info.usersThatMadePurchase) }}</strong>
-                <small class="flex items-center gap-1 text-gray-500">{{ new Intl.NumberFormat("fa").format(info.usersThatMadePurchasePercentage) }}</small>
+                <small class="flex items-center gap-1 text-gray-500">{{ new Intl.NumberFormat("fa").format(info.usersThatMadePurchasePercentage) }}%</small>
             </div>
             <hr class="w-full my-2" />
             <ul class="grid grid-cols-2">

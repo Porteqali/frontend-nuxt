@@ -21,8 +21,8 @@ h3::after {
         <ul class="flex flex-col gap-6 w-full overflow-x-auto overflow-y-hidden">
             <li class="flex items-center justify-between gap-2 p-2 w-full" style="min-width: 720px" v-for="(record, i) in courses" :key="i">
                 <div class="flex items-center gap-2" v-if="!!record.course">
-                    <img class="w-20 h-16 shadow-md object-cover rounded-xl flex-shrink-0" :src="record.course[0].image" alt="" />
-                    <span class="flex text-sm w-screen max-w-screen-2xs" v-if="record.course[0].name">{{ record.course[0].name }}</span>
+                    <img class="w-20 h-16 shadow-md object-cover rounded-xl flex-shrink-0" v-if="record.course[0]" :src="record.course[0].image" alt="" />
+                    <span class="flex text-sm w-screen max-w-screen-2xs" v-if="record.course[0]">{{ record.course[0].name }}</span>
                 </div>
                 <div class="flex flex-wrap items-center gap-2">
                     <span class="text-xs">مقدار کمیسیون:</span>
