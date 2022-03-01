@@ -7,9 +7,15 @@
 .container {
 }
 
-@media (min-width: 1024px) {
+@media (max-width: 1920px) {
     .container {
         margin-right: -10vw;
+    }
+}
+
+@media (max-width: 1440px) {
+    .container {
+        margin-right: -3vw;
     }
 }
 </style>

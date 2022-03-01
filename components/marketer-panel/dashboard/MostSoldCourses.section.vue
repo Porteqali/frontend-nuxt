@@ -34,22 +34,33 @@ h3::after {
         </header>
         <div v-swiper="coursesSwiperOptions" class="w-full select-none overflow-hidden px-1 -mb-2">
             <ul class="swiper-wrapper flex items-center w-screen pb-4">
-                <li class="swiper-slide course_card flex flex-col gap-2 shadow-md p-1 ml-4 rounded-2xl" v-for="(item, i) in courses" :key="i">
+                <li class="swiper-slide course_card flex flex-col gap-2 shadow-md p-1 ml-4 rounded-2xl bg-gray-50" v-for="(item, i) in courses" :key="i">
                     <div class="relative flex flex-col items-center p-1 overflow-hidden">
-                        <img class="w-full h-36 object-cover rounded-2xl scale-50" :src="item.image || `/misc/course.png`" alt="" />
+                        <img
+                            class="w-full h-36 object-cover rounded-2xl scale-50"
+                            v-if="item.info"
+                            :src="item.info.image || `/misc/course.png`"
+                            loading="lazy"
+                            alt=""
+                        />
                         <div class="card_bar absolute bottom-2 gray_gradient flex flex-col gap-2 p-2 rounded-2xl w-screen" style="max-width: 186px">
-                            <h5 class="w-full overflow-hidden whitespace-nowrap overflow-ellipsis text-sm">{{ item.name }}</h5>
-                            <div class="flex items-center gap-1 w-full">
-                                <img class="w-5 h-5 rounded-full object-cover" :src="item.teacher.image" alt="" />
+                            <h5 class="w-full overflow-hidden whitespace-nowrap overflow-ellipsis text-sm" v-if="item.info">{{ item.info.name }}</h5>
+                            <div class="flex items-center gap-1 w-full" v-if="item.info && item.info.teacher">
+                                <img
+                                    class="w-5 h-5 rounded-full object-cover"
+                                    :src="item.info.teacher.image"
+                                    loading="lazy"
+                                    :alt="`${item.info.teacher.name} ${item.info.teacher.family}`"
+                                />
                                 <small class="w-full overflow-hidden whitespace-nowrap overflow-ellipsis text-xs">
-                                    {{ `${item.teacher.name} ${item.teacher.family}` }}
+                                    {{ `${item.info.teacher.name} ${item.info.teacher.family}` }}
                                 </small>
                             </div>
                         </div>
                     </div>
                     <div class="flex items-start gap-2 p-1">
-                        <Icon class="w-6 h-6 bg-emerald-800" size="24px" folder="icons/admin" name="SackDollar" />
-                        <span class="text-xl text-emerald-900">{{ new Intl.NumberFormat("fa").format(item.sellCount) }}</span>
+                        <Icon class="w-6 h-6 bg-blue-400" size="24px" folder="icons/admin" name="Play" />
+                        <span class="text-xl text-blue-900">{{ new Intl.NumberFormat("fa").format(item.buyCount) }}</span>
                     </div>
                 </li>
             </ul>

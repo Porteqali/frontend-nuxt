@@ -14,8 +14,6 @@
             <div class="flex flex-col gap-4 md:gap-6 w-full lg:w-7/12">
                 <GeneralDetailsSection />
                 <MainChartSection class="card" />
-                <span class="card h-16"></span>
-                <span class="card h-16"></span>
             </div>
             <div class="flex flex-col gap-4 md:gap-6 w-full lg:w-5/12">
                 <MostViewedCoursesSection class="card" />
