@@ -20,7 +20,7 @@
     <section class="flex flex-col gap-6 p-4 md:p-6" style="width: calc(100% - 0.1rem)">
         <ul class="tab flex items-center gap-4">
             <li class="p-1 cursor-pointer" :class="{ active: type == 'income' }" @click="type = 'income'">میزان درآمد</li>
-            <li class="p-1 cursor-pointer" :class="{ active: type == 'users' }" @click="type = 'users'">کاربران جدید</li>
+            <li class="p-1 cursor-pointer" :class="{ active: type == 'new-users' }" @click="type = 'new-users'">کاربران جدید</li>
         </ul>
         <div class="flex flex-wrap items-end gap-4">
             <div class="flex flex-col gap-2 w-64">
@@ -34,8 +34,7 @@
             <button class="flex items-center p-2.5 px-3 bg-gray-200 hover:shadow-md rounded-xl w-max text-sm" @click="getInfo()">به روز رسانی</button>
         </div>
         <small class="w-full lg:w-10/12 opacity-75">
-            نتایج با توجه به بازه تاریخ تا 30 روز به صورت روزانه، تا 365 روز به صورت ماهانه و بالاتر از آن به صورت سالانه نمایش داده
-            میشوند.
+            نتایج با توجه به بازه تاریخ تا 30 روز به صورت روزانه، تا 365 روز به صورت ماهانه و بالاتر از آن به صورت سالانه نمایش داده میشوند.
         </small>
         <div class="relative w-full">
             <canvas ref="chart" class="w-full h-full"></canvas>
@@ -59,7 +58,7 @@ export default {
         return {
             isDataLoading: false,
             chartData: this.chartData || { data: [], label: [] },
-            type: "income", // income | users
+            type: "income", // income | new-users
             startDate: "",
             endDate: "",
 
@@ -68,7 +67,7 @@ export default {
                 responsive: true,
                 interaction: { mode: "index", intersect: false },
                 tooltips: { mode: "label", intersect: true },
-                plugins: { legend: { display: false } },
+                plugins: { legend: { display: false, labels: { font: { family: "consolas" } } } },
                 scales: { x: { grid: { display: false } }, y: { grid: { display: false } } },
             },
         };

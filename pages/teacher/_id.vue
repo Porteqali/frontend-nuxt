@@ -52,7 +52,7 @@
                                 <img src="/icons/Users.svg" width="24" height="24" alt="Users" />
                                 <span>تعداد دانشجو</span>
                             </h6>
-                            <b>N/A</b>
+                            <b>{{ new Intl.NumberFormat("fa").format(teacher.studentCount) }}</b>
                         </li>
                         <li class="flex flex-col items-center justify-center gap-2">
                             <h6 class="flex items-center gap-1">
@@ -86,20 +86,20 @@
         </section>
         <section class="relative flex flex-col justify-center gap-8 flex-grow w-full">
             <ul class="courses_list grid gap-10 w-full">
-                <li class="gray_gradient course_card shadow-lg flex flex-col gap-4 p-4 rounded-3xl max-w-md w-full mx-auto" v-for="(course, i) in courses" :key="i">
-                    <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="relative overflow-hidden rounded-xl shadow-lg w-full h-72">
+                <li class="gray_gradient course_card shadow-lg flex flex-col gap-4 rounded-3xl max-w-md w-full mx-auto" v-for="(course, i) in courses" :key="i">
+                    <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="relative overflow-hidden rounded-3xl w-full h-72">
                         <img class="absolute inset-0 object-cover w-full h-full" :src="course.image || `/misc/course.png`" alt="course" draggable="false" />
                         <img class="absolute top-2 right-2 rounded-full object-cover" :src="course.groups[0].icon" width="32" height="32" alt="Figma" />
                         <span
-                            class="course_tag flex items-center justify-center p-4 w-auto h-16 rounded-xl absolute top-2 left-2"
+                            class="course_tag flex items-center justify-center p-4 w-auto h-16 rounded-3xl absolute top-2 left-2"
                             v-if="course.discountInfo && course.discountInfo.tag != ''"
                         >
                             {{ course.discountInfo.tag }}
                         </span>
                     </nuxt-link>
-                    <div class="flex flex-col gap-4">
+                    <div class="flex flex-col gap-4 p-4 pt-0">
                         <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="w-full">
-                            <h3 class="font-bold text-xl overflow-hidden overflow-ellipsis whitespace-nowrap">{{ course.name }}</h3>
+                            <h3 class="text-2xl overflow-hidden overflow-ellipsis whitespace-nowrap">{{ course.name }}</h3>
                         </nuxt-link>
                         <div class="flex flex-wrap justify-between gap-4">
                             <span class="flex items-end gap-1">
@@ -215,7 +215,7 @@ export default {
 
             await axios
                 .get(url, { headers })
-                .then((results) => (this.teacher = { ...results.data.teacher, courseCount: results.data.courseCount }))
+                .then((results) => (this.teacher = { ...results.data.teacher, courseCount: results.data.courseCount, studentCount: results.data.studentCount }))
                 .catch((e) => {})
                 .finally(() => (this.teacherLoading = false));
         },

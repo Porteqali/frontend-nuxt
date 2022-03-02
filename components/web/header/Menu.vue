@@ -139,8 +139,9 @@ li.active {
             </div>
         </transition>
 
-        <Login :open.sync="loginOpenState" @register:open="openRegister()" />
+        <Login :open.sync="loginOpenState" @register:open="openRegister()" @forgetPass:open="openForgetPass()" />
         <Register :open.sync="registerOpenState" @login:open="openLogin()" />
+        <ForgetPassword :open.sync="forgetPassOpenState" @login:open="openLogin()" />
     </div>
 </template>
 
@@ -152,6 +153,7 @@ import ProfileDropdown from "~/components/web/header/ProfileDropdown";
 import Login from "~/components/auth/Login";
 import Register from "~/components/auth/Register";
 import Loading from "~/components/Loading.vue";
+import ForgetPassword from "~/components/auth/ForgetPassword.vue";
 
 export default {
     components: {
@@ -162,6 +164,7 @@ export default {
         Login,
         Register,
         Loading,
+        ForgetPassword,
     },
     data() {
         return {
@@ -175,6 +178,7 @@ export default {
 
             loginOpenState: false,
             registerOpenState: false,
+            forgetPassOpenState: false,
         };
     },
     async fetch() {
@@ -199,10 +203,17 @@ export default {
         openRegister() {
             this.loginOpenState = false;
             this.registerOpenState = true;
+            this.forgetPassOpenState = false;
         },
         openLogin() {
             this.loginOpenState = true;
             this.registerOpenState = false;
+            this.forgetPassOpenState = false;
+        },
+        openForgetPass() {
+            this.loginOpenState = false;
+            this.registerOpenState = false;
+            this.forgetPassOpenState = true;
         },
 
         calcMenuOpenState() {

@@ -59,8 +59,8 @@ h3::after {
                         </div>
                     </div>
                     <div class="flex items-start gap-2 p-1">
-                        <Icon class="w-6 h-6 bg-blue-400" size="24px" folder="icons/admin" name="Play" />
-                        <span class="text-xl text-blue-900">{{ new Intl.NumberFormat("fa").format(item.buyCount) }}</span>
+                        <Icon class="w-6 h-6 bg-emerald-600" size="24px" folder="icons/admin" name="SackDollar" />
+                        <span class="text-xl text-emerald-900">{{ new Intl.NumberFormat("fa").format(item.buyCount) }}</span>
                     </div>
                 </li>
             </ul>

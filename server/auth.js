@@ -15,7 +15,7 @@ const tokenExpireTime = 3600 * 24 * 7; // 1 week
 
 const auth = async (req, res, url, redirect = false) => {
     delete req.headers["host"];
-    
+
     await axios
         .post(`${process.env.API_BASE_URL}${url}`, { ...req.body }, { headers: { ...req.headers, serversecret: process.env.SERVER_SECRET, tt: Date.now() } })
         .then((results) => {
@@ -64,6 +64,17 @@ app.post("/auth/refresh", async (req, res) => {
 app.post("/auth/logout", (req, res) => {
     res.clearCookie("AuthToken");
     return res.end();
+});
+
+app.post("/auth/forget-password/*", async (req, res) => {
+    delete req.headers["host"];
+    await axios
+        .post(`${process.env.API_BASE_URL}${req.url}`, { ...req.body }, { headers: { ...req.headers, serversecret: process.env.SERVER_SECRET, tt: Date.now() } })
+        .then((results) => res.json({ ...results.data }))
+        .catch((e) => {
+            if (!e.response) console.log(e);
+            return res.status(e.response.status).json(e.response.data);
+        });
 });
 
 module.exports = app;

@@ -50,6 +50,7 @@
                         <Loading class="w-8 h-8" v-else />
                     </button>
                 </form>
+                <button type="button" class="text-sm opacity-75 w-max" @click="openForgetPass()">رمزعبور خود را فراموش کردید؟</button>
                 <button class="text-sm opacity-75 w-max" @click="openRegister()">
                     حساب کاربری ندارید؟
                     <span class="text-orange-600 underline">ساخت حساب</span>
@@ -92,6 +93,9 @@ export default {
 
         openRegister() {
             this.$emit("register:open");
+        },
+        openForgetPass() {
+            this.$emit("forgetPass:open");
         },
 
         async login(e) {
