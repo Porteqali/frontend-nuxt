@@ -51,20 +51,20 @@ export default {
     },
     async mounted() {
         const code = this.getCleanCode();
-        if (this.error.statusCode == 404) {
-            await this.checkMarketingCode(code);
-        }
+        // if (this.error.statusCode == 404) {
+        //     await this.checkMarketingCode(code);
+        // }
         this.loading = false;
     },
     methods: {
-        async checkMarketingCode(code) {
-            const url = `/set-marketer-code/${code}`;
-            const isCookieSet = await axios
-                .post(encodeURI(url), {})
-                .then((response) => true)
-                .catch((e) => false);
-            if (!!isCookieSet) return this.$router.push("/");
-        },
+        // async checkMarketingCode(code) {
+        //     const url = `/set-marketer-code/${code}`;
+        //     const isCookieSet = await axios
+        //         .post(encodeURI(url), {})
+        //         .then((response) => true)
+        //         .catch((e) => false);
+        //     if (!!isCookieSet) return this.$router.push("/");
+        // },
 
         getCleanCode() {
             let code = this.$route.path || "";

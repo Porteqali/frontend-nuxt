@@ -42,13 +42,13 @@ header {
                     </div>
                 </div>
             </transition>
-            <div class="flex items-center gap-2">
+            <nuxt-link to="/profile" class="flex items-center gap-2">
                 <img class="w-9 h-9 shadow-md object-cover rounded-full" :src="user.info.image" :alt="`${user.info.name} ${user.info.family}`" />
                 <div class="hidden md:flex flex-col">
                     <strong class="text-sm">{{ `${user.info.name} ${user.info.family}` }}</strong>
                     <small class="text-xs">{{ user.info.email }}</small>
                 </div>
-            </div>
+            </nuxt-link>
         </div>
     </header>
 </template>

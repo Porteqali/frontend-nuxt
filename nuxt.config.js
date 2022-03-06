@@ -107,7 +107,7 @@ export default {
     build: {},
 
     serverMiddleware: [
-        "~/server/csrf.js",
+        "~/server/gateway.js",
         "~/server/auth.js",
         "~/server/api.js",
         "~/server/payment.js",

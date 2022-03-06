@@ -55,7 +55,10 @@
             <img src="/icons/Lock.black.svg" width="16" height="16" alt="Lock" v-else />
         </span>
         <div class="flex items-center flex-wrap md:flex-nowrap gap-2 border-b border-solid border-gray-200 p-4 pb-6 w-full">
-            <h4 class="flex-grow cursor-pointer" @click="selectTopic(data)">{{ data.name }}</h4>
+            <div class="flex flex-col gap-1 flex-grow">
+                <h4 class="flex-grow cursor-pointer" @click="selectTopic(data)">{{ data.name }}</h4>
+                <small class="opacity-75 text-xs" v-if="!!data.isFreeForUsers">رایگان برا اعضا</small>
+            </div>
             <small class="bg-indigo-100 text-indigo-800 py-1 p-2 rounded-md flex-shrink-0">
                 {{ `${data.time.hours}:${data.time.minutes}:${data.time.seconds}` }}
             </small>

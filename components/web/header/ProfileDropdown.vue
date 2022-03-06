@@ -73,6 +73,7 @@ ul li:hover {
 
 <script>
 import axios from "axios";
+
 export default {
     name: "ProfileDropdown",
     props: ["open"],

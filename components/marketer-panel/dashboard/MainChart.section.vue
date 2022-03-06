@@ -21,8 +21,8 @@
         <ul class="tab flex items-center gap-4">
             <li class="p-1 cursor-pointer" :class="{ active: type == 'income' }" @click="type = 'income'">میزان درآمد</li>
             <li class="p-1 cursor-pointer" :class="{ active: type == 'sells' }" @click="type = 'sells'">میزان فروش</li>
-            <li class="p-1 cursor-pointer" :class="{ active: type == 'link-visits' }" @click="type = 'link-visits'">کلیک لینک</li>
-            <li class="p-1 cursor-pointer" :class="{ active: type == 'users' }" @click="type = 'users'">ثبت نام کاربران</li>
+            <li class="p-1 cursor-pointer" :class="{ active: type == 'link-clicked' }" @click="type = 'link-clicked'">کلیک لینک</li>
+            <li class="p-1 cursor-pointer" :class="{ active: type == 'new-users' }" @click="type = 'new-users'">ثبت نام کاربران</li>
         </ul>
         <div class="flex flex-wrap items-end gap-4">
             <div class="flex flex-col gap-2 w-64">
@@ -60,7 +60,7 @@ export default {
         return {
             isDataLoading: false,
             chartData: this.chartData || { data: [], label: [] },
-            type: "income", // income | sells | link-visits | users
+            type: "income", // income | sells | link-clicked | new-users
             startDate: "",
             endDate: "",
 
@@ -136,11 +136,11 @@ export default {
                         this.chart.data.datasets[0].borderColor = "#0f5442";
                         this.chart.data.datasets[0].backgroundColor = "#9bbfb5";
                         break;
-                    case "link-visits":
+                    case "link-clicked":
                         this.chart.data.datasets[0].borderColor = "#50493d";
                         this.chart.data.datasets[0].backgroundColor = "#a2947c";
                         break;
-                    case "users":
+                    case "new-users":
                         this.chart.data.datasets[0].borderColor = "#6437d5";
                         this.chart.data.datasets[0].backgroundColor = "#b699ff";
                         break;

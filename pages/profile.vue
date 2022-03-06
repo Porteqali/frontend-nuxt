@@ -92,6 +92,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     async middleware({ store, req, redirect }) {
         let headers = {};

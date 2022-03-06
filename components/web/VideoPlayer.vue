@@ -25,15 +25,18 @@ export default {
     props: ["src", "type"],
     data() {
         return {
+            initial: this.initial || 1,
             loading: false,
             videoPaused: true,
         };
     },
+    mounted() {},
     watch: {
         src(val) {
             try {
                 this.$refs.videoPlayer.load();
-                this.$refs.videoPlayer.play();
+                if (this.initial == 0) this.$refs.videoPlayer.play();
+                if (this.initial == 1) this.initial = 0;
             } catch (e) {}
         },
     },
