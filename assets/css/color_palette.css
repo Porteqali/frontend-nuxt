@@ -1,6 +1,8 @@
 :root,
 ::after,
 ::before {
+    --main-bg-gradient: linear-gradient(87.25deg, #FFA825 -11.51%, #FF70D7 114.56%);
+
     --body-bg-color: #f2f6ff;
 
     --header-nav-text-color: #fff;
