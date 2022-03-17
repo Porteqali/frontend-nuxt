@@ -4,7 +4,7 @@
     <section class="relative flex items-center justify-evenly w-full my-32 px-4 md:px-8" title="newsletter" id="newsletter">
         <img class="absolute opacity-80" src="/misc/orange.png" alt="" />
         <div class="relative flex flex-col items-center gap-8 md:gap-16 bg-warmgray-100 rounded-2xl p-8 py-12 w-full max-w-screen-lg">
-            <img class="absolute -top-1/4" src="/misc/lines.png" alt="" />
+            <img class="absolute -top-1/4" src="/pages/home/lines.png" alt="" />
             <div class="relative flex flex-col items-center gap-2">
                 <h4 class="kalameh_bold text-3xl md:text-4xl">خبری رو از دست نده</h4>
                 <h2 class="kalameh_bold opacity-90">عضویت در خبرنامه</h2>
@@ -20,7 +20,7 @@
                 </button>
             </form>
             <small
-                class="flex items-center p-2 py-1 rounded-lg"
+                class="flex items-center p-2 py-1 -mt-6 md:-mt-10 rounded-lg"
                 :class="{ 'bg-red-100 text-red-800': messageType == 'error', 'bg-emerald-100 text-emerald-800': messageType == 'success' }"
                 v-if="!!message"
             >

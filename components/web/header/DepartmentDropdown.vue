@@ -3,14 +3,8 @@
     position: absolute;
     top: 3.75rem;
     margin-right: -2rem;
-    background-color: var(--header-nav-container-bg-color);
-    color: var(--header-nav-text-color);
-}
-ul li {
-    border-bottom: 1px solid #ffffff22;
-}
-ul li:last-of-type {
-    border-bottom: 0;
+    background-color: #fff;
+    color: #333;
 }
 ul li:hover {
     transform: scale(1.05, 1.05);
@@ -19,11 +13,15 @@ ul li:hover {
 
 <template>
     <transition class="" name="slideup" appear>
-        <div class="box blur rounded-3xl shadow-lg" v-show="open">
-            <ul class="flex flex-col p-6 w-full">
-                <li class="" v-for="(department, i) in departments" :key="i" @click="updateOpenState(false)">
-                    <nuxt-link class="w-full flex items-center gap-2 p-3" :to="`/department?group=${department.slug}`" :title="department.slug">
-                        <img :src="department.icon" class="w-8 h-8 rounded-full object-cover" :alt="department.name" />
+        <div class="box rounded-3xl shadow-lg" v-show="open">
+            <ul class="grid grid-cols-1 lg:grid-cols-3 gap-4 p-6 w-full">
+                <li class="" v-for="(department, i) in departments" :key="i" @click="toggleMenu(false)">
+                    <nuxt-link
+                        class="w-full flex items-center gap-2 p-1 hover:text-orange-300 hover:bg-warmgray-700 rounded-2xl"
+                        :to="`/department?group=${department.slug}`"
+                        :title="department.slug"
+                    >
+                        <img :src="department.icon" class="w-10 h-10 rounded-full object-cover" :alt="department.name" />
                         <span>{{ department.name }}</span>
                     </nuxt-link>
                 </li>
@@ -43,16 +41,7 @@ export default {
         return {
             loading: false,
 
-            departments: [
-                { name: "امنیت شبکه", slug: "network", icon: "/misc/Figma.svg" },
-                { name: "زبان های خارجی", slug: "languages", icon: "/misc/Figma.svg" },
-                { name: "طراحی گرافیک", slug: "graphic", icon: "/misc/Figma.svg" },
-                { name: "دروس دانشگاهی", slug: "university", icon: "/misc/Figma.svg" },
-                { name: "برنامه نویسی", slug: "programming", icon: "/misc/Figma.svg" },
-                { name: "طراحی وب", slug: "web-design", icon: "/misc/Figma.svg" },
-                { name: "کسب و کار", slug: "business", icon: "/misc/Figma.svg" },
-                { name: "دوره های رایگان", slug: "free", icon: "/misc/Figma.svg" },
-            ],
+            departments: [],
         };
     },
     async fetch() {
@@ -62,6 +51,10 @@ export default {
         await Promise.all([this.getCourseGroups({ headers })]);
     },
     methods: {
+        toggleMenu(state) {
+            this.$store.commit("menu/sideMenuToggle", !!state);
+        },
+
         updateOpenState(state) {
             this.$emit("update:open", state);
         },

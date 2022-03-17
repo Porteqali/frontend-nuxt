@@ -1,57 +1,64 @@
 <style scoped>
-.card {
-    background-color: var(--testimonial-section-card-bg-color);
-    color: var(--testimonial-section-card-color);
-    border: 1px solid #bebebe;
-}
 .container {
+    position: relative;
+    width: 100%;
+    background-color: #fdfdfd;
+    color: #333;
+    border-radius: 1.5rem;
 }
 
-@media (max-width: 1920px) {
-    .container {
-        margin-right: -10vw;
-    }
+.background {
+    /* background: linear-gradient(261.5deg, #ffa825 0%, rgba(255, 112, 215, 15%) 100%); */
+    background-image: linear-gradient(261.5deg, #ffa825 0%, rgba(255, 112, 215, 15%) 100%), url("/pages/home/pattern.png");
+    background-repeat: repeat;
+    z-index: -1;
 }
-
-@media (max-width: 1440px) {
-    .container {
-        margin-right: -3vw;
-    }
+.background img {
+    margin-right: 12%;
 }
 </style>
 
 <template>
-    <section class="relative flex flex-col gap-8 w-full" id="testimonials" v-if="!testimonialsLoading && testimonials.length > 0">
-        <div class="flex flex-wrap justify-between gap-8 w-full">
-            <h2 class="font-bold text-4xl">نظرات دانشجویان پرتقال</h2>
+    <section
+        class="flex flex-col lg:flex-row items-start justify-around gap-8 w-full px-4 md:px-8"
+        id="testimonials"
+        v-if="!testimonialsLoading && testimonials.length > 0"
+    >
+        <div class="flex flex-col items-start gap-4 md:mt-8 w-full">
+            <h2 class="kalameh_bold title text-3xl md:text-5xl">نظرات دانشجویان پرتقال</h2>
+            <p>بخش کوچکی از نظرات افرادی که به ما اعتماد کرده اند.</p>
         </div>
-        <div v-swiper="testimonialsSwiperOptions" class="container w-screen max-w-screen-4xl select-none overflow-hidden overflow-y-visible pb-16 -mb-8">
-            <ul class="swiper-wrapper flex items-start">
-                <li
-                    class="swiper-slide blur card shadow-2xl flex flex-col items-center gap-8 p-16 rounded-3xl max-w-screen-2sm z-10 ml-10"
-                    v-for="(testimonial, i) in testimonials"
-                    :key="i"
-                >
-                    <img class="mr-auto" src="/misc/comma.svg" alt="comma" loading="lazy" width="34" />
-                    <p class="">
-                        {{ testimonial.comment }}
-                    </p>
-                    <div class="flex items-center gap-3">
-                        <img
-                            class="border-2 border-solid border-orange-500 rounded-full"
-                            :src="testimonial.image"
-                            :alt="testimonial.fullname"
-                            loading="lazy"
-                            width="78"
-                            height="78"
-                        />
+        <div
+            v-swiper="testimonialsSwiperOptions"
+            class="container flex flex-col items-center gap-8 p-16 mr-auto md:mr-0 shadow-xl max-w-xl select-none overflow-hidden"
+        >
+            <ul class="swiper-wrapper flex items-start w-full">
+                <li class="swiper-slide flex flex-col items-start gap-4 w-screen max-w-lg z-10" v-for="(testimonial, i) in testimonials" :key="i">
+                    <div class="flex items-center gap-4">
+                        <img class="w-24 h-24 object-cover shadow-lg rounded-full" :src="testimonial.image" :alt="testimonial.fullname" loading="lazy" />
                         <div class="flex flex-col gap-2">
-                            <b class="text-xl">{{ testimonial.fullname }}</b>
-                            <span class="text-pink-500 text-lg">{{ testimonial.title }}</span>
+                            <b class="kalameh_bold text-2xl">{{ testimonial.fullname }}</b>
+                            <span class="text-amber-500 text-sm">{{ testimonial.title }}</span>
                         </div>
                     </div>
+                    <img class="mr-auto" src="/misc/comma.png" alt="comma" />
+                    <p class="w-full max-w-lg">
+                        {{ testimonial.comment }}
+                    </p>
                 </li>
             </ul>
+            <div class="flex items-center justify-center gap-4 w-full p-4">
+                <button class="flex items-center justify-center p-2 bg-white shadow-xl rounded-xl swiper-prev">
+                    <img src="/icons/new/ArrowRight3.svg" width="24" />
+                </button>
+                <div class="flex items-center justify-center gap-2 swiper-pagination2 swiper-pagination-bullets"></div>
+                <button class="flex items-center justify-center p-2 bg-white shadow-xl rounded-xl swiper-next">
+                    <img src="/icons/new/ArrowLeft3.svg" width="24" />
+                </button>
+            </div>
+        </div>
+        <div class="background absolute right-0 flex items-center mt-32 w-screen h-72">
+            <img class="h-64" src="/pages/home/hand_write.png" alt="hand_write" />
         </div>
     </section>
 </template>
@@ -65,12 +72,17 @@ export default {
             testimonialsLoading: false,
             testimonials: ["", "", "", "", "", "", ""],
             testimonialsSwiperOptions: {
-                autoplay: false,
+                autoplay: 5000,
+                // slidesPerView: 1,
                 slidesPerView: "auto",
                 initialSlide: 0,
-                // spaceBetween: 46,
+                spaceBetween: 64,
                 loop: true,
+                // freeMode: false,
                 freeMode: true,
+                pagination: ".swiper-pagination2",
+                prevButton: ".swiper-prev",
+                nextButton: ".swiper-next",
             },
         };
     },

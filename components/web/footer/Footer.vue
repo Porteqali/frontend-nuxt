@@ -34,7 +34,7 @@
 
 <template>
     <div class="flex flex-col items-center py-4 bg-warmgray-700 bg-opacity-95 text-white relative w-screen mt-10">
-        <img class="pikaboo absolute" src="/misc/pikaboo.png" alt="pikaboo" />
+        <img class="pikaboo absolute hidden md:flex" src="/misc/pikaboo.png" alt="pikaboo" />
         <footer class="relative flex flex-col items-center gap-4 w-full max-w-screen-2xl px-4 md:px-8 z-10">
             <button class="goToTop left-0 -top-8 orange_gradient_h flex items-center justify-center rounded-full p-6" @click="scrollUp()">
                 <img src="/icons/GoUp.svg" alt="GoUp" width="16" height="16" />

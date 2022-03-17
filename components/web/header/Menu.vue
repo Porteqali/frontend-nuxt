@@ -1,54 +1,38 @@
 <style scoped>
-.header_nav_container {
-    /* background-color: var(--header-nav-container-bg-color); */
-    /* background-color: #fff; */
+.menu {
     max-height: initial;
     position: absolute;
-    top: 7rem;
+    top: 0;
     right: 0;
-    margin: auto 1rem;
+    height: 100vh;
     width: calc(100% - 2rem);
+    max-width: 18rem;
     z-index: 2;
+    border-radius: 1rem 0 0 1rem;
 }
-
-.nav_toggle {
-    /* background-color: var(--header-nav-container-bg-color); */
-    background-color: #fff;
-}
-.nav_toggle.open {
-    position: absolute;
-    top: 1.5rem;
-    left: 1rem;
-}
-
-.login_btn {
-    background-color: var(--header-nav-container-bg-color);
-    color: #fff;
-    /* background-color: #fff; */
-}
-
-li.active {
-    background-color: var(--header-nav-container-bg-color);
-    box-shadow: 0px 10px 30px rgba(0, 0, 0, 20%);
-}
-
 .backdrop {
-    position: absolute;
+    position: fixed;
     inset: 0;
     background-color: rgba(0, 0, 0, 30%);
+}
+
+li.active,
+nav li:hover {
+    color: #fff;
+    background-color: #625e59;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 20%);
+    padding: 0.5rem;
 }
 
 @media (min-width: 1024px) {
     .menu {
         display: flex !important;
-    }
-    .header_nav_container {
         max-height: 4em;
         position: relative;
         top: initial;
         right: initial;
-        margin: auto;
         width: 100%;
+        max-width: initial;
     }
 
     .backdrop {
@@ -59,53 +43,55 @@ li.active {
 
 <template>
     <div class="flex items-center gap-4 w-max lg:w-full" @mouseover="open = true" @mouseleave="open = false">
-        <div class="backdrop" v-if="open" @click="open = false"></div>
-        <button class="nav_toggle blur flex justify-center items-center p-6 rounded-3xl shadow-lg lg:hidden">
-            <img src="/icons/Category.black.svg" width="24" loading="lazy" alt="Category" />
-        </button>
-        <transition name="slidedown" appear>
+        <div class="backdrop" v-if="!!sideMenuOpen" @click="toggleMenu()"></div>
+        <transition name="slideleft" appear>
             <div
-                class="header_nav_container menu flex flex-wrap items-start md:items-center gap-1 lg:gap-8 px-4 lg:px-8 py-0 rounded-3xl shadow-lg lg:shadow-none bg-white lg:bg-transparent"
-                v-show="calcMenuOpenState()"
+                class="menu flex flex-wrap flex-col-reverse lg:flex-row items-start lg:items-center justify-end gap-4 lg:gap-8 p-4 lg:p-0 shadow-lg lg:shadow-none bg-white lg:bg-transparent"
+                v-show="!!sideMenuOpen"
             >
+                <div class="flex w-full mt-auto h-52 bg-warmgray-600 border-8 border-solid border-gray-300 rounded-3xl lg:hidden"></div>
                 <nav>
-                    <ul class="flex flex-wrap md:flex-nowrap items-center gap-6 xl:gap-8 py-4 md:p-0 text-lg">
+                    <ul class="flex flex-wrap lg:flex-nowrap flex-col lg:flex-row lg:items-center gap-6 lg:gap-8">
                         <li
-                            class="flex items-center gap-1 md:py-2 md:my-2 cursor-pointer rounded-2xl"
-                            :class="{ active: departmentsDropdownOpenState, 'p-2 px-4 m-2': departmentsDropdownOpenState }"
+                            class="flex items-center gap-1 md:py-2 md:my-2 cursor-pointer rounded-xl"
+                            :class="{ active: departmentsDropdownOpenState, 'p-2 pl-4 m-2': departmentsDropdownOpenState }"
                             @mouseover="departmentsDropdownOpenState = true"
                             @mouseleave="departmentsDropdownOpenState = false"
                         >
-                            <img src="/icons/Category.black.svg" width="24" alt="Category" />
+                            <Icon
+                                class="w-6 h-6"
+                                :class="[departmentsDropdownOpenState ? 'bg-gray-100' : 'bg-gray-700']"
+                                size="24px"
+                                folder="icons/new"
+                                name="ArrowDown2"
+                            />
                             <span :class="{ 'text-white': departmentsDropdownOpenState }">دپارتمان ها</span>
                             <DepartmentDropdown class="z-10" :open.sync="departmentsDropdownOpenState" />
                         </li>
-                        <li class="flex items-center gap-1 md:py-4" @click="open = false">
+                        <li class="flex items-center gap-1 md:py-2 md:my-2 rounded-xl" @click="toggleMenu(false)">
                             <nuxt-link title="blog" to="/blog">وبلاگ</nuxt-link>
                         </li>
-                        <li class="flex items-center gap-1 md:py-4" @click="open = false">
+                        <li class="flex items-center gap-1 md:py-2 md:my-2 rounded-xl" @click="toggleMenu(false)">
                             <nuxt-link title="contact-us" to="/contact-us">تماس با ما</nuxt-link>
                         </li>
-                        <li class="flex items-center gap-1 md:py-4" @click="open = false">
+                        <li class="flex items-center gap-1 md:py-2 md:my-2 rounded-xl" @click="toggleMenu(false)">
                             <nuxt-link title="about-us" to="/about-us">درباره ما</nuxt-link>
                         </li>
-                        <li class="flex items-center gap-1 md:py-4" @click="open = false">
+                        <li class="flex items-center gap-1 md:py-2 md:my-2 rounded-xl" @click="toggleMenu(false)">
                             <nuxt-link title="where-to-start" to="/where-to-start">از کجا شروع کنم؟</nuxt-link>
                         </li>
                     </ul>
                 </nav>
-                <ul class="icon_buttons flex items-center gap-2 flex-shrink-0 mr-auto ml-0">
-                    <li
-                        class="p-2 m-2 rounded-xl"
-                        :class="{ active: searchDropdownOpenState }"
-                        @mouseover="searchDropdownOpenState = true"
-                        @mouseleave="searchDropdownOpenState = false"
-                    >
-                        <img :src="searchDropdownOpenState ? `/icons/Search.svg` : `/icons/Search.black.svg`" width="28" height="28" alt="Search" />
-                        <SearchDropdown class="z-10" :open.sync="searchDropdownOpenState" />
+                <hr class="w-full border-b-2 border-t-0 border-warmgray-500 opacity-50 flex lg:hidden" />
+                <ul class="flex items-center gap-2 flex-shrink-0 mr-auto ml-0 w-full lg:w-auto">
+                    <nuxt-link title="پرتقال" to="/" class="ml-auto flex lg:hidden">
+                        <img class="h-8" src="/logo_mark.svg" alt="پرتقال" />
+                    </nuxt-link>
+                    <li class="p-2 my-2 rounded-xl bg-warmgray-200 cursor-pointer hover:shadow-xl" @click="searchDropdownOpenState = true">
+                        <Icon class="w-7 h-7 bg-gray-700" size="28px" folder="icons/new" name="Search" />
                     </li>
                     <li
-                        class="p-2 m-2 rounded-xl"
+                        class="p-2 my-2 rounded-xl bg-warmgray-200"
                         :class="{ active: cartDropdownOpenState }"
                         @mouseover="cartDropdownOpenState = true"
                         @mouseleave="cartDropdownOpenState = false"
@@ -116,55 +102,29 @@ li.active {
                         >
                             {{ Object.keys(cart.list).length }}
                         </span>
-                        <img :src="cartDropdownOpenState ? `/icons/Buy.svg` : `/icons/Buy.black.svg`" width="28" height="28" alt="Buy" />
+                        <Icon class="w-7 h-7" :class="[cartDropdownOpenState ? 'bg-gray-100' : 'bg-gray-700']" size="28px" folder="icons/new" name="Buy" />
                         <CartDropdown class="z-10" :open.sync="cartDropdownOpenState" />
-                    </li>
-                    <li class="" v-if="!user.info.email && !user.info.mobile && !loading">
-                        <button class="login_btn rounded-2xl p-2 px-4 shadow-md hover:shadow-xl" @click="openLogin()">ورود | ثبت نام</button>
-                    </li>
-                    <li
-                        class="p-2 m-2 rounded-xl"
-                        :class="{ active: profileDropdownOpenState }"
-                        @mouseover="profileDropdownOpenState = true"
-                        @mouseleave="profileDropdownOpenState = false"
-                        v-if="(!!user.info.email || !!user.info.mobile) && !loading"
-                    >
-                        <img :src="profileDropdownOpenState ? `/icons/Profile.svg` : `/icons/Profile.black.svg`" width="28" height="28" alt="Profile" />
-                        <ProfileDropdown class="z-10" :open.sync="profileDropdownOpenState" />
-                    </li>
-                    <li class="p-4" v-if="loading">
-                        <Loading class="w-6 h-6" />
                     </li>
                 </ul>
             </div>
         </transition>
 
-        <Login :open.sync="loginOpenState" @register:open="openRegister()" @forgetPass:open="openForgetPass()" />
-        <Register :open.sync="registerOpenState" @login:open="openLogin()" />
-        <ForgetPassword :open.sync="forgetPassOpenState" @login:open="openLogin()" />
+        <SearchDropdown class="z-10" :open.sync="searchDropdownOpenState" />
     </div>
 </template>
 
 <script>
+import Icon from "~/components/Icon.vue";
 import DepartmentDropdown from "~/components/web/header/DepartmentDropdown";
 import SearchDropdown from "~/components/web/header/SearchDropdown";
 import CartDropdown from "~/components/web/header/CartDropdown";
-import ProfileDropdown from "~/components/web/header/ProfileDropdown";
-import Login from "~/components/auth/Login";
-import Register from "~/components/auth/Register";
-import Loading from "~/components/Loading.vue";
-import ForgetPassword from "~/components/auth/ForgetPassword.vue";
 
 export default {
     components: {
+        Icon,
         DepartmentDropdown,
         SearchDropdown,
         CartDropdown,
-        ProfileDropdown,
-        Login,
-        Register,
-        Loading,
-        ForgetPassword,
     },
     data() {
         return {
@@ -173,12 +133,7 @@ export default {
 
             departmentsDropdownOpenState: false,
             cartDropdownOpenState: false,
-            profileDropdownOpenState: false,
             searchDropdownOpenState: false,
-
-            loginOpenState: false,
-            registerOpenState: false,
-            forgetPassOpenState: false,
         };
     },
     async fetch() {
@@ -187,39 +142,18 @@ export default {
 
         await this.$store.dispatch("user/getUserInfo", { headers }).catch((e) => {});
     },
-    async mounted() {
-        // await this.$store.dispatch("user/getUserInfo").catch((e) => {});
-        await this.$store.dispatch("user/refresh").finally(() => (this.loading = false));
-    },
     computed: {
-        user() {
-            return this.$store.state.user;
-        },
         cart() {
             return this.$store.state.cart;
         },
+        sideMenuOpen() {
+            return this.$store.state.menu.sideMenuOpen;
+        },
     },
     methods: {
-        openRegister() {
-            this.loginOpenState = false;
-            this.registerOpenState = true;
-            this.forgetPassOpenState = false;
-        },
-        openLogin() {
-            this.loginOpenState = true;
-            this.registerOpenState = false;
-            this.forgetPassOpenState = false;
-        },
-        openForgetPass() {
-            this.loginOpenState = false;
-            this.registerOpenState = false;
-            this.forgetPassOpenState = true;
-        },
-
-        calcMenuOpenState() {
-            if (typeof window === "undefined") return false;
-            if (window.outerWidth <= 1024) return this.open;
-            else return true;
+        toggleMenu(state) {
+            if (state != null && state != undefined) this.$store.commit("menu/sideMenuToggle", !!state);
+            else this.$store.commit("menu/sideMenuToggle", !this.sideMenuOpen);
         },
     },
 };

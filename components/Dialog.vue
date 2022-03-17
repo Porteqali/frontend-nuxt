@@ -27,7 +27,7 @@
     z-index: 2;
     /* background-color: white; */
     /* background-color: var(--header-nav-container-bg-color); */
-    background-color: #ffffffdd;
+    background-color: #fffffff1;
     /* background-color: var(--body-bg-color); */
     /* box-shadow: 0px 5px 10px rgba(0, 0, 0, 25%); */
 }
@@ -37,7 +37,7 @@
     <div class="dialog" :class="{ open: open }" v-show="open">
         <div class="backdrop" @click="close()"></div>
         <transition name="slidedown" appear>
-            <div class="box blur p-6 rounded-2xl shadow-xl w-max max-h-full overflow-auto" :class="boxClass" v-show="open">
+            <div class="box p-6 rounded-2xl shadow-xl w-max max-h-full overflow-auto" :class="boxClass" v-show="open">
                 <div class="flex justify-between items-center gap-4 mb-4">
                     <b class="text-2xl" v-if="title">{{ title }}</b>
                     <button class="flex items-center justify-center bg-gray-100 w-10 h-10 rounded-full p-2 shadow-md" @click="close()">

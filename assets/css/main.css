@@ -35,6 +35,8 @@ body {
 .kalameh_black { font-family: "KalamehWebBlack" !important; word-spacing: 2px !important; }
 .kalameh_bold { font-family: "KalamehWebBold" !important; word-spacing: 2px !important; }
 
+.-z-1{ z-index: -1; }
+
 .dashboard_body {
     /* width: 100%; */
     width: 10px;
@@ -46,13 +48,14 @@ body {
     margin: .5rem 0 !important;
 }
 
-.title { position: relative; z-index: 1; }
-.title::before {
+.title,.title2 { position: relative; z-index: 1; }
+.title::before,.title2::before {
     content: ""; background-color: #fabd96;
     position: absolute; right: 10%; bottom: -4px;
     border-radius: 99px; z-index: -1;
     width: 100%; height: 14px;
 }
+.title2::before { right: -15%; }
 
 .check-enter-active, .check-leave-active { transition: all 0.2s; }
 .check-enter, .check-leave-to { transform: scale(0, 0); }

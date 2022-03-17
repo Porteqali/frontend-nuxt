@@ -1,173 +1,174 @@
 <style scoped>
+#department::before {
+    content: "";
+    width: 100%;
+    height: 65%;
+    position: absolute;
+    top: -0.25rem;
+    border-radius: 2rem;
+    background-color: #f5f5f4;
+}
+
 .toggle_btn {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    border: 2px solid var(--department-section-toggle-btn-border-color);
-    background-color: var(--department-section-toggle-btn-bg-color);
-    color: var(--department-section-toggle-btn-border-color);
+    padding: 0.75rem 1rem;
+    background-color: #fff;
+    color: #333;
 }
 .toggle_btn.fill {
-    background-color: var(--department-section-toggle-btn-fill-bg-color);
-    color: var(--department-section-toggle-btn-fill-color);
-}
-
-.group_selected {
-    border: 5px solid var(--department-section-toggle-btn-fill-bg-color);
-    padding: 2px;
-    border-radius: 50%;
-}
-.title_alt_text {
-    display: none;
-    position: absolute !important;
-    z-index: 2;
-    opacity: 0;
-    top: -3rem;
-    background-color: var(--department-section-title-alt-text-bg-color);
-    color: var(--department-section-title-alt-text-color);
-    border-radius: 1rem;
-    padding: 0.5rem 1rem;
-}
-.title_alt:hover + .title_alt_text {
-    opacity: 1;
-    display: inline-block;
-}
-
-.more_courses_btn {
-    background-color: var(--department-section-title-alt-text-bg-color);
-    color: var(--department-section-title-alt-text-color);
-    box-shadow: 0px 20px 40px rgba(144, 219, 255, 0.3);
+    background: var(--main-bg-gradient);
+    color: #fff;
 }
 
 .course_card {
-    /* background-color: var(--department-section-title-alt-text-bg-color); */
-    background: linear-gradient(154.49deg, rgba(121, 117, 131, 0.2) 5.35%, rgba(54, 53, 103, 0.2) 83.85%), rgba(49, 48, 54, 0.3);
-    color: var(--department-section-title-alt-text-color);
+    background: #fff;
+    color: #333;
 }
 .course_tag {
-    background-color: var(--department-section-course-tag-bg-color);
-    color: var(--department-section-course-tag-color);
+    box-shadow: 0px 0px 10px rgba(255, 49, 49, 0.25);
+}
+.view_topics {
+    --color-bg: #fff;
+    background: linear-gradient(var(--color-bg), var(--color-bg)) padding-box, linear-gradient(273.67deg, #ff8537 -20.26%, #ff51b1 114.54%) border-box;
+    border: 2px solid transparent;
+    transition: all 0.1s;
+}
+.view_topics:hover {
+    background: linear-gradient(273.67deg, #ff8537 -20.26%, #ff51b1 114.54%);
+    color: #fff;
 }
 </style>
 
 <template>
-    <section class="relative flex flex-col gap-8 w-full" id="department">
-        <div class="flex flex-wrap justify-between gap-8 w-full">
-            <div class="flex flex-wrap items-center gap-4">
-                <button class="toggle_btn rounded-full" :class="{ fill: order == 'most-popular' }" @click="orderChanged('most-popular')">
-                    <img src="/icons/FavouriteOutlineColor.purple.svg" width="24" height="24" alt="FavouriteOutlineColor" />
-                    <span>محبوب ها</span>
-                </button>
-                <button class="toggle_btn rounded-full" :class="{ fill: order == 'newest' }" @click="orderChanged('newest')">
-                    <img src="/icons/BookOpenOutlineColor.purple.svg" width="24" height="24" alt="BookOpenOutlineColor" />
-                    <span>جدیدترین ها</span>
-                </button>
-            </div>
-            <ul class="flex flex-wrap gap-4">
-                <li
-                    class="relative flex items-center justify-center"
-                    :class="{ group_selected: group.slug == department.slug }"
-                    v-for="(department, i) in departments"
-                    :key="i"
-                    @click="groupChanged(department._id)"
-                >
-                    <img class="title_alt cursor-pointer rounded-full" :src="department.icon" width="48" height="48" loading="lazy" :alt="department.slug" />
-                    <span class="blur title_alt_text w-max">{{ department.name }}</span>
-                </li>
-            </ul>
+    <section class="relative flex flex-col items-center gap-8 w-full py-8 px-4 md:px-8" id="department">
+        <div class="relative flex flex-wrap items-center justify-between gap-4 w-full">
+            <h2 title="دوره های آموزشی" class="title kalameh_bold text-gray-700 text-3xl">دوره های آموزشی</h2>
+            <nuxt-link to="/department" class="flex items-center gap-1 text-sm md:text-base" title="دوره های آموزشی">
+                مشاهده همه دوره ها
+                <Icon class="w-6 h-6 bg-gray-700" size="24px" folder="icons/new" name="ArrowLeft3" />
+            </nuxt-link>
         </div>
-        <div v-swiper="coursesSwiperOptions" class="w-full max-w-screen-4xl select-none overflow-hidden">
+        <div class="relative flex flex-wrap justify-between gap-8">
+            <div class="flex flex-wrap items-center gap-2 md:gap-4">
+                <button class="toggle_btn text-sm md:text-base rounded-2xl" :class="{ fill: order == 'most-popular' }" @click="orderChanged('most-popular')">
+                    محبوب ترین
+                </button>
+                <button class="toggle_btn text-sm md:text-base rounded-2xl" :class="{ fill: order == 'most-sold' }" @click="orderChanged('most-sold')">
+                    پرفروش ترین
+                </button>
+                <button class="toggle_btn text-sm md:text-base rounded-2xl" :class="{ fill: order == 'newest' }" @click="orderChanged('newest')">جدید ترین</button>
+            </div>
+        </div>
+        <div class="relative flex items-center justify-between gap-8">
+            <button class="flex items-center justify-center p-2 bg-white shadow-xl rounded-xl swiper-prev">
+                <img src="/icons/new/ArrowRight3.svg" width="24" />
+            </button>
+            <div class="flex justify-center gap-2 swiper-pagination2 swiper-pagination-bullets"></div>
+            <button class="flex items-center justify-center p-2 bg-white shadow-xl rounded-xl swiper-next">
+                <img src="/icons/new/ArrowLeft3.svg" width="24" />
+            </button>
+        </div>
+        <div v-swiper="coursesSwiperOptions" class="w-full max-w-screen-2xl select-none overflow-hidden pb-8">
             <ul class="swiper-wrapper flex items-start">
                 <li
-                    class="swiper-slide gray_gradient course_card shadow-lg flex flex-col gap-4 rounded-3xl max-w-sm ml-10"
+                    class="swiper-slide course_card shadow-lg flex flex-col items-center gap-3 rounded-2xl max-w-xs p-3 ml-8"
                     v-for="(course, i) in courses"
                     :key="i"
                 >
-                    <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="relative overflow-hidden rounded-3xl w-full h-72">
+                    <nuxt-link
+                        :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`"
+                        class="relative flex items-end overflow-hidden rounded-2xl w-full h-52"
+                    >
                         <img
-                            class="absolute inset-0 object-cover w-full h-full"
+                            class="absolute inset-0 object-cover bg-gray-200 w-full h-full"
                             :src="course.image || `/misc/course.png`"
                             loading="lazy"
-                            alt="course"
+                            :alt="course.name"
                             draggable="false"
                         />
-                        <img class="absolute top-2 right-2 rounded-full object-cover" :src="course.groups[0].icon" width="32" height="32" loading="lazy" />
-                        <span
-                            class="course_tag flex items-center justify-center p-4 w-auto h-16 rounded-2xl absolute top-2 left-2"
-                            v-if="course.discountInfo && course.discountInfo.tag != ''"
-                        >
-                            {{ course.discountInfo.tag }}
-                        </span>
-                    </nuxt-link>
-                    <div class="flex flex-col gap-4 p-4 pt-0">
-                        <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="w-full">
-                            <h3 class="text-2xl overflow-hidden overflow-ellipsis whitespace-nowrap">{{ course.name }}</h3>
-                        </nuxt-link>
-                        <nuxt-link :to="`/teacher/${course.teacher[0]._id}`" class="flex items-center gap-2">
-                            <img class="rounded-full object-cover w-10 h-10" :src="course.teacher[0].image" alt="Figma" loading="lazy" width="40" height="40" />
-                            <span class="text-gray-100">{{ `${course.teacher[0].name} ${course.teacher[0].family}` }}</span>
-                        </nuxt-link>
-                        <div class="flex flex-wrap justify-between gap-4">
+                        <div class="relative flex flex-wrap justify-between gap-4 bg-gray-800 bg-opacity-80 rounded-xl p-2 w-full m-2 mt-auto">
                             <span class="flex items-end gap-1">
-                                <img src="/icons/TimeCircle.line.svg" alt="TimeCircle" width="20" height="20" />
-                                <small>{{ course.totalTime }}</small>
+                                <Icon class="w-5 h-5 bg-gray-100" size="20px" folder="icons/new" name="TimeCircle" />
+                                <small class="text-gray-50">{{ course.totalTime }}</small>
                             </span>
                             <span class="flex items-end gap-1">
-                                <img src="/icons/User.line.svg" alt="User" width="20" height="20" />
-                                <small>{{ course.buyCount }}</small>
+                                <Icon class="w-5 h-5 bg-gray-100" size="20px" folder="icons/new" name="User3" />
+                                <small class="text-gray-50">{{ course.buyCount }}</small>
                             </span>
                             <span class="flex items-end gap-1">
-                                <img src="/icons/Star.line.svg" alt="Star" width="20" height="20" />
-                                <small>{{ course.score.toFixed(1) }} از 8 امتیاز</small>
+                                <Icon class="w-5 h-5 bg-gray-100" size="20px" folder="icons/new" name="Star" />
+                                <small class="text-gray-50">{{ course.score.toFixed(1) }} از 8</small>
                             </span>
                         </div>
+                    </nuxt-link>
+                    <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="w-full">
+                        <h3 class="kalameh_black text-lg text-gray-700 overflow-hidden overflow-ellipsis whitespace-nowrap">{{ course.name }}</h3>
+                    </nuxt-link>
+                    <ul class="flex flex-wrap items-start gap-4 w-full">
+                        <li class="flex items-center gap-1 text-orange-800 text-xs">
+                            <i class="w-1.5 h-1.5 rounded-full bg-orange-400"></i>
+                            {{ course.groups[0].name }}
+                        </li>
+                    </ul>
+                    <p class="text-sm w-full max-w-xs h-16 overflow-hidden">
+                        {{ course.description.length > 120 ? course.description.substr(0, 120) + "..." : course.description }}
+                    </p>
+                    <div class="flex flex-wrap items-center justify-between gap-4 w-full">
+                        <nuxt-link :to="`/teacher/${course.teacher[0]._id}`" class="flex items-center gap-2">
+                            <img class="rounded-full object-cover w-8 h-8" :src="course.teacher[0].image" alt="Figma" loading="lazy" width="32" height="32" />
+                            <span class="text-gray-600 text-xs">{{ `${course.teacher[0].name} ${course.teacher[0].family}` }}</span>
+                        </nuxt-link>
+                        <small
+                            class="course_tag flex items-center gap-1 p-1 px-2 bg-red-500 text-white rounded-full text-xs"
+                            v-if="course.discountInfo && course.discountInfo.tag != 'رایگان' && course.price > 0"
+                        >
+                            <span class="kalameh_bold">{{ course.discountInfo.tag }}</span>
+                            <span class="kalameh_bold" v-if="!!course.discountInfo.discountType">تخفیف</span>
+                        </small>
+                    </div>
+                    <hr class="w-full border-t-2 border-b-0 border-gray-200" />
+                    <div class="flex items-center justify-between gap-2 w-full">
                         <nuxt-link
                             :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`"
-                            class="orange_gradient_h flex items-center justify-center gap-4 py-4 px-8 rounded-2xl"
+                            class="view_topics flex items-center p-3 px-4 text-sm rounded-2xl flex-shrink-0"
                         >
-                            <span v-if="course.price">
-                                <b class="text-3xl">{{ new Intl.NumberFormat("fa").format(course.discountInfo.discountedPrice) }}</b>
-                                تومان
-                            </span>
-                            <span class="text-xl" v-else>رایگان</span>
-                            <img src="/icons/Buy.svg" alt="Buy" width="24" height="24" />
+                            مشاهده سرفصل ها
                         </nuxt-link>
+                        <div class="flex items-end justify-center gap-4">
+                            <div class="flex flex-col" v-if="course.price">
+                                <span class="flex items-center gap-1">
+                                    <b :class="[course.price != course.discountInfo.discountedPrice ? 'text-base line-through' : 'text-xl']">
+                                        {{ new Intl.NumberFormat("fa").format(course.price) }}
+                                    </b>
+                                    <small>تومان</small>
+                                </span>
+                                <b class="text-2xl text-amber-500" v-if="course.price != course.discountInfo.discountedPrice">
+                                    {{ new Intl.NumberFormat("fa").format(course.discountInfo.discountedPrice) }}
+                                </b>
+                            </div>
+                            <span class="text-xl font-bold" v-else>رایگان</span>
+                        </div>
                     </div>
                 </li>
             </ul>
-            <div class="flex justify-center mt-8 swiper-pagination2 swiper-pagination-bullets"></div>
-        </div>
-        <div class="flex items-center justify-center w-full">
-            <nuxt-link to="/department" class="more_courses_btn blur flex items-center gap-2 py-4 px-8 rounded-2xl w-max">
-                <img src="/icons/BookOpenOutlineColor.orange.svg" width="24" height="24" alt="BookOpenOutlineColor" />
-                <span>مشاهده همه دوره ها</span>
-            </nuxt-link>
         </div>
     </section>
 </template>
 
 <script>
 import axios from "axios";
+import Icon from "~/components/Icon.vue";
 
 export default {
     name: "DepartmentSection",
+    components: {
+        Icon,
+    },
     data() {
         return {
-            departments: {
-                network: { name: "امنیت شبکه", slug: "network", icon: "/misc/Figma.svg" },
-                languages: { name: "زبان های خارجی", slug: "languages", icon: "/misc/Figma.svg" },
-                graphic: { name: "طراحی گرافیک", slug: "graphic", icon: "/misc/Figma.svg" },
-                university: { name: "دروس دانشگاهی", slug: "university", icon: "/misc/Figma.svg" },
-                programming: { name: "برنامه نویسی", slug: "programming", icon: "/misc/Figma.svg" },
-                "web-design": { name: "طراحی وب", slug: "web-design", icon: "/misc/Figma.svg" },
-                business: { name: "کسب و کار", slug: "business", icon: "/misc/Figma.svg" },
-                free: { name: "دوره های رایگان", slug: "free", icon: "/misc/Figma.svg" },
-            },
-
-            search: this.search || "",
             order: this.order || "newest", // newest | most-popular
-            group: this.group || { name: "", slug: "" },
 
             courses: this.courses || [],
             coursesPage: this.coursesPage || 1,
@@ -180,10 +181,11 @@ export default {
                 autoplay: false,
                 slidesPerView: "auto",
                 initialSlide: 0,
-                // spaceBetween: 46,
                 loop: false,
                 freeMode: true,
                 pagination: ".swiper-pagination2",
+                prevButton: ".swiper-prev",
+                nextButton: ".swiper-next",
             },
         };
     },
@@ -191,45 +193,14 @@ export default {
         let headers = {};
         if (process.server) headers = this.$nuxt.context.req.headers;
 
-        await Promise.all([this.getCourses({ headers }), this.getCourseGroups({ headers })]);
+        await Promise.all([this.getCourses({ headers })]);
     },
     methods: {
-        searchSubmit(e) {
-            e.preventDefault();
-            this.clearCourses();
-            this.getCourses();
-        },
         orderChanged(order) {
             if (this.coursesLoading) return;
             this.order = order;
             this.clearCourses();
             this.getCourses();
-        },
-        groupChanged(group) {
-            if (this.coursesLoading) return;
-
-            if (this.group._id === group) this.group = { name: "", slug: "" };
-            else this.group = this.departments[group];
-
-            this.clearCourses();
-            this.getCourses();
-        },
-
-        async getCourseGroups(data = {}) {
-            let url = `/api/course-groups`;
-            let headers = {};
-            if (process.server) {
-                url = `${process.env.BASE_URL}${url}`;
-                headers = data.headers ? data.headers : {};
-            }
-
-            await axios
-                .get(url, { headers })
-                .then((results) => {
-                    this.departments = {};
-                    results.data.records.forEach((record) => (this.departments[record._id] = { ...record, slug: record.topGroup }));
-                })
-                .catch((e) => {});
         },
 
         async getCourses(data = {}) {
@@ -243,7 +214,7 @@ export default {
                 headers = data.headers ? data.headers : {};
             }
 
-            let params = [`page=${this.coursesPages}`, `search=${this.search}`, `order=${this.order}`, `group=${this.group.slug}`];
+            let params = [`page=${this.coursesPages}`, `order=${this.order}`];
             url = `${url}?${params.join("&")}`;
 
             await axios

@@ -1,151 +1,68 @@
 <style scoped>
-.box {
-    position: absolute;
-    /* top: 1.25rem; */
-    margin-top: 1rem;
-    left: 0;
-    background-color: var(--header-nav-container-bg-color);
-    color: var(--header-nav-text-color);
+.dialog {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    color: #3c3c3c;
+    padding: 1rem;
 }
-
-.search_box {
-    background-color: var(--header-nav-container-bg-color);
-}
-
-.tag {
-    background-color: var(--header-nav-container-bg-color);
-}
-
-ul li:hover {
-    transform: scale(1.05, 1.05);
-}
-
-.view_cart_btn {
-    background-color: var(--view-cart-btn-bg-color);
-}
-
-@media (min-width: 768px) {
-    .box {
-        /* top: 3.75rem; */
-    }
+.backdrop {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 50%);
 }
 </style>
 
 <template>
-    <transition class="" name="slideup" appear>
-        <div class="box flex flex-col gap-4 p-6 blur rounded-3xl shadow-lg" v-show="open">
-            <form class="search_box flex items-center gap-4 p-2 rounded-xl shadow-lg" @submit="search($event)">
-                <img class="flex-shrink-0 mr-2" src="/icons/Search.svg" width="24" height="24" alt="Search" />
-                <input class="flex-grow outline-none bg-transparent" v-model="searchQuery" type="text" placeholder="جستجو" />
-                <img
-                    class="flex-shrink-0 mr-2"
-                    src="/icons/Cancel.white.svg"
-                    width="20"
-                    height="20"
-                    alt="Search"
-                    @click="clearSearch()"
-                    v-show="!!searchResults.length"
-                />
+    <div class="dialog flex flex-col items-center px-2 gap-4" :class="{ open: open }" v-show="open">
+        <div class="backdrop" @click="updateOpenState(false)"></div>
+        <transition name="slidedown" appear>
+            <form class="relative flex items-center gap-4 p-4 bg-warmgray-200 rounded-xl shadow-lg w-full max-w-lg" @submit="search($event)">
+                <Icon class="w-6 h-6 bg-gray-700" size="24px" folder="icons/new" name="Search" />
+                <input class="flex-grow outline-none bg-transparent" v-model="searchQuery" type="text" placeholder="جستجو..." />
+                <img class="flex-shrink-0 mr-2" src="/icons/new/Cancel.svg" width="20" @click="clearSearch()" v-show="!!searchResults.length" />
             </form>
-            <transition name="fade" mode="out-in" appear>
-                <div class="flex flex-col gap-4" v-if="searchResults.length == 0">
-                    <div class="flex items-center gap-2">
-                        <span class="flex-shrink-0 text-lg">دوره های پیشنهادی</span>
-                        <hr class="w-full opacity-50" />
-                    </div>
-                    <ul class="flex flex-col w-full" v-if="!suggestedCoursesLoading">
-                        <li class="flex w-full" v-for="(suggestedCourse, i) in suggestedCourses" :key="i">
-                            <nuxt-link
-                                v-if="!!suggestedCourse && suggestedCourse.name"
-                                :to="`/course/${suggestedCourse._id}/${suggestedCourse.name.replace(/ /g, '-')}`"
-                                class="flex items-center justify-between gap-2 p-3 w-full"
-                            >
-                                <div class="flex items-center gap-2">
-                                    <img :src="suggestedCourse.groups[0].icon" width="28" height="28" loading="lazy" :alt="suggestedCourse.groups[0].name" />
-                                    <span class="text-sm max-w-screen-2xs">{{ suggestedCourse.name }}</span>
+        </transition>
+        <transition name="slidedown" appear>
+            <div class="relative flex flex-col items-center gap-4 bg-white rounded-2xl w-full max-w-xl shadow-xl p-4" v-if="searchResults.length > 0">
+                <ul class="flex flex-col w-full max-h-96 overflow-auto overflow-x-hidden">
+                    <li class="flex w-full" v-for="(course, i) in searchResults" :key="i">
+                        <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="flex items-start justify-between gap-2 p-3 w-full">
+                            <div class="flex items-start gap-2 flex-grow">
+                                <img class="w-32 h-20 rounded-xl object-cover shadow-md" :src="course.image" loading="lazy" :alt="course.image" />
+                                <div class="flex flex-col gap-2 w-full">
+                                    <span class="kalameh_bold w-full text-gray-700">{{ course.name }}</span>
+                                    <p class="w-full text-xs opacity-80">
+                                        {{ course.description.length > 60 ? course.description.substr(0, 60) + "..." : course.description }}
+                                    </p>
                                 </div>
-                                <span class="rounded-md p-2 px-3 text-xs tag">{{ suggestedCourse.totalTime }}</span>
-                            </nuxt-link>
-                        </li>
-                    </ul>
-                    <ul class="flex flex-col w-full" v-else>
-                        <li class="flex w-full" v-for="(suggestedCourse, i) in suggestedCourses" :key="i">
-                            <nuxt-link to="#" class="flex items-center gap-2 p-3">
-                                <span class="skeleton w-7 h-7 rounded-full"></span>
-                                <span class="skeleton w-8 h-3"></span>
-                                <span class="rounded-md p-2 px-3 text-xs tag">
-                                    <span class="skeleton w-4 h-2"></span>
-                                </span>
-                            </nuxt-link>
-                        </li>
-                    </ul>
-                    <div class="flex items-center gap-2">
-                        <span class="flex-shrink-0 text-lg">دسترسی سریع</span>
-                        <hr class="w-full opacity-50" />
-                    </div>
-                    <ul class="flex flex-col w-full">
-                        <li class="">
-                            <nuxt-link class="flex items-center gap-2 p-3" to="/department" title="departments">
-                                <img src="/icons/Category.svg" width="24" height="24" alt="Category" />
-                                <span class="text-sm">دپارتمان ها</span>
-                            </nuxt-link>
-                        </li>
-                        <li class="">
-                            <nuxt-link class="flex items-center gap-2 p-3" to="/blog" title="blog">
-                                <img src="/icons/Document.svg" width="24" height="24" alt="Document" />
-                                <span class="text-sm">مقالات</span>
-                            </nuxt-link>
-                        </li>
-                        <li class="">
-                            <nuxt-link class="flex items-center gap-2 p-3" to="/where-to-start" title="where-to-start">
-                                <img src="/icons/Discovery.gray.svg" width="24" height="24" alt="Discovery" />
-                                <span class="text-sm">از کجا شروع کنم؟</span>
-                            </nuxt-link>
-                        </li>
-                    </ul>
+                            </div>
+                            <span class="rounded-md p-2 px-3 text-xs font-bold bg-warmgray-200 flex-shrink-0">{{ course.totalTime }}</span>
+                        </nuxt-link>
+                    </li>
+                </ul>
+                <div class="flex items-center justify-center rounded-xl shadow-lg bg-warmgray-100 w-full" @click="updateOpenState(false)">
+                    <nuxt-link :to="`/search/${searchQuery}`" class="w-full py-2 px-4 text-center">مشاهده نتایج بیشتر</nuxt-link>
                 </div>
-                <div class="flex flex-col gap-4" v-else>
-                    <div class="flex items-center gap-2">
-                        <span class="flex-shrink-0 text-lg">دوره ها</span>
-                        <hr class="w-full opacity-50" />
-                    </div>
-                    <ul class="flex flex-col w-full max-h-96 overflow-auto overflow-x-hidden">
-                        <li class="flex w-full" v-for="(course, i) in searchResults" :key="i">
-                            <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="flex items-center justify-between gap-2 p-3 w-full">
-                                <div class="flex items-center gap-2">
-                                    <img :src="course.groups[0].icon" width="28" height="28" loading="lazy" :alt="course.groups[0].name" />
-                                    <div class="flex flex-col gap-2">
-                                        <span class="text-sm max-w-screen-2xs text-orange-300">{{ course.name }}</span>
-                                        <p class="w-full max-w-screen-2xs text-xs opacity-80">
-                                            {{ course.description.length > 60 ? course.description.substr(0, 60) + "..." : course.description }}
-                                        </p>
-                                    </div>
-                                </div>
-                                <span class="rounded-md p-2 px-3 text-xs tag">{{ course.totalTime }}</span>
-                            </nuxt-link>
-                        </li>
-                    </ul>
-                    <nuxt-link
-                        :to="`/search/${searchQuery}`"
-                        class="w-full py-2 px-4 text-center view_cart_btn rounded-xl shadow-lg"
-                        @click="updateOpenState(false)"
-                    >
-                        مشاهده نتایج بیشتر
-                    </nuxt-link>
-                </div>
-            </transition>
-        </div>
-    </transition>
+            </div>
+        </transition>
+        <div class="relative flex flex-col items-center gap-4 bg-white rounded-2xl shadow-xl p-4" v-if="!!showNoResult">نتیجه ای پیدا نشد!</div>
+        <Loading class="w-8 h-8" v-if="searchResultsLoading" />
+    </div>
 </template>
 
 <script>
 import axios from "axios";
-import { duration } from "jalali-moment";
+import Icon from "~/components/Icon.vue";
+import Loading from "~/components/Loading.vue";
 
 export default {
     name: "SearchDropdown",
     props: ["open"],
-    components: {},
+    components: {
+        Icon,
+        Loading,
+    },
     data() {
         return {
             loading: false,
@@ -156,48 +73,17 @@ export default {
             searchQuery: "",
             searchResults: [],
             searchResultsLoading: false,
+
+            showNoResult: false,
         };
     },
     async fetch() {
         let headers = {};
         if (process.server) headers = this.$nuxt.context.req.headers;
-
-        await Promise.all([this.getSuggestedCourses({ headers })]);
     },
     methods: {
         updateOpenState(state) {
             this.$emit("update:open", state);
-        },
-
-        async getSuggestedCourses(data = {}) {
-            if (this.suggestedCoursesLoading) return;
-            this.suggestedCoursesLoading = true;
-
-            let url = `/api/suggested-courses`;
-            let headers = {};
-            if (process.server) {
-                url = `${process.env.BASE_URL}${url}`;
-                headers = data.headers ? data.headers : {};
-            }
-
-            await axios
-                .get(url, { headers })
-                .then((results) => {
-                    results.data.length = 4;
-                    this.suggestedCourses = results.data.map((data) => {
-                        let seconds = 0;
-                        data.topics.forEach((topic) => {
-                            seconds += parseInt(topic.time.hours) * 3600 + parseInt(topic.time.minutes) * 60 + parseInt(topic.time.seconds);
-                        });
-                        delete data.topics;
-                        data.totalTime = duration(seconds * 1000)
-                            .locale("fa")
-                            .humanize();
-                        return data;
-                    });
-                })
-                .catch((e) => {})
-                .finally(() => (this.suggestedCoursesLoading = false));
         },
 
         async search(e) {
@@ -205,6 +91,7 @@ export default {
 
             if (this.searchResultsLoading) return;
             this.searchResultsLoading = true;
+            this.showNoResult = false;
 
             let url = `/api/search/${this.searchQuery}`;
             let headers = {};
@@ -219,8 +106,10 @@ export default {
             await axios
                 .get(encodeURI(url), { headers })
                 .then((results) => {
-                    if (results.data.records.length > 4) results.data.records.length = 4;
+                    if (results.data.records.length > 6) results.data.records.length = 6;
                     this.searchResults = results.data.records;
+
+                    if (results.data.records.length == 0) this.showNoResult = true;
                 })
                 .catch((e) => {})
                 .finally(() => (this.searchResultsLoading = false));
