@@ -1,35 +1,29 @@
 <style scoped>
-#top {
-    /* color: var(--top-h1-color); */
-    font-weight: 900;
+.img {
+    transform: rotateY(180deg);
+    right: 0;
+    top: 15%;
 }
 </style>
 
 <template>
-    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full mt-10 lg:mt-0">
-        <!-- <Background src="/backgrounds/Background2.png" :topOffset="-30" :rightOffset="-10" :minWidth="2420" /> -->
-
-        <section class="relative flex flex-wrap justify-evenly gap-8 lg:gap-20" id="top">
-            <div class="flex flex-col gap-10 text-bluegray-900">
-                <h1 class="flex flex-col gap-4 text-5xl lg:text-7xl">
-                    <span class="kalameh_black font-bold">قوانین و مقررات</span>
-                </h1>
-                <ul class="flex items-center gap-2 font-light">
-                    <li><nuxt-link title="صفحه اصلی" to="/">صفحه اصلی</nuxt-link></li>
-                    <li>&gt;</li>
-                    <li>قوانین و مقررات</li>
-                </ul>
+    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full px-4 md:px-8 mt-24 md:mt-28">
+        <img class="img absolute -z-1" src="/misc/path.svg" />
+        <section class="relative flex flex-wrap justify-evenly gap-8 lg:gap-20">
+            <div class="flex flex-col gap-2 text-bluegray-900">
+                <h1 class="kalameh_bold title text-3xl lg:text-4xl">قوانین و مقررات</h1>
+                <p class="kalameh_bold opacity-75">شرایط و قوانین استفاده از وبسایت پرتقال</p>
             </div>
         </section>
 
-        <article class="article_body w-full p-8 rounded-2xl max-w-screen-lg shadow-2xl z-10 bg-white">
+        <article class="article_body w-full p-8 rounded-2xl max-w-screen-lg shadow-2xl z-10 bg-white mb-24">
             <div class="w-full h-full" v-html="htmlText"></div>
         </article>
     </main>
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 import Background from "~/components/web/Background";
 import getMetadata from "~/mixins/getMetadata";
 

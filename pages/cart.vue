@@ -1,76 +1,84 @@
 <style scoped>
-.card {
-    background-color: #ffffff77;
+.img {
+    transform: rotateY(180deg);
+    right: 0;
+    top: 15%;
 }
 .cart_item {
-    background-color: var(--header-nav-container-bg-color);
-    color: var(--header-nav-text-color);
+    background-color: #fff;
+    color: #333;
 }
 
 .coupon_code_input {
-    background-color: var(--header-nav-container-bg-color);
-    color: var(--header-nav-text-color);
+    background-color: #fff;
+    color: #333;
+    border: 2px solid #e3e3e3;
 }
 </style>
 
 <template>
-    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full">
+    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full px-4 md:px-8 mt-24 md:mt-28 mb-16">
+        <img class="img absolute w-96 -z-1" src="/misc/path.svg" />
         <div class="flex flex-wrap md:flex-nowrap items-start justify-center gap-8 w-full" v-if="!loading">
-            <section class="card relative flex flex-col gap-8 p-4 md:p-6 rounded-3xl shadow-xl w-full max-w-screen-lg flex-grow">
+            <section class="relative flex flex-col gap-8 w-full max-w-screen-lg flex-grow">
                 <ul v-if="Object.keys(cart.list).length">
                     <transition-group class="flex flex-col gap-4" name="slideleft" appear>
-                        <li class="cart_item flex flex-wrap lg:flex-nowrap items-start gap-4 p-4 rounded-2xl" v-for="item in cart.list" :key="item._id">
+                        <li class="cart_item flex flex-wrap lg:flex-nowrap items-start gap-4 p-4 rounded-2xl shadow-xl" v-for="item in cart.list" :key="item._id">
                             <img class="w-32 h-24 rounded-xl shadow-md" :src="item.image" width="100" :alt="item.name" />
-                            <div class="flex items-center gap-4 w-full">
-                                <div class="flex flex-col gap-4 flex-grow">
-                                    <h5 class="w-full max-w-xl text-2xl">{{ item.name }}</h5>
-                                    <div class="flex items-end gap-4">
-                                        <div class="flex flex-col gap-1">
-                                            <small class="price text-xs line-through opacity-75" v-if="item.price != item.discountedPrice">
-                                                {{ new Intl.NumberFormat("fa").format(item.price) }} تومان
-                                            </small>
-                                            <span class="price text-orange-100 text-lg">{{ new Intl.NumberFormat("fa").format(item.discountedPrice) }} تومان</span>
+                            <div class="flex flex-col gap-4 flex-grow">
+                                <h5 class="kalameh_bold w-full max-w-xl text-lg">{{ item.name }}</h5>
+                                <div class="flex items-end gap-4">
+                                    <div class="flex flex-col gap-1">
+                                        <small class="price text-xs line-through opacity-75" v-if="item.price != item.discountedPrice">
+                                            {{ new Intl.NumberFormat("fa").format(item.price) }} تومان
+                                        </small>
+                                        <div class="flex items-center gap-1">
+                                            <span class="price text-amber-500 text-lg font-bold">
+                                                {{ new Intl.NumberFormat("fa").format(item.discountedPrice) }}
+                                            </span>
+                                            <small>تومان</small>
                                         </div>
-                                        <b class="rounded-md shadow-md bg-rose-400 p-2 py-1" v-if="item.price != item.discountedPrice">
-                                            {{ 100 - Math.round((item.discountedPrice / item.price) * 100) }}%
-                                        </b>
                                     </div>
+                                    <b class="kalameh_bold rounded-full text-xs bg-rose-500 text-white p-2 py-1 mb-1" v-if="item.price != item.discountedPrice">
+                                        {{ 100 - Math.round((item.discountedPrice / item.price) * 100) }}%
+                                    </b>
                                 </div>
-                                <button class="flex items-center justify-center w-max flex-shrink-0" @click="remove(item)">
-                                    <img src="/icons/CloseSquare.svg" width="24" height="24" alt="Close Square" />
-                                </button>
                             </div>
+                            <button class="flex items-center justify-center w-max bg-warmgray-100 rounded-xl shadow-lg p-1 flex-shrink-0" @click="remove(item)">
+                                <Icon class="w-7 h-7 bg-gray-600" size="28px" folder="icons/new" name="CloseSquare" />
+                            </button>
                         </li>
                     </transition-group>
                 </ul>
                 <div class="flex flex-col items-center justify-center gap-8 p-8" v-else>
-                    <img class="w-52" src="/misc/cart.png" alt="cart" />
-                    <p class="text-xl">سبد خرید شما خالی است!</p>
+                    <img class="w-52" src="/misc/Cart2.png" alt="cart" />
+                    <p class="kalameh_bold text-2xl">سبد خرید شما خالی است!</p>
+                    <nuxt-link class="bg-warmgray-100 rounded-2xl px-4 py-2 w-max shadow-md hover:shadow-xl" to="/department">مشاهده دوره های آموزشی</nuxt-link>
                 </div>
             </section>
             <section
-                class="card relative flex flex-col gap-4 p-4 md:p-6 rounded-3xl shadow-xl w-full max-w-sm flex-shrink-0"
+                class="card relative flex flex-col gap-4 p-4 md:p-6 bg-white rounded-3xl shadow-xl w-full max-w-sm flex-shrink-0"
                 v-if="Object.keys(cart.list).length && !cartTotalLoading"
             >
                 <div class="flex flex-wrap items-center justify-between gap-4">
-                    <span>قیمت کل</span>
+                    <span class="kalameh_bold">قیمت کل</span>
                     <span>{{ new Intl.NumberFormat("fa").format(totalPrice) }} تومان</span>
                 </div>
                 <div class="flex flex-wrap items-center justify-between gap-4">
-                    <span>میزان تخفیف</span>
+                    <span class="kalameh_bold">میزان تخفیف</span>
                     <span class="text-rose-500">
-                        <b class="rounded-md shadow-md bg-rose-400 text-white p-2 py-1">{{ totalDiscountPercent }}%</b>
+                        <b class="kalameh_bold rounded-full text-xs bg-rose-500 text-white p-2 py-1">{{ totalDiscountPercent }}%</b>
                         {{ new Intl.NumberFormat("fa").format(totalDiscount) }} تومان
                     </span>
                 </div>
                 <hr />
-                <form class="coupon_code_input flex items-center gap-2 p-2 w-full rounded-xl" @submit="registerCouponCode($event)">
-                    <input class="w-full bg-transparent h-full px-2" v-model="couponCode" type="text" placeholder="کد تخفیف" />
-                    <button class="bg-black bg-opacity-40 p-2 px-4 rounded-xl flex-shrink-0" type="submit">اعمال کد</button>
+                <form class="coupon_code_input flex items-center gap-2 p-1 w-full rounded-2xl" @submit="registerCouponCode($event)">
+                    <input class="w-full bg-transparent h-full px-2 text-sm" v-model="couponCode" type="text" placeholder="کد تخفیف" />
+                    <button class="bg-warmgray-700 text-white text-sm p-2 px-4 rounded-xl flex-shrink-0" type="submit">اعمال کد</button>
                 </form>
                 <hr />
                 <div class="flex flex-wrap items-center justify-between gap-4">
-                    <b>مبلغ قابل پرداخت</b>
+                    <b class="kalameh_bold">مبلغ قابل پرداخت</b>
                     <b class="text-xl text-orange-400">{{ new Intl.NumberFormat("fa").format(payablePrice) }} تومان</b>
                 </div>
                 <p class="text-sm">امکان تغییر قیمت دوره های داخل سبد خرید در هر زمان وجود دارد</p>
@@ -81,16 +89,17 @@
                         :disabled="redirectingToGateway"
                         @click="pay('zarinpal')"
                     >
-                        <b class="text-xl">تایید و پرداخت</b>
+                        <b class="kalameh_bold">تایید و پرداخت</b>
                     </button>
                     <button
-                        class="bg-bluegray-100 flex items-center justify-center w-max p-4 rounded-xl shadow-lg"
+                        class="bg-warmgray-100 flex items-center justify-center gap-1 p-3 rounded-xl shadow-lg flex-shrink-0"
                         :class="{ 'opacity-50 cursor-wait': redirectingToGateway }"
                         :disabled="redirectingToGateway"
                         @click="pay('wallet')"
                         title="پرداخت با کیف پول"
                     >
-                        <Icon class="w-8 h-8 bg-gray-800" folder="icons" name="Wallet" />
+                        <Icon class="w-8 h-8 bg-gray-800" folder="icons/new" name="Wallet" />
+                        <span class="text-xs">کیف پول</span>
                     </button>
                 </div>
             </section>

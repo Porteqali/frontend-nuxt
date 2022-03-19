@@ -1,13 +1,6 @@
 <style scoped>
-#top {
-    /* color: var(--top-h1-color); */
-    font-weight: 900;
-}
-
-.card {
-    background-color: var(--header-nav-container-bg-color);
-    color: var(--header-nav-text-color);
-    border-radius: 3rem;
+.background {
+    background: linear-gradient(233.4deg, #ffa825 11.05%, rgba(255, 112, 215, 0.34) 100.55%);
 }
 
 input,
@@ -17,35 +10,98 @@ textarea {
 </style>
 
 <template>
-    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full mt-10 lg:mt-0">
-        <section class="relative flex flex-wrap-reverse items-center justify-evenly gap-8 lg:gap-20" id="top">
-            <img class="" src="/pages/contact-us/PhoneCallMan.png" alt="porteqali-PhoneCallMan" style="max-height: 1920px" />
-            <div class="flex flex-col gap-10 text-bluegray-900">
-                <h1 class="flex flex-col gap-4 text-5xl lg:text-7xl">
-                    <span class="kalameh_black font-bold">تماس با ما</span>
+    <main role="main" class="relative flex flex-col items-center gap-16 w-full max-w-screen-2xl mt-24 md:mt-28 px-4 md:px-8">
+        <img class="absolute -left-1/4 top-40 -z-1" src="/pages/contact-us/path.svg" />
+        <section class="flex flex-wrap items-center justify-evenly gap-8 w-full">
+            <div class="flex flex-col gap-8">
+                <h1 class="flex flex-col gap-4 text-3xl md:text-4xl">
+                    <span class="kalameh_bold title text-bluegray-900 w-max">راه های ارتباطی</span>
                 </h1>
-                <ul class="flex items-center gap-2 font-light">
-                    <li><nuxt-link title="صفحه اصلی" to="/">صفحه اصلی</nuxt-link></li>
-                    <li>&gt;</li>
-                    <li>تماس با ما</li>
-                </ul>
+                <div class="card flex flex-col gap-8 w-full max-w-md">
+                    <div class="flex flex-col justify-between gap-2" v-if="!!contact_info.address">
+                        <h5 class="flex items-center gap-2">
+                            <Icon class="w-6 h-6 bg-orange-500" size="24px" folder="icons/new" name="Location" />
+                            <b class="font-bold text-lg">آدرس</b>
+                        </h5>
+                        <span>{{ contact_info.address }}</span>
+                    </div>
+                    <div class="flex flex-wrap lg:flex-nowrap items-center gap-8" v-if="!!contact_info.tel">
+                        <div class="flex flex-col justify-between gap-2">
+                            <h5 class="flex items-center gap-2">
+                                <Icon class="w-6 h-6 bg-orange-500" size="24px" folder="icons/new" name="Calling" />
+                                <b class="font-bold text-lg">شماره تلفن</b>
+                            </h5>
+                            <a :href="`tel:${contact_info.tel}`">{{ contact_info.tel }}</a>
+                        </div>
+                        <div class="flex flex-col justify-between gap-2" v-if="!!contact_info.email">
+                            <h5 class="flex items-center gap-2">
+                                <Icon class="w-6 h-6 bg-orange-500" size="24px" folder="icons/new" name="Message" />
+                                <b class="font-bold text-lg">پست اکترونیک</b>
+                            </h5>
+                            <a href="mailto:info@porteqali.com">{{ contact_info.email }}</a>
+                        </div>
+                        <div class="flex flex-col justify-between gap-2" v-if="!!contact_info.post_code">
+                            <h5 class="flex items-center gap-2">
+                                <Icon class="w-6 h-6 bg-orange-500" size="24px" folder="icons/new" name="EditSquare" />
+                                <b class="font-bold text-lg">کدپستی</b>
+                            </h5>
+                            <span>{{ contact_info.post_code }}</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col justify-between gap-2" v-if="!!contact_info.socials">
+                        <h5 class="flex items-center gap-2">
+                            <Icon class="w-6 h-6 bg-orange-500" size="24px" folder="icons/new" name="Chat" />
+                            <b class="font-bold text-lg">شبکه های اجتماعی</b>
+                        </h5>
+                        <ul class="flex flex-wrap items-center gap-2">
+                            <li v-if="!!contact_info.socials.telegram">
+                                <a :href="contact_info.socials.telegram"><img class="w-8 h-8" src="/social/telegram.png" alt="telegram" /></a>
+                            </li>
+                            <li v-if="!!contact_info.socials.instagram">
+                                <a :href="contact_info.socials.instagram"><img class="w-8 h-8" src="/social/instagram.png" alt="instagram" /></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col items-start gap-8 w-full max-w-lg bg-gray-700 p-4 rounded-3xl overflow-hidden" v-if="!!contact_info.location">
+                <client-only>
+                    <div class="bg-gray-200 rounded-2xl overflow-hidden w-full h-72 md:h-80">
+                        <l-map
+                            class="m-0 w-full h-full"
+                            :zoom="parseInt(contact_info.location.z)"
+                            :center="[contact_info.location.lat, contact_info.location.lng]"
+                            :options="map.options"
+                        >
+                            <l-tile-layer :url="map.url" :options="map.url_options"></l-tile-layer>
+                            <l-control-zoom position="bottomleft"></l-control-zoom>
+                            <l-marker :lat-lng="[contact_info.location.lat, contact_info.location.lng]">
+                                <l-icon :icon-size="mapIcon.iconSize" :icon-anchor="mapIcon.iconAnchor" :icon-url="mapIcon.iconUrl"></l-icon>
+                            </l-marker>
+                        </l-map>
+                    </div>
+                </client-only>
             </div>
         </section>
-        <section class="flex flex-col items-center gap-8 w-full max-w-screen-lg">
-            <div class="flex flex-col gap-2 ml-auto mb-8">
-                <h2 class="font-bold text-3xl">بی صبرانه منتظر شنیدن نظرات و پیشنهادهای شما هستیم</h2>
-                <p class="text-xl">پیشنهادات و انتقادات شما عزیزان، به پیشرفت گروه آموزشی پرتقال کمک بزرگی خواهد کرد</p>
+
+        <section class="relative flex flex-col items-center gap-8 w-full max-w-screen-xl mb-16">
+            <h2 class="kalameh_bold title text-3xl w-full lg:w-max">بی صبرانه منتظر شنیدن نظرات و پیشنهادهای شما هستیم</h2>
+            <div class="flex flex-col gap-2">
+                <p class="text-lg opacity-75">پیشنهادات و انتقادات شما عزیزان، به پیشرفت گروه آموزشی پرتقال کمک بزرگی خواهد کرد</p>
             </div>
-            <div class="flex flex-wrap justify-center lg:justify-between gap-16 lg:gap-20 w-full">
-                <form class="flex flex-col items-center gap-6 w-full max-w-screen-2sm" @submit="send($event)">
+            <div class="flex items-end justify-center w-full">
+                <div class="background absolute sm:relative flex items-start justify-start w-full max-w-3xl rounded-2xl pb-16 -ml-96 -mb-6">
+                    <img class="-mr-20" src="/pages/contact-us/back.png" alt="bg" />
+                </div>
+                <form class="flex flex-col items-center gap-6 w-full max-w-screen-sm shadow-xl rounded-2xl bg-white p-6 lg:px-16 z-10" @submit="send($event)">
                     <div class="flex items-center gap-4 w-full">
                         <div class="flex flex-col gap-2 w-full">
                             <label class="">نام</label>
-                            <input type="text" v-model="name" placeholder="" dir="auto" class="p-3 w-full rounded-xl shadow-xl" />
+                            <input type="text" v-model="name" placeholder="" dir="auto" class="p-3 w-full bg-warmgray-100 rounded-xl focus:shadow-xl" />
                         </div>
                         <div class="flex flex-col gap-2 w-full">
                             <label class="">نام خانوادگی</label>
-                            <input type="text" v-model="family" placeholder="" dir="auto" class="p-3 w-full rounded-xl shadow-xl" />
+                            <input type="text" v-model="family" placeholder="" dir="auto" class="p-3 w-full bg-warmgray-100 rounded-xl focus:shadow-xl" />
                         </div>
                     </div>
                     <div class="flex items-center gap-4 w-full">
@@ -58,21 +114,32 @@ textarea {
                                 :masked="true"
                                 placeholder="0912-345 6789"
                                 dir="auto"
-                                class="p-3 w-full rounded-xl shadow-xl"
+                                class="p-3 w-full bg-warmgray-100 rounded-xl focus:shadow-xl"
                             />
                         </div>
                         <div class="flex flex-col gap-2 w-full">
                             <label class="">ایمیل</label>
-                            <input type="email" v-model="email" placeholder="email@example.com" dir="auto" class="p-3 w-full rounded-xl shadow-xl" />
+                            <input
+                                type="email"
+                                v-model="email"
+                                placeholder="email@example.com"
+                                dir="auto"
+                                class="p-3 w-full bg-warmgray-100 rounded-xl focus:shadow-xl"
+                            />
                         </div>
                     </div>
                     <div class="flex flex-col gap-2 w-full">
                         <label class="">موضوع</label>
-                        <input type="text" v-model="issue" placeholder="موضوع پیشنهاد، انتقاد و نظر خود را بنویسید" class="p-3 w-full rounded-xl shadow-xl" />
+                        <input
+                            type="text"
+                            v-model="issue"
+                            placeholder="موضوع پیشنهاد، انتقاد و نظر خود را بنویسید"
+                            class="p-3 w-full bg-warmgray-100 rounded-xl focus:shadow-xl"
+                        />
                     </div>
                     <div class="flex flex-col gap-2 w-full">
                         <label class="">توضیحات</label>
-                        <textarea type="text" v-model="text" class="p-3 w-full rounded-xl shadow-xl resize-none" rows="5"></textarea>
+                        <textarea type="text" v-model="text" class="p-3 w-full bg-warmgray-100 rounded-xl focus:shadow-xl resize-none" rows="5"></textarea>
                     </div>
                     <span
                         class="p-2 rounded-lg"
@@ -101,69 +168,7 @@ textarea {
                         <p>در این قسمت امکان پاسخ به سوال شما وجود ندارد</p>
                     </div>
                 </form>
-                <div class="flex flex-col gap-4">
-                    <h3 class="text-2xl text-center font-bold">راه های ارتباطی</h3>
-                    <ul class="card flex flex-col gap-8 p-8 lg:py-16 w-full max-w-sm">
-                        <li class="flex flex-wrap items-center justify-between gap-4">
-                            <h5 class="flex items-center gap-2">
-                                <img src="/icons/Location.orange.line.svg" alt="Calling" width="24" height="24" />
-                                <b class="font-bold text-xl">آدرس</b>
-                            </h5>
-                            <span>{{ contact_info.address }}</span>
-                        </li>
-                        <li class="flex flex-wrap items-center justify-between gap-4">
-                            <h5 class="flex items-center gap-2">
-                                <img src="/icons/Calling.orange.line.svg" alt="Calling" width="24" height="24" />
-                                <b class="font-bold text-xl">شماره تلفن</b>
-                            </h5>
-                            <span>
-                                <a :href="`tel:${contact_info.tel}`">{{ contact_info.tel }}</a>
-                            </span>
-                        </li>
-                        <li class="flex flex-wrap items-center justify-between gap-4">
-                            <h5 class="flex items-center gap-2">
-                                <img src="/icons/Message.orange.line.svg" alt="Calling" width="24" height="24" />
-                                <b class="font-bold text-xl">پست اکترونیک</b>
-                            </h5>
-                            <span>
-                                <a href="mailto:info@porteqali.com">{{ contact_info.email }}</a>
-                            </span>
-                        </li>
-                        <li class="flex flex-wrap items-center justify-between gap-4">
-                            <h5 class="flex items-center gap-2">
-                                <img src="/icons/Document.orange.line.svg" alt="Calling" width="24" height="24" />
-                                <b class="font-bold text-xl">کدپستی</b>
-                            </h5>
-                            <span>{{ contact_info.post_code }}</span>
-                        </li>
-                    </ul>
-                </div>
             </div>
-        </section>
-        <section class="flex flex-col items-start gap-8 w-full max-w-screen-lg" v-if="!!contact_info.location">
-            <client-only>
-                <div class="bg-fuchsia-800 bg-opacity-50 rounded-3xl shadow-xl overflow-hidden w-full h-72 md:h-96">
-                    <l-map
-                        class="m-0 w-full h-full"
-                        :zoom="parseInt(contact_info.location.z)"
-                        :center="[contact_info.location.lat, contact_info.location.lng]"
-                        :options="map.options"
-                    >
-                        <l-tile-layer :url="map.url" :options="map.url_options"></l-tile-layer>
-                        <l-control-zoom position="bottomleft"></l-control-zoom>
-                        <l-marker :lat-lng="[contact_info.location.lat, contact_info.location.lng]">
-                            <l-icon :icon-size="mapIcon.iconSize" :icon-anchor="mapIcon.iconAnchor" :icon-url="mapIcon.iconUrl"></l-icon>
-                        </l-marker>
-                    </l-map>
-                </div>
-                <a
-                    class="orange_gradient_h rounded-xl p-3 px-6 w-max shadow-lg"
-                    :href="`https://www.google.com/maps/@${contact_info.location.lat},${contact_info.location.lng},${contact_info.location.z}z`"
-                    target="_blank"
-                >
-                    نمایش روی نقشه
-                </a>
-            </client-only>
         </section>
     </main>
 </template>

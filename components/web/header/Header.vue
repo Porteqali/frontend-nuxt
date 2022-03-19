@@ -26,8 +26,8 @@ header {
 
             <div class="flex items-center mr-auto flex-shrink-0">
                 <div class="flex items-center gap-2 bg-warmgray-200 rounded-2xl p-1 hover:shadow-xl" v-if="!user.info.email && !user.info.mobile && !loading">
-                    <button class="text-warmgray-800 px-2 pr-4" @click="openLogin()">ورود</button>
-                    <button class="bg-warmgray-600 text-white p-2 px-4 rounded-2xl" @click="openRegister()">ثبت نام</button>
+                    <button class="text-warmgray-800 px-2 pr-4 text-sm md:text-base" @click="openLogin()">ورود</button>
+                    <button class="bg-warmgray-600 text-white p-2 px-4 text-sm md:text-base rounded-2xl" @click="openRegister()">ثبت نام</button>
                 </div>
                 <div
                     class="p-2 my-2 rounded-xl bg-warmgray-200 relative"

@@ -28,7 +28,7 @@
                 <ul class="flex flex-col w-full max-h-96 overflow-auto overflow-x-hidden">
                     <li class="flex w-full" v-for="(course, i) in searchResults" :key="i">
                         <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="flex items-start justify-between gap-2 p-3 w-full">
-                            <div class="flex items-start gap-2 flex-grow">
+                            <div class="flex flex-wrap md:flex-nowrap items-start gap-2 flex-grow">
                                 <img class="w-32 h-20 rounded-xl object-cover shadow-md" :src="course.image" loading="lazy" :alt="course.image" />
                                 <div class="flex flex-col gap-2 w-full">
                                     <span class="kalameh_bold w-full text-gray-700">{{ course.name }}</span>

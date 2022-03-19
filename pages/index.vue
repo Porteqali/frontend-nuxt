@@ -9,10 +9,6 @@
     filter: drop-shadow(0px 0px 105px rgba(30, 0, 30, 40%));
 }
 
-.spacer {
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, #e0af8b 49.48%, rgba(255, 255, 255, 0.13) 100%);
-}
-
 @media (min-width: 768px) {
     .board {
         border-width: 1.25rem;
@@ -88,7 +84,7 @@
 
         <TestimonialSection />
 
-        <span class="spacer w-0.5 h-24 -my-12"></span>
+        <span class="spacer_h w-0.5 h-24 -my-12"></span>
 
         <NewsSection />
 
