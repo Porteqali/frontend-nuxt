@@ -1,97 +1,56 @@
 <style scoped>
-.header_card {
-    background-color: var(--header-nav-container-bg-color);
-    color: #fff;
-    position: absolute;
-}
-.article_img {
+.article_img > img {
     min-height: 30vw;
     object-fit: cover;
 }
-
-.article_body {
-    min-height: 500px;
-    text-shadow: none;
-}
-
-.article_card {
-    background-color: #3f0e4790;
-    color: var(--top-h1-color);
-    box-shadow: 0px 50px 100px rgba(0, 0, 0, 0.25);
-}
-.article_card img {
-    max-height: 16rem;
-}
-.article_category {
-    border-radius: 0 1rem 0 1rem;
-    background-color: #3f0e47bb;
-}
-
-.author_card {
-    background-color: rgba(19, 40, 80, 0.8);
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: relative;
-    color: #fff;
-}
-.author_card * {
-    z-index: 2;
-}
-.author_card::before {
-    color: #fff;
-    background: linear-gradient(0deg, rgba(19, 40, 80, 0.8), rgba(19, 40, 80, 0.8));
-    content: "";
-    position: absolute;
-    inset: 0;
-    backdrop-filter: blur(15px);
-    border-radius: 2rem;
-}
-
-@media (min-width: 768px) {
-    .article_card img {
-        max-height: initial;
-    }
+.article_img > div {
+    background: linear-gradient(87.25deg, #ffa825 -11.51%, #ff70d7 114.56%);
 }
 </style>
 
 <template>
-    <section class="relative flex flex-col gap-8 mt-4 w-full" id="article">
-        <article class="flex flex-col gap-8 max-w-screen-xl w-full mx-auto">
-            <header class="relative w-full" v-if="article">
-                <img class="article_img w-full h-64 md:h-96 object-contain shadow-2xl rounded-3xl" :src="article.image" :alt="article.title" loading="lazy" />
-                <meta itemprop="thumbnailUrl" content="/misc/singleCourse.png" />
+    <section class="relative flex flex-col items-center gap-8 w-full max-w-screen-2xl px-4 md:px-8 mt-24 md:mt-28 mb-16" id="article">
+        <article class="flex flex-col gap-8 w-full max-w-screen-xl">
+            <header class="relative flex flex-col gap-8 w-full" v-if="article">
+                <div class="flex flex-col gap-6 w-full" v-if="!loadingArticle">
+                    <div class="flex flex-wrap items-center gap-4">
+                        <span class="opacity-75">
+                            {{ new Date(article.publishedAt).toLocaleDateString("fa", { year: "numeric", month: "long", day: "numeric" }) }}
+                        </span>
+                        <meta itemprop="datePublished" :content="article.publishedAt" />
+                        <div class="orange_gradient_h w-8 h-2 rounded-full"></div>
+                        <span class="text-amber-500" v-if="article.category">{{ article.category.name }}</span>
+                    </div>
 
-                <div
-                    class="header_card blur -bottom-20 md:-bottom-16 flex flex-col gap-8 p-8 lg:p-16 w-full max-w-2xl shadow-2xl rounded-3xl"
-                    v-if="!loadingArticle"
-                >
-                    <h1 class="font-bold text-xl md:text-3xl" itemprop="headline">{{ article.title }}</h1>
+                    <h1 class="kalameh_bold text-2xl md:text-4xl" itemprop="headline">{{ article.title }}</h1>
                     <meta itemprop="description" v-if="article.metadata" :content="article.metadata.description" />
-                    <p class="hidden md:flex">{{ article.description }}</p>
+
                     <div class="flex flex-wrap justify-between items-center gap-4">
-                        <div class="flex items-start gap-2">
+                        <div class="flex items-center gap-2">
                             <img
-                                class="rounded-full object-cover w-8 h-8"
+                                class="rounded-full object-cover w-10 h-10"
                                 v-if="!!article.author"
                                 :src="article.author.image"
                                 :alt="`${article.author.name} ${article.author.family}`"
-                                width="32"
-                                height="32"
                             />
-                            <div class="flex flex-col gap-1">
-                                <small v-if="!!article.author">{{ `${article.author.name} ${article.author.family}` }}</small>
-                                <small class="opacity-75">{{ new Date(article.publishedAt).toLocaleDateString("fa") }}</small>
-                            </div>
-                            <meta itemprop="datePublished" :content="article.publishedAt" />
+                            <span class="font-bold text-sm" v-if="!!article.author">{{ `${article.author.name} ${article.author.family}` }}</span>
                         </div>
-                        <span class="flex items-end gap-1 cursor-pointer" @click="like()">
-                            <img src="/icons/Heart.svg" alt="Heart" width="20" height="20" v-if="!likedArticle" />
-                            <img src="/icons/Heart.bold.red.svg" alt="Heart" width="20" height="20" v-else />
-                            <small>{{ article.likes }}</small>
-                        </span>
+                        <div class="flex items-center gap-4">
+                            <span class="flex items-center gap-1 cursor-pointer" @click="like()">
+                                <small class="kalameh_bold">{{ article.likes }}</small>
+                                <Icon class="w-6 h-6 bg-rose-400" size="24px" folder="icons/new" name="Heart" v-if="!likedArticle" />
+                                <Icon class="w-6 h-6 bg-rose-500" size="24px" folder="icons" name="Heart.bold.red" v-else />
+                            </span>
+                            <a :href="`https://telegram.me/share/url?text=${article.title}&url=${article.metadata.url}`" target="_blank">
+                                <img class="w-6 h-6" src="/social/telegram.png" alt="telegram" />
+                            </a>
+                            <a :href="`http://twitter.com/share?text=${article.title}&url=${article.metadata.url}`" target="_blank">
+                                <img class="w-6 h-6 opacity-75" src="/social/twitter.png" alt="twitter" />
+                            </a>
+                        </div>
                     </div>
                 </div>
-                <div class="header_card blur -bottom-20 md:-bottom-8 md:-right-8 flex flex-col gap-8 p-8 w-full max-w-xl shadow-xl rounded-2xl" v-else>
+                <div class="flex flex-col gap-8 p-8 w-full max-w-xl shadow-xl rounded-2xl" v-else>
                     <div class="skeleton w-full h-4"></div>
                     <div class="flex flex-col gap-2">
                         <span class="skeleton w-full h-2"></span>
@@ -99,194 +58,69 @@
                         <span class="skeleton w-4/12 h-2"></span>
                     </div>
                 </div>
-            </header>
-            <div class="mt-16 md:mt-8"></div>
-            <ul class="flex flex-wrap items-center gap-2 font-light text-sm md:text-base">
-                <li class="flex-shrink-0"><nuxt-link title="صفحه اصلی" to="/">صفحه اصلی</nuxt-link></li>
-                <li class="flex-shrink-0">&gt;</li>
-                <li class="flex-shrink-0"><nuxt-link title="وبلاگ" to="/blog">وبلاگ</nuxt-link></li>
-                <li class="flex-shrink-0">&gt;</li>
-                <li class="flex-shrink-0" v-if="article && article.category">{{ article.category.name }}</li>
-                <li class="flex-shrink-0">&gt;</li>
-                <li class="flex-shrink-0 text-lightblue-600" v-if="article">{{ article.title }}</li>
-            </ul>
-            <div class="flex flex-wrap justify-between items-start gap-4">
-                <div class="flex flex-col gap-8 w-full max-w-4xl" v-if="!loadingArticle">
-                    <div v-html="article.body" class="article_body flex-grow bg-white shadow-xl rounded-2xl p-4 max-w-4xl"></div>
-                    <div
-                        class="author_card flex flex-col items-center justify-start gap-4 p-8 md:p-16 w-full rounded-3xl shadow-2xl max-w-4xl"
-                        :style="`background-image: url('/misc/Figma.svg')`"
-                        v-if="!!article.author"
-                    >
-                        <img
-                            class="w-24 h-24 rounded-full object-cover shadow-md"
-                            :src="article.author.image"
-                            :alt="`${article.author.name} ${article.author.family}`"
-                        />
-                        <b class="text-2xl">{{ `${article.author.name} ${article.author.family}` }}</b>
-                        <small class="text-lightblue-400">{{ article.author.title }}</small>
-                        <p class="opacity-75 text-center max-w-xs">{{ article.author.description }}</p>
-                        <ul class="flex flex-wrap items-center gap-2">
-                            <li v-for="(social, j) in article.author.social" :key="j">
-                                <a :href="social.link"><Icon class="w-8 h-8 bg-gray-200" folder="social" :name="social.name" /></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="flex flex-col gap-8 w-full max-w-4xl" v-else>
-                    <div class="article_body flex flex-col gap-4 flex-grow bg-white shadow-xl rounded-2xl p-4" style="min-height: 768px">
-                        <div class="skeleton w-8/12 h-8"></div>
-                        <div class="flex flex-col gap-2">
-                            <span class="skeleton w-full h-2"></span>
-                            <span class="skeleton w-full h-2"></span>
-                            <span class="skeleton w-full h-2"></span>
-                            <span class="skeleton w-4/12 h-2"></span>
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <span class="skeleton w-full h-2"></span>
-                            <span class="skeleton w-full h-2"></span>
-                            <span class="skeleton w-4/12 h-2"></span>
-                        </div>
-                    </div>
-                    <div class="author_card flex flex-col items-center justify-start gap-4 p-8 md:p-16 w-full rounded-3xl shadow-2xl max-w-4xl">
-                        <div class="skeleton w-full h-4"></div>
-                        <div class="flex flex-col gap-2 w-full">
-                            <span class="skeleton w-full h-2"></span>
-                            <span class="skeleton w-full h-2"></span>
-                            <span class="skeleton w-full h-2"></span>
-                            <span class="skeleton w-4/12 h-2"></span>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="flex flex-col gap-8 w-full xl:max-w-xs">
-                    <div class="flex flex-col gap-4">
-                        <h4 class="text-2xl">مقالات مشابه</h4>
-                        <ul class="flex flex-wrap flex-row xl:flex-col gap-6" v-if="!loadingArticle">
-                            <li class="w-full sm:max-w-xs" v-for="(item, i) in similarArticles" :key="i">
-                                <nuxt-link
-                                    class="article_card blur flex flex-col gap-4 flex-grow rounded-3xl shadow-xl"
-                                    :to="`/article/${item.slug}`"
-                                    :title="item.title"
-                                >
-                                    <div class="relative overflow-hidden rounded-3xl shadow-lg flex-shrink-0 w-full h-52">
-                                        <img class="max-w-screen-sm w-full h-full object-cover" :src="item.image" :alt="item.title" loading="lazy" />
-                                        <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2" v-if="!!item.category">
-                                            {{ item.category.name }}
-                                        </span>
-                                    </div>
-                                    <div class="flex flex-col gap-4 p-4 pt-0 h-full">
-                                        <h3 class="text-2xl max-w-screen-xs overflow-hidden overflow-ellipsis whitespace-nowrap">{{ item.title }}</h3>
-                                        <p class="max-w-xs opacity-75 flex-grow max-h-24 overflow-hidden">{{ item.description }}</p>
-                                        <div class="flex flex-wrap justify-between items-center gap-4">
-                                            <div class="flex items-start gap-2">
-                                                <img
-                                                    class="rounded-full object-cover w-8 h-8"
-                                                    :src="item.author.image"
-                                                    :alt="`${item.author.name} ${item.author.family}`"
-                                                    v-if="!!item.author"
-                                                    width="32"
-                                                    height="32"
-                                                />
-                                                <div class="flex flex-col gap-1">
-                                                    <small v-if="!!item.author">{{ `${item.author.name} ${item.author.family}` }}</small>
-                                                    <small class="opacity-75">{{ new Date(item.publishedAt).toLocaleDateString("fa") }}</small>
-                                                </div>
-                                            </div>
-                                            <span class="flex items-end gap-1">
-                                                <img src="/icons/Heart.svg" alt="Heart" width="20" height="20" />
-                                                <small>{{ item.likes }}</small>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </nuxt-link>
-                            </li>
-                        </ul>
-                        <ul class="flex flex-wrap flex-row xl:flex-col gap-6" v-else>
-                            <li class="flex flex-col gap-4 w-full sm:max-w-xs" v-for="(item, i) in articleSkeleton" :key="i">
-                                <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full h-48">
-                                    <img class="max-w-screen-sm w-full h-full object-cover" src="/misc/course.png" alt="course" loading="lazy" />
-                                    <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2">
-                                        <span class="skeleton w-6"></span>
-                                    </span>
-                                </div>
-                                <h3 class="skeleton w-full h-4"></h3>
-                                <div class="flex flex-col gap-2 w-full">
-                                    <span class="skeleton w-full h-2"></span>
-                                    <span class="skeleton w-full h-2"></span>
-                                    <span class="skeleton w-full h-2"></span>
-                                    <span class="skeleton w-4/12 h-2"></span>
-                                </div>
-                                <div class="flex flex-wrap justify-between items-center gap-4">
-                                    <div class="flex items-start gap-2">
-                                        <div class="skeleton rounded-full w-8 h-8"></div>
-                                        <span class="skeleton w-8"></span>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
+                <div class="article_img relative mb-6">
+                    <div class="absolute -left-6 -bottom-6 rounded-2xl w-11/12 h-1/3 opacity-80 -z-1"></div>
+                    <img class="w-full h-64 md:h-96 object-contain shadow-xl rounded-2xl" :src="article.image" :alt="article.title" loading="lazy" />
+                    <meta itemprop="thumbnailUrl" content="/misc/singleCourse.png" />
+                </div>
+            </header>
+
+            <div class="flex flex-col gap-4 w-full bg-white p-4 rounded-2xl" v-if="!loadingArticle">
+                <div v-html="article.body" class="flex-grow w-full"></div>
+                <ul class="flex flex-wrap items-center gap-2">
+                    <li class="bg-orange-100 text-amber-700 p-1 px-2 rounded-md" v-for="(tag, i) in article.tags" :key="i">
+                        {{ tag }}
+                    </li>
+                </ul>
+            </div>
+            <div class="flex flex-col gap-8 w-full" v-else>
+                <div class="flex-grow w-full bg-white p-4 rounded-2xl" style="min-height: 768px">
+                    <div class="skeleton w-8/12 h-8"></div>
+                    <div class="flex flex-col gap-2">
+                        <span class="skeleton w-full h-2"></span>
+                        <span class="skeleton w-full h-2"></span>
+                        <span class="skeleton w-full h-2"></span>
+                        <span class="skeleton w-4/12 h-2"></span>
                     </div>
-                    <div class="flex flex-col gap-4">
-                        <h4 class="text-2xl">آخرین مقالات</h4>
-                        <ul class="article_card blur flex flex-col gap-6 rounded-2xl p-4 w-full sm:max-w-xs">
-                            <li class="w-full" v-for="(item, i) in newArticles" :key="i">
-                                <nuxt-link class="w-full flex flex-wrap gap-4" :to="`/article/${item.slug}`" :title="item.title">
-                                    <img class="w-20 h-20 rounded-xl object-cover shadow-md" :src="item.image" :alt="item.title" loading="lazy" />
-                                    <div class="flex flex-wrap flex-col gap-2">
-                                        <h3 class="max-w-screen-2xs">{{ item.title }}</h3>
-                                        <span class="text-lightblue-300">بیشتر</span>
-                                    </div>
-                                </nuxt-link>
-                            </li>
-                        </ul>
+                    <div class="flex flex-col gap-2">
+                        <span class="skeleton w-full h-2"></span>
+                        <span class="skeleton w-full h-2"></span>
+                        <span class="skeleton w-4/12 h-2"></span>
                     </div>
                 </div>
             </div>
         </article>
 
-        <!-- comments -->
+        <span class="spacer_v w-full h-0.5"></span>
+
         <CommentSection :commentedOn="article._id" />
 
-        <section class="relative flex flex-col gap-8 w-full max-w-screen-2xl mx-auto mt-16" id="most-viewed-articles">
+        <span class="spacer_v w-full h-0.5"></span>
+
+        <section class="relative flex flex-col gap-6 w-full" id="similar-articles">
             <div class="flex flex-wrap justify-between items-center gap-8 w-full">
-                <h4 class="font-bold text-4xl">محبوب ترین بلاگ ها</h4>
+                <h4 class="kalameh_bold title text-2xl">مطالب مشابه</h4>
             </div>
             <ul class="flex flex-wrap items-start justify-evenly gap-4">
-                <li class="flex w-full sm:max-w-xs rounded-xl" v-for="(popularArticle, i) in popularArticles" :key="i">
+                <li class="flex w-full max-w-xs bg-white shadow-xl p-4 rounded-3xl" v-for="(similarArticle, i) in popularArticles" :key="i">
                     <nuxt-link
-                        class="article_card flex flex-col gap-4 flex-grow rounded-3xl w-full sm:max-w-xs"
-                        :to="`/article/${popularArticle.slug}`"
-                        :title="popularArticle.title"
+                        class="flex flex-col gap-4 flex-grow rounded-3xl w-full sm:max-w-xs"
+                        :to="`/article/${similarArticle.slug}`"
+                        :title="similarArticle.title"
                     >
-                        <div class="relative overflow-hidden rounded-3xl shadow-lg flex-shrink-0 w-full h-52">
-                            <img class="max-w-screen-sm w-full h-full object-cover" :src="popularArticle.image" :alt="popularArticle.title" loading="lazy" />
-                            <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2" v-if="!!popularArticle.category">
-                                {{ popularArticle.category.name }}
-                            </span>
-                        </div>
-                        <div class="flex flex-col gap-4 p-4 pt-0 h-full">
-                            <h3 class="text-2xl max-w-screen-xs overflow-hidden overflow-ellipsis whitespace-nowrap">{{ popularArticle.title }}</h3>
-                            <p class="max-w-xs opacity-75 flex-grow max-h-24 overflow-hidden">{{ popularArticle.description }}</p>
-                            <div class="flex flex-wrap justify-between items-center gap-4">
-                                <div class="flex items-start gap-2">
-                                    <img
-                                        class="rounded-full object-cover w-8 h-8"
-                                        :src="popularArticle.author.image"
-                                        :alt="`${popularArticle.author.name} ${popularArticle.author.family}`"
-                                        v-if="!!popularArticle.author"
-                                        width="32"
-                                        height="32"
-                                    />
-                                    <div class="flex flex-col gap-1">
-                                        <small v-if="!!popularArticle.author">{{ `${popularArticle.author.name} ${popularArticle.author.family}` }}</small>
-                                        <small class="opacity-75">{{ new Date(popularArticle.publishedAt).toLocaleDateString("fa") }}</small>
-                                    </div>
-                                </div>
-                                <span class="flex items-end gap-1">
-                                    <img src="/icons/Heart.svg" alt="Heart" width="20" height="20" />
-                                    <small>{{ popularArticle.likes }}</small>
-                                </span>
+                        <img class="max-w-screen-xs w-full h-48 rounded-2xl object-cover" :src="similarArticle.image" :alt="similarArticle.title" loading="lazy" />
+                        <h3 class="kalameh_bold text-lg w-full overflow-hidden overflow-ellipsis whitespace-nowrap">{{ similarArticle.title }}</h3>
+                        <div class="bg-orange-400 h-1.5 rounded-full w-full"></div>
+                        <div class="flex flex-wrap justify-between items-center gap-4">
+                            <div class="flex items-center gap-1">
+                                <Icon class="w-5 h-5 bg-cyan-300" size="20px" folder="icons/new" name="Calendar" />
+                                <small class="opacity-75 text-sm">{{ new Date(similarArticle.publishedAt).toLocaleDateString("fa") }}</small>
                             </div>
+                            <span class="flex items-end gap-1">
+                                <small class="kalameh_bold">{{ similarArticle.likes }}</small>
+                                <Icon class="w-5 h-5 bg-rose-400" size="20px" folder="icons/new" name="Heart" />
+                            </span>
                         </div>
                     </nuxt-link>
                 </li>

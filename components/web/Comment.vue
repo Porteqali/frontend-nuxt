@@ -1,25 +1,35 @@
-<style scoped></style>
+<style scoped>
+.colored_border {
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-image: linear-gradient(273.67deg, #ff8537 -20.26%, #ff51b1 114.54%) 1;
+}
+</style>
 
 <template>
-    <div class="flex flex-col items-start md:flex-row gap-4 md:gap-8 w-full">
-        <picture class="flex-shrink-0">
-            <img
-                class="rounded-full shadow-xl w-16 md:w-36 h-16 md:h-36 object-cover"
-                loading="lazy"
-                v-if="comment.author[0]"
-                :src="comment.author[0].image || `/misc/avatar.svg`"
-                onError="this.onerror=null;this.src='/misc/avatar.svg';"
-                :alt="`${comment.author[0].name} ${comment.author[0].family}`"
-            />
-        </picture>
+    <div class="flex flex-col items-start gap-2 w-full">
+        <div class="flex items-center gap-2">
+            <picture class="flex-shrink-0">
+                <img
+                    class="rounded-full shadow-xl w-16 h-16 object-cover"
+                    loading="lazy"
+                    v-if="comment.author[0]"
+                    :src="comment.author[0].image || `/misc/avatar.svg`"
+                    onError="this.onerror=null;this.src='/misc/avatar.svg';"
+                    :alt="`${comment.author[0].name} ${comment.author[0].family}`"
+                />
+            </picture>
+            <div class="flex flex-col gap-1">
+                <b class="text-sm" v-if="comment.author[0]">{{ `${comment.author[0].name} ${comment.author[0].family}` }}</b>
+                <small class="opacity-75 text-xs">{{ comment.createdAt }}</small>
+            </div>
+        </div>
         <div class="flex flex-col items-start gap-4 w-full">
-            <div class="flex flex-col gap-2 w-full p-4 rounded-3xl shadow-xl bg-white">
-                <b v-if="comment.author[0]">{{ `${comment.author[0].name} ${comment.author[0].family}` }}</b>
-                <small>{{ comment.createdAt }}</small>
-                <p class="p-3 my-2" v-if="comment.text">{{ comment.text }}</p>
-                <button class="w-max text-indigo-400" @click="showReplies()" v-if="!!comment.comments.length || !firstRequestSent">
-                    <small v-if="!showReply">نمایش پاسخ‌ها</small>
-                    <small v-else>مخفی کردن پاسخ‌ها</small>
+            <div class="flex flex-col gap-2 w-full p-4 rounded-2xl bg-warmgray-50">
+                <p class="w-full" v-if="comment.text">{{ comment.text }}</p>
+                <button class="w-max text-amber-500" @click="showReplies()" v-if="!!comment.comments.length || !firstRequestSent">
+                    <small class="text-xs" v-if="!showReply">نمایش پاسخ‌ها</small>
+                    <small class="text-xs" v-else>مخفی کردن پاسخ‌ها</small>
                 </button>
             </div>
             <div class="flex flex-col items-start gap-4 w-full" v-show="showReply">
@@ -39,6 +49,7 @@
                 <Loading class="w-10 h-10" v-if="repliesLoading" />
             </div>
         </div>
+        <hr class="colored_border mt-4 w-11/12 mx-auto">
     </div>
 </template>
 
