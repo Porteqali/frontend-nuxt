@@ -16,18 +16,19 @@
     z-index: 10;
 }
 .t_select .box {
-    height: 1.5rem;
+    max-height: 3.25rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
     z-index: 2;
-    border-radius: 0.75rem;
+    border-radius: 1rem;
     background-color: var(--select-input-bg-color);
+    border: 2px solid #555;
 }
 .t_select .box::after {
     content: "";
     font-size: 1rem;
-    background-image: url("~/static/icons/ArrowDown.line.svg");
+    background-image: url("~/static/icons/new/ArrowDown2.svg");
     background-repeat: no-repeat;
     background-size: 1.25rem;
     background-position: center;
@@ -42,7 +43,7 @@
     gap: 0.25rem;
     background-color: var(--select-list-bg-color);
     position: absolute;
-    top: 2.5rem;
+    top: 3.75rem;
     overflow: auto;
     border-radius: 1rem;
     width: inherit;
@@ -71,7 +72,7 @@
 <template>
     <div class="t_select flex flex-col flex-grow" :class="{ open: open }">
         <div class="t_select_input" :class="inputClass">
-            <div class="box shadow-lg" :class="{ 'p-2 py-4': small, 'p-4': !small }" tabindex="0" @click="toggleMenu()" @blur="toggleMenu(false)">
+            <div class="box shadow-lg" :class="{ 'p-2 py-4': !!small, 'p-4': !small }" tabindex="0" @click="toggleMenu()" @blur="toggleMenu(false)">
                 <span name="placeholder" class="opacity-50 ml-4" v-if="placeholder && !selectedOption.value">{{ placeholder }}</span>
                 <span name="value text-sm" :class="{ 'ml-4': !small }" v-if="selectedOption.name && selectedOption.value">{{ selectedOption.name }}</span>
             </div>

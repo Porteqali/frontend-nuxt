@@ -1,138 +1,119 @@
 <style scoped>
-#top h1,
-#top ul {
-    /* color: var(--top-h1-color); */
-    font-weight: 900;
-}
-.search_box {
-    background-color: var(--search-box-bg-color);
-    color: var(--search-box-color);
-}
-.search_box button {
-    color: var(--search-box-button-color);
-}
-.category_card {
-    background-color: #000c7888;
-    color: var(--top-h1-color);
-    cursor: pointer;
-}
-
 .card {
-    background-color: var(--faq-section-card-bg-color);
-    color: var(--faq-section-card-color);
+    background-color: #f2f2f2;
+    color: #333;
 }
 .card h4 {
-    color: var(--faq-section-card-title-color);
+    color: #333;
 }
 .load_more_btn {
-    background-color: var(--department-section-title-alt-text-bg-color);
-    color: var(--department-section-title-alt-text-color);
+    background-color: #efefef;
+    color: #555;
+}
+
+.spacer {
+    background: linear-gradient(87.25deg, #ffa825 -11.51%, #ff70d7 114.56%);
 }
 </style>
 
 <template>
-    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full mt-10 lg:mt-0">
-        <section class="relative flex flex-wrap-reverse items-center justify-evenly gap-8 lg:gap-20" id="top">
-            <img class="-mb-48" src="/pages/faqs/ResearchMan.png" alt="porteqali-PhoneCallMan" style="max-height: 1920px" />
-            <div class="flex flex-col gap-10 text-bluegray-900">
-                <h1 class="flex flex-col gap-4 text-5xl lg:text-7xl">
-                    <span class="kalameh_black font-bold">سوالات متداول</span>
-                </h1>
-                <ul class="flex items-center gap-2 font-light">
-                    <li><nuxt-link title="صفحه اصلی" to="/">صفحه اصلی</nuxt-link></li>
-                    <li>&gt;</li>
-                    <li>سوالات متداول</li>
-                </ul>
-                <div class="search_box flex items-center gap-4 p-2 rounded-xl shadow-lg">
-                    <input class="flex-grow outline-none bg-transparent w-64" type="text" v-model="searchQuery" placeholder="جستجو..." />
-                    <button class="orange_gradient_v flex-shrink-0 p-2 md:px-8 rounded-xl shadow-lg flex items-center justify-center" @click="search()">
-                        <span class="hidden md:inline-block">جستجو</span>
-                        <img class="flex-shrink-0 inline-block md:hidden" src="/icons/Search.svg" width="24" height="24" alt="Search" />
-                    </button>
-                </div>
+    <main role="main" class="relative flex flex-col items-center gap-16 max-w-screen-2xl w-full mt-24 md:mt-28 px-4 md:px-8 mb-16">
+        <img class="absolute -right-1/4 top-1/4 -z-1" src="/pages/faqs/bg.png" v-if="faqs.length != 0" />
+        <img class="absolute -left-48 top-40 -z-1" src="/pages/faqs/hand.png" />
+        <section class="relative flex flex-col items-center justify-center gap-8 w-full">
+            <div class="flex flex-col justify-center gap-2">
+                <h1 class="flex flex-col gap-4 kalameh_bold title text-3xl lg:text-4xl w-max">سوالی داری؟</h1>
+                <p class="kalameh_bold text-lg opacity-65">چطور میتونیم کمکت کنیم؟</p>
+            </div>
+            <div class="flex items-center gap-4 p-2 rounded-2xl shadow-lg bg-white w-full max-w-2xl">
+                <input class="flex-grow outline-none bg-transparent w-64 pr-2" type="text" v-model="searchQuery" placeholder="سوالتو بپرس..." />
+                <button class="orange_gradient_h flex-shrink-0 p-1 md:p-2 rounded-xl shadow-lg flex items-center justify-center" @click="search()">
+                    <Icon class="w-7 h-7 bg-gray-100" size="28px" folder="icons/new" name="Search" />
+                </button>
             </div>
         </section>
 
-        <ul class="flex flex-wrap justify-center gap-4 md:gap-8 w-full max-w-screen-xl mx-auto">
-            <li
-                class="category_card blur flex flex-col items-center justify-center gap-4 p-4 md:px-16 rounded-3xl w-full max-w-screen-2xs md:max-w-max"
-                :class="{ 'border-4 border-solid border-orange-300': selectedGroup == 'education' }"
-                @click="selectCategory('education')"
-            >
-                <img src="/pages/faqs/Book.svg" class="w-20 md:w-32" alt="Book" />
-                <strong class="text-lg md:text-2xl">آموزش</strong>
-            </li>
-            <li
-                class="category_card blur flex flex-col items-center justify-center gap-4 p-4 md:px-16 rounded-3xl w-full max-w-screen-2xs md:max-w-max"
-                :class="{ 'border-4 border-solid border-orange-300': selectedGroup == 'support' }"
-                @click="selectCategory('support')"
-            >
-                <img src="/pages/faqs/Window.svg" class="w-20 md:w-32" alt="Window" />
-                <strong class="text-lg md:text-2xl">پشتیبانی</strong>
-            </li>
-            <li
-                class="category_card blur flex flex-col items-center justify-center gap-4 p-4 md:px-16 rounded-3xl w-full max-w-screen-2xs md:max-w-max"
-                :class="{ 'border-4 border-solid border-orange-300': selectedGroup == 'collab' }"
-                @click="selectCategory('collab')"
-            >
-                <img src="/pages/faqs/Mail.svg" class="w-20 md:w-32" alt="Mail" />
-                <strong class="text-lg md:text-2xl">همکاری</strong>
-            </li>
-            <li
-                class="category_card blur flex flex-col items-center justify-center gap-4 p-4 md:px-16 rounded-3xl w-full max-w-screen-2xs md:max-w-max"
-                :class="{ 'border-4 border-solid border-orange-300': selectedGroup == 'wallet' }"
-                @click="selectCategory('wallet')"
-            >
-                <img src="/pages/faqs/Wallet.svg" class="w-20 md:w-32" alt="Wallet" />
-                <strong class="text-lg md:text-2xl">کارت اعتباری</strong>
-            </li>
-        </ul>
-
-        <section class="flex flex-col items-center gap-8 w-full max-w-screen-xl">
-            <ul class="flex flex-col items-center gap-8">
+        <div class="flex flex-wrap md:flex-nowrap items-start gap-4 w-full max-w-screen-xl">
+            <ul class="flex flex-row md:flex-col gap-4 w-full md:max-w-screen-2xs flex-shrink-0 bg-truegray-50 p-2 rounded-3xl">
                 <li
-                    class="card shadow-xl flex flex-wrap md:flex-nowrap items-center gap-8 p-8 w-full rounded-2xl max-w-screen-xl"
-                    v-for="(faq, i) in faqs"
-                    :key="i"
-                    @click="faq.open = !faq.open"
+                    class="flex flex-col md:flex-row items-center gap-2 p-2 rounded-2xl w-full"
+                    :class="{ 'text-gray-100 bg-gray-700': selectedGroup == 'education' }"
+                    @click="selectCategory('education')"
                 >
-                    <span class="flex items-center justify-center w-10 h-10 p-4 rounded-full bg-indigo-100">{{ i + 1 }}</span>
-                    <div class="flex flex-col gap-4 flex-grow w-full">
-                        <h4 class="md:text-xl">{{ faq.question }}</h4>
-                        <transition name="slidedown" mode="out-in" appear>
-                            <p class="max-w-screen-md" v-show="faq.open">{{ faq.answer }}</p>
-                        </transition>
-                    </div>
-                    <transition name="fade" mode="out-in" appear>
-                        <img src="/icons/ArrowUpCircle.line.svg" alt="ArrowUpCircle" v-if="faq.open" />
-                        <img src="/icons/ArrowDownCircle.line.svg" alt="ArrowDownCircle" v-else />
-                    </transition>
+                    <Icon class="w-7 h-7" :class="[selectedGroup == 'education' ? 'bg-gray-100' : 'bg-gray-700']" size="28px" folder="icons/new" name="Work" />
+                    <strong class="kalameh_bold whitespace-nowrap md:text-lg flex-shrink-0">آموزش</strong>
+                </li>
+                <li
+                    class="flex flex-col md:flex-row items-center gap-2 p-2 rounded-2xl w-full"
+                    :class="{ 'text-gray-100 bg-gray-700': selectedGroup == 'support' }"
+                    @click="selectCategory('support')"
+                >
+                    <Icon class="w-7 h-7" :class="[selectedGroup == 'support' ? 'bg-gray-100' : 'bg-gray-700']" size="28px" folder="icons/new" name="AddUser" />
+                    <strong class="kalameh_bold whitespace-nowrap md:text-lg flex-shrink-0">پشتیبانی</strong>
+                </li>
+                <li
+                    class="flex flex-col md:flex-row items-center gap-2 p-2 rounded-2xl w-full"
+                    :class="{ 'text-gray-100 bg-gray-700': selectedGroup == 'collab' }"
+                    @click="selectCategory('collab')"
+                >
+                    <Icon class="w-7 h-7" :class="[selectedGroup == 'collab' ? 'bg-gray-100' : 'bg-gray-700']" size="28px" folder="icons/new" name="Calling" />
+                    <strong class="kalameh_bold whitespace-nowrap md:text-lg flex-shrink-0">همکاری</strong>
+                </li>
+                <li
+                    class="flex flex-col md:flex-row items-center gap-2 p-2 rounded-2xl w-full"
+                    :class="{ 'text-gray-100 bg-gray-700': selectedGroup == 'wallet' }"
+                    @click="selectCategory('wallet')"
+                >
+                    <Icon class="w-7 h-7" :class="[selectedGroup == 'wallet' ? 'bg-gray-100' : 'bg-gray-700']" size="28px" folder="icons/new" name="Wallet" />
+                    <strong class="kalameh_bold whitespace-nowrap md:text-lg flex-shrink-0">کارت اعتباری</strong>
                 </li>
             </ul>
-            <button
-                class="load_more_btn blur flex items-center gap-2 py-3 px-6 rounded-xl w-max"
-                v-if="!faqsLoading && faqsPage <= faqsPageTotal"
-                @click="getFaqs()"
-            >
-                <span>بارگذاری بیشتر</span>
-            </button>
-            <!-- <Loading v-if="faqsLoading" /> -->
-            <div v-if="faqsLoading">
-                <ul class="flex flex-col items-center gap-8">
-                    <li class="card shadow-xl flex items-center gap-8 p-8 w-full rounded-2xl max-w-screen-xl" v-for="(item, i) in faqsLoadingSkeleton" :key="i">
-                        <span class="flex items-center justify-center w-10 h-10 p-4 rounded-full bg-indigo-100">{{ i + 1 }}</span>
+
+            <span class="spacer rounded-full w-full h-0.5 md:w-0.5 md:h-56"></span>
+
+            <section class="flex flex-col items-center gap-8 w-full flex-grow">
+                <ul class="flex flex-col items-center gap-8 w-full">
+                    <li
+                        class="card flex flex-wrap md:flex-nowrap items-center gap-4 md:gap-8 p-4 md:p-8 w-full rounded-2xl"
+                        v-for="(faq, i) in faqs"
+                        :key="i"
+                        @click="faq.open = !faq.open"
+                    >
                         <div class="flex flex-col gap-4 flex-grow w-full">
-                            <h4 class="skeleton w-full h-8" style="min-width: 1024px"></h4>
-                            <span class="skeleton w-8/12 h-4"></span>
+                            <h4 class="text-lg w-full font-bold">{{ faq.question }}</h4>
+                            <transition name="slidedown" mode="out-in" appear>
+                                <p class="w-full bg-white p-4 rounded-xl" v-show="faq.open">{{ faq.answer }}</p>
+                            </transition>
                         </div>
+                        <transition name="fade" mode="out-in" appear>
+                            <Icon class="w-6 h-6 bg-gray-700" size="24px" folder="icons/new" name="ArrowUp2" v-if="faq.open" />
+                            <Icon class="w-6 h-6 bg-gray-700" size="24px" folder="icons/new" name="ArrowDown2" v-else />
+                        </transition>
                     </li>
                 </ul>
-            </div>
+                <button
+                    class="load_more_btn blur flex items-center gap-2 py-3 px-6 rounded-xl w-max"
+                    v-if="!faqsLoading && faqsPage <= faqsPageTotal"
+                    @click="getFaqs()"
+                >
+                    <span>بارگذاری بیشتر</span>
+                </button>
+                <div v-if="faqsLoading">
+                    <ul class="flex flex-col items-center gap-8">
+                        <li class="card shadow-xl flex items-center gap-8 p-8 w-full rounded-2xl max-w-screen-xl" v-for="(item, i) in faqsLoadingSkeleton" :key="i">
+                            <div class="flex flex-col gap-4 flex-grow w-full">
+                                <h4 class="skeleton w-full h-8" style="min-width: 1024px"></h4>
+                                <span class="skeleton w-8/12 h-4"></span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
 
-            <div class="flex items-center justify-center gap-16" v-if="!faqsLoading && faqs.length == 0">
-                <strong class="text-4xl">موردی پیدا نشد!</strong>
-            </div>
-        </section>
+                <div class="flex gap-16" v-if="!faqsLoading && faqs.length == 0">
+                    <strong class="kalameh_bold text-rose-400 text-xl">موردی پیدا نشد!</strong>
+                </div>
+            </section>
+        </div>
     </main>
 </template>
 

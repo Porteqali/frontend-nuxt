@@ -1,79 +1,68 @@
 <style scoped>
-.teacher_card {
-    background-color: rgba(19, 40, 80, 0.8);
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: relative;
+.view_topics {
+    --color-bg: #fff;
+    background: linear-gradient(var(--color-bg), var(--color-bg)) padding-box, linear-gradient(273.67deg, #ff8537 -20.26%, #ff51b1 114.54%) border-box;
+    border: 2px solid transparent;
+    transition: all 0.1s;
+}
+.view_topics:hover {
+    background: linear-gradient(273.67deg, #ff8537 -20.26%, #ff51b1 114.54%);
     color: #fff;
-}
-.teacher_card * {
-    z-index: 2;
-}
-.teacher_card::before {
-    color: #fff;
-    background: linear-gradient(0deg, rgba(19, 40, 80, 0.8), rgba(19, 40, 80, 0.8));
-    content: "";
-    position: absolute;
-    inset: 0;
-    backdrop-filter: blur(15px);
-    border-radius: 1.5rem;
-}
-
-.courses_list {
-    grid-template-columns: repeat(auto-fit, minmax(284px, 1fr));
-}
-.course_tag {
-    background-color: var(--department-section-course-tag-bg-color);
-    color: var(--department-section-course-tag-color);
 }
 
 .load_more_btn {
     background-color: var(--department-section-title-alt-text-bg-color);
     color: var(--department-section-title-alt-text-color);
 }
+
+.path_img {
+    transform: rotateY(180deg);
+}
 </style>
 
 <template>
-    <main role="main" class="flex flex-col lg:flex-row items-start gap-10 max-w-screen-4xl w-full">
-        <section class="relative flex flex-col justify-evenly gap-8 w-full lg:w-auto flex-shrink-0">
-            <div
-                class="teacher_card flex flex-col items-center justify-start gap-4 p-8 w-full rounded-3xl shadow-2xl lg:max-w-md"
-                :style="`background-image: url('${teacher.image}')`"
-                v-if="!teacherLoading"
-            >
-                <img class="w-24 h-24 rounded-full shadow-md object-cover" :src="teacher.image" :alt="`${teacher.name} ${teacher.family}`" />
-                <b class="text-2xl">{{ `${teacher.name} ${teacher.family}` }}</b>
-                <small class="text-lightblue-400">{{ teacher.title }}</small>
-                <div class="flex flex-col gap-4 w-full">
-                    <h5 class="text-xl border-b border-solid border-gray-300 border-opacity-30 py-2 w-full">فعالیت های مدرس</h5>
-                    <ul class="flex items-center justify-center gap-8">
-                        <li class="flex flex-col items-center justify-center gap-2">
+    <main role="main" class="flex flex-col items-center gap-10 max-w-screen-2xl w-full mt-28 md:mt-32 px-4 md:px-8 mb-16">
+        <img class="path_img absolute -right-20 top-40 w-96" src="/misc/path.svg" />
+        <section class="flex flex-col justify-evenly gap-8 w-full max-w-screen-lg flex-shrink-0">
+            <div class="relative flex flex-col gap-4 p-8 rounded-2xl shadow-2xl w-full max-w-screen-lg bg-white" v-if="!teacherLoading">
+                <div class="orange_gradient_v absolute -z-1 w-11/12 h-3/4 -left-6 -bottom-6 rounded-3xl"></div>
+                <div class="flex flex-wrap items-start justify-between gap-4 w-full">
+                    <div class="flex items-center gap-4 -mt-16">
+                        <img class="w-32 h-32 bg-gray-200 p-2 rounded-full shadow-md object-cover" :src="teacher.image" :alt="`${teacher.name} ${teacher.family}`" />
+                        <div class="flex flex-col gap-2">
+                            <b class="kalameh_bold text-2xl">{{ `${teacher.name} ${teacher.family}` }}</b>
+                            <small class="flex items-center gap-1 text-orange-400" v-if="teacher.groups && teacher.groups[0]">
+                                <div class="w-2 h-2 rounded-full bg-gray-400"></div>
+                                مدرس دوره های {{ teacher.groups[0].name }}
+                            </small>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-center gap-8">
+                        <div class="flex items-center justify-center gap-2">
+                            <Icon class="w-6 h-6 bg-gray-400" size="24px" folder="icons/new" name="User3" />
                             <h6 class="flex items-center gap-1">
-                                <img src="/icons/Users.svg" width="24" height="24" alt="Users" />
-                                <span>تعداد دانشجو</span>
+                                <b>{{ new Intl.NumberFormat("fa").format(teacher.studentCount) }}</b>
+                                <span>دانشجو</span>
                             </h6>
-                            <b>{{ new Intl.NumberFormat("fa").format(teacher.studentCount) }}</b>
-                        </li>
-                        <li class="flex flex-col items-center justify-center gap-2">
+                        </div>
+                        <span class="orange_gradient_h h-2 w-8 rounded-full"></span>
+                        <div class="flex items-center justify-center gap-2">
+                            <Icon class="w-6 h-6 bg-gray-400" size="24px" folder="icons/new" name="Video" />
                             <h6 class="flex items-center gap-1">
-                                <img src="/icons/Video.svg" width="24" height="24" alt="Video" />
-                                <span>تعداد دوره</span>
+                                <b>{{ teacher.courseCount }}</b>
+                                <span>دوره</span>
                             </h6>
-                            <b>{{ teacher.courseCount }}</b>
-                        </li>
-                    </ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="flex flex-col gap-4 w-full">
-                    <h5 class="text-xl border-b border-solid border-gray-300 border-opacity-30 py-2 w-full">درباره مدرس</h5>
-                    <p class="opacity-75 max-w-xs break-words">{{ teacher.description }}</p>
-                </div>
+                <p class="opacity-75 w-full break-words">{{ teacher.description }}</p>
                 <ul class="flex flex-wrap items-center gap-2">
                     <li v-for="(social, j) in teacher.social" :key="j">
                         <a :href="social.link"><Icon class="w-8 h-8 bg-gray-200" folder="social" :name="social.name" /></a>
                     </li>
                 </ul>
             </div>
-            <div class="teacher_card flex flex-col items-center justify-start gap-4 p-8 md:p-16 w-full rounded-3xl shadow-2xl max-w-md" v-else>
+            <div class="relative flex flex-col gap-4 p-8 rounded-2xl shadow-2xl w-full max-w-screen-lg bg-white" v-else>
                 <span class="skeleton w-24 h-24 rounded-full shadow-md"></span>
                 <small class="skeleton w-20 h-2 text-lightblue-400"></small>
                 <div class="flex flex-col gap-2 w-full">
@@ -84,48 +73,84 @@
                 </div>
             </div>
         </section>
-        <section class="relative flex flex-col justify-center gap-8 flex-grow w-full">
-            <ul class="courses_list grid gap-10 w-full">
-                <li class="gray_gradient course_card shadow-lg flex flex-col gap-4 rounded-3xl max-w-md w-full mx-auto" v-for="(course, i) in courses" :key="i">
-                    <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="relative overflow-hidden rounded-3xl w-full h-72">
-                        <img class="absolute inset-0 object-cover w-full h-full" :src="course.image || `/misc/course.png`" alt="course" draggable="false" />
-                        <img class="absolute top-2 right-2 rounded-full object-cover" :src="course.groups[0].icon" width="32" height="32" alt="Figma" />
-                        <span
-                            class="course_tag flex items-center justify-center p-4 w-auto h-16 rounded-3xl absolute top-2 left-2"
-                            v-if="course.discountInfo && course.discountInfo.tag != ''"
-                        >
-                            {{ course.discountInfo.tag }}
-                        </span>
-                    </nuxt-link>
-                    <div class="flex flex-col gap-4 p-4 pt-0">
-                        <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="w-full">
-                            <h3 class="text-2xl overflow-hidden overflow-ellipsis whitespace-nowrap">{{ course.name }}</h3>
-                        </nuxt-link>
-                        <div class="flex flex-wrap justify-between gap-4">
+
+        <span class="spacer_v w-full h-0.5 mt-8"></span>
+
+        <section class="relative flex flex-col items-start justify-between gap-8 flex-grow w-full">
+            <div class="flex items-start">
+                <h4 class="kalameh_bold title text-2xl md:text-3xl">دوره ها</h4>
+            </div>
+            <ul class="flex flex-wrap items-center justify-center gap-8 w-full">
+                <li class="swiper-slide shadow-lg flex flex-col items-center gap-3 rounded-2xl max-w-xs p-3 bg-white" v-for="(course, i) in courses" :key="i">
+                    <nuxt-link
+                        :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`"
+                        class="relative flex items-end overflow-hidden rounded-2xl w-full h-52"
+                    >
+                        <img
+                            class="absolute inset-0 object-cover bg-gray-200 w-full h-full"
+                            :src="course.image || `/misc/course.png`"
+                            loading="lazy"
+                            :alt="course.name"
+                            draggable="false"
+                        />
+                        <div class="relative flex flex-wrap justify-between gap-4 bg-gray-800 bg-opacity-80 rounded-xl p-2 w-full m-2 mt-auto">
                             <span class="flex items-end gap-1">
-                                <img src="/icons/TimeCircle.line.svg" alt="TimeCircle" width="20" height="20" />
-                                <small>{{ course.totalTime }}</small>
+                                <Icon class="w-5 h-5 bg-gray-100" size="20px" folder="icons/new" name="TimeCircle" />
+                                <small class="text-gray-50">{{ course.totalTime }}</small>
                             </span>
                             <span class="flex items-end gap-1">
-                                <img src="/icons/User.line.svg" alt="User" width="20" height="20" />
-                                <small>{{ course.buyCount }}</small>
+                                <Icon class="w-5 h-5 bg-gray-100" size="20px" folder="icons/new" name="User3" />
+                                <small class="text-gray-50">{{ course.buyCount }}</small>
                             </span>
                             <span class="flex items-end gap-1">
-                                <img src="/icons/Star.line.svg" alt="Star" width="20" height="20" />
-                                <small>{{ course.score.toFixed(1) }} از 8 امتیاز</small>
+                                <Icon class="w-5 h-5 bg-gray-100" size="20px" folder="icons/new" name="Star" />
+                                <small class="text-gray-50">{{ course.score.toFixed(1) }} از 8</small>
                             </span>
                         </div>
+                    </nuxt-link>
+                    <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="w-full">
+                        <h3 class="kalameh_black text-lg text-gray-700 overflow-hidden overflow-ellipsis whitespace-nowrap">{{ course.name }}</h3>
+                    </nuxt-link>
+                    <ul class="flex flex-wrap items-start gap-4 w-full">
+                        <li class="flex items-center gap-1 text-orange-800 text-xs">
+                            <i class="w-1.5 h-1.5 rounded-full bg-orange-400"></i>
+                            {{ course.groups[0].name }}
+                        </li>
+                    </ul>
+                    <p class="text-sm w-full max-w-xs h-16 overflow-hidden">
+                        {{ course.description.length > 120 ? course.description.substr(0, 120) + "..." : course.description }}
+                    </p>
+                    <div class="flex flex-wrap items-center justify-between gap-4 w-full">
+                        <small
+                            class="course_tag flex items-center gap-1 p-1 px-2 bg-red-500 text-white rounded-full text-xs"
+                            v-if="course.discountInfo && course.discountInfo.tag != 'رایگان' && course.price > 0"
+                        >
+                            <span class="kalameh_bold">{{ course.discountInfo.tag }}</span>
+                            <span class="kalameh_bold" v-if="!!course.discountInfo.discountType">تخفیف</span>
+                        </small>
+                    </div>
+                    <hr class="w-full border-t-2 border-b-0 border-gray-200" />
+                    <div class="flex items-center justify-between gap-2 w-full">
                         <nuxt-link
                             :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`"
-                            class="orange_gradient_h flex items-center justify-center gap-4 py-4 px-8 rounded-2xl"
+                            class="view_topics flex items-center p-3 px-4 text-sm rounded-2xl flex-shrink-0"
                         >
-                            <span v-if="course.price">
-                                <b class="text-3xl">{{ new Intl.NumberFormat("fa").format(course.discountInfo.discountedPrice) }}</b>
-                                تومان
-                            </span>
-                            <span class="text-xl" v-else>رایگان</span>
-                            <img src="/icons/Buy.svg" alt="Buy" width="24" height="24" />
+                            مشاهده سرفصل ها
                         </nuxt-link>
+                        <div class="flex items-end justify-center gap-4">
+                            <div class="flex flex-col" v-if="course.price">
+                                <span class="flex items-center gap-1">
+                                    <b :class="[course.price != course.discountInfo.discountedPrice ? 'text-base line-through' : 'text-xl']">
+                                        {{ new Intl.NumberFormat("fa").format(course.price) }}
+                                    </b>
+                                    <small>تومان</small>
+                                </span>
+                                <b class="text-2xl text-amber-500" v-if="course.price != course.discountInfo.discountedPrice">
+                                    {{ new Intl.NumberFormat("fa").format(course.discountInfo.discountedPrice) }}
+                                </b>
+                            </div>
+                            <span class="text-xl font-bold" v-else>رایگان</span>
+                        </div>
                     </div>
                 </li>
             </ul>

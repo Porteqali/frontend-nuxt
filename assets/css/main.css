@@ -85,10 +85,7 @@ body {
 
 .orange_gradient_v {
     color: #fff; transition: all .3s;
-    background: linear-gradient(273.67deg, #ff8537 -20.26%, #ff51b1 114.54%);
-}
-.orange_gradient_v:hover {
-    background: linear-gradient(142.39deg, #ff8537 0%, #ff51b1 100.15%);
+    background: linear-gradient(87.25deg, #FFA825 -11.51%, #FF70D7 114.56%);
 }
 
 .orange_gradient_h {
