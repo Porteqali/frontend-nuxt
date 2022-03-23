@@ -1,78 +1,64 @@
 <style scoped>
-#top {
-    /* color: var(--top-h1-color); */
-    font-weight: 900;
-}
-.top_article_card {
-    background-color: #000c7880;
-    font-weight: initial;
-    width: 90vw;
-    margin-right: 20%;
-    margin-left: -11vw;
-    box-shadow: 0px 50px 100px rgba(0, 0, 0, 0.25);
-}
-.top_article_card > img {
-    height: 30vw;
-    min-height: 320px;
-    top: -8vw;
-    left: 0;
+.top_article > img {
+    height: 100vw;
+    max-height: 320px;
 }
 
-.article_card {
-    background-color: #3f0e4790;
-    color: var(--top-h1-color);
-    box-shadow: 0px 50px 100px rgba(0, 0, 0, 0.25);
+.view_topics {
+    --color-bg: #fff;
+    background: linear-gradient(var(--color-bg), var(--color-bg)) padding-box, linear-gradient(273.67deg, #ff8537 -20.26%, #ff51b1 114.54%) border-box;
+    border: 2px solid transparent;
+    transition: all 0.1s;
 }
-.article_card img {
-    max-height: 16rem;
-}
-.article_category {
-    border-radius: 0 1rem 0 1rem;
-    background-color: #3f0e47bb;
-}
-
-@media (min-width: 768px) {
-    .article_card img {
-        max-height: initial;
-    }
+.view_topics:hover {
+    background: linear-gradient(273.67deg, #ff8537 -20.26%, #ff51b1 114.54%);
+    color: #fff;
 }
 </style>
 
 <template>
-    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full mt-10 lg:mt-0">
-        <section class="relative flex flex-col lg:flex-row justify-center items-center w-full" id="top">
-            <div class="flex flex-wrap-reverse items-center justify-center flex-grow w-full">
-                <img class="" src="/pages/blog/SchoolMan.png" alt="porteqali-SchoolMan" style="max-height: 1920px" />
-                <div class="flex flex-col gap-10 text-bluegray-900">
-                    <h1 class="flex flex-col gap-4 text-5xl lg:text-7xl">
-                        <span class="kalameh_black font-bold">وبلاگ</span>
-                    </h1>
-                    <ul class="flex items-center gap-2 font-light">
-                        <li><nuxt-link title="صفحه اصلی" to="/">صفحه اصلی</nuxt-link></li>
-                        <li>&gt;</li>
-                        <li>وبلاگ</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="top_article_card blur relative rounded-3xl p-8 lg:p-16 ml-0 mr-auto text-white" v-if="!topArticleLoading">
-                <div class="relative flex flex-col gap-4 max-w-xs z-10">
-                    <span class="text-blue-300" v-if="!!topArticle.category">{{ topArticle.category.name }}</span>
-                    <h3 class="font-bold text-2xl">{{ topArticle.title }}</h3>
+    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full mt-28 md:mt-32 px-4 md:px-8">
+        <img class="absolute -z-1 -left-28 top-52 opacity-25" src="/misc/path.svg" alt="path" />
+        <section class="relative flex flex-col lg:flex-row justify-center items-center w-full">
+            <div class="top_article flex flex-col md:flex-row gap-6 w-full" v-if="!topArticleLoading">
+                <img class="w-full max-w-lg rounded-3xl object-cover bg-warmgray-100 shadow-xl" :src="topArticle.image" :alt="topArticle.title" />
+                <div class="flex flex-col gap-6 flex-grow">
+                    <h3 class="kalameh_bold font-bold text-3xl md:text-4xl">{{ topArticle.title }}</h3>
+                    <div class="flex flex-wrap items-center justify-between gap-4 w-full">
+                        <div class="flex items-center gap-2" v-if="topArticle.author">
+                            <img
+                                class="w-10 h-10 rounded-full object-cover"
+                                :src="topArticle.author.image"
+                                :alt="`${topArticle.author.name} ${topArticle.author.family}`"
+                            />
+                            <span class="font-bold">{{ `${topArticle.author.name} ${topArticle.author.family}` }}</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <Icon class="w-6 h-6 bg-cyan-300" size="24px" folder="icons/new" name="Calendar" />
+                            <small class="opacity-75 text-base">{{ new Date(topArticle.publishedAt).toLocaleDateString("fa") }}</small>
+                        </div>
+                    </div>
                     <p>{{ topArticle.description }}</p>
                     <nuxt-link
-                        class="flex items-center justify-center gap-2 p-3 px-6 rounded-full w-max bg-lightblue-200 text-blue-900 shadow-lg"
+                        class="view_topics flex items-center p-3 px-4 font-bold rounded-2xl w-max"
                         :to="`/article/${topArticle.slug}`"
                         :title="topArticle.title"
                     >
                         <span>مطالعه مقاله</span>
-                        <img src="/icons/Document.orange.svg" alt="Document" />
                     </nuxt-link>
                 </div>
-                <img class="absolute h-full" src="/backgrounds/Background7.svg" alt="Background7" />
             </div>
-            <div class="top_article_card blur rounded-3xl p-8 ml-0 mr-auto" v-else>
-                <div class="flex flex-col gap-4 max-w-xs">
-                    <div class="skeleton w-full h-4"></div>
+            <div class="top_article flex flex-col md:flex-row gap-6 w-full" v-else>
+                <div class="skeleton w-full max-w-lg h-80 rounded-3xl shadow-xl" />
+                <div class="flex flex-col gap-4 w-full flex-grow">
+                    <div class="skeleton w-full h-8"></div>
+                    <div class="flex flex-col gap-2">
+                        <span class="skeleton w-full h-2"></span>
+                        <span class="skeleton w-full h-2"></span>
+                        <span class="skeleton w-full h-2"></span>
+                        <span class="skeleton w-full h-2"></span>
+                        <span class="skeleton w-4/12 h-2"></span>
+                    </div>
                     <div class="flex flex-col gap-2">
                         <span class="skeleton w-full h-2"></span>
                         <span class="skeleton w-full h-2"></span>
@@ -87,104 +73,82 @@
             </div>
         </section>
 
-        <img class="-mb-24" src="/misc/dots.svg" alt="dots" />
+        <span class="spacer_v w-10/12 h-0.5 -my-6"></span>
 
-        <section class="relative flex flex-col gap-8 w-full" id="most-viewed-articles">
-            <div class="flex flex-wrap justify-between items-center gap-8 w-full">
-                <h2 class="font-bold text-4xl">محبوب ترین بلاگ ها</h2>
-                <nuxt-link class="flex items-center gap-1" to="#" title="محبوب ترین بلاگ ها">
-                    <span>مشاهده همه</span>
-                    <img src="/icons/ArrowLeft.line.svg" alt="ArrowLeft" />
-                </nuxt-link>
-            </div>
-            <div v-if="!popularArticlesLoading">
-                <div v-swiper="popularArticlesSwiperOptions" class="w-full max-w-screen-4xl select-none overflow-hidden shadow-2xl">
-                    <ul class="swiper-wrapper flex items-start">
-                        <li
-                            class="swiper-slide article_card shadow-lg flex flex-col sm:flex-row gap-4 p-4 rounded-3xl w-full max-w-screen-sm ml-4"
-                            v-for="(popularArticle, i) in popularArticles"
-                            :key="i"
+        <section class="relative flex flex-col items-center justify-center gap-8 w-full" id="most-viewed-articles">
+            <h2 class="kalameh_bold title2 text-2xl md:text-3xl w-max max-w-full">پربازدیدترین مطالب</h2>
+            <div v-swiper="popularArticlesSwiperOptions" class="w-full max-w-screen-xl select-none overflow-hidden" v-if="!popularArticlesLoading">
+                <ul class="swiper-wrapper flex items-start p-8 pt-0">
+                    <li class="swiper-slide flex w-full max-w-xs bg-white shadow-xl p-4 rounded-3xl ml-6" v-for="(popularArticle, i) in popularArticles" :key="i">
+                        <nuxt-link
+                            class="flex flex-col gap-4 flex-grow rounded-3xl w-full sm:max-w-xs"
+                            :to="`/article/${popularArticle.slug}`"
+                            :title="popularArticle.title"
                         >
-                            <div class="relative overflow-hidden rounded-3xl shadow-lg flex-shrink-0 w-full sm:w-64">
-                                <img class="max-w-screen-sm w-full h-52 sm:h-96 object-cover" :src="popularArticle.image" alt="course" draggable="false" />
-                                <span
-                                    class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2"
-                                    v-if="!!popularArticle.category"
-                                >
-                                    {{ popularArticle.category.name }}
+                            <img
+                                class="max-w-screen-xs w-full h-48 rounded-2xl object-cover"
+                                :src="popularArticle.image"
+                                :alt="popularArticle.title"
+                                loading="lazy"
+                            />
+                            <h3 class="kalameh_bold text-lg w-full overflow-hidden overflow-ellipsis whitespace-nowrap">{{ popularArticle.title }}</h3>
+                            <div class="bg-orange-400 h-1.5 rounded-full w-full"></div>
+                            <div class="flex flex-wrap justify-between items-center gap-4">
+                                <div class="flex items-center gap-1">
+                                    <Icon class="w-5 h-5 bg-cyan-300" size="20px" folder="icons/new" name="Calendar" />
+                                    <small class="opacity-75 text-sm">{{ new Date(popularArticle.publishedAt).toLocaleDateString("fa") }}</small>
+                                </div>
+                                <span class="flex items-end gap-1">
+                                    <small class="kalameh_bold">{{ popularArticle.likes }}</small>
+                                    <Icon class="w-5 h-5 bg-rose-400" size="20px" folder="icons/new" name="Heart" />
                                 </span>
                             </div>
-                            <div class="flex flex-col gap-6 p-4 w-full">
-                                <h3 class="font-bold text-2xl w-full md:w-screen max-w-xs overflow-hidden overflow-ellipsis whitespace-nowrap">
-                                    {{ popularArticle.title }}
-                                </h3>
-                                <p class="max-w-xs opacity-75 h-28 overflow-hidden">{{ popularArticle.description }}</p>
-                                <div class="flex flex-wrap justify-between items-center gap-4">
-                                    <div class="flex items-start gap-2">
-                                        <img
-                                            class="rounded-full object-cover w-8 h-8"
-                                            :src="popularArticle.author.image"
-                                            :alt="`${popularArticle.author.name} ${popularArticle.author.family}`"
-                                            loading="lazy"
-                                            width="32"
-                                            height="32"
-                                        />
-                                        <div class="flex flex-col gap-1">
-                                            <small v-if="!!popularArticle.author">{{ `${popularArticle.author.name} ${popularArticle.author.family}` }}</small>
-                                            <small class="opacity-75">{{ new Date(popularArticle.publishedAt).toLocaleDateString("fa") }}</small>
-                                        </div>
-                                    </div>
-                                    <span class="flex items-end gap-1">
-                                        <img src="/icons/Heart.svg" alt="Heart" width="20" height="20" />
-                                        <small>{{ popularArticle.likes }}</small>
-                                    </span>
-                                </div>
-                                <nuxt-link
-                                    :to="`/article/${popularArticle.slug}`"
-                                    :title="popularArticle.title"
-                                    class="gray_gradient flex items-center justify-center gap-4 shadow-md py-3 px-8 mt-auto mb-0 rounded-xl"
-                                >
-                                    مطالعه
-                                </nuxt-link>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="w-full max-w-screen-4xl select-none overflow-hidden p-4" v-else>
-                <ul class="flex flex-col md:flex-row items-start gap-4 w-full">
-                    <li
-                        class="article_card shadow-lg flex flex-col sm:flex-row gap-4 p-4 rounded-2xl w-full max-w-screen-sm"
-                        v-for="(popularArticle, i) in popularArticles"
-                        :key="i"
-                    >
-                        <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full sm:w-64">
-                            <img class="max-w-screen-sm w-full sm:h-full object-cover" src="/misc/article.png" alt="course" draggable="false" />
-                            <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2">
-                                <span class="skeleton w-4/12 h-2"></span>
-                            </span>
-                        </div>
-                        <div class="flex flex-col gap-6 pt-2 w-full max-w-sm">
-                            <h3 class="skeleton w-full h-4"></h3>
-                            <div class="flex flex-col gap-2">
-                                <span class="skeleton w-full h-2"></span>
-                                <span class="skeleton w-full h-2"></span>
-                                <span class="skeleton w-4/12 h-2"></span>
-                            </div>
-                            <div class="flex flex-col gap-2">
-                                <span class="skeleton w-full h-2"></span>
-                                <span class="skeleton w-full h-2"></span>
-                                <span class="skeleton w-4/12 h-2"></span>
-                            </div>
-                            <div class="flex items-start gap-2 w-full">
-                                <span class="skeleton w-10 h-10 rounded-full"></span>
-                                <span class="skeleton w-8 h-2"></span>
-                            </div>
-                        </div>
+                        </nuxt-link>
                     </li>
                 </ul>
             </div>
+            <div class="md:absolute md:-mt-12 orange_gradient_v flex items-center justify-between px-6 w-full h-4 rounded-full">
+                <button class="flex items-center justify-center p-2 bg-white shadow-xl rounded-xl swiper-prev">
+                    <img src="/icons/new/ArrowRight3.svg" width="24" />
+                </button>
+                <button class="flex items-center justify-center p-2 bg-white shadow-xl rounded-xl swiper-next">
+                    <img src="/icons/new/ArrowLeft3.svg" width="24" />
+                </button>
+            </div>
         </section>
+
+        <section class="relative flex flex-col items-center justify-center gap-8 w-full">
+            <h4 class="kalameh_bold text-xl opacity-65">مطالب ما رو تو شبکه های اجتماعی دنبال کنید</h4>
+            <div class="flex flex-wrap items-center justify-center gap-8 w-full max-w-screen-xl">
+                <div class="orange_gradient_v flex items-center gap-4 w-full max-w-lg rounded-3xl p-4" v-if="contact_info.socials && contact_info.socials.telegram">
+                    <img class="w-16 h-16" src="/social/instagram.png" alt="instagram" />
+                    <span class="kalameh_bold text-xl md:text-2xl">پرتقال در اینستاگرام</span>
+                    <a
+                        :href="contact_info.socials.telegram"
+                        class="border-2 border-solid border-white rounded-2xl p-3 px-5 text-sm mr-auto"
+                        title="پرتقال در اینستاگرام"
+                    >
+                        مشاهده
+                    </a>
+                </div>
+                <div
+                    class="bg-lightblue-400 text-white flex items-center gap-4 w-full max-w-lg rounded-3xl p-4"
+                    v-if="contact_info.socials && contact_info.socials.instagram"
+                >
+                    <img class="w-16 h-16" src="/social/telegram.png" alt="telegram" />
+                    <span class="kalameh_bold text-xl md:text-2xl">پرتقال در تلگرام</span>
+                    <a
+                        :href="contact_info.socials.instagram"
+                        class="border-2 border-solid border-white rounded-2xl p-3 px-5 text-sm mr-auto"
+                        title="پرتقال در تلگرام"
+                    >
+                        مشاهده
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <span class="spacer_v w-8/12 h-0.5"></span>
 
         <Nuxt nuxt-child-key="blog" />
     </main>
@@ -204,10 +168,10 @@ export default {
         return {
             topArticleLoading: false,
             topArticle: {
+                image: "",
                 title: "نرم افزار اییوز چیست و چه کاربردی دارد؟",
                 description:
                     "نرم افزار ایویوز یکی از نرم‌افزار‌های آماری و اقتصادسنجی به روز است که ابزاری تحلیلی برای کاربران فراهم می‌کند و بکارگیری آن با سهولت همراه…",
-                category: { name: "برنامه نویسی" },
                 slug: "article-title",
             },
 
@@ -217,17 +181,20 @@ export default {
                 autoplay: false,
                 slidesPerView: "auto",
                 initialSlide: 0,
-                // spaceBetween: 16,
+                prevButton: ".swiper-prev",
+                nextButton: ".swiper-next",
                 loop: true,
                 freeMode: true,
             },
+
+            contact_info: this.contact_info || {},
         };
     },
     async fetch() {
         let headers = {};
         if (process.server) headers = this.$nuxt.context.req.headers;
 
-        await Promise.all([this.getMetadata("blog"), this.getTopArticle({ headers }), this.getMostPopularArticles({ headers })]);
+        await Promise.all([this.getMetadata("blog"), this.getTopArticle({ headers }), this.getMostPopularArticles({ headers }), this.getContactInfo({ headers })]);
     },
     methods: {
         async getTopArticle(data = {}) {
@@ -264,6 +231,20 @@ export default {
                 .then((results) => (this.popularArticles = results.data))
                 .catch((e) => {})
                 .finally(() => (this.popularArticlesLoading = false));
+        },
+
+        async getContactInfo(data = {}) {
+            let url = `/api/contact-info`;
+            let headers = {};
+            if (process.server) {
+                url = `${process.env.BASE_URL}${url}`;
+                headers = data.headers ? data.headers : {};
+            }
+
+            await axios
+                .get(url, { headers })
+                .then((results) => (this.contact_info = results.data))
+                .catch((e) => {});
         },
     },
 };

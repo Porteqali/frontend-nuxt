@@ -1,13 +1,19 @@
 <style scoped>
 .box {
     position: absolute;
-    top: 3.75rem;
+    top: 10rem;
     margin-right: -2rem;
     background-color: #fff;
     color: #333;
 }
 ul li:hover {
     transform: scale(1.05, 1.05);
+}
+
+@media (min-width: 1024px) {
+    .box {
+        top: 3.75rem;
+    }
 }
 </style>
 

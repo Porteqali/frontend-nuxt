@@ -165,7 +165,7 @@
         </section>
         <section class="w-full" id="articles" v-if="selectedSearchSection.value == 'article'">
             <ul class="flex flex-wrap items-center justify-center gap-10 w-full">
-                <li class="flex w-full rounded-xl max-w-xs" v-for="(article, i) in results" :key="i">
+                <li class="flex w-full rounded-2xl max-w-xs" v-for="(article, i) in results" :key="i">
                     <nuxt-link
                         class="flex flex-col gap-2 rounded-3xl w-full xs:max-w-xs p-4 bg-gray-700 text-white shadow-xl"
                         :to="`/article/${article.slug}`"

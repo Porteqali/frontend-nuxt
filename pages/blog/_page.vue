@@ -1,114 +1,82 @@
-<style scoped>
-#top {
-    /* color: var(--top-h1-color); */
-    font-weight: 900;
-}
-
-.top_article_card {
-    background-color: #3f0e4790;
-    font-weight: initial;
-    width: 110vw;
-    margin-right: 10%;
-    margin-left: -10vw;
-    box-shadow: 0px 50px 100px rgba(0, 0, 0, 0.25);
-}
-.article_card {
-    background-color: #3f0e4790;
-    color: var(--top-h1-color);
-    box-shadow: 0px 50px 100px rgba(0, 0, 0, 0.25);
-}
-.article_card img {
-    max-height: 16rem;
-}
-.article_category {
-    border-radius: 0 1rem 0 1rem;
-    background-color: #3f0e47bb;
-}
-
-@media (min-width: 768px) {
-    .article_card img {
-        max-height: initial;
-    }
-}
-</style>
+<style scoped></style>
 
 <template>
-    <section class="relative flex flex-col gap-8 w-full" id="articles">
-        <div class="flex flex-wrap justify-between items-center gap-8 w-full">
-            <h2 class="font-bold text-4xl">آرشیو مقالات</h2>
-            <div class="flex flex-wrap gap-4 w-max">
-                <div class="flex items-center gap-1">
-                    <img src="/icons/Filter.svg" alt="Filter" width="24" height="24" />
-                    <span class="flex flex-shrink-0">مرتب سازی بر اساس</span>
-                    <Select
-                        :selectedOption.sync="selectedArticleOrder"
-                        @update:selectedOption="getArticles"
-                        :options="articleOrderOptions"
-                        placeholder="انتخاب کنید"
-                    >
-                        <template v-slot:option="{ option }">
-                            <span :value="option.value">{{ option.name }}</span>
-                        </template>
-                    </Select>
+    <section class="relative flex flex-col gap-10 w-full mb-16" id="articles">
+        <h2 class="kalameh_bold title text-3xl md:text-5xl w-max max-w-full">آرشیو مقالات</h2>
+        <div class="flex flex-wrap items-center justify-between gap-4 w-full">
+            <div class="flex items-center gap-1">
+                <Select :selectedOption.sync="selectedArticleOrder" @update:selectedOption="getArticles" :options="articleOrderOptions" placeholder="ترتیب نمایش">
+                    <template v-slot:option="{ option }">
+                        <span :value="option.value">{{ option.name }}</span>
+                    </template>
+                </Select>
+            </div>
+            <div class="flex items-center gap-1">
+                <button class="flex items-center justify-center swiper-prev">
+                    <img src="/icons/new/ArrowRight2.svg" width="24" />
+                </button>
+                <div v-swiper="categorySwiperOptions" class="w-full max-w-xl select-none overflow-hidden">
+                    <ul class="swiper-wrapper flex items-start">
+                        <li
+                            class="swiper-slide flex w-max max-w-max bg-white shadow-sm p-3 px-4 rounded-2xl ml-4 cursor-pointer"
+                            :class="{ orange_gradient_v: selectedArticleCategory.value == opt.value }"
+                            v-for="(opt, i) in articleCategoryOptions"
+                            :key="i"
+                            @click="categoryChanged(opt)"
+                        >
+                            {{ opt.name }}
+                        </li>
+                    </ul>
                 </div>
-                <div class="flex items-center gap-1">
-                    <img src="/icons/Category.black.svg" alt="Category" width="24" height="24" />
-                    <span class="flex flex-shrink-0">دسته بندی</span>
-                    <Select
-                        :selectedOption.sync="selectedArticleCategory"
-                        @update:selectedOption="getArticles"
-                        :options="articleCategoryOptions"
-                        placeholder="انتخاب کنید"
-                    >
-                        <template v-slot:option="{ option }">
-                            <span :value="option.value">{{ option.name }}</span>
-                        </template>
-                    </Select>
-                </div>
+                <button class="flex items-center justify-center swiper-next">
+                    <img src="/icons/new/ArrowLeft2.svg" width="24" />
+                </button>
             </div>
         </div>
-        <ul class="grid gap-10" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr))" v-if="!articlesLoading">
-            <li class="flex w-full rounded-xl mx-auto max-w-md" v-for="(article, i) in articles" :key="i">
+
+        <ul class="flex flex-wrap items-center justify-center gap-10 w-full" v-if="!articlesLoading">
+            <li class="flex w-full rounded-2xl max-w-xs" v-for="(article, i) in articles" :key="i">
                 <nuxt-link
-                    class="article_card flex flex-col gap-4 flex-grow rounded-3xl shadow-xl w-full"
+                    class="flex flex-col gap-2 rounded-3xl w-full xs:max-w-xs p-4 bg-gray-700 text-white shadow-xl"
                     :to="`/article/${article.slug}`"
                     :title="article.title"
+                    v-if="article"
                 >
-                    <div class="relative overflow-hidden rounded-3xl shadow-lg flex-shrink-0 w-full h-64">
-                        <img class="max-w-screen-sm w-full h-full object-cover" :src="article.image" alt="course" loading="lazy" />
-                        <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2" v-if="!!article.category[0]">
-                            {{ article.category[0].name }}
-                        </span>
-                    </div>
-                    <div class="flex flex-col gap-4 p-4 pt-0 h-full">
-                        <h3 class="text-2xl max-w-screen-xs overflow-hidden overflow-ellipsis whitespace-nowrap">{{ article.title }}</h3>
-                        <p class="max-w-xs opacity-75 flex-grow">{{ article.description }}</p>
-                        <div class="flex flex-wrap justify-between items-center gap-4">
-                            <div class="flex items-start gap-2">
-                                <img
-                                    class="rounded-full object-cover w-8 h-8"
-                                    v-if="!!article.author"
-                                    :src="article.author[0].image"
-                                    :alt="`${article.author[0].name} ${article.author[0].family}`"
-                                    width="32"
-                                    height="32"
-                                />
-                                <div class="flex flex-col gap-1">
-                                    <small v-if="!!article.author">{{ `${article.author[0].name} ${article.author[0].family}` }}</small>
-                                    <small class="opacity-75">{{ new Date(article.publishedAt).toLocaleDateString("fa") }}</small>
-                                </div>
-                            </div>
-                            <span class="flex items-end gap-1">
-                                <img src="/icons/Heart.svg" alt="Heart" width="20" height="20" />
-                                <small>{{ article.likes }}</small>
+                    <img class="w-full h-52 object-cover rounded-2xl" :src="article.image" alt="course" loading="lazy" />
+                    <h3 class="kalameh_bold text-lg w-full overflow-hidden overflow-ellipsis whitespace-nowrap">{{ article.title }}</h3>
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="flex items-center gap-4 w-full">
+                            <div class="orange_gradient_v h-1.5 rounded-full flex-grow"></div>
+                            <span class="flex items-end gap-1 flex-shrink-0">
+                                <small class="kalameh_bold">{{ article.likes }}</small>
+                                <Icon class="w-6 h-6 bg-rose-400" size="24px" folder="icons/new" name="Heart" />
                             </span>
                         </div>
+                        <div class="flex flex-wrap items-center justify-between gap-4 w-full">
+                            <div class="flex items-center gap-1">
+                                <img
+                                    class="w-8 h-8 rounded-full shadow-md"
+                                    loading="lazy"
+                                    :src="article.author[0].image"
+                                    :alt="`${article.author[0].name} ${article.author[0].family}`"
+                                    v-if="!!article.author[0]"
+                                />
+                                <small v-if="!!article.author">{{ `${article.author[0].name} ${article.author[0].family}` }}</small>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <Icon class="w-5 h-5 bg-cyan-200" size="20px" folder="icons/new" name="Calendar" />
+                                <small class="opacity-75 text-sm">{{ new Date(article.publishedAt).toLocaleDateString("fa") }}</small>
+                            </div>
+                        </div>
                     </div>
+                    <p class="w-full text-sm max-w-xs opacity-75 h-20 overflow-hidden">
+                        {{ article.description.length > 240 ? article.description.substr(0, 240) + "..." : article.description }}
+                    </p>
                 </nuxt-link>
             </li>
         </ul>
         <ul class="flex flex-wrap justify-center md:justify-start gap-4 2xl:gap-12" v-else>
-            <li class="article_card flex flex-col gap-4 p-4 w-full sm:max-w-xs shadow-lg rounded-xl" v-for="(item, i) in articlesSkeleton" :key="i">
+            <li class="flex flex-col gap-4 p-4 w-full sm:max-w-xs shadow-lg rounded-3xl bg-gray-700" v-for="(item, i) in articlesSkeleton" :key="i">
                 <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full h-48">
                     <span class="skeleton flex max-w-screen-sm w-full h-48"></span>
                     <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 right-2">
@@ -116,22 +84,22 @@
                     </span>
                 </div>
                 <h3 class="skeleton w-full h-6"></h3>
-                <div class="flex flex-col gap-2 w-full">
-                    <span class="skeleton w-full h-2"></span>
-                    <span class="skeleton w-full h-2"></span>
-                    <span class="skeleton w-full h-2"></span>
-                    <span class="skeleton w-4/12 h-2"></span>
-                </div>
                 <div class="flex flex-wrap justify-between items-center gap-4">
                     <div class="flex items-start gap-2">
                         <div class="skeleton rounded-full w-8 h-8"></div>
                         <span class="skeleton w-8"></span>
                     </div>
                 </div>
+                <div class="flex flex-col gap-2 w-full">
+                    <span class="skeleton w-full h-2"></span>
+                    <span class="skeleton w-full h-2"></span>
+                    <span class="skeleton w-full h-2"></span>
+                    <span class="skeleton w-4/12 h-2"></span>
+                </div>
             </li>
         </ul>
 
-        <ul class="flex items-center justify-center gap-4">
+        <ul class="flex items-center justify-center gap-4 md:gap-6">
             <li>
                 <nuxt-link
                     class="flex items-center justify-center rounded-full"
@@ -140,13 +108,13 @@
                         Math.max(articlesPage - 1, 1),
                     )}`"
                 >
-                    <img src="/icons/ArrowRight.line.svg" width="24" height="24" alt="ArrowRight" />
+                    <Icon class="w-6 h-6 bg-gray-700" size="24px" folder="icons/new" name="ArrowRight3" />
                 </nuxt-link>
             </li>
             <li v-for="(item, i) in articlesPages" :key="i">
                 <nuxt-link
-                    class="flex items-center justify-center p-3 w-8 h-8 shadow-sm rounded-full"
-                    :class="articlesPage == item ? 'bg-lightblue-300' : 'bg-indigo-100'"
+                    class="flex items-center justify-center p-3 w-10 h-10 shadow-lg rounded-xl"
+                    :class="articlesPage == item ? 'bg-gray-700 text-white' : 'bg-white'"
                     :to="`${`/blog/:page?order=${selectedArticleOrder.value}&category=${selectedArticleCategory.value}`.replace(':page', item)}`"
                     v-if="item > 0"
                 >
@@ -162,7 +130,7 @@
                         Math.min(articlesPage + 1, articlesPageTotal),
                     )}`"
                 >
-                    <img src="/icons/ArrowLeft.line.svg" width="24" height="24" alt="ArrowLeft" />
+                    <Icon class="w-6 h-6 bg-gray-700" size="24px" folder="icons/new" name="ArrowLeft3" />
                 </nuxt-link>
             </li>
         </ul>
@@ -184,8 +152,18 @@ export default {
                 oldest: { name: "قدیمی ترین", value: "oldest" },
                 "most-popular": { name: "محبوب ترین", value: "most-popular" },
             },
+
             selectedArticleCategory: this.selectedArticleCategory || { name: "", value: "" },
             articleCategoryOptions: this.articleCategoryOptions || { "": { name: "همه", value: "" } },
+            categorySwiperOptions: {
+                autoplay: false,
+                slidesPerView: "auto",
+                initialSlide: 0,
+                prevButton: ".swiper-prev",
+                nextButton: ".swiper-next",
+                loop: false,
+                freeMode: true,
+            },
 
             articles: this.articles || [],
             articlesPages: this.articlesPages || [],
@@ -193,7 +171,7 @@ export default {
             articlesTotal: this.articlesTotal || 0,
             articlesPageTotal: this.articlesPageTotal || 1,
             articlesLoading: false,
-            articlesSkeleton: [0, 0, 0, 0, 0],
+            articlesSkeleton: [0, 0, 0, 0],
         };
     },
     async fetch() {
@@ -234,7 +212,8 @@ export default {
         },
 
         async getArticles(data = {}) {
-            if (this.articlesLoading || this.articlesPage > this.articlesPageTotal) return;
+            // if (this.articlesLoading || this.articlesPage > this.articlesPageTotal) return;
+            if (this.articlesLoading) return;
             this.articlesLoading = true;
 
             let url = `/api/articles`;
@@ -258,6 +237,12 @@ export default {
                 })
                 .catch((e) => {})
                 .finally(() => (this.articlesLoading = false));
+        },
+
+        async categoryChanged(opt) {
+            this.selectedArticleCategory = opt;
+            console.log(opt);
+            await this.getArticles();
         },
 
         processRoute(route) {

@@ -1,10 +1,18 @@
-<style></style>
+<style scoped>
+.side_image {
+    min-height: 32rem;
+    width: 24rem;
+}
+.side_image img {
+    width: calc(100% + 3rem);
+}
+</style>
 
 <template>
     <Dialog :open="open" @update:open="updateOpenState">
         <div class="flex items-center gap-6 w-full">
-            <div class="flex flex-col gap-4 max-w-xs">
-                <h4 class="font-bold text-2xl">حساب آموزشی خود را ایجاد کنید</h4>
+            <div class="flex flex-col gap-6 max-w-xs w-full flex-shrink-0">
+                <h4 class="kalameh_black title font-bold text-3xl w-max max-w-full overflow-hidden">حساب آموزشی خود را ایجاد کنید</h4>
 
                 <a href="/auth/login/google" class="bg-white shadow-sm hover:shadow-md p-3 rounded-xl flex justify-center items-center gap-2">
                     <img class="w-6" src="/misc/google.svg" alt="google" />
@@ -163,8 +171,8 @@
                     <span class="text-orange-600 underline">ورود به حساب</span>
                 </button>
             </div>
-            <div class="hidden lg:flex">
-                <img src="/pages/login-register/Custom2.png" class="w-full max-w-md" />
+            <div class="side_image orange_gradient_v hidden lg:flex rounded-2xl shadow-xl mr-12">
+                <img src="/pages/login-register/bg.png" class="object-contain max-w-lg -mr-12" />
             </div>
         </div>
     </Dialog>
