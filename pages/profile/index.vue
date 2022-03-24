@@ -1,14 +1,10 @@
-<style scoped>
-.card {
-    background-color: #ffffff77;
-}
-</style>
+<style scoped></style>
 
 <template>
-    <section class="card relative flex flex-col gap-8 p-4 md:p-6 rounded-3xl shadow-xl w-full max-w-screen-lg flex-grow">
+    <section class="relative flex flex-col gap-8 p-4 md:p-6 rounded-3xl shadow-xl bg-white w-full max-w-screen-lg flex-grow">
         <div class="flex items-center gap-2">
             <img src="/icons/Profile.gray.svg" width="32" height="32" alt="Profile" />
-            <h2 class="text-2xl">اطلاعات حساب</h2>
+            <h2 class="kalameh_bold title text-2xl">اطلاعات حساب</h2>
         </div>
         <AvatarImageUpload v-if="!loading" />
         <form class="flex flex-col items-start gap-6" @submit="save($event)" v-if="!loading">
@@ -28,8 +24,13 @@
                     <label class="">ایمیل</label>
                     <input type="email" v-model="email" dir="auto" class="p-3 w-full rounded-xl shadow-xl" disabled />
                 </div>
-                <button type="button" class="gray_gradient p-3 px-4 rounded-2xl shadow-md flex-shrink-0" @click="emailVerificationOpenState = true">
-                    ویرایش و تایید ایمیل
+                <button
+                    type="button"
+                    class="gray_gradient flex items-center gap-1 p-3 px-4 rounded-2xl shadow-md flex-shrink-0"
+                    @click="emailVerificationOpenState = true"
+                >
+                    <Icon class="w-6 h-6 bg-gray-100" size="24px" folder="icons/new" name="Edit" />
+                    <span>ویرایش و تایید ایمیل</span>
                 </button>
             </div>
             <div class="flex flex-wrap md:flex-nowrap items-end gap-4 w-full">
@@ -37,8 +38,13 @@
                     <label class="">شماره موبایل</label>
                     <input type="email" v-model="mobile" dir="auto" class="p-3 w-full rounded-xl shadow-xl" disabled />
                 </div>
-                <button type="button" class="gray_gradient p-3 px-4 rounded-2xl shadow-md flex-shrink-0" @click="mobileVerificationOpenState = true">
-                    ویرایش و تایید شماره موبایل
+                <button
+                    type="button"
+                    class="gray_gradient flex items-center gap-1 p-3 px-4 rounded-2xl shadow-md flex-shrink-0"
+                    @click="mobileVerificationOpenState = true"
+                >
+                    <Icon class="w-6 h-6 bg-gray-100" size="24px" folder="icons/new" name="Edit" />
+                    <span>ویرایش و تایید شماره موبایل</span>
                 </button>
             </div>
             <hr class="w-full" />

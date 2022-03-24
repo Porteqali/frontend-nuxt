@@ -1,159 +1,126 @@
 <style scoped>
-#top {
-    /* color: var(--top-h1-color); */
-    font-weight: 900;
+.about_text {
+    font-size: 1.25rem;
+    line-height: 2.5rem;
+    border: 1rem solid #c9c9c9;
+    border-radius: 2rem;
 }
 
-.counts {
-    color: var(--about-us-counts-color);
-}
-
-.teacher_card {
-    background-color: rgba(19, 40, 80, 0.8);
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: relative;
-    color: #fff;
-}
-.teacher_card * {
-    z-index: 2;
-}
-.teacher_card::before {
-    color: #fff;
-    background: linear-gradient(0deg, rgba(19, 40, 80, 0.8), rgba(19, 40, 80, 0.8));
-    content: "";
-    position: absolute;
-    inset: 0;
-    backdrop-filter: blur(15px);
-    border-radius: 1.5rem;
-}
-
-.more_btn {
-    background-color: var(--department-section-title-alt-text-bg-color);
-    color: var(--department-section-title-alt-text-color);
-    box-shadow: 0px 20px 40px rgba(144, 219, 255, 0.3);
+.swiper-slide {
+    height: auto !important;
 }
 </style>
 
 <template>
-    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full mt-10 lg:mt-0">
-        <!-- <Background src="/backgrounds/Background2.png" :topOffset="-30" :rightOffset="-10" :minWidth="2420" /> -->
-
-        <section class="relative flex flex-wrap-reverse items-center justify-evenly gap-8 lg:gap-20" id="top">
-            <img class="" src="/pages/about-us/UpStairsMan.png" alt="porteqali-UpStairsMan" loading="lazy" style="max-height: 1920px" />
-            <div class="flex flex-col gap-10 text-bluegray-900">
-                <h1 class="flex flex-col gap-4 text-5xl lg:text-7xl">
-                    <span class="kalameh_black font-bold">درباره ما</span>
-                </h1>
-                <ul class="flex items-center gap-2 font-light">
-                    <li><nuxt-link title="صفحه اصلی" to="/">صفحه اصلی</nuxt-link></li>
-                    <li>&gt;</li>
-                    <li>درباره ما</li>
+    <main role="main" class="flex flex-col items-center gap-10 max-w-screen-2xl w-full mt-24 md:mt-28 px-4 md:px-8 mb-16">
+        <article class="flex flex-wrap-reverse justify-center items-start xl:gap-10 w-full">
+            <div class="flex flex-col items-center gap-8 -mt-16 xl:-mt-0">
+                <div class="relative flex items-end">
+                    <img class="-ml-40" src="/pages/about-us/path2.svg" alt="path" />
+                    <img class="-mr-40 -mb-12" src="/pages/about-us/orange.png" alt="orange" />
+                </div>
+                <ul class="flex flex-wrap items-center justify-between gap-4 md:gap-8 w-full max-w-xl">
+                    <li class="flex flex-col items-center justify-center gap-4">
+                        <Icon class="w-10 h-10 bg-orange-500" size="40px" folder="icons/new" name="User3" />
+                        <strong class="kalameh_bold text-orange-500 opacity-90 text-xl md:text-4xl" dir="ltr">50,000+</strong>
+                        <b class="kalameh_bold md:text-lg text-warmgray-800">کاربر فعال</b>
+                    </li>
+                    <li class="flex flex-col items-center justify-center gap-4">
+                        <Icon class="w-10 h-10 bg-orange-500" size="40px" folder="icons/new" name="Voice3" />
+                        <strong class="kalameh_bold text-orange-500 opacity-90 text-xl md:text-4xl" dir="ltr">23</strong>
+                        <b class="kalameh_bold md:text-lg text-warmgray-800">مدرس برتر</b>
+                    </li>
+                    <li class="flex flex-col items-center justify-center gap-4">
+                        <Icon class="w-10 h-10 bg-orange-500" size="40px" folder="icons/new" name="Play" />
+                        <strong class="kalameh_bold text-orange-500 opacity-90 text-xl md:text-4xl" dir="ltr">2,000+</strong>
+                        <b class="kalameh_bold md:text-lg text-warmgray-800">ویدیو آموزشی</b>
+                    </li>
                 </ul>
             </div>
-        </section>
-
-        <article class="flex flex-col gap-16 w-full">
-            <div class="flex flex-wrap items-center justify-evenly gap-8">
-                <div class="flex flex-col gap-4">
-                    <h2 class="text-2xl font-bold">معرفی گروه آموزشی پرتقال</h2>
-                    <p class="max-w-screen-sm text-lg">
-                        بهمن 1396 بود که تولید فیلم آموزشی فارسی زبان را شروع کردیم و مفتخریم این روز ها عنوان یکی از بزرگترین و معتبر ترین وب سایت های آموزش ویدئویی
-                        کشور از دید شما کاربران عزیز را به خود اختصاص داده ایم. صدها مدرس متخصص و هزاران ویدئو آموزشی با کیفیت برای شما فراهم کرده ایم تا خاطرات تلخ
-                        یادگیری در وب ایران که در گذشته تجربه کرده اید را کرده و لحظات و خاطرات آینده ساز و آرامش بخشی را با آموزش های ما تجربه کنید!
-                    </p>
-                </div>
-                <img class="shadow-2xl rounded-3xl" src="/pages/about-us/img2.crop.png" loading="lazy" alt="معرفی گروه آموزشی پرتقال" />
-            </div>
-            <div class="flex flex-wrap-reverse items-center justify-evenly gap-8">
-                <img class="shadow-2xl rounded-3xl" src="/pages/about-us/img1.crop.png" loading="lazy" alt="معرفی گروه آموزشی پرتقال" />
-                <div class="flex flex-col gap-4">
-                    <h2 class="text-2xl font-bold">معرفی گروه آموزشی پرتقال</h2>
-                    <p class="max-w-screen-sm text-lg">
-                        بهمن 1396 بود که تولید فیلم آموزشی فارسی زبان را شروع کردیم و مفتخریم این روز ها عنوان یکی از بزرگترین و معتبر ترین وب سایت های آموزش ویدئویی
-                        کشور از دید شما کاربران عزیز را به خود اختصاص داده ایم. صدها مدرس متخصص و هزاران ویدئو آموزشی با کیفیت برای شما فراهم کرده ایم تا خاطرات تلخ
-                        یادگیری در وب ایران که در گذشته تجربه کرده اید را کرده و لحظات و خاطرات آینده ساز و آرامش بخشی را با آموزش های ما تجربه کنید!
-                    </p>
-                </div>
-            </div>
-            <div class="flex flex-col items-center justify-center w-full max-w-5xl mx-auto">
-                <div class="bg-gray-800 bg-opacity-95 blur text-white flex flex-col lg:flex-row items-center rounded-3xl p-8 pb-16 w-full z-10">
-                    <div class="flex flex-col gap-16 flex-shrink-0">
-                        <h3 class="kalameh_black text-6xl font-extrabold">داستان پرتقال</h3>
-                        <p class="text-2xl max-w-xs md:max-w-sm text-justify">
-                            بهمن 1396 بود که تولید فیلم آموزشی فارسی زبان را شروع کردیم و مفتخریم این روز ها عنوان یکی از بزرگترین و معتبر ترین وب سایت های آموزش
-                            ویدئویی کشور از دید شما کاربران عزیز را به خود اختصاص داده ایم.
-                        </p>
-                    </div>
-                    <img class="lg:-mt-28 lg:-ml-24 m-0 w-full sm:w-1/2 lg:w-full" src="/pages/about-us/Saly.png" loading="lazy" alt="Saly" />
-                </div>
-                <div class="orange_gradient_h flex flex-wrap items-center justify-center gap-8 w-full -mt-16 pt-16 rounded-3xl">
-                    <div class="flex flex-col items-center justify-center gap-8 w-64 h-64 p-6 rounded-3xl">
-                        <b class="counts text-4xl" dir="ltr">+4,000</b>
-                        <span class="bg-white counts p-6 py-4 rounded-full shadow-lg">دانشجو</span>
-                    </div>
-                    <span class="border border-solid border-gray-50 border-opacity-25 h-64 hidden lg:flex"></span>
-                    <div class="flex flex-col items-center justify-center gap-8 w-64 h-64 p-6 rounded-3xl">
-                        <b class="counts text-4xl" dir="ltr">+5,000</b>
-                        <span class="bg-white counts p-6 py-4 rounded-full shadow-lg">دقیقه ویدیو آموزشی</span>
-                    </div>
-                    <span class="border border-solid border-gray-50 border-opacity-25 h-64 hidden lg:flex"></span>
-                    <div class="flex flex-col items-center justify-center gap-8 w-64 h-64 p-6 rounded-3xl">
-                        <b class="counts text-4xl" dir="ltr">76</b>
-                        <span class="bg-white counts p-6 py-4 rounded-full shadow-lg">مدرس برتر</span>
-                    </div>
-                </div>
+            <div class="flex flex-col items-center md:items-start gap-4">
+                <h1 class="kalameh_black title text-4xl md:text-6xl w-max max-w-full">درباره پرتقال</h1>
+                <span class="kalameh_bold md:text-lg opacity-75">داستان ما از کجا شروع شد؟</span>
+                <p class="about_text w-full max-w-screen-sm mt-4 bg-warmgray-600 text-white p-4 md:p-8">
+                    بهمن 1396 بود که تولید فیلم آموزشی فارسی زبان را شروع کردیم و مفتخریم این روز ها عنوان یکی از بزرگترین و معتبر ترین وب سایت های آموزش ویدئویی
+                    کشور از دید شما کاربران عزیز را به خود اختصاص داده ایم. صدها مدرس متخصص و هزاران ویدئو آموزشی با کیفیت برای شما فراهم کرده ایم تا خاطرات تلخ
+                    یادگیری در وب ایران که در گذشته تجربه کرده اید را کرده و لحظات و خاطرات آینده ساز و آرامش بخشی را با آموزش های ما تجربه کنید!
+                </p>
             </div>
         </article>
 
-        <section class="relative flex flex-col gap-8 mt-16 w-full max-w-screen-2xl" id="teachers">
-            <div class="flex flex-wrap justify-between gap-8 w-full">
-                <h2 class="font-bold text-4xl">اساتید گروه آموزشی پرتقال</h2>
+        <span class="spacer_v w-7/12 h-0.5 mt-6"></span>
+
+        <section class="relative flex flex-col items-center gap-8 mt-16 w-full max-w-screen-2xl">
+            <div class="relative flex flex-col gap-8 bg-white rounded-2xl p-4 md:p-8 w-full max-w-screen-xl">
+                <div class="orange_gradient_v absolute -top-10 -right-16 w-52 h-52 opacity-75 rounded-full -z-1"></div>
+                <h3 class="kalameh_black title text-3xl md:text-4xl w-max max-w-full">ما در پرتقال یک هدف داریم</h3>
+                <p class="w-full">
+                    بهمن 1396 بود که تولید فیلم آموزشی فارسی زبان را شروع کردیم و مفتخریم این روز ها عنوان یکی از بزرگترین و معتبر ترین وب سایت های آموزش ویدئویی
+                    کشور از دید شما کاربران عزیز را به خود اختصاص داده ایم. صدها مدرس متخصص و هزاران ویدئو آموزشی با کیفیت برای شما فراهم کرده ایم تا خاطرات تلخ
+                    یادگیری در وب ایران که در گذشته تجربه کرده اید را کرده و لحظات و خاطرات آینده ساز و آرامش بخشی را با آموزش های ما تجربه کنید!
+                </p>
             </div>
-            <ul class="grid justify-center gap-6" style="grid-template-columns: repeat(auto-fit, minmax(315px, 1fr))" v-if="!teachersLoading">
-                <li
-                    class="teacher_card flex flex-col items-center justify-start gap-4 p-8 md:p-16 w-full rounded-3xl shadow-2xl max-w-sm"
-                    :style="`background-image: url('${teacher.image}')`"
-                    v-for="(teacher, i) in teachers"
-                    :key="i"
-                >
-                    <img class="w-24 h-24 rounded-full shadow-md object-cover" :src="teacher.image" loading="lazy" :alt="`${teacher.name} ${teacher.family}`" />
-                    <b class="text-2xl">{{ `${teacher.name} ${teacher.family}` }}</b>
-                    <small class="text-lightblue-400">{{ teacher.title }}</small>
-                    <p class="opacity-75 text-center max-w-xs w-full break-words">
-                        {{ teacher.description.length > 256 ? teacher.description.substr(0, 256) + "..." : teacher.description }}
-                    </p>
-                    <ul class="flex flex-wrap items-center gap-2">
-                        <li v-for="(social, j) in teacher.social" :key="j">
-                            <a :href="social.link"><Icon class="w-8 h-8 bg-gray-200" folder="social" :name="social.name" /></a>
+            <img class="absolute -left-48 2xl:-left-32 -bottom-64 lg:-bottom-52" src="/pages/about-us/target.png" alt="target" />
+        </section>
+
+        <span class="spacer_h w-0.5 h-24"></span>
+
+        <div class="flex flex-col items-center gap-4 w-full mt-8">
+            <h2 class="kalameh_black title2 text-4xl md:text-5xl w-max max-w-full">اساتید پرتقال</h2>
+            <p class="kalameh_bold">با اساتید گروه پرتقال بیشتر اشنا بشید</p>
+        </div>
+        <section class="flex flex-wrap-reverse justify-evenly gap-24 md:gap-10 w-full max-w-screen-2xl" v-if="!groupsLoading">
+            <div class="relative flex flex-col-reverse md:flex-col items-start w-full gap-4" v-for="(group, i) in groups" :key="i">
+                <div v-swiper:[departments[i].slug]="departments[i].swiperOptions" class="w-full max-w-6xl select-none overflow-hidden pt-8 pb-20 px-2 xl:mr-60">
+                    <ul class="swiper-wrapper flex items-start w-full">
+                        <li
+                            class="swiper-slide flex flex-col items-start justify-start gap-4 p-4 md:p-6 mt-10 w-screen max-w-xs flex-shrink-0 rounded-3xl shadow-xl bg-white ml-6"
+                            v-for="(teacher, j) in group"
+                            :key="j"
+                        >
+                            <div class="flex flex-wrap md:flex-nowrap items-end gap-4 -mt-16">
+                                <img
+                                    class="w-28 h-28 bg-gray-200 p-2 rounded-full object-cover shadow-md flex-shrink-0"
+                                    :src="teacher.image"
+                                    :alt="`${teacher.name} ${teacher.family}`"
+                                />
+                                <div class="flex flex-col gap-1">
+                                    <b class="kalameh_bold text-2xl">{{ `${teacher.name} ${teacher.family}` }}</b>
+                                    <small class="text-gray-500 text-xs" v-if="teacher.groups && teacher.groups[0]">
+                                        مدرس دوره های {{ teacher.groups[0].name }}
+                                    </small>
+                                </div>
+                            </div>
+                            <p class="w-full text-sm opacity-75 h-20 overflow-hidden">
+                                {{ teacher.description.length > 128 ? teacher.description.substr(0, 128) + "..." : teacher.description }}
+                            </p>
+                            <div class="flex flex-wrap items-center justify-between gap-4 w-full">
+                                <ul class="flex flex-wrap items-center gap-2">
+                                    <li v-for="(social, j) in teacher.social" :key="j">
+                                        <a :href="social.link"><Icon class="w-5 h-5 bg-gray-200" folder="social" :name="social.name" /></a>
+                                    </li>
+                                </ul>
+                                <nuxt-link
+                                    :to="`/teacher/${teacher._id}`"
+                                    class="orange_gradient_h flex items-center justify-center w-max p-3 px-4 rounded-2xl mr-auto"
+                                >
+                                    مشاهده دوره ها
+                                </nuxt-link>
+                            </div>
                         </li>
                     </ul>
-                    <nuxt-link :to="`/teacher/${teacher._id}`" class="flex items-center justify-center gray_gradient w-full p-4 rounded-xl mt-auto">
-                        مشاهده دوره ها
-                    </nuxt-link>
-                </li>
-            </ul>
-            <ul class="flex flex-wrap justify-center gap-6" v-else>
-                <li
-                    class="teacher_card flex flex-col items-center justify-start gap-4 p-8 md:p-16 w-full rounded-3xl shadow-2xl max-w-md"
-                    v-for="(teacher, i) in teachersSkeleton"
-                    :key="i"
-                >
-                    <span class="skeleton w-24 h-24 rounded-full shadow-md"></span>
-                    <small class="skeleton w-20 h-2 text-lightblue-400"></small>
-                    <div class="flex flex-col gap-2 w-full">
-                        <span class="skeleton w-full h-2"></span>
-                        <span class="skeleton w-full h-2"></span>
-                        <span class="skeleton w-full h-2"></span>
-                        <span class="skeleton w-4/12 h-2"></span>
+                </div>
+                <div class="xl:absolute xl:mt-40 bg-orange-300 flex items-center gap-4 px-4 w-full h-3 rounded-full">
+                    <h3 class="kalameh_bold text-xl md:text-2xl w-max max-w-full xl:max-w-screen-2xs text-gray-700">اساتید دوره های {{ departments[i].name }}</h3>
+                    <div class="flex items-center gap-1 md:justify-between w-full flex-grow">
+                        <button class="flex items-center justify-center p-2 bg-white shadow-xl rounded-xl" :class="[`swiper-prev-${departments[i].slug}`]">
+                            <img src="/icons/new/ArrowRight3.svg" width="24" />
+                        </button>
+                        <button class="flex items-center justify-center p-2 bg-white shadow-xl rounded-xl" :class="[`swiper-next-${departments[i].slug}`]">
+                            <img src="/icons/new/ArrowLeft3.svg" width="24" />
+                        </button>
                     </div>
-                </li>
-            </ul>
-            <div class="flex items-center justify-center w-full">
-                <nuxt-link to="/teachers" class="more_btn blur flex items-center gap-2 py-4 px-8 rounded-2xl w-max">
-                    <img src="/icons/BookOpenOutlineColor.orange.svg" width="24" height="24" alt="BookOpenOutlineColor" />
-                    <span>مشاهده همه مدرس ها</span>
-                </nuxt-link>
+                </div>
             </div>
         </section>
     </main>
@@ -176,9 +143,51 @@ export default {
     },
     data() {
         return {
-            teachersLoading: false,
-            teachersSkeleton: [0, 0, 0],
-            teachers: this.teachers || [],
+            departments: {
+                network: {
+                    name: "امنیت شبکه",
+                    slug: "network",
+                    swiperOptions: { slidesPerView: "auto", prevButton: ".swiper-prev-network", nextButton: ".swiper-next-network" },
+                },
+                languages: {
+                    name: "زبان های خارجی",
+                    slug: "languages",
+                    swiperOptions: { slidesPerView: "auto", prevButton: ".swiper-prev-languages", nextButton: ".swiper-next-languages" },
+                },
+                graphic: {
+                    name: "طراحی گرافیک",
+                    slug: "graphic",
+                    swiperOptions: { slidesPerView: "auto", prevButton: ".swiper-prev-graphic", nextButton: ".swiper-next-graphic" },
+                },
+                university: {
+                    name: "دروس دانشگاهی",
+                    slug: "university",
+                    swiperOptions: { slidesPerView: "auto", prevButton: ".swiper-prev-university", nextButton: ".swiper-next-university" },
+                },
+                programming: {
+                    name: "برنامه نویسی",
+                    slug: "programming",
+                    swiperOptions: { slidesPerView: "auto", prevButton: ".swiper-prev-programming", nextButton: ".swiper-next-programming" },
+                },
+                "web-design": {
+                    name: "طراحی وب",
+                    slug: "web-design",
+                    swiperOptions: { slidesPerView: "auto", prevButton: ".swiper-prev-web-design", nextButton: ".swiper-next-web-design" },
+                },
+                business: {
+                    name: "کسب و کار",
+                    slug: "business",
+                    swiperOptions: { slidesPerView: "auto", prevButton: ".swiper-prev-business", nextButton: ".swiper-next-business" },
+                },
+                free: {
+                    name: "دوره های رایگان",
+                    slug: "free",
+                    swiperOptions: { slidesPerView: "auto", prevButton: ".swiper-prev-free", nextButton: ".swiper-next-free" },
+                },
+            },
+
+            groupsLoading: false,
+            groups: this.groups || [],
         };
     },
     async fetch() {
@@ -189,10 +198,10 @@ export default {
     },
     methods: {
         async getTeachers(data = {}) {
-            if (this.teachersLoading) return;
-            this.teachersLoading = true;
+            if (this.groupsLoading) return;
+            this.groupsLoading = true;
 
-            let url = `/api/about-us/teachers`;
+            let url = `/api/teachers`;
             let headers = {};
             if (process.server) {
                 url = `${process.env.BASE_URL}${url}`;
@@ -201,9 +210,11 @@ export default {
 
             await axios
                 .get(url, { headers })
-                .then((results) => (this.teachers = results.data))
+                .then((results) => {
+                    this.groups = results.data;
+                })
                 .catch((e) => {})
-                .finally(() => (this.teachersLoading = false));
+                .finally(() => (this.groupsLoading = false));
         },
     },
 };

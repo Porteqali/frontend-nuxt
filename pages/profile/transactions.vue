@@ -12,10 +12,10 @@
 </style>
 
 <template>
-    <section class="card relative flex flex-col gap-8 p-4 md:p-6 rounded-3xl shadow-xl w-full max-w-screen-lg flex-grow">
+    <section class="relative flex flex-col gap-8 p-4 md:p-6 rounded-3xl shadow-xl bg-white w-full max-w-screen-lg flex-grow">
         <div class="flex items-center gap-2">
             <img src="/icons/Document.gray.svg" width="32" height="32" alt="Document" />
-            <h2 class="text-2xl">تراکنش هی مالی</h2>
+            <h2 class="kalameh_bold title text-2xl">تراکنش هی مالی</h2>
         </div>
         <ul class="tab flex items-center gap-4">
             <li class="p-1 cursor-pointer" :class="{ active: page == 'course-transactions' }" @click="page = 'course-transactions'">دوره آموزشی</li>

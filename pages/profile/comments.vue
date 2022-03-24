@@ -1,21 +1,16 @@
-<style scoped>
-.cart_item {
-    background-color: var(--header-nav-container-bg-color);
-    color: var(--header-nav-text-color);
-}
-</style>
+<style scoped></style>
 
 <template>
-    <section class="card relative flex flex-col gap-8 p-4 md:p-6 rounded-3xl shadow-xl w-full max-w-screen-lg flex-grow">
+    <section class="relative flex flex-col gap-8 p-4 md:p-6 rounded-3xl shadow-xl bg-white w-full max-w-screen-lg flex-grow">
         <div class="flex items-center gap-2">
             <img src="/icons/Chat.gray.svg" width="32" height="32" alt="Chat" />
-            <h2 class="text-2xl">نظرات</h2>
+            <h2 class="kalameh_bold title text-2xl">نظرات</h2>
         </div>
         <ul class="flex flex-col gap-4 w-full">
             <transition-group class="flex flex-col gap-4" name="slideleft" appear>
-                <li class="cart_item flex flex-col items-start gap-4 p-4 rounded-2xl w-full shadow-lg" v-for="comment in comments" :key="comment._id">
+                <li class="flex flex-col items-start gap-4 p-4 rounded-2xl w-full shadow-lg bg-warmgray-50" v-for="comment in comments" :key="comment._id">
                     <div class="flex items-start gap-4 w-full" v-if="comment.item">
-                        <img class="w-16 h-auto rounded-xl shadow-md flex-shrink-0" :src="comment.item.image" width="100" :alt="comment.item.name" />
+                        <img class="w-20 h-12 object-cover rounded-xl shadow-md flex-shrink-0" :src="comment.item.image" width="100" :alt="comment.item.name" />
                         <div class="flex flex-wrap items-start justify-between gap-2 w-full">
                             <div class="flex flex-col items-start gap-1">
                                 <h4>{{ comment.item.name }}</h4>
@@ -24,7 +19,7 @@
                             <span class="p-1 px-2 rounded-lg text-xs shadow-md bg-amber-200 text-amber-800" v-if="comment.status == 'waiting_for_review'">
                                 در انتظار تایید
                             </span>
-                            <span class="p-1 px-2 rounded-lg text-xs shadow-md bg-emerald-200 text-emerald-800" v-if="comment.status == 'active'">تایید شده</span>
+                            <span class="p-1 px-2 rounded-lg text-xs shadow-md bg-green-200 text-emerald-800" v-if="comment.status == 'active'">تایید شده</span>
                             <span class="p-1 px-2 rounded-lg text-xs shadow-md bg-rose-200 text-rose-800" v-if="comment.status == 'deactive'">رد شده</span>
                         </div>
                     </div>

@@ -1,15 +1,10 @@
-<style scoped>
-.cart_item {
-    background-color: var(--header-nav-container-bg-color);
-    color: var(--header-nav-text-color);
-}
-</style>
+<style scoped></style>
 
 <template>
     <section class="flex flex-col gap-4">
         <ul class="flex flex-col gap-4 w-full">
             <transition-group class="flex flex-col gap-4" name="slideleft" appear>
-                <li class="cart_item flex flex-col gap-4 p-4 rounded-2xl shadow-lg w-full" v-for="transaction in transactions" :key="transaction._id">
+                <li class="flex flex-col gap-4 p-4 rounded-2xl shadow-md w-full bg-warmgray-50" v-for="transaction in transactions" :key="transaction._id">
                     <div class="flex flex-wrap items-center gap-4">
                         <span>{{ new Date(transaction.createdAt).toLocaleString("fa") }}</span>
                         <hr class="w-4" />
@@ -19,20 +14,20 @@
                         </div>
                         <hr class="w-4" />
                         <small class="p-1 px-2 rounded-lg bg-amber-200 text-amber-800" v-show="transaction.status == 'waiting_for_payment'">پرداخت نشده</small>
-                        <small class="p-1 px-2 rounded-lg bg-emerald-200 text-emerald-800" v-show="transaction.status == 'ok'">پرداخت موفق</small>
+                        <small class="p-1 px-2 rounded-lg bg-green-200 text-emerald-800" v-show="transaction.status == 'ok'">پرداخت موفق</small>
                         <small class="p-1 px-2 rounded-lg bg-rose-200 text-rose-800" v-show="transaction.status == 'cancel'">لغو شده</small>
                         <small class="p-1 px-2 rounded-lg bg-red-200 text-red-800" v-show="transaction.status == 'error'">خطا</small>
                     </div>
                     <hr class="w-full opacity-40" />
                     <div class="flex flex-wrap items-center justify-between gap-4">
                         <div class="flex items-center gap-2">
-                            <span>مبلغ کل:</span>
-                            <b class="text-orange-100 text-xl">{{ new Intl.NumberFormat("fa").format(transaction.chargeAmount) }}</b>
+                            <span class="kalameh_bold">مبلغ کل:</span>
+                            <b class="text-orange-400 text-xl">{{ new Intl.NumberFormat("fa").format(transaction.chargeAmount) }}</b>
                             <small class="opacity-75">تومان</small>
                         </div>
                         <div class="flex items-center gap-2">
-                            <span>مبلغ پرداختی:</span>
-                            <b class="text-orange-100 text-xl">{{ new Intl.NumberFormat("fa").format(transaction.paidAmount) }}</b>
+                            <span class="kalameh_bold">مبلغ پرداختی:</span>
+                            <b class="text-orange-400 text-xl">{{ new Intl.NumberFormat("fa").format(transaction.paidAmount) }}</b>
                             <small class="opacity-75">تومان</small>
                         </div>
                     </div>

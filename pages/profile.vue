@@ -1,10 +1,7 @@
 <style scoped>
-.card {
-    background-color: #ffffff77;
-}
-
 .active {
-    background-color: #80839088;
+    background-color: #4e4e4e;
+    border: 3px solid #a0a0a0;
 }
 .active > span {
     color: #fff;
@@ -12,8 +9,8 @@
 </style>
 
 <template>
-    <main role="main" class="flex flex-wrap lg:flex-nowrap items-start justify-center gap-8 max-w-screen-4xl w-full">
-        <nav class="card sticky top-0 flex flex-col gap-4 p-6 rounded-3xl shadow-xl w-full md:max-w-xs flex-grow">
+    <main role="main" class="flex flex-wrap lg:flex-nowrap items-start justify-center gap-8 max-w-screen-2xl w-full mt-24 md:mt-28 px-4 md:px-8">
+        <nav class="relative flex flex-col gap-4 p-6 rounded-3xl shadow-xl bg-white w-full md:max-w-xs flex-grow z-10 overflow-hidden">
             <div class="flex items-center gap-2">
                 <img class="w-12 h-12 rounded-2xl object-cover" :src="user.info.image" :alt="`${user.info.name} ${user.info.family}`" />
                 <div class="flex flex-col gap-1">
@@ -34,65 +31,90 @@
             <hr />
             <ul class="flex flex-col gap-4 w-full">
                 <li class="w-full">
-                    <nuxt-link class="flex items-center gap-2 p-1 rounded-xl w-full hover:shadow-md" :class="{ active: $route.name == 'profile' }" to="/profile">
-                        <img src="/icons/Profile.gray.svg" alt="Profile" />
+                    <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full hover:shadow-md" :class="{ active: $route.name == 'profile' }" to="/profile">
+                        <Icon class="w-6 h-6" :class="[$route.name == 'profile' ? 'bg-gray-100' : 'bg-gray-700']" size="24px" folder="icons/new" name="Profile" />
                         <span>اطلاعات حساب</span>
                     </nuxt-link>
                 </li>
                 <li class="w-full">
                     <nuxt-link
-                        class="flex items-center gap-2 p-1 rounded-xl w-full hover:shadow-md"
+                        class="flex items-center gap-2 p-2 rounded-xl w-full hover:shadow-md"
                         :class="{ active: $route.name == 'profile-courses' }"
                         to="/profile/courses"
                     >
-                        <img src="/icons/Play.gray.svg" alt="Play" />
+                        <Icon
+                            class="w-6 h-6"
+                            :class="[$route.name == 'profile-courses' ? 'bg-gray-100' : 'bg-gray-700']"
+                            size="24px"
+                            folder="icons/new"
+                            name="Play"
+                        />
                         <span>دوره های خریداری شده</span>
                     </nuxt-link>
                 </li>
                 <li class="w-full">
                     <nuxt-link
-                        class="flex items-center gap-2 p-1 rounded-xl w-full hover:shadow-md"
+                        class="flex items-center gap-2 p-2 rounded-xl w-full hover:shadow-md"
                         :class="{ active: $route.name == 'profile-transactions' }"
                         to="/profile/transactions"
                     >
-                        <img src="/icons/Document.gray.svg" alt="Document" />
+                        <Icon
+                            class="w-6 h-6"
+                            :class="[$route.name == 'profile-transactions' ? 'bg-gray-100' : 'bg-gray-700']"
+                            size="24px"
+                            folder="icons/new"
+                            name="Document"
+                        />
                         <span>تراکنش های مالی</span>
                     </nuxt-link>
                 </li>
                 <li class="w-full">
                     <nuxt-link
-                        class="flex items-center gap-2 p-1 rounded-xl w-full hover:shadow-md"
+                        class="flex items-center gap-2 p-2 rounded-xl w-full hover:shadow-md"
                         :class="{ active: $route.name == 'profile-wallet' }"
                         to="/profile/wallet"
                     >
-                        <img src="/icons/Wallet.gray.svg" alt="Wallet" />
+                        <Icon
+                            class="w-6 h-6"
+                            :class="[$route.name == 'profile-wallet' ? 'bg-gray-100' : 'bg-gray-700']"
+                            size="24px"
+                            folder="icons/new"
+                            name="Wallet"
+                        />
                         <span>شارژ کیف پول</span>
                     </nuxt-link>
                 </li>
                 <li class="w-full">
                     <nuxt-link
-                        class="flex items-center gap-2 p-1 rounded-xl w-full hover:shadow-md"
+                        class="flex items-center gap-2 p-2 rounded-xl w-full hover:shadow-md"
                         :class="{ active: $route.name == 'profile-comments' }"
                         to="/profile/comments"
                     >
-                        <img src="/icons/Chat.gray.svg" alt="Chat" />
+                        <Icon
+                            class="w-6 h-6"
+                            :class="[$route.name == 'profile-comments' ? 'bg-gray-100' : 'bg-gray-700']"
+                            size="24px"
+                            folder="icons/new"
+                            name="Chat"
+                        />
                         <span>نظرات</span>
                     </nuxt-link>
                 </li>
                 <li class="w-full">
-                    <button class="flex items-center gap-2 p-1 rounded-xl w-full hover:shadow-md" @click="logout()">
-                        <img src="/icons/Logout.gray.svg" alt="Logout" />
+                    <button class="flex items-center gap-2 p-2 rounded-xl w-full hover:shadow-md" @click="logout()">
+                        <Icon class="w-6 h-6 bg-rose-900" size="24px" folder="icons/new" name="Logout" />
                         <span>خروج</span>
                     </button>
                 </li>
             </ul>
+            <img class="absolute -z-1 w-64 -left-8 -bottom-4 opacity-50" src="/misc/path.svg" alt="path" />
         </nav>
         <NuxtChild nuxt-child-key="profile" />
     </main>
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 
 export default {
     async middleware({ store, req, redirect }) {

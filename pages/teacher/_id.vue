@@ -37,7 +37,7 @@
                             </small>
                         </div>
                     </div>
-                    <div class="flex items-center justify-center gap-8">
+                    <div class="flex items-center justify-center gap-4 md:gap-8">
                         <div class="flex items-center justify-center gap-2">
                             <Icon class="w-6 h-6 bg-gray-400" size="24px" folder="icons/new" name="User3" />
                             <h6 class="flex items-center gap-1">

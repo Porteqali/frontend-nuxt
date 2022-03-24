@@ -1,48 +1,40 @@
-<style scoped>
-.card {
-    background-color: #ffffff77;
-}
-.cart_item {
-    background-color: var(--header-nav-container-bg-color);
-    color: var(--header-nav-text-color);
-}
-</style>
+<style scoped></style>
 
 <template>
-    <section class="card relative flex flex-col gap-8 p-4 md:p-6 rounded-3xl shadow-xl w-full max-w-screen-lg flex-grow">
+    <section class="relative flex flex-col gap-8 p-4 md:p-6 rounded-3xl shadow-xl bg-white w-full max-w-screen-lg flex-grow">
         <div class="flex items-center gap-2">
             <img src="/icons/Play.gray.svg" width="32" height="32" alt="Play" />
-            <h2 class="text-2xl">دوره های خریداری شده</h2>
+            <h2 class="kalameh_bold title text-2xl">دوره های خریداری شده</h2>
         </div>
         <ul class="flex flex-col gap-4 w-full">
             <transition-group class="flex flex-col gap-4" name="slideleft" appear>
                 <li class="flex w-full" v-for="item in courses" :key="item._id">
                     <nuxt-link
                         :to="`/course/${item.course[0]._id}/${item.course[0].name.replace(/ /g, '-')}`"
-                        class="cart_item flex flex-wrap md:flex-nowrap items-center gap-4 p-4 rounded-2xl w-full"
+                        class="flex flex-wrap md:flex-nowrap items-center gap-4 p-4 rounded-2xl shadow-md w-full bg-warmgray-50"
                     >
-                        <img class="w-24 h-auto rounded-xl shadow-md flex-shrink-0" :src="item.course[0].image" width="100" :alt="item.course[0].name" />
+                        <img class="w-28 h-20 rounded-xl shadow-md flex-shrink-0" :src="item.course[0].image" width="100" :alt="item.course[0].name" />
                         <div class="flex flex-col gap-2 w-full">
-                            <h4>{{ item.course[0].name }}</h4>
+                            <h4 class="kalameh_bold text-xl">{{ item.course[0].name }}</h4>
                             <div class="flex items-center gap-2">
                                 <img class="rounded-full object-cover w-8 h-8" :src="item.teacher[0].image" alt="Figma" width="32" height="32" />
                                 <span class="text-sm opacity-75">{{ `${item.teacher[0].name} ${item.teacher[0].family}` }}</span>
                             </div>
                         </div>
                         <div class="flex flex-wrap items-center justify-between md:justify-evenly gap-4 w-full">
-                            <div class="flex flex-col items-center gap-4">
+                            <div class="flex flex-col items-center gap-2">
                                 <h5 class="flex items-center gap-2">
                                     <img src="/icons/TimeCircle.orange.svg" alt="TimeCircle" />
-                                    <span>مدت زمان دوره</span>
+                                    <span class="kalameh_bold text-sm">مدت زمان دوره</span>
                                 </h5>
-                                <strong>{{ item.course[0].totalTime }}</strong>
+                                <strong class="text-lg font-normal">{{ item.course[0].totalTime }}</strong>
                             </div>
-                            <div class="flex flex-col items-center gap-4">
+                            <div class="flex flex-col items-center gap-2">
                                 <h5 class="flex items-center gap-2">
                                     <img src="/icons/Video.orange.svg" alt="Video" />
-                                    <span>تعداد جلسات</span>
+                                    <span class="kalameh_bold text-sm">تعداد جلسات</span>
                                 </h5>
-                                <strong v-if="item.course[0].topics">{{ item.course[0].topics.length }}</strong>
+                                <strong class="text-lg font-normal" v-if="item.course[0].topics">{{ item.course[0].topics.length }}</strong>
                             </div>
                         </div>
                     </nuxt-link>

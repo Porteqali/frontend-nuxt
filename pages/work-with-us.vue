@@ -106,13 +106,13 @@ textarea {
         <section class="flex flex-col items-center gap-2 w-full max-w-screen-xl mb-16">
             <h3 class="kalameh_bold text-2xl text-center font-bold">برخی از نظرات اساتید پرتقال</h3>
             <div class="flex items-center gap-2 md:gap-4 w-full" v-if="!testimonialsLoading && testimonials.length > 0">
-                <button class="flex items-center justify-center p-2 bg-white shadow-xl rounded-xl swiper-prev">
+                <button class="hidden md:flex items-center justify-center p-2 bg-white shadow-xl rounded-xl swiper-prev">
                     <img src="/icons/new/ArrowRight3.svg" width="24" />
                 </button>
                 <div v-swiper="testimonialsSwiperOptions" class="w-full select-none overflow-hidden py-8 px-0 md:px-8">
                     <ul class="swiper-wrapper flex w-full">
                         <li
-                            class="swiper-slide flex flex-col items-start gap-4 p-4 max-w-sm w-full md:min-w-max rounded-2xl shadow-xl bg-white"
+                            class="swiper-slide flex flex-col items-start gap-4 p-4 max-w-xs w-screen flex-shrink-0 rounded-2xl shadow-xl bg-white"
                             v-for="(testimonial, i) in testimonials"
                             :key="i"
                         >
@@ -132,7 +132,7 @@ textarea {
                     </ul>
                     <div class="swiper-pagination swiper-pagination-bullets"></div>
                 </div>
-                <button class="flex items-center justify-center p-2 bg-white shadow-xl rounded-xl swiper-next">
+                <button class="hidden md:flex items-center justify-center p-2 bg-white shadow-xl rounded-xl swiper-next">
                     <img src="/icons/new/ArrowLeft3.svg" width="24" />
                 </button>
             </div>
