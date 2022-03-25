@@ -13,7 +13,6 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.75rem 1rem;
     background-color: #fff;
     color: #333;
 }
@@ -43,7 +42,7 @@
 
 <template>
     <section class="relative flex flex-col items-center gap-8 w-full py-8 px-4 md:px-8" id="department">
-        <div class="relative flex flex-wrap items-center justify-between gap-4 w-full">
+        <div class="relative flex flex-wrap items-center justify-between gap-6 w-full">
             <h2 title="دوره های آموزشی" class="title kalameh_bold text-gray-700 text-3xl">دوره های آموزشی</h2>
             <nuxt-link to="/department" class="flex items-center gap-1 text-sm md:text-base" title="دوره های آموزشی">
                 مشاهده همه دوره ها
@@ -52,13 +51,27 @@
         </div>
         <div class="relative flex flex-wrap justify-between gap-8">
             <div class="flex flex-wrap items-center gap-2 md:gap-4">
-                <button class="toggle_btn text-sm md:text-base rounded-2xl" :class="{ fill: order == 'most-popular' }" @click="orderChanged('most-popular')">
+                <button
+                    class="toggle_btn p-3 px-3 md:px-4 text-sm md:text-base rounded-2xl"
+                    :class="{ fill: order == 'most-popular' }"
+                    @click="orderChanged('most-popular')"
+                >
                     محبوب ترین
                 </button>
-                <button class="toggle_btn text-sm md:text-base rounded-2xl" :class="{ fill: order == 'most-sold' }" @click="orderChanged('most-sold')">
+                <button
+                    class="toggle_btn p-3 px-3 md:px-4 text-sm md:text-base rounded-2xl"
+                    :class="{ fill: order == 'most-sold' }"
+                    @click="orderChanged('most-sold')"
+                >
                     پرفروش ترین
                 </button>
-                <button class="toggle_btn text-sm md:text-base rounded-2xl" :class="{ fill: order == 'newest' }" @click="orderChanged('newest')">جدید ترین</button>
+                <button
+                    class="toggle_btn p-3 px-3 md:px-4 text-sm md:text-base rounded-2xl"
+                    :class="{ fill: order == 'newest' }"
+                    @click="orderChanged('newest')"
+                >
+                    جدید ترین
+                </button>
             </div>
         </div>
         <div class="relative flex items-center justify-between gap-8">
@@ -180,9 +193,9 @@ export default {
             coursesSwiperOptions: {
                 autoplay: false,
                 slidesPerView: "auto",
-                initialSlide: 0,
+                // initialSlide: 0,
                 loop: false,
-                freeMode: true,
+                // freeMode: true,
                 pagination: ".swiper-pagination2",
                 prevButton: ".swiper-prev",
                 nextButton: ".swiper-next",

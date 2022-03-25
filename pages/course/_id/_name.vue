@@ -1,210 +1,222 @@
 <style scoped>
-.info_card {
-    color: var(--header-nav-text-color);
-    background-color: var(--header-nav-container-bg-color);
-    box-shadow: 0px 8px 45px rgba(0, 0, 0, 20%);
-    box-shadow: 0px 50px 100px rgba(0, 0, 0, 25%);
+.path {
+    transform: rotateY(180deg);
+}
+
+.course_image {
+    height: 320px;
 }
 
 .discount_box {
-    box-shadow: 0px 5px 30px rgba(255, 91, 152, 60%);
+    box-shadow: 0px 0px 25px rgba(255, 48, 21, 20%);
     display: flex;
     align-items: center;
     justify-content: center;
 }
-
-.course_card {
-    /* background-color: var(--department-section-title-alt-text-bg-color); */
-    background: linear-gradient(154.49deg, rgba(121, 117, 131, 0.2) 5.35%, rgba(54, 53, 103, 0.2) 83.85%), rgba(49, 48, 54, 0.3);
-    color: var(--department-section-title-alt-text-color);
+.discount_box > span {
+    transform: rotate(-45deg);
 }
-.course_tag {
-    background-color: var(--department-section-course-tag-bg-color);
-    color: var(--department-section-course-tag-color);
+
+@media (min-width: 768px) {
+    .course_image {
+        height: 360px;
+    }
 }
 </style>
 
 <template>
-    <section class="relative flex flex-col gap-8 w-full" id="course">
+    <section class="flex flex-col items-center gap-8 w-full max-w-screen-2xl mt-20 md:mt-28 px-4 md:px-8 mb-16" id="course">
+        <img class="path absolute right-1 top-28 opacity-75 -z-1" src="/misc/path.svg" alt="" />
         <article class="flex flex-col gap-8 max-w-screen-2xl w-full mx-auto">
-            <header class="relative flex flex-col gap-6 w-full p-8 shadow-xl rounded-2xl bg-white text-black" v-if="course">
-                <h1 class="font-bold text-3xl">{{ course.name }}</h1>
-                <ul class="flex flex-wrap items-center gap-2 font-light text-base md:text-lg">
-                    <li class="flex-shrink-0"><nuxt-link title="صفحه اصلی" to="/">صفحه اصلی</nuxt-link></li>
-                    <li class="flex-shrink-0"><img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" /></li>
-                    <li class="flex-shrink-0"><nuxt-link title="دپارتمان ها" to="/department">دپارتمان ها</nuxt-link></li>
-                    <li class="flex-shrink-0"><img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" /></li>
-                    <li class="flex-shrink-0" v-if="course && course.groups">
-                        <nuxt-link class="flex items-center gap-1" :title="course.groups[0].name" :to="`/department?group=${course.groups[0].topGroup}`">
-                            <img class="w-6 h-6 rounded-full shadow-md" :src="course.groups[0].icon" alt="" />
-                            {{ course.groups[0].name }}
-                        </nuxt-link>
-                    </li>
-                    <li class="flex-shrink-0"><img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" /></li>
-                    <li class="flex-shrink-0 text-lightblue-600" v-if="course">{{ course.name }}</li>
-                </ul>
-            </header>
-            <div class="flex flex-col lg:flex-row items-center lg:items-start gap-6 w-full">
-                <div class="flex flex-col gap-4 w-full md:max-w-xs xl:max-w-sm flex-shrink-0" v-if="course">
-                    <div class="info_card flex flex-col gap-4 rounded-3xl p-6">
-                        <h3 class="w-full text-xl">اطلاعات کلی دوره</h3>
-                        <hr class="border-b border-solid border-gray-300 border-opacity-30" />
-                        <ul class="flex flex-wrap items-center justify-evenly gap-6">
+            <header class="relative flex flex-col gap-6 w-full rounded-2xl lg:mb-12" v-if="course">
+                <div class="relative flex flex-col-reverse lg:flex-row items-start gap-4 z-0 mb-10 lg:mb-0">
+                    <div class="absolute right-4 -bottom-12 flex items-center gap-4">
+                        <a class="flex items-center gap-2 p-3 pt-6 rounded-xl shadow-xl bg-white" href="#description">
+                            <Icon class="w-6 h-6 bg-gray-700" size="24px" folder="icons/new" name="Document" />
+                            <span>توضیحات دوره</span>
+                        </a>
+                        <a class="flex items-center gap-2 p-3 pt-6 rounded-xl shadow-xl bg-white" href="#comments">
+                            <Icon class="w-6 h-6 bg-gray-700" size="24px" folder="icons/new" name="Chat" />
+                            <span>پرسش و پاسخ</span>
+                        </a>
+                    </div>
+                    <img class="course_image w-full max-w-lg object-cover bg-gray-800 p-2 rounded-2xl z-10" :src="course.image" :alt="course.name" />
+                    <ul class="flex flex-wrap items-center gap-3 mt-4">
+                        <li class="flex-shrink-0"><nuxt-link title="صفحه اصلی" to="/">صفحه اصلی</nuxt-link></li>
+                        <li class="flex-shrink-0"><img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" /></li>
+                        <li class="flex-shrink-0"><nuxt-link title="دپارتمان ها" to="/department">دپارتمان ها</nuxt-link></li>
+                        <li class="flex-shrink-0"><img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" /></li>
+                        <li class="flex-shrink-0" v-if="course && course.groups">
+                            <nuxt-link class="flex items-center gap-1" :title="course.groups[0].name" :to="`/department?group=${course.groups[0].topGroup}`">
+                                <img class="w-6 h-6 rounded-full shadow-md" :src="course.groups[0].icon" alt="" />
+                                {{ course.groups[0].name }}
+                            </nuxt-link>
+                        </li>
+                    </ul>
+                </div>
+                <div class="lg:absolute top-16 left-0 flex flex-col gap-4 bg-white shadow-xl rounded-2xl p-4 md:p-8 w-full max-w-5xl mr-auto">
+                    <div class="flex flex-wrap items-center gap-4 w-full">
+                        <h1 class="kalameh_bold text-2xl md:text-3xl w-max max-w-full flex-shrink-0">{{ course.name }}</h1>
+                        <div class="bg-orange-400 h-2 rounded-full flex-grow"></div>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-4">
+                        <div class="flex items-center gap-2 pl-4 border-l-2 border-solid border-gray-400" v-if="course.teacher">
+                            <img
+                                class="orange_gradient_v p-1.5 w-12 md:w-16 h-12 md:h-16 object-cover rounded-full"
+                                :src="course.teacher.image"
+                                :alt="`${course.teacher.name} ${course.teacher.family}`"
+                            />
+                            <div class="flex flex-col">
+                                <span>{{ `${course.teacher.name} ${course.teacher.family}` }}</span>
+                                <small class="text-orange-400" v-if="course.teacher.groups && course.teacher.groups[0]">{{ course.teacher.groups[0].name }}</small>
+                            </div>
+                        </div>
+                        <ul class="flex flex-wrap items-center justify-between gap-4 md:gap-6 flex-grow max-w-xl">
                             <li class="flex flex-col items-center gap-2">
-                                <h5 class="flex items-center gap-2">
+                                <h5 class="flex flex-col md:flex-row items-center gap-2">
                                     <img src="/icons/Star.orange.svg" alt="Star" />
-                                    <span>امتیاز دوره</span>
+                                    <small>امتیاز دوره</small>
                                 </h5>
-                                <strong class="font-normal" v-if="course.score">{{ course.score.toFixed(1) }} از 8</strong>
+                                <strong class="text-sm" v-if="course.score">{{ course.score.toFixed(1) }} از 8</strong>
                             </li>
                             <li class="flex flex-col items-center gap-2">
-                                <h5 class="flex items-center gap-2">
+                                <h5 class="flex flex-col md:flex-row items-center gap-2">
                                     <img src="/icons/TimeCircle.orange.svg" alt="TimeCircle" />
-                                    <span>مدت زمان دوره</span>
+                                    <small>مدت زمان دوره</small>
                                 </h5>
-                                <strong class="font-normal" dir="ltr">{{ course.totalTime }}</strong>
+                                <strong class="text-sm" dir="ltr">{{ course.totalTime }}</strong>
                             </li>
                             <li class="flex flex-col items-center gap-2">
-                                <h5 class="flex items-center gap-2">
+                                <h5 class="flex flex-col md:flex-row items-center gap-2">
                                     <img src="/icons/Video.orange.svg" alt="Video" />
-                                    <span>تعداد جلسات</span>
+                                    <small>تعداد جلسات</small>
                                 </h5>
-                                <strong class="font-normal" v-if="course.topics">{{ course.topics.length }}</strong>
+                                <strong class="text-sm" v-if="course.topics">{{ course.topics.length }}</strong>
                             </li>
                             <li class="flex flex-col items-center gap-2">
-                                <h5 class="flex items-center gap-2">
+                                <h5 class="flex flex-col md:flex-row items-center gap-2">
                                     <img src="/icons/Profile.orange.svg" alt="Profile" />
-                                    <span>تعداد دانشجویان</span>
+                                    <small>تعداد دانشجویان</small>
                                 </h5>
-                                <strong class="font-normal">{{ course.buyCount }}</strong>
+                                <strong class="text-sm">{{ course.buyCount }}</strong>
                             </li>
                         </ul>
-                        <hr class="border-b border-solid border-gray-300 border-opacity-30" />
-                        <div class="redgray_background flex items-center rounded-2xl gap-4 p-4" v-if="!purchased">
-                            <b class="orange_gradient_h discount_box w-16 h-16 rounded-2xl text-2xl flex-shrink-0" v-if="course.price > 0 && !!discount">
-                                {{ discount }}%
-                            </b>
-                            <span class="flex flex-col gap-2 flex-grow">
-                                <small class="line-through" v-if="course.price > 0 && !!discount">
-                                    {{ new Intl.NumberFormat("fa").format(course.price) }} تومان
-                                </small>
-                                <strong class="font-normal text-3xl" :class="{ 'text-center': !discount }" v-if="course.price > 0">
-                                    {{ new Intl.NumberFormat("fa").format(course.discountInfo.discountedPrice) }} تومان
-                                </strong>
-                                <strong class="font-normal text-3xl w-full text-center" v-else>رایگان</strong>
-                            </span>
-                        </div>
-                        <div v-else>
-                            <Score :courseId="course._id" :userScore="userScore" @update:score="updateScore" />
-                        </div>
-                        <PurchaseButton :course="course" :coursePrice="course.price" :courseName="course.name" v-if="!purchased" />
                     </div>
-                    <div class="flex gap-4">
-                        <div class="info_card blur flex flex-col items-center justify-center gap-4 w-64 h-auto p-4 rounded-3xl">
-                            <b class="text-4xl">{{ topVotePercentage }}%</b>
-                            <p class="w-full text-sm text-center flex-grow">به دوره بالاترین نمره را داده اند</p>
-                            <div class="relative h-4 rounded-full bg-pink-500 bg-opacity-40 w-full">
-                                <span class="absolute bg-pink-500 rounded-full h-full" :style="`width: ${topVotePercentage}%`"></span>
+                    <div class="flex flex-wrap items-center gap-4 w-full">
+                        <div class="flex items-center gap-4 pl-4 border-l-2 border-solid border-gray-400">
+                            <div class="flex flex-col items-center justify-center gap-2 shadow-xl p-2 rounded-xl">
+                                <b class="text-sm">{{ topVotePercentage }}%</b>
+                                <p class="w-full text-xs text-center flex-grow">به دوره بالاترین نمره را داده اند</p>
+                                <div class="relative h-2 rounded-full bg-gray-400 bg-opacity-40 w-full">
+                                    <span class="absolute bg-pink-500 rounded-full h-full" :style="`width: ${topVotePercentage}%`"></span>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-center justify-center gap-2 shadow-xl p-2 rounded-xl">
+                                <b class="text-sm">{{ numberOfVotes }}</b>
+                                <p class="w-full text-xs text-center flex-grow">نفر به دوره رای داده اند</p>
+                                <div class="relative h-2 rounded-full bg-gray-400 bg-opacity-40 w-full">
+                                    <span class="absolute bg-orange-500 rounded-full h-full" :style="`width: ${totalVotePercentage}%`"></span>
+                                </div>
                             </div>
                         </div>
-                        <div class="info_card blur flex flex-col items-center justify-center gap-4 w-64 h-auto p-4 rounded-3xl">
-                            <b class="text-4xl">{{ numberOfVotes }}</b>
-                            <p class="w-full text-sm text-center flex-grow">نفر به دوره رای داده اند</p>
-                            <div class="relative h-4 rounded-full bg-orange-500 bg-opacity-40 w-full">
-                                <span class="absolute bg-orange-500 rounded-full h-full" :style="`width: ${totalVotePercentage}%`"></span>
+                        <div class="flex items-center justify-evenly gap-6 rounded-3xl flex-grow">
+                            <div class="flex items-center rounded-2xl gap-4 p-2 md:px-4 bg-truegray-200 flex-shrink-0" v-if="!purchased">
+                                <span class="flex flex-col gap-2 flex-grow">
+                                    <small class="kalameh_bold line-through" v-if="course.price > 0 && !!discount">
+                                        {{ new Intl.NumberFormat("fa").format(course.price) }} تومان
+                                    </small>
+                                    <strong class="kalameh_bold font-normal text-3xl" :class="{ 'text-center': !discount }" v-if="course.price > 0">
+                                        {{ new Intl.NumberFormat("fa").format(course.discountInfo.discountedPrice) }}
+                                    </strong>
+                                    <strong class="kalameh_bold font-normal text-3xl w-full text-center" v-else>رایگان</strong>
+                                </span>
+                                <b class="discount_box bg-rose-500 w-16 h-16 rounded-2xl text-2xl flex-shrink-0 -ml-6" v-if="course.price > 0 && !!discount">
+                                    <span class="kalameh_bold text-white">{{ discount }}%</span>
+                                </b>
                             </div>
+                            <div class="flex flex-wrap items-center gap-2" v-else>
+                                <span class="kalameh_bold opacity-50">به این دوره امتیاز بده</span>
+                                <Score :courseId="course._id" :userScore="userScore" @update:score="updateScore" />
+                            </div>
+                            <PurchaseButton :course="course" :coursePrice="course.price" :courseName="course.name" v-if="!purchased" />
                         </div>
-                    </div>
-                    <!-- <div></div> -->
-                    <div class="info_card flex flex-col items-center justify-center gap-4 w-full p-6 rounded-3xl" v-if="course.teacher">
-                        <h3 class="w-full text-xl">اطلاعات مدرس</h3>
-                        <hr class="border-b border-solid border-gray-300 border-opacity-30 w-full" />
-                        <img class="w-28 h-28 rounded-full object-cover" :src="course.teacher.image" :alt="`${course.teacher.name} ${course.teacher.family}`" />
-                        <b class="w-full text-xl text-center">{{ `${course.teacher.name} ${course.teacher.family}` }}</b>
-                        <p
-                            class="w-full max-w-sm"
-                            :class="teacherDescHeightOpen ? 'max-h-full' : 'max-h-64'"
-                            @click="teacherDescHeightOpen = !teacherDescHeightOpen"
-                        >
-                            {{ course.teacher.description.length > 256 ? course.teacher.description.substr(0, 256) + "..." : course.teacher.description }}
-                        </p>
-                        <nuxt-link :to="`/teacher/${course.teacher._id}`" class="redgray_background rounded-2xl p-4 w-full text-center">
-                            مشاهده دیگر دوره های استاد
-                        </nuxt-link>
                     </div>
                 </div>
-                <div class="flex flex-col gap-6 flex-grow w-full">
-                    <VideoPlayer :src="selectedVideo.src" :type="selectedVideo.type" />
-                    <div class="flex flex-col bg-white rounded-3xl shadow-lg overflow-hidden w-full">
-                        <ul class="tab_header flex w-full overflow-auto bg-gray-100">
-                            <li
-                                class="flex items-center justify-center p-4 w-full cursor-pointer text-center text-sm md:text-base hover:bg-gray-50"
-                                :class="{ 'bg-white': tabPage == 'desc' }"
-                                @click="tabPage = 'desc'"
-                            >
-                                توضیحات
-                            </li>
-                            <li
-                                class="flex items-center justify-center p-4 w-full cursor-pointer text-center text-sm md:text-base hover:bg-gray-50"
-                                :class="{ 'bg-white': tabPage == 'topics' }"
-                                @click="tabPage = 'topics'"
-                            >
-                                سرفصل ها
-                            </li>
-                            <li
-                                class="flex items-center justify-center p-4 w-full cursor-pointer text-center text-sm md:text-base hover:bg-gray-50"
-                                :class="{ 'bg-white': tabPage == 'files' }"
-                                @click="tabPage = 'files'"
-                            >
-                                فایل ها
-                            </li>
-                            <li
-                                class="flex items-center justify-center p-4 w-full cursor-pointer text-center text-sm md:text-base hover:bg-gray-50"
-                                :class="{ 'bg-white': tabPage == 'comments' }"
-                                @click="tabPage = 'comments'"
-                            >
-                                پرسش و پاسخ
-                            </li>
-                        </ul>
-                        <div class="tab_content w-full h-screen overflow-scroll">
-                            <div class="w-full p-3 md:p-6" name="desc" v-show="tabPage == 'desc'">
-                                <p class="p-6 rounded-2xl shadow-lg" v-if="course">{{ course.description }}</p>
-                            </div>
-                            <div class="w-full p-3 md:p-6" name="topics" v-show="tabPage == 'topics'">
-                                <ul class="flex flex-col gap-4 p-2 px-4 rounded-2xl shadow-lg bg-gray-50">
-                                    <li class="relative w-full" v-for="(topic, i) in course.topics" :key="i">
-                                        <Topic :data="topic" :first="i == 0" :last="i == course.topics.length - 1" @selectTopic="changeTopic" />
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="w-full p-3 md:p-6" name="files" v-show="tabPage == 'files'">
-                                <ul class="flex flex-col gap-4 w-full" v-if="course.exerciseFiles && course.exerciseFiles.length > 0">
-                                    <li class="w-full" v-for="(exerciseFile, i) in course.exerciseFiles" :key="i">
-                                        <a
-                                            class="flex items-center gap-4 bg-gray-50 p-4 rounded-2xl shadow-xl w-full"
-                                            :href="exerciseFile.file"
-                                            :download="exerciseFile.name"
-                                        >
-                                            <img class="flex-shrink-0" src="/icons/Folder.black.svg" width="24" height="24" alt="Folder" />
-                                            <span class="flex-grow text-indigo-500">{{ exerciseFile.name }}</span>
-                                            <img class="flex-shrink-0" src="/icons/Download.gray.svg" width="24" height="24" alt="Download" />
-                                        </a>
-                                    </li>
-                                </ul>
-                                <div class="text-red-400 w-full h-64 flex items-center justify-center" v-else>این دوره فایلی برای دانلود ندارد</div>
-                            </div>
-                            <div class="w-full p-3 md:p-6" name="comments" v-show="tabPage == 'comments'">
-                                <CommentSection :commentedOn="course._id" />
-                            </div>
+            </header>
+
+            <div class="flex flex-col xl:flex-row items-start gap-6 flex-grow w-full">
+                <div class="flex flex-col gap-2 flex-grow w-full">
+                    <VideoPlayer class="bg-gray-400 p-2" :src="selectedVideo.src" :type="selectedVideo.type" />
+                    <div class="flex items-center gap-2 md:text-lg bg-white rounded-3xl shadow-md p-3 pt-11 -mt-11" v-if="!!selectedTopic.name">
+                        <div class="orange_gradient_v w-3 h-3 rounded-full"></div>
+                        <span class="kalameh_bold">{{ selectedTopic.name }}</span>
+                    </div>
+                </div>
+                <div class="flex flex-col bg-white rounded-3xl shadow-lg overflow-hidden w-full">
+                    <ul class="tab_header flex w-full overflow-auto bg-gray-100">
+                        <li
+                            class="flex items-center justify-center p-4 w-full cursor-pointer text-center text-sm md:text-base border-b-4 border-solid hover:bg-gray-50"
+                            :class="{ 'bg-white border-orange-400': tabPage == 'topics' }"
+                            @click="tabPage = 'topics'"
+                        >
+                            سرفصل ها
+                        </li>
+                        <li
+                            class="flex items-center justify-center p-4 w-full cursor-pointer text-center text-sm md:text-base border-b-4 border-solid hover:bg-gray-50"
+                            :class="{ 'bg-white border-orange-400': tabPage == 'files' }"
+                            @click="tabPage = 'files'"
+                        >
+                            فایل ها
+                        </li>
+                    </ul>
+                    <div class="tab_content w-full h-96 overflow-scroll">
+                        <div class="w-full p-3 md:p-6" name="topics" v-show="tabPage == 'topics'">
+                            <ul class="flex flex-col gap-4">
+                                <li class="relative w-full" v-for="(topic, i) in course.topics" :key="i">
+                                    <Topic :data="topic" :first="i == 0" :last="i == course.topics.length - 1" @selectTopic="changeTopic" />
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="w-full p-3 md:p-6" name="files" v-show="tabPage == 'files'">
+                            <ul class="flex flex-col gap-4 w-full" v-if="course.exerciseFiles && course.exerciseFiles.length > 0">
+                                <li class="w-full" v-for="(exerciseFile, i) in course.exerciseFiles" :key="i">
+                                    <a
+                                        class="flex items-center gap-4 bg-warmgray-100 p-4 rounded-2xl w-full"
+                                        :href="exerciseFile.file"
+                                        :download="exerciseFile.name"
+                                    >
+                                        <img class="flex-shrink-0" src="/icons/Folder.black.svg" width="24" height="24" alt="Folder" />
+                                        <span class="flex-grow text-indigo-500">{{ exerciseFile.name }}</span>
+                                        <div class="bg-white p-1 rounded-lg hover:shadow-md flex-shrink-0">
+                                            <Icon class="w-6 h-6 bg-gray-700" size="24px" folder="icons/new" name="Download" />
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="text-red-400 w-full h-64 flex items-center justify-center" v-else>این دوره فایلی برای دانلود ندارد</div>
                         </div>
                     </div>
                 </div>
             </div>
         </article>
 
-        <section class="relative flex flex-col gap-8 w-full max-w-screen-2xl mx-auto mt-16" id="most-viewed-articles">
+        <div class="flex flex-col gap-6 w-full" id="description">
+            <div class="flex items-center gap-2">
+                <Icon class="w-7 h-7 bg-gray-700" size="28px" folder="icons/new" name="Document" />
+                <h3 class="kalameh_bold title text-2xl md:text-3xl w-max max-w-full">توضیحات دوره</h3>
+            </div>
+            <p class="w-full" v-if="course">{{ course.description }}</p>
+        </div>
+
+        <span class="spacer_v w-10/12 h-0.5"></span>
+
+        <div class="w-full max-w-screen-2xl bg-white shadow-xl rounded-2xl p-3 md:p-6" id="comments">
+            <CommentSection :commentedOn="course._id" />
+        </div>
+
+        <!-- <section class="relative flex flex-col gap-8 w-full max-w-screen-2xl mx-auto mt-16" id="most-viewed-articles" v-if="!!similarCourses.length">
             <div class="flex flex-wrap justify-between items-center gap-8 w-full">
-                <h4 class="font-bold text-4xl">دوره های پیشنهادی</h4>
+                <h4 class="kalameh_bold title font-bold text-2xl md:text-3xl">دوره های پیشنهادی</h4>
             </div>
             <div v-swiper="coursesSwiperOptions" class="w-full max-w-screen-4xl select-none overflow-hidden">
                 <ul class="swiper-wrapper flex items-start">
@@ -255,7 +267,7 @@
                     </li>
                 </ul>
             </div>
-        </section>
+        </section> -->
     </section>
 </template>
 
@@ -331,9 +343,10 @@ export default {
             purchased: false,
 
             teacherDescHeightOpen: false,
-            tabPage: "desc",
+            tabPage: "topics",
 
             selectedVideo: { src: "", type: "" },
+            selectedTopic: { name: "" },
         };
     },
     async fetch() {
@@ -344,16 +357,16 @@ export default {
 
         await Promise.all([this.getCourse({ headers }, route)]);
     },
-    async beforeRouteUpdate(to, from, next) {
-        if (to.params.id) this.$route.params.id = to.params.id;
-        if (to.params.name) this.$route.params.name = to.params.name;
+    // async beforeRouteUpdate(to, from, next) {
+    //     if (to.params.id) this.$route.params.id = to.params.id;
+    //     if (to.params.name) this.$route.params.name = to.params.name;
 
-        this.selectedVideo = { src: "", type: "" };
+    //     this.selectedVideo = { src: "", type: "" };
 
-        await this.getCourse({}, to);
-        if (typeof window !== "undefined") window.scrollTo({ top: 0 });
-        next();
-    },
+    //     await this.getCourse({}, to);
+    //     if (typeof window !== "undefined") window.scrollTo({ top: 0 });
+    //     next();
+    // },
     methods: {
         async getCourse(data = {}, route) {
             if (this.loadingCourse) return;
@@ -382,7 +395,11 @@ export default {
                     this.course = {
                         ...results.data.course,
                         topics,
-                        totalTime: new Date(seconds * 1000).toUTCString().match(/(\d\d:\d\d:\d\d)/)[0].split(':').join(' : '),
+                        totalTime: new Date(seconds * 1000)
+                            .toUTCString()
+                            .match(/(\d\d:\d\d:\d\d)/)[0]
+                            .split(":")
+                            .join(" : "),
                         // totalTime: duration(seconds * 1000).locale("fa").humanize(),
                     };
 
@@ -412,6 +429,7 @@ export default {
         changeTopic(topic) {
             if (topic.canPlay) {
                 this.selectedVideo = { src: topic.file, type: "video/mp4" };
+                this.selectedTopic = topic;
             }
         },
 

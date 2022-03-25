@@ -1,42 +1,70 @@
-<style scoped></style>
+<style scoped>
+.toggle_comment {
+    --color-bg: #fff;
+    background: linear-gradient(var(--color-bg), var(--color-bg)) padding-box, linear-gradient(273.67deg, #ff8537 -20.26%, #ff51b1 114.54%) border-box;
+    border: 2px solid transparent;
+    transition: all 0.1s;
+}
+.toggle_comment:hover {
+    background: linear-gradient(273.67deg, #ff8537 -20.26%, #ff51b1 114.54%);
+    color: #fff;
+}
+
+.comment_box {
+    border: 2px solid #777;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 25%);
+}
+</style>
 
 <template>
-    <section class="flex flex-col gap-8 w-full max-w-screen-xl mx-auto mt-4">
-        <div class="flex flex-col md:flex-row items-start gap-4 md:gap-8">
-            <img class="rounded-full shadow-xl w-16 md:w-36 h-16 md:h-36" :src="user.info.image || `/misc/avatar.svg`" alt="avatar" />
-            <div class="flex flex-col items-end gap-4 w-full">
-                <textarea
-                    type="text"
-                    v-model="commentText"
-                    placeholder="دیدگاه خود را وارد کنید..."
-                    class="p-3 w-full rounded-xl shadow-xl resize-none"
-                    rows="8"
-                ></textarea>
+    <section class="flex flex-col gap-8 w-full mx-auto mt-4">
+        <div class="flex flex-wrap items-center justify-between gap-4 w-full">
+            <div class="flex items-center gap-2">
+                <Icon class="w-7 h-7 bg-gray-700" size="28px" folder="icons/new" name="Chat" />
+                <h3 class="kalameh_bold title text-2xl md:text-3xl w-max max-w-full">پرسش و پاسخ</h3>
+            </div>
+            <button class="toggle_comment flex items-center gap-1 p-2 px-3 rounded-2xl" @click="commentBoxOpen = !commentBoxOpen">
+                <Icon class="w-5 h-5 bg-gray-600" size="20px" folder="icons/new" name="EditSquare" />
+                <span>ثبت دیدگاه</span>
+            </button>
+        </div>
+
+        <div class="flex flex-col items-start gap-4" v-if="commentBoxOpen">
+            <div class="flex items-center gap-2">
+                <img class="rounded-full shadow-xl w-16 h-16 object-cover" :src="user.info.image || `/misc/avatar.svg`" loading="lazy" alt="avatar" />
+                <div class="flex flex-col">
+                    <span>{{ `${user.info.name} ${user.info.family}` }}</span>
+                    <small class="opacity-75">{{ user.info.email }}</small>
+                </div>
+            </div>
+            <div class="comment_box flex flex-col items-end gap-4 w-full rounded-2xl p-4">
+                <textarea type="text" v-model="commentText" placeholder="دیدگاه خود را وارد کنید..." class="w-full resize-none" rows="5"></textarea>
                 <span
-                    class="p-2 rounded-lg"
+                    class="p-2 rounded-xl text-xs"
                     :class="{ 'bg-red-100 text-red-800': messageType == 'error', 'bg-emerald-100 text-emerald-800': messageType == 'success' }"
                     v-if="!!message"
                 >
                     {{ message }}
                 </span>
                 <button
-                    class="orange_gradient_h flex items-center justify-center gap-2 py-2 px-4 w-max rounded-xl hover:shadow-lg"
+                    class="orange_gradient_h flex items-center justify-center gap-2 p-2 px-4 w-max rounded-xl hover:shadow-lg"
                     :class="{ 'opacity-50': sending }"
                     @click="sendComment($event)"
                 >
                     <div class="flex items-center justify-center gap-2" v-if="!sending">
-                        <span class="font-bold">ارسال پیام</span>
-                        <img src="/icons/Send.svg" alt="Send" width="24" height="24" />
+                        <span class="">ارسال</span>
+                        <Icon class="w-5 h-5 bg-gray-100" size="20px" folder="icons/new" name="Send" />
                     </div>
                     <Loading class="w-8 h-8" v-else />
                 </button>
             </div>
         </div>
+
         <div class="flex flex-col items-start gap-8 md:gap-10">
             <Comment v-for="(comment, i) in comments" :key="i" :comment.sync="comments[i]" />
         </div>
         <button
-            class="gray_gradient blur flex items-center gap-2 py-3 px-6 rounded-xl w-max"
+            class="gray_gradient flex items-center gap-2 py-3 px-6 rounded-xl w-max"
             v-if="!commentsLoading && commentsPage <= commentsPageTotal"
             @click="getComments()"
         >
@@ -61,6 +89,7 @@ export default {
     data() {
         return {
             sending: false,
+            commentBoxOpen: false,
 
             commentText: "",
             message: "",

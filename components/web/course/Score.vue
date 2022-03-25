@@ -3,7 +3,6 @@
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
-    width: 100%;
     overflow: hidden;
     position: relative;
 }

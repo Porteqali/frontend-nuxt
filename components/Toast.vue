@@ -4,7 +4,7 @@
     top: 1rem;
     right: 1rem;
     z-index: 1000;
-    background-color: #000000a0;
+    border: 6px solid rgb(175, 175, 175);
     color: #fff;
 }
 
@@ -18,18 +18,18 @@
 
 <template>
     <transition name="slideleft" mode="out-in" appear="">
-        <div class="toast blur flex flex-col gap-4 rounded-3xl p-8 shadow-xl" v-if="show">
+        <div class="toast flex flex-col gap-4 rounded-3xl p-4 md:p-8 shadow-xl bg-warmgray-600" v-if="show">
             <span class="w-full h-1 rounded-full" :class="{ [bgColor]: 1 }" v-if="bgColor != ''"></span>
             <div class="flex items-center justify-between gap-8">
                 <h4 v-if="toastOptions.title" class="flex items-center gap-4 text-xl max-w-xs">
                     <img v-if="toastOptions.icon" :src="toastOptions.icon" loading="lazy" width="20" height="20" />
-                    <b>{{ toastOptions.title }}</b>
+                    <b class="kalameh_bold">{{ toastOptions.title }}</b>
                 </h4>
                 <button class="flex items-center justify-center bg-black bg-opacity-20 p-2 rounded-full" @click="close()" v-if="toastOptions.dismissible">
                     <img src="/icons/Cancel.white.svg" width="20" height="20" alt="Close" />
                 </button>
             </div>
-            <p v-if="toastOptions.message" class="text-sm max-w-xs text-indigo-100">{{ toastOptions.message }}</p>
+            <p v-if="toastOptions.message" class="text-sm max-w-xs text-gray-100">{{ toastOptions.message }}</p>
 
             <div class="w-full mt-3" v-if="toastOptions.btn && !!toastOptions.btn.link && toastOptions.btn.internal">
                 <nuxt-link class="flex items-center justify-center w-full p-4 rounded-2xl bg-black bg-opacity-40" :to="toastOptions.btn.link">

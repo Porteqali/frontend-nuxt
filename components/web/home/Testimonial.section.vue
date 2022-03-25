@@ -33,7 +33,7 @@
             class="container flex flex-col items-center gap-8 p-16 mr-auto md:mr-0 shadow-xl max-w-xl select-none overflow-hidden"
         >
             <ul class="swiper-wrapper flex items-start w-full">
-                <li class="swiper-slide flex flex-col items-start gap-4 w-screen max-w-lg z-10" v-for="(testimonial, i) in testimonials" :key="i">
+                <li class="swiper-slide flex flex-col items-start gap-4 w-full flex-shrink-0 z-10" v-for="(testimonial, i) in testimonials" :key="i">
                     <div class="flex items-center gap-4">
                         <img class="w-24 h-24 object-cover shadow-lg rounded-full" :src="testimonial.image" :alt="testimonial.fullname" loading="lazy" />
                         <div class="flex flex-col gap-2">
@@ -73,13 +73,11 @@ export default {
             testimonials: ["", "", "", "", "", "", ""],
             testimonialsSwiperOptions: {
                 autoplay: 5000,
-                // slidesPerView: 1,
-                slidesPerView: "auto",
-                initialSlide: 0,
+                slidesPerView: 1,
+                // initialSlide: 0,
                 spaceBetween: 64,
                 loop: true,
-                // freeMode: false,
-                freeMode: true,
+                // freeMode: true,
                 pagination: ".swiper-pagination2",
                 prevButton: ".swiper-prev",
                 nextButton: ".swiper-next",

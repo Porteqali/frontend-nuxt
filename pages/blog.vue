@@ -79,19 +79,19 @@
             <h2 class="kalameh_bold title2 text-2xl md:text-3xl w-max max-w-full">پربازدیدترین مطالب</h2>
             <div v-swiper="popularArticlesSwiperOptions" class="w-full max-w-screen-xl select-none overflow-hidden" v-if="!popularArticlesLoading">
                 <ul class="swiper-wrapper flex items-start p-8 pt-0">
-                    <li class="swiper-slide flex w-full max-w-xs bg-white shadow-xl p-4 rounded-3xl ml-6" v-for="(popularArticle, i) in popularArticles" :key="i">
+                    <li class="swiper-slide flex w-full max-w-xs bg-white shadow-xl p-4 rounded-3xl" v-for="(popularArticle, i) in popularArticles" :key="i">
                         <nuxt-link
                             class="flex flex-col gap-4 flex-grow rounded-3xl w-full sm:max-w-xs"
                             :to="`/article/${popularArticle.slug}`"
                             :title="popularArticle.title"
                         >
                             <img
-                                class="max-w-screen-xs w-full h-48 rounded-2xl object-cover"
+                                class="max-w-xs w-full h-40 md:h-48 rounded-2xl object-cover"
                                 :src="popularArticle.image"
                                 :alt="popularArticle.title"
                                 loading="lazy"
                             />
-                            <h3 class="kalameh_bold text-lg w-full overflow-hidden overflow-ellipsis whitespace-nowrap">{{ popularArticle.title }}</h3>
+                            <h3 class="kalameh_bold md:text-lg w-full overflow-hidden overflow-ellipsis whitespace-nowrap">{{ popularArticle.title }}</h3>
                             <div class="bg-orange-400 h-1.5 rounded-full w-full"></div>
                             <div class="flex flex-wrap justify-between items-center gap-4">
                                 <div class="flex items-center gap-1">
@@ -107,7 +107,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="md:absolute md:-mt-12 orange_gradient_v flex items-center justify-between px-6 w-full h-4 rounded-full">
+            <div class="md:absolute -mt-6 md:-mt-12 orange_gradient_v flex items-center justify-between px-6 w-full h-4 rounded-full">
                 <button class="flex items-center justify-center p-2 bg-white shadow-xl rounded-xl swiper-prev">
                     <img src="/icons/new/ArrowRight3.svg" width="24" />
                 </button>
@@ -179,8 +179,9 @@ export default {
             popularArticles: [{}, {}, {}],
             popularArticlesSwiperOptions: {
                 autoplay: false,
-                slidesPerView: "auto",
-                initialSlide: 0,
+                slidesPerView: 1,
+                // initialSlide: 0,
+                spaceBetween: 32,
                 prevButton: ".swiper-prev",
                 nextButton: ".swiper-next",
                 loop: true,

@@ -49,7 +49,6 @@
                 <Loading class="w-10 h-10" v-if="repliesLoading" />
             </div>
         </div>
-        <hr class="colored_border mt-4 w-11/12 mx-auto">
     </div>
 </template>
 

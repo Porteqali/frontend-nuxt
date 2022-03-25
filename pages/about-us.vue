@@ -14,7 +14,7 @@
 <template>
     <main role="main" class="flex flex-col items-center gap-10 max-w-screen-2xl w-full mt-24 md:mt-28 px-4 md:px-8 mb-16">
         <article class="flex flex-wrap-reverse justify-center items-start xl:gap-10 w-full">
-            <div class="flex flex-col items-center gap-8 -mt-16 xl:-mt-0">
+            <div class="flex flex-col items-center gap-8 -mt-8 xl:-mt-0">
                 <div class="relative flex items-end">
                     <img class="-ml-40" src="/pages/about-us/path2.svg" alt="path" />
                     <img class="-mr-40 -mb-12" src="/pages/about-us/orange.png" alt="orange" />
@@ -65,13 +65,13 @@
 
         <span class="spacer_h w-0.5 h-24"></span>
 
-        <div class="flex flex-col items-center gap-4 w-full mt-8">
+        <div class="flex flex-col items-center gap-4 w-full my-8">
             <h2 class="kalameh_black title2 text-4xl md:text-5xl w-max max-w-full">اساتید پرتقال</h2>
             <p class="kalameh_bold">با اساتید گروه پرتقال بیشتر اشنا بشید</p>
         </div>
         <section class="flex flex-wrap-reverse justify-evenly gap-24 md:gap-10 w-full max-w-screen-2xl" v-if="!groupsLoading">
             <div class="relative flex flex-col-reverse md:flex-col items-start w-full gap-4" v-for="(group, i) in groups" :key="i">
-                <div v-swiper:[departments[i].slug]="departments[i].swiperOptions" class="w-full max-w-6xl select-none overflow-hidden pt-8 pb-20 px-2 xl:mr-60">
+                <div v-swiper:[departments[i].slug]="departments[i].swiperOptions" class="w-full max-w-6xl select-none overflow-hidden py-8 px-2 xl:mr-60">
                     <ul class="swiper-wrapper flex items-start w-full">
                         <li
                             class="swiper-slide flex flex-col items-start justify-start gap-4 p-4 md:p-6 mt-10 w-screen max-w-xs flex-shrink-0 rounded-3xl shadow-xl bg-white ml-6"
@@ -112,7 +112,7 @@
                 </div>
                 <div class="xl:absolute xl:mt-40 bg-orange-300 flex items-center gap-4 px-4 w-full h-3 rounded-full">
                     <h3 class="kalameh_bold text-xl md:text-2xl w-max max-w-full xl:max-w-screen-2xs text-gray-700">اساتید دوره های {{ departments[i].name }}</h3>
-                    <div class="flex items-center gap-1 md:justify-between w-full flex-grow">
+                    <div class="flex items-center gap-1 md:justify-between flex-shrink-0 xl:flex-grow">
                         <button class="flex items-center justify-center p-2 bg-white shadow-xl rounded-xl" :class="[`swiper-prev-${departments[i].slug}`]">
                             <img src="/icons/new/ArrowRight3.svg" width="24" />
                         </button>

@@ -2,11 +2,14 @@
 .board {
     border: 0.9rem solid #c7c4c1;
     border-radius: 2rem;
-    /* box-shadow: 0px 0px 0px 1.25rem #c7c4c1, 0px 15px 15px rgba(0, 0, 0, 7%); */
 }
 
 .portal {
     filter: drop-shadow(0px 0px 105px rgba(30, 0, 30, 40%));
+    min-width: 36rem;
+}
+.portalGirl {
+    min-width: 512px;
 }
 
 @media (min-width: 768px) {
@@ -19,8 +22,8 @@
 
 <template>
     <main role="main" class="flex flex-col items-center gap-16 lg:gap-24 max-w-screen-2xl w-full mt-24 md:mt-28">
-        <section class="relative flex flex-wrap md:flex-nowrap items-start md:items-center justify-between gap-8 px-4 md:px-8 w-full">
-            <div class="board w-full max-w-screen-lg bg-warmgray-600 flex flex-col gap-6 md:gap-10 p-6 md:p-12 md:pl-52 flex-shrink-0">
+        <section class="relative flex flex-wrap md:flex-nowrap items-start md:items-center justify-between gap-8 px-1 md:px-8 w-full">
+            <div class="board w-full max-w-screen-lg bg-warmgray-600 flex flex-col gap-6 md:gap-10 p-4 md:p-12 md:pl-52 flex-shrink-0">
                 <strong class="text-xs text-warmgray-50 font-normal -mb-8 md:-mb-12">حاضری برای خودت سرمایه گذاری کنی؟</strong>
                 <h1 class="flex flex-col gap-2 md:gap-4 text-warmgray-100 w-full max-w-screen-lg">
                     <div class="flex items-center gap-4">
@@ -42,17 +45,17 @@
                     <li class="flex flex-col items-center justify-center gap-4">
                         <Icon class="w-10 h-10 bg-orange-400" size="40px" folder="icons/new" name="User3" />
                         <strong class="kalameh_bold text-orange-400 opacity-90 text-xl md:text-4xl" dir="ltr">50,000+</strong>
-                        <b class="kalameh_bold md:text-lg text-warmgray-200">کاربر فعال</b>
+                        <b class="kalameh_bold text-sm md:text-lg text-warmgray-200">کاربر فعال</b>
                     </li>
                     <li class="flex flex-col items-center justify-center gap-4">
                         <Icon class="w-10 h-10 bg-orange-400" size="40px" folder="icons/new" name="Voice3" />
                         <strong class="kalameh_bold text-orange-400 opacity-90 text-xl md:text-4xl" dir="ltr">23</strong>
-                        <b class="kalameh_bold md:text-lg text-warmgray-200">مدرس برتر</b>
+                        <b class="kalameh_bold text-sm md:text-lg text-warmgray-200">مدرس برتر</b>
                     </li>
                     <li class="flex flex-col items-center justify-center gap-4">
                         <Icon class="w-10 h-10 bg-orange-400" size="40px" folder="icons/new" name="Play" />
                         <strong class="kalameh_bold text-orange-400 opacity-90 text-xl md:text-4xl" dir="ltr">2,000+</strong>
-                        <b class="kalameh_bold md:text-lg text-warmgray-200">ویدیو آموزشی</b>
+                        <b class="kalameh_bold text-sm md:text-lg text-warmgray-200">ویدیو آموزشی</b>
                     </li>
                 </ul>
             </div>
@@ -63,7 +66,7 @@
                     src="/pages/home/gal.png"
                     alt="porteqali-online-learning-platform"
                 />
-                <img class="portal absolute -left-1/4 w-screen max-w-3xl" src="/backgrounds/Background.home2.svg" alt="Background" />
+                <img class="portal absolute left-0 md:-left-1/4 w-screen md:max-w-3xl" src="/backgrounds/Background.home2.svg" alt="Background" />
             </div>
         </section>
 

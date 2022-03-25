@@ -61,7 +61,7 @@
             <Comment v-for="(comment, i) in comments" :key="i" :comment.sync="comments[i]" />
         </div>
         <button
-            class="gray_gradient blur flex items-center gap-2 py-3 px-6 rounded-xl w-max"
+            class="gray_gradient flex items-center gap-2 py-3 px-6 rounded-xl w-max"
             v-if="!commentsLoading && commentsPage <= commentsPageTotal"
             @click="getComments()"
         >

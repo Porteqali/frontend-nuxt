@@ -99,7 +99,7 @@
             </li>
         </ul>
 
-        <ul class="flex items-center justify-center gap-4 md:gap-6">
+        <ul class="flex items-center justify-center gap-2 md:gap-6">
             <li>
                 <nuxt-link
                     class="flex items-center justify-center rounded-full"
@@ -113,7 +113,7 @@
             </li>
             <li v-for="(item, i) in articlesPages" :key="i">
                 <nuxt-link
-                    class="flex items-center justify-center p-3 w-10 h-10 shadow-lg rounded-xl"
+                    class="flex items-center justify-center p-3 w-8 md:w-10 h-8 md:h-10 shadow-lg rounded-xl"
                     :class="articlesPage == item ? 'bg-gray-700 text-white' : 'bg-white'"
                     :to="`${`/blog/:page?order=${selectedArticleOrder.value}&category=${selectedArticleCategory.value}`.replace(':page', item)}`"
                     v-if="item > 0"

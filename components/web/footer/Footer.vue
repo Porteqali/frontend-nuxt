@@ -17,7 +17,7 @@ footer {
     width: 6rem;
     height: 6rem;
     border-radius: 1.5rem;
-    opacity: 75%;
+    opacity: 0.75;
     background: linear-gradient(87.25deg, #ffa825 -11.51%, #ff70d7 114.56%);
     transform: rotate(-30deg);
 }
@@ -26,7 +26,7 @@ footer {
     content: "";
     width: 2rem;
     height: 2rem;
-    opacity: 55%;
+    opacity: 0.55;
     position: absolute;
     z-index: -1;
     background: linear-gradient(87.25deg, #ffa825 -11.51%, #ff70d7 114.56%);

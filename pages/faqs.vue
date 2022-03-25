@@ -34,14 +34,14 @@
         </section>
 
         <div class="flex flex-wrap md:flex-nowrap items-start gap-4 w-full max-w-screen-xl">
-            <ul class="flex flex-row md:flex-col gap-4 w-full md:max-w-screen-2xs flex-shrink-0 bg-truegray-50 p-2 rounded-3xl">
+            <ul class="flex flex-row md:flex-col gap-4 w-full md:max-w-screen-2xs flex-shrink-0 bg-truegray-50 rounded-3xl">
                 <li
                     class="flex flex-col md:flex-row items-center gap-2 p-2 rounded-2xl w-full"
                     :class="{ 'text-gray-100 bg-gray-700': selectedGroup == 'education' }"
                     @click="selectCategory('education')"
                 >
                     <Icon class="w-7 h-7" :class="[selectedGroup == 'education' ? 'bg-gray-100' : 'bg-gray-700']" size="28px" folder="icons/new" name="Work" />
-                    <strong class="kalameh_bold whitespace-nowrap md:text-lg flex-shrink-0">آموزش</strong>
+                    <strong class="font-bold whitespace-nowrap text-sm md:text-lg flex-shrink-0">آموزش</strong>
                 </li>
                 <li
                     class="flex flex-col md:flex-row items-center gap-2 p-2 rounded-2xl w-full"
@@ -49,7 +49,7 @@
                     @click="selectCategory('support')"
                 >
                     <Icon class="w-7 h-7" :class="[selectedGroup == 'support' ? 'bg-gray-100' : 'bg-gray-700']" size="28px" folder="icons/new" name="AddUser" />
-                    <strong class="kalameh_bold whitespace-nowrap md:text-lg flex-shrink-0">پشتیبانی</strong>
+                    <strong class="font-bold whitespace-nowrap text-sm md:text-lg flex-shrink-0">پشتیبانی</strong>
                 </li>
                 <li
                     class="flex flex-col md:flex-row items-center gap-2 p-2 rounded-2xl w-full"
@@ -57,7 +57,7 @@
                     @click="selectCategory('collab')"
                 >
                     <Icon class="w-7 h-7" :class="[selectedGroup == 'collab' ? 'bg-gray-100' : 'bg-gray-700']" size="28px" folder="icons/new" name="Calling" />
-                    <strong class="kalameh_bold whitespace-nowrap md:text-lg flex-shrink-0">همکاری</strong>
+                    <strong class="font-bold whitespace-nowrap text-sm md:text-lg flex-shrink-0">همکاری</strong>
                 </li>
                 <li
                     class="flex flex-col md:flex-row items-center gap-2 p-2 rounded-2xl w-full"
@@ -65,7 +65,7 @@
                     @click="selectCategory('wallet')"
                 >
                     <Icon class="w-7 h-7" :class="[selectedGroup == 'wallet' ? 'bg-gray-100' : 'bg-gray-700']" size="28px" folder="icons/new" name="Wallet" />
-                    <strong class="kalameh_bold whitespace-nowrap md:text-lg flex-shrink-0">کارت اعتباری</strong>
+                    <strong class="font-bold whitespace-nowrap text-sm md:text-lg flex-shrink-0">کارت اعتباری</strong>
                 </li>
             </ul>
 
@@ -80,7 +80,7 @@
                         @click="faq.open = !faq.open"
                     >
                         <div class="flex flex-col gap-4 flex-grow w-full">
-                            <h4 class="text-lg w-full font-bold">{{ faq.question }}</h4>
+                            <h4 class="md:text-lg w-full font-bold">{{ faq.question }}</h4>
                             <transition name="slidedown" mode="out-in" appear>
                                 <p class="w-full bg-white p-4 rounded-xl" v-show="faq.open">{{ faq.answer }}</p>
                             </transition>

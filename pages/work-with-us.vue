@@ -109,7 +109,7 @@ textarea {
                 <button class="hidden md:flex items-center justify-center p-2 bg-white shadow-xl rounded-xl swiper-prev">
                     <img src="/icons/new/ArrowRight3.svg" width="24" />
                 </button>
-                <div v-swiper="testimonialsSwiperOptions" class="w-full select-none overflow-hidden py-8 px-0 md:px-8">
+                <div v-swiper="testimonialsSwiperOptions" class="w-full select-none overflow-hidden py-8 px-0 md:px-4">
                     <ul class="swiper-wrapper flex w-full">
                         <li
                             class="swiper-slide flex flex-col items-start gap-4 p-4 max-w-xs w-screen flex-shrink-0 rounded-2xl shadow-xl bg-white"
@@ -173,10 +173,10 @@ export default {
             testimonialsSwiperOptions: {
                 autoplay: 3000,
                 slidesPerView: "auto",
-                initialSlide: 0,
+                // initialSlide: 0,
                 spaceBetween: 32,
                 loop: true,
-                freeMode: true,
+                // freeMode: true,
                 pagination: ".swiper-pagination",
                 prevButton: ".swiper-prev",
                 nextButton: ".swiper-next",
