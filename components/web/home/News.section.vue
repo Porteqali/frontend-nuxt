@@ -41,12 +41,13 @@
             </div>
             <div class="relative flex flex-col items-center p-4">
                 <img class="absolute -mt-4" src="/pages/home/imac.png" loading="lazy" alt="imac" />
-                <div class="video-js rounded-3xl overflow-hidden w-full max-w-2xl h-64 lg:h-96 flex-shrink-0">
+                <!-- <div class="video-js rounded-3xl overflow-hidden w-full max-w-2xl h-64 lg:h-96 flex-shrink-0">
                     <div class="vjs-big-play-button absolute cursor-pointer" v-show="videoPaused"></div>
                     <video class="w-full h-full" controls @play="videoPaused = false" @pause="videoPaused = true" v-if="!loading">
                         <source :src="playerOptions.sources[0].src" :type="playerOptions.sources[0].type" />
                     </video>
-                </div>
+                </div> -->
+                <VideoPlayer class="max-w-xl" :src="playerOptions.sources[0].src" :type="playerOptions.sources[0].type" />
             </div>
         </div>
     </section>
@@ -54,12 +55,14 @@
 
 <script>
 import axios from "axios";
+import VideoPlayer from "~/components/web/VideoPlayer.vue";
 import Icon from "~/components/Icon.vue";
 
 export default {
     name: "NewsSection",
     components: {
         Icon,
+        VideoPlayer,
     },
     data() {
         return {

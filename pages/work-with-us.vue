@@ -3,6 +3,10 @@
     background: linear-gradient(233.4deg, #ffa825 11.05%, rgba(255, 112, 215, 0.34) 100.55%);
 }
 
+.testimonial_slide {
+    max-width: 286px;
+}
+
 input,
 textarea {
     outline: none;
@@ -112,18 +116,18 @@ textarea {
                 <div v-swiper="testimonialsSwiperOptions" class="w-full select-none overflow-hidden py-8 px-0 md:px-4">
                     <ul class="swiper-wrapper flex w-full">
                         <li
-                            class="swiper-slide flex flex-col items-start gap-4 p-4 max-w-xs w-screen flex-shrink-0 rounded-2xl shadow-xl bg-white"
+                            class="testimonial_slide swiper-slide flex flex-col items-start gap-4 p-4 w-screen flex-shrink-0 rounded-2xl shadow-xl bg-white ml-4"
                             v-for="(testimonial, i) in testimonials"
                             :key="i"
                         >
                             <p class="max-w-xs text-sm">{{ testimonial.comment }}</p>
-                            <div class="flex flex-wrap items-start gap-2 lg:-mb-12">
+                            <div class="flex flex-wrap items-start gap-2 lg:-mb-10">
                                 <img
-                                    class="orange_gradient_h p-1 w-16 md:w-28 h-16 md:h-28 rounded-3xl object-cover"
+                                    class="orange_gradient_h p-1 w-16 md:w-20 h-16 md:h-20 rounded-full object-cover"
                                     :src="testimonial.image"
                                     :alt="testimonial.fullname"
                                 />
-                                <div class="flex flex-col items-start gap-1">
+                                <div class="flex flex-col items-start">
                                     <b class="kalameh_bold text-lg">{{ testimonial.fullname }}</b>
                                     <span class="text-sm text-amber-500">{{ testimonial.title }}</span>
                                 </div>
@@ -173,8 +177,8 @@ export default {
             testimonialsSwiperOptions: {
                 autoplay: 3000,
                 slidesPerView: "auto",
-                // initialSlide: 0,
-                spaceBetween: 32,
+                initialSlide: 1,
+                // spaceBetween: 32,
                 loop: true,
                 // freeMode: true,
                 pagination: ".swiper-pagination",

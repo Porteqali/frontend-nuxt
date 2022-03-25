@@ -4,6 +4,10 @@
     max-height: 320px;
 }
 
+.most_viewed_article_slide {
+    max-width: 286px;
+}
+
 .view_topics {
     --color-bg: #fff;
     background: linear-gradient(var(--color-bg), var(--color-bg)) padding-box, linear-gradient(273.67deg, #ff8537 -20.26%, #ff51b1 114.54%) border-box;
@@ -79,7 +83,11 @@
             <h2 class="kalameh_bold title2 text-2xl md:text-3xl w-max max-w-full">پربازدیدترین مطالب</h2>
             <div v-swiper="popularArticlesSwiperOptions" class="w-full max-w-screen-xl select-none overflow-hidden" v-if="!popularArticlesLoading">
                 <ul class="swiper-wrapper flex items-start p-8 pt-0">
-                    <li class="swiper-slide flex w-full max-w-xs bg-white shadow-xl p-4 rounded-3xl" v-for="(popularArticle, i) in popularArticles" :key="i">
+                    <li
+                        class="most_viewed_article_slide swiper-slide flex w-screen flex-shrink-0 bg-white shadow-xl p-4 rounded-3xl ml-6"
+                        v-for="(popularArticle, i) in popularArticles"
+                        :key="i"
+                    >
                         <nuxt-link
                             class="flex flex-col gap-4 flex-grow rounded-3xl w-full sm:max-w-xs"
                             :to="`/article/${popularArticle.slug}`"
@@ -178,14 +186,14 @@ export default {
             popularArticlesLoading: false,
             popularArticles: [{}, {}, {}],
             popularArticlesSwiperOptions: {
-                autoplay: false,
-                slidesPerView: 1,
-                // initialSlide: 0,
-                spaceBetween: 32,
+                // autoplay: false,
+                slidesPerView: "auto",
+                initialSlide: 1,
+                // spaceBetween: 32,
                 prevButton: ".swiper-prev",
                 nextButton: ".swiper-next",
                 loop: true,
-                freeMode: true,
+                // freeMode: true,
             },
 
             contact_info: this.contact_info || {},

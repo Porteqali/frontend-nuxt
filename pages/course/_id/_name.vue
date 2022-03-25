@@ -4,7 +4,7 @@
 }
 
 .course_image {
-    height: 320px;
+    height: 246px;
 }
 
 .discount_box {
@@ -17,7 +17,7 @@
     transform: rotate(-45deg);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 480px) {
     .course_image {
         height: 360px;
     }
@@ -33,11 +33,11 @@
                     <div class="absolute right-4 -bottom-12 flex items-center gap-4">
                         <a class="flex items-center gap-2 p-3 pt-6 rounded-xl shadow-xl bg-white" href="#description">
                             <Icon class="w-6 h-6 bg-gray-700" size="24px" folder="icons/new" name="Document" />
-                            <span>توضیحات دوره</span>
+                            <span class="text-xs md:text-base">توضیحات دوره</span>
                         </a>
                         <a class="flex items-center gap-2 p-3 pt-6 rounded-xl shadow-xl bg-white" href="#comments">
                             <Icon class="w-6 h-6 bg-gray-700" size="24px" folder="icons/new" name="Chat" />
-                            <span>پرسش و پاسخ</span>
+                            <span class="text-xs md:text-base">پرسش و پاسخ</span>
                         </a>
                     </div>
                     <img class="course_image w-full max-w-lg object-cover bg-gray-800 p-2 rounded-2xl z-10" :src="course.image" :alt="course.name" />
@@ -59,7 +59,7 @@
                         <h1 class="kalameh_bold text-2xl md:text-3xl w-max max-w-full flex-shrink-0">{{ course.name }}</h1>
                         <div class="bg-orange-400 h-2 rounded-full flex-grow"></div>
                     </div>
-                    <div class="flex flex-wrap items-center gap-4">
+                    <div class="flex flex-wrap items-start sm:items-center gap-4">
                         <div class="flex items-center gap-2 pl-4 border-l-2 border-solid border-gray-400" v-if="course.teacher">
                             <img
                                 class="orange_gradient_v p-1.5 w-12 md:w-16 h-12 md:h-16 object-cover rounded-full"
@@ -71,7 +71,7 @@
                                 <small class="text-orange-400" v-if="course.teacher.groups && course.teacher.groups[0]">{{ course.teacher.groups[0].name }}</small>
                             </div>
                         </div>
-                        <ul class="flex flex-wrap items-center justify-between gap-4 md:gap-6 flex-grow max-w-xl">
+                        <ul class="grid grid-cols-2 sm:flex flex-wrap items-center justify-between gap-4 md:gap-6 flex-grow max-w-xl">
                             <li class="flex flex-col items-center gap-2">
                                 <h5 class="flex flex-col md:flex-row items-center gap-2">
                                     <img src="/icons/Star.orange.svg" alt="Star" />
@@ -119,7 +119,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="flex items-center justify-evenly gap-6 rounded-3xl flex-grow">
+                        <div class="flex flex-wrap sm:flex-nowrap items-start justify-start gap-6 rounded-3xl flex-grow">
                             <div class="flex items-center rounded-2xl gap-4 p-2 md:px-4 bg-truegray-200 flex-shrink-0" v-if="!purchased">
                                 <span class="flex flex-col gap-2 flex-grow">
                                     <small class="kalameh_bold line-through" v-if="course.price > 0 && !!discount">
