@@ -11,14 +11,14 @@
                     </template>
                 </Select>
             </div>
-            <div class="flex items-center gap-1">
+            <div class="flex items-center gap-1 w-full max-w-3xl">
                 <button class="flex items-center justify-center swiper-prev">
                     <img src="/icons/new/ArrowRight2.svg" width="24" />
                 </button>
-                <div v-swiper="categorySwiperOptions" class="w-full max-w-xl select-none overflow-hidden">
+                <div v-swiper="categorySwiperOptions" class="w-full select-none overflow-hidden pb-4 -mb-4">
                     <ul class="swiper-wrapper flex items-start">
                         <li
-                            class="swiper-slide flex w-max max-w-max bg-white shadow-sm p-3 px-4 rounded-2xl ml-4 cursor-pointer"
+                            class="swiper-slide flex w-max max-w-max bg-white shadow-lg p-3 px-4 rounded-2xl ml-4 cursor-pointer flex-shrink-0"
                             :class="{ orange_gradient_v: selectedArticleCategory.value == opt.value }"
                             v-for="(opt, i) in articleCategoryOptions"
                             :key="i"
@@ -120,7 +120,7 @@
                 >
                     {{ item }}
                 </nuxt-link>
-                <span class="flex items-center justify-center p-3 w-8 h-8 rounded-full bg-indigo-100" v-else>...</span>
+                <span class="flex items-center justify-center p-3 w-8 h-8 rounded-full bg-gray-100" v-else>...</span>
             </li>
             <li>
                 <nuxt-link

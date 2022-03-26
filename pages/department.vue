@@ -1,240 +1,100 @@
 <style scoped>
-#top {
-    /* color: var(--top-h1-color); */
-    font-weight: 900;
+.most_viewed_courses_image {
+    transform: scale(1.07);
 }
 
-.top_course_cart {
-    background-color: #fff;
-}
-.top_course_cart img {
-    /* max-height: 16rem; */
-}
-.top_course_cart .topics {
-    /* height: 20rem; */
-    /* min-width: 20rem; */
-    overflow: auto;
-}
-.article_category {
-    border-radius: 1rem 0 1rem 0;
-    background-color: #3f0e47bb;
-    color: #e04ca5;
-}
-
-.most_viewed_courses_list {
-    grid-template-columns: repeat(auto-fit, minmax(640px, 1fr));
-}
-.most_viewed_courses_list_info:hover {
-    margin-bottom: 0;
-}
-
-.teacher_card {
-    background-color: rgba(19, 40, 80, 0.8);
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: relative;
-    color: #fff;
-}
-.teacher_card * {
-    z-index: 2;
-}
-.teacher_card::before {
-    color: #fff;
-    background: linear-gradient(0deg, rgba(19, 40, 80, 0.8), rgba(19, 40, 80, 0.8));
-    content: "";
-    position: absolute;
-    inset: 0;
-    backdrop-filter: blur(15px);
-    border-radius: 1.5rem;
+#where-to-start p {
+    text-shadow: 0px 0px 1px black;
 }
 </style>
 
 <template>
-    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full mt-10 lg:mt-0">
-        <section class="relative flex flex-col lg:flex-row justify-center items-center w-full" id="top">
-            <div class="flex flex-wrap items-center justify-center gap-10 flex-grow w-full">
-                <div class="flex flex-col gap-10 text-bluegray-900">
-                    <h1 class="flex flex-col gap-4 text-5xl lg:text-7xl">
-                        <span class="kalameh_black font-bold">دپارتمان ها</span>
-                    </h1>
-                    <ul class="flex items-center gap-2 font-light">
-                        <li><nuxt-link title="صفحه اصلی" to="/">صفحه اصلی</nuxt-link></li>
-                        <li>&gt;</li>
-                        <li>دپارتمان ها</li>
-                    </ul>
-                </div>
-                <img src="/pages/departments/PresentationMan.png" class="w-full" alt="porteqali-PresentationMan" style="max-width: 560px" />
-            </div>
-        </section>
+    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full mt-24 md:mt-28 px-4 md:px-8 mb-16">
+        <img class="absolute -left-16 top-52 opacity-65" src="/misc/path.svg" alt="path" />
 
-        <section class="relative flex flex-col gap-8 w-full mb-10" id="most-viewed-courses">
-            <div class="flex flex-wrap justify-between items-center gap-8 w-full">
-                <h2 class="font-bold text-4xl">پربازدیدترین دوره ها</h2>
-            </div>
-            <div v-if="!mostViewedCoursesLoading">
-                <ul class="most_viewed_courses_list md:grid flex flex-col gap-6">
+        <section class="relative flex flex-col w-full" id="most-viewed-courses">
+            <div v-swiper="coursesSwiperOptions" class="w-full select-none overflow-hidden pb-6" v-if="!mostViewedCoursesLoading">
+                <ul class="swiper-wrapper flex w-full">
                     <li
-                        class="top_course_cart shadow-lg flex flex-col sm:flex-row gap-4 p-4 rounded-2xl w-full max-w-2xl xl:max-w-full mx-auto"
+                        class="swiper-slide flex flex-col overflow-hidden rounded-3xl shadow-lg w-full max-w-xs md:max-w-screen-sm h-64 sm:h-96 flex-shrink-0 ml-6"
                         v-for="(course, i) in mostViewedCourses"
                         :key="i"
                     >
                         <nuxt-link
                             :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`"
-                            class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full sm:w-64"
+                            :title="course.name"
+                            class="relative flex flex-col items-center m-2"
                         >
-                            <img
-                                class="max-w-screen-sm w-full h-64 sm:h-96 object-cover"
-                                :src="course.image ? course.image : `/misc/article.png`"
-                                :alt="course.name"
-                                draggable="false"
-                            />
-                            <span
-                                class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 left-2"
-                                v-if="course.discountInfo && course.discountInfo.tag != ''"
-                            >
-                                {{ course.discountInfo.tag }}
+                            <img class="most_viewed_courses_image w-full h-64 sm:h-96 object-cover" :src="course.image" :alt="course.name" draggable="false" />
+                            <span class="absolute right-0 w-10 h-10 bg-orange-400 p-1 rounded-full" :title="course.groups[0].name">
+                                <img class="w-full h-full object-cover rounded-full" :src="course.groups[0].icon" :alt="course.groups[0].name" />
                             </span>
-                            <div class="absolute flex flex-col gap-2 top-2 right-2">
-                                <span class="w-10 h-10 rounded-full" :title="course.groups[0].name">
-                                    <img
-                                        class="w-full h-full object-cover rounded-full"
-                                        :src="course.groups[0].icon || `/misc/Figma.svg`"
-                                        :alt="course.groups[0].name"
-                                    />
-                                </span>
-                                <span class="w-10 h-10 rounded-full" :title="`${course.teacher.name} ${course.teacher.family}`">
-                                    <img
-                                        class="w-full h-full object-cover rounded-full"
-                                        :src="course.teacher.image"
-                                        :alt="`${course.teacher.name} ${course.teacher.family}`"
-                                    />
-                                </span>
-                            </div>
-                            <div
-                                class="most_viewed_courses_list_info gray_gradient absolute bottom-0 flex flex-col gap-4 p-6 w-full -mb-16"
-                                style="backdrop-filter: blur(10px)"
+                            <strong
+                                class="absolute left-0 flex items-center justify-center bg-white shadow-xl rounded-2xl py-1 px-2 w-max"
+                                v-if="course.discountInfo"
                             >
-                                <h3 class="text-2xl">{{ course.name }}</h3>
-                                <span class="text-lightblue-300">{{ `${course.totalTime} آموزش - ${course.topicsTotal} ویدیو` }}</span>
-                                <button class="orange_gradient_h p-2 px-4 w-full rounded-xl">شروع آموزش</button>
+                                <span class="kalameh_bold text-xl md:text-2xl text-rose-500">{{ course.discountInfo.tag || "" }}</span>
+                            </strong>
+                            <div class="absolute bottom-0 flex items-start md:items-center gap-2 bg-warmgray-600 bg-opacity-95 p-2 md:mx-2 w-full rounded-3xl">
+                                <div class="flex flex-col gap-3 flex-grow text-white">
+                                    <h3 class="kalameh_bold text-lg md:text-xl">{{ course.name }}</h3>
+                                    <div class="flex flex-wrap items-center gap-2">
+                                        <div class="flex items-center gap-1">
+                                            <img
+                                                class="w-10 h-10 object-cover rounded-full"
+                                                :src="course.teacher.image"
+                                                :alt="`${course.teacher.name} ${course.teacher.family}`"
+                                            />
+                                            <small class="text-sm">{{ `${course.teacher.name} ${course.teacher.family}` }}</small>
+                                        </div>
+                                        <span class="w-8 h-1 bg-gray-400 rounded-full"></span>
+                                        <span class="kalameh_bold text-sm md:text-base text-amber-500">
+                                            {{ `${course.totalTime} آموزش - ${course.topicsTotal} ویدیو` }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <button class="orange_gradient_h p-1 md:p-3 rounded-2xl flex-shrink-0">
+                                    <Icon class="w-8 md:w-16 h-8 md:h-16 bg-gray-100 hover:bg-yellow-300" size="64px" folder="icons/new" name="Play" />
+                                </button>
                             </div>
                         </nuxt-link>
-                        <ul class="topics flex flex-col justify-between items-stretch gap-7 w-full">
-                            <li class="flex items-start gap-2 w-full" v-for="(topic, i) in course.topics" :key="i">
-                                <span class="flex items-center justify-center flex-shrink-0 w-8 h-8 p-2 bg-indigo-100 text-indigo-800 rounded-full">
-                                    {{ i + 1 }}
-                                </span>
-                                <div class="flex flex-wrap items-center justify-between gap-2 w-full" v-if="topic">
-                                    <div class="flex flex-col gap-1 flex-grow">
-                                        <strong class="text-sm overflow-hidden overflow-ellipsis whitespace-nowrap max-w-screen-2xs 2xl:max-w-xs">
-                                            {{ topic.name }}
-                                        </strong>
-                                    </div>
-                                    <small class="bg-indigo-100 text-indigo-800 py-1 p-2 rounded-md text-xs sm:text-base">
-                                        {{ `${topic.time.hours}:${topic.time.minutes}:${topic.time.seconds}` }}
-                                    </small>
-                                </div>
-                            </li>
-                        </ul>
                     </li>
                 </ul>
             </div>
-            <ul class="flex flex-wrap items-center justify-evenly gap-6" v-else>
-                <li
-                    class="top_course_cart shadow-lg flex flex-col sm:flex-row gap-4 p-4 rounded-2xl max-w-screen-sm"
-                    v-for="(course, i) in mostViewedCourses"
-                    :key="i"
-                >
-                    <div class="relative overflow-hidden rounded-xl shadow-lg flex-shrink-0 w-full sm:w-64">
-                        <span class="article_category flex items-center justify-center py-1 p-4 w-max absolute top-2 left-2">
-                            <span class="skeleton w-20 h-2"></span>
-                        </span>
-                        <div class="absolute flex flex-col gap-2 top-2 right-2">
-                            <span class="skeleton w-10 h-10 rounded-full"></span>
-                            <span class="skeleton w-10 h-10 rounded-full"></span>
-                        </div>
-                        <div class="gray_gradient absolute bottom-0 flex flex-col gap-4 p-6 w-full">
-                            <h3 class="skeleton w-10/12 h-4"></h3>
-                            <span class="skeleton w-full h-2"></span>
-                        </div>
-                    </div>
-                    <div class="flex flex-col gap-6 pt-2 w-full">
-                        <ul class="topics flex flex-col justify-between items-stretch gap-7 w-full">
-                            <li class="flex items-start gap-4 w-full" v-for="(topic, i) in mostViewedCoursesSkeletonTopic" :key="i">
-                                <span class="flex items-center justify-center flex-shrink-0 w-8 h-8 p-2 bg-indigo-100 text-indigo-800 rounded-full">
-                                    {{ i + 1 }}
-                                </span>
-                                <div class="flex flex-wrap items-start justify-between gap-2 w-full">
-                                    <div class="flex flex-col gap-1 flex-grow">
-                                        <strong class="skeleton w-full h-6" style="max-width: 210px"></strong>
-                                        <span class="relative w-full h-1 bg-indigo-100"><b class="absolute w-8/12 h-1 bg-indigo-800"></b></span>
-                                    </div>
-                                    <small class="skeleton w-8 h-3"></small>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
+            <div class="relative flex items-center justify-center gap-8">
+                <button class="flex items-center justify-center p-2 bg-white shadow-xl rounded-xl swiper-prev">
+                    <img src="/icons/new/ArrowRight3.svg" width="24" />
+                </button>
+                <div class="flex justify-center gap-2 swiper-pagination2 swiper-pagination-bullets"></div>
+                <button class="flex items-center justify-center p-2 bg-white shadow-xl rounded-xl swiper-next">
+                    <img src="/icons/new/ArrowLeft3.svg" width="24" />
+                </button>
+            </div>
         </section>
+
+        <span class="spacer_v w-full h-0.5 -my-4"></span>
 
         <Nuxt nuxt-child-key="department" />
 
-        <section class="relative flex flex-col gap-8 w-full mt-10" id="top-teachers">
-            <div class="flex flex-wrap items-center justify-between gap-8 w-full">
-                <h2 class="font-bold text-4xl">اساتید برتر</h2>
-            </div>
-            <div v-if="!topTeachersLoading">
-                <ul class="flex flex-wrap justify-evenly gap-6">
-                    <li
-                        class="top_course_cart shadow-lg flex flex-col sm:flex-row gap-4 p-4 rounded-2xl max-w-screen-sm"
-                        v-for="(teacher, i) in topTeachers"
-                        :key="i"
+        <span class="spacer_v w-full h-0.5 -my-4"></span>
+
+        <section class="orange_gradient_v flex items-center rounded-3xl p-4 md:p-6 w-full max-w-screen-xl shadow-2xl" id="where-to-start">
+            <img class="absolute lg:relative flex-shrink-0 w-max opacity-50 lg:opacity-100" src="/pages/departments/img.png" alt="start" />
+            <div class="relative flex flex-col items-start gap-4 flex-grow">
+                <h2 class="kalameh_bold text-white text-3xl lg:-mr-4">نمیدونی از کجا باید شروع کنی؟</h2>
+                <h4 class="kalameh_bold text-lg text-gray-600">دوست داری تو چه حوزه ای فعالیت کنی؟</h4>
+                <p class="text-white font-bold w-full">
+                    اگر نمیدونی به چی علاقه داری، کافیه جواب سوالایی که براتون میفرستیم رو بدید تا ما بگیم به چی علاقه داری و نقشه راهی بدیم بهت که کارتو خیلی جلو
+                    میندازه
+                </p>
+                <div class="flex w-full mt-auto">
+                    <nuxt-link
+                        class="flex justify-center mr-auto border-4 border-solid border-white rounded-2xl font-bold p-4 w-full max-w-xs hover:bg-gray-100 hover:bg-opacity-20"
+                        to="/where-to-start"
                     >
-                        <div
-                            class="teacher_card relative flex flex-col items-center justify-start gap-4 flex-shrink-0 p-8 w-full sm:w-64 rounded-2xl shadow-lg max-w-md"
-                            :style="`background-image: url('${teacher.image}')`"
-                        >
-                            <img class="w-24 h-24 rounded-full shadow-md" :src="teacher.image" :alt="`${teacher.name} ${teacher.family}`" />
-                            <b class="text-2xl text-center">{{ `${teacher.name} ${teacher.family}` }}</b>
-                            <small class="text-lightblue-400">{{ teacher.title }}</small>
-                            <p class="opacity-75 text-center max-w-xs">
-                                {{ teacher.description.length > 256 ? teacher.description.substr(0, 256) + "..." : teacher.description }}
-                            </p>
-                            <ul class="flex flex-wrap items-center gap-2">
-                                <li v-for="(social, j) in teacher.social" :key="j">
-                                    <a :href="social.link"><Icon class="w-8 h-8 bg-gray-200" folder="social" :name="social.name" /></a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="flex flex-col gap-6 pt-2 w-full">
-                            <span class="font-light opacity-60">{{ teacher.courseCount }} دوره آموزشی</span>
-                            <ul class="topics flex flex-col justify-between items-stretch gap-7 w-full">
-                                <li class="w-full" v-for="(course, i) in teacher.courses" :key="i">
-                                    <nuxt-link :to="`/course/${course._id}/${course.name.replace(/ /g, '-')}`" class="flex items-start gap-4 w-full">
-                                        <span class="flex items-center justify-center flex-shrink-0 w-8 h-8 rounded-full">
-                                            <img
-                                                class="w-full h-full object-cover rounded-full"
-                                                :src="course.groups[0].icon || `/misc/Figma.svg`"
-                                                :alt="course.groups[0].name"
-                                            />
-                                        </span>
-                                        <div class="flex flex-wrap items-start justify-between gap-2 w-full">
-                                            <div class="flex flex-col gap-1 flex-grow">
-                                                <strong class="overflow-hidden overflow-ellipsis whitespace-nowrap" style="max-width: 210px">
-                                                    {{ course.name }}
-                                                </strong>
-                                                <span class="relative w-full h-1 bg-indigo-100"><b class="absolute w-8/12 h-1 bg-indigo-800"></b></span>
-                                                <p>{{ course.description.length > 60 ? course.description.substr(0, 60) + "..." : course.description }}</p>
-                                            </div>
-                                            <small class="bg-indigo-100 text-indigo-800 py-1 p-2 rounded-md">{{ course.totalTime }}</small>
-                                        </div>
-                                    </nuxt-link>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
+                        شروع پرسش و پاسخ
+                    </nuxt-link>
+                </div>
             </div>
         </section>
     </main>
@@ -255,18 +115,28 @@ export default {
         return {
             mostViewedCoursesLoading: false,
             mostViewedCourses: [{}, {}],
-            mostViewedCoursesSkeletonTopic: [{}, {}, {}, {}, {}, {}],
+            mostViewedCoursesSkeletonTopic: [0, 0, 0, 0, 0, 0],
+            coursesSwiperOptions: {
+                autoplay: false,
+                slidesPerView: "auto",
+                // initialSlide: 0,
+                loop: false,
+                // freeMode: true,
+                pagination: ".swiper-pagination2",
+                prevButton: ".swiper-prev",
+                nextButton: ".swiper-next",
+            },
 
             topTeachersLoading: false,
-            topTeachers: [{}, {}],
-            topTeacherSkeletonCourses: [{}, {}, {}],
+            topTeachers: [0, 0],
+            topTeacherSkeletonCourses: [0, 0, 0],
         };
     },
     async fetch() {
         let headers = {};
         if (process.server) headers = this.$nuxt.context.req.headers;
 
-        await Promise.all([this.getMetadata("department"), this.getMostviewedCourses({ headers }), this.getTopTeachers({ headers })]);
+        await Promise.all([this.getMetadata("department"), this.getMostviewedCourses({ headers })]);
     },
     methods: {
         async getMostviewedCourses(data = {}) {
@@ -283,7 +153,7 @@ export default {
             await axios
                 .get(url, { headers })
                 .then((results) => {
-                    results.data.length = 2;
+                    results.data.length = 8;
                     this.mostViewedCourses = results.data.map((course) => {
                         let seconds = 0;
                         course.topics.forEach((topic) => {

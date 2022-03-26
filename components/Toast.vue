@@ -1,8 +1,8 @@
 <style scoped>
 .toast {
     position: fixed;
-    top: 1rem;
-    right: 1rem;
+    top: 0.5rem;
+    right: 0.5rem;
     z-index: 1000;
     border: 6px solid rgb(175, 175, 175);
     color: #fff;
@@ -18,10 +18,10 @@
 
 <template>
     <transition name="slideleft" mode="out-in" appear="">
-        <div class="toast flex flex-col gap-4 rounded-3xl p-4 md:p-8 shadow-xl bg-warmgray-600" v-if="show">
+        <div class="toast flex flex-col gap-4 w-full max-w-xs rounded-3xl p-3 md:p-8 shadow-xl bg-warmgray-600" v-if="show">
             <span class="w-full h-1 rounded-full" :class="{ [bgColor]: 1 }" v-if="bgColor != ''"></span>
             <div class="flex items-center justify-between gap-8">
-                <h4 v-if="toastOptions.title" class="flex items-center gap-4 text-xl max-w-xs">
+                <h4 v-if="toastOptions.title" class="flex items-center gap-4 text-amber-500 text-xl max-w-xs">
                     <img v-if="toastOptions.icon" :src="toastOptions.icon" loading="lazy" width="20" height="20" />
                     <b class="kalameh_bold">{{ toastOptions.title }}</b>
                 </h4>
