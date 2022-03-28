@@ -7,11 +7,8 @@ h3::after {
     display: inline-block;
     width: 80%;
     height: 1rem;
-    background-color: #eee;
+    background-color: #ffc8a2;
     z-index: 0;
-}
-.title {
-    /* transform: rotate(-90deg); */
 }
 </style>
 
@@ -27,7 +24,7 @@ h3::after {
                     {{ `${((item.count / total) * 100).toFixed(0)}%` }}
                 </p>
                 <b class="w-6 rounded-full" :style="`height: ${((item.count / total) * 100).toFixed(0)}%; background-color: ${item.color};`"></b>
-                <small class="title text-xs w-12 h-12 overflow-hidden text-center">{{ item.location }}</small>
+                <small class="text-xs w-12 h-12 overflow-hidden text-center">{{ item.location }}</small>
             </span>
         </div>
     </section>

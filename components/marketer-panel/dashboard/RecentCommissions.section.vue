@@ -7,7 +7,7 @@ h3::after {
     display: inline-block;
     width: 80%;
     height: 1rem;
-    background-color: #eee;
+    background-color: #ffc8a2;
     z-index: 0;
 }
 </style>

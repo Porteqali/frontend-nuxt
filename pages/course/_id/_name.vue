@@ -54,7 +54,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="lg:absolute top-16 left-0 flex flex-col gap-4 bg-white shadow-xl rounded-2xl p-4 md:p-8 w-full max-w-5xl mr-auto">
+                <div class="lg:absolute top-16 left-0 flex flex-col gap-4 md:gap-6 bg-white shadow-xl rounded-2xl p-4 md:p-8 w-full max-w-5xl mr-auto">
                     <div class="flex flex-wrap items-center gap-4 w-full">
                         <h1 class="kalameh_bold text-2xl md:text-3xl w-max max-w-full flex-shrink-0">{{ course.name }}</h1>
                         <div class="bg-orange-400 h-2 rounded-full flex-grow"></div>
@@ -205,7 +205,7 @@
                 <Icon class="w-7 h-7 bg-gray-700" size="28px" folder="icons/new" name="Document" />
                 <h3 class="kalameh_bold title text-2xl md:text-3xl w-max max-w-full">توضیحات دوره</h3>
             </div>
-            <p class="w-full" v-if="course">{{ course.description }}</p>
+            <div class="w-full" v-if="course" v-html="course.description"></div>
         </div>
 
         <span class="spacer_v w-10/12 h-0.5"></span>

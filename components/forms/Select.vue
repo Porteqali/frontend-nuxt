@@ -55,6 +55,10 @@
     margin-top: -2rem;
     margin-right: 1px;
 }
+.t_select .list.small {
+    top: 2rem;
+}
+
 .t_select .list li {
     padding: 0.25rem 0.5rem;
     border-radius: 0.5rem;
@@ -72,12 +76,12 @@
 <template>
     <div class="t_select flex flex-col flex-grow" :class="{ open: open }">
         <div class="t_select_input" :class="inputClass">
-            <div class="box shadow-lg" :class="{ 'p-2 py-4': !!small, 'p-4': !small }" tabindex="0" @click="toggleMenu()" @blur="toggleMenu(false)">
+            <div class="box shadow-lg" :class="{ 'p-2 py-0': !!small, 'p-4': !small }" tabindex="0" @click="toggleMenu()" @blur="toggleMenu(false)">
                 <span name="placeholder" class="opacity-50 ml-4" v-if="placeholder && !selectedOption.value">{{ placeholder }}</span>
                 <span name="value text-sm" :class="{ 'ml-4': !small }" v-if="selectedOption.name && selectedOption.value">{{ selectedOption.name }}</span>
             </div>
             <transition name="slidedown" mode="out-in" appear>
-                <ol class="list" v-if="open">
+                <ol class="list shadow-md" :class="{ small: !!small }" v-if="open">
                     <li v-for="(option, i) in options" :key="i" :class="{ selected: option.value == selectedOption.value }" @mousedown="selectOption(option)">
                         <slot name="option" :option="option"></slot>
                     </li>

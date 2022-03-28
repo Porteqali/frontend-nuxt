@@ -4,8 +4,7 @@
     width: 100%;
     max-width: 280px;
     height: calc(100vh - 7rem);
-    background-color: #222222de;
-    /* backdrop-filter: blur(10px); */
+    background-color: #292929;
     color: #ddd;
     z-index: 20;
 }

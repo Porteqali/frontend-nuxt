@@ -1,6 +1,6 @@
 <style scoped>
 header {
-    background-color: #ffffffbb;
+    background-color: #fff;
     color: #000;
     height: 4rem;
     /* overflow: hidden; */

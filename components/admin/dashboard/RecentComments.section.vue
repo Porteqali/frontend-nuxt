@@ -7,7 +7,7 @@ h3::after {
     display: inline-block;
     width: 80%;
     height: 1rem;
-    background-color: #eee;
+    background-color: #ffc8a2;
     z-index: 0;
 }
 .answer_btn {
@@ -22,10 +22,10 @@ h3::after {
             <h3 class="relative text-2xl"><b class="relative z-10">آخرین نظرات ارسالی</b></h3>
             <nuxt-link class="hover:underline text-cyan-600 text-xs" to="/admin/users-comments">مشاهده ادامه نظرات</nuxt-link>
         </header>
-        <ul class="flex flex-col gap-4">
-            <li class="flex flex-wrap items-start gap-2 shadow-lg p-4 rounded-xl" v-for="(comment, i) in comments" :key="i">
+        <ul class="flex flex-col gap-4 w-full">
+            <li class="flex flex-wrap items-start gap-2 shadow-lg p-4 rounded-xl w-full" v-for="(comment, i) in comments" :key="i">
                 <img class="w-14 h-14 rounded-full object-cover shadow-md" :src="comment.user[0].image" loading="lazy" v-if="comment.user[0].image" alt="" />
-                <div class="flex flex-col gap-1 flex-grow">
+                <div class="flex flex-col gap-1 flex-grow max-w-lg">
                     <div class="flex flex-wrap items-center gap-2">
                         <span class="text-lg">{{ comment.fullname }}</span>
                         <small class="bg-gray-200 text-yellow-900 p-1 px-2 rounded-lg" v-if="comment.course[0]">{{ comment.course[0].name }}</small>
@@ -33,7 +33,7 @@ h3::after {
                     </div>
                     <p class="text-sm opacity-75">{{ comment.text.length > 60 ? comment.text.substr(0, 80) + "..." : comment.text }}</p>
                 </div>
-                <div class="flex flex-col items-end gap-2">
+                <div class="flex flex-col items-end gap-2 mr-auto">
                     <small class="text-xs text-left">{{ new Date(comment.createdAt).toLocaleString("fa") }}</small>
                     <nuxt-link class="answer_btn flex items-center gap-1 p-1 px-3 rounded-xl w-max shadow-md" :to="`/admin/users-comments/edit/${comment._id}`">
                         <img src="/icons/admin/Reply.svg" width="14" alt="" />

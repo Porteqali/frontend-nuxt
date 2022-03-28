@@ -1,7 +1,6 @@
 <style scoped>
 .container {
     position: relative;
-    width: 100%;
     background-color: #fdfdfd;
     color: #333;
     border-radius: 1.5rem;
@@ -33,7 +32,7 @@
             class="container flex flex-col items-center gap-8 p-16 mr-auto md:mr-0 shadow-xl max-w-xl select-none overflow-hidden"
         >
             <ul class="swiper-wrapper flex items-start w-full">
-                <li class="swiper-slide flex flex-col items-start gap-4 w-full flex-shrink-0 z-10" v-for="(testimonial, i) in testimonials" :key="i">
+                <li class="swiper-slide flex flex-col items-start gap-4 w-screen max-w-full flex-shrink-0 z-10" v-for="(testimonial, i) in testimonials" :key="i">
                     <div class="flex items-center gap-4">
                         <img class="w-24 h-24 object-cover shadow-lg rounded-full" :src="testimonial.image" :alt="testimonial.fullname" loading="lazy" />
                         <div class="flex flex-col gap-2">
@@ -74,7 +73,7 @@ export default {
             testimonialsSwiperOptions: {
                 autoplay: 5000,
                 slidesPerView: 1,
-                // initialSlide: 0,
+                initialSlide: 1,
                 spaceBetween: 64,
                 loop: true,
                 // freeMode: true,

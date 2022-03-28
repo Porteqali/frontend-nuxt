@@ -1,6 +1,6 @@
 <style scoped>
 .nuxt_main {
-    background-color: #fafcfd;
+    background-color: #fafafa;
     position: relative;
     display: flex;
     flex-direction: column;

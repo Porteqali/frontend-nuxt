@@ -24,7 +24,7 @@ ul li:hover {
                 <li class="" v-for="(department, i) in departments" :key="i" @click="toggleMenu(false)">
                     <nuxt-link
                         class="w-full flex items-center gap-2 p-1 hover:text-orange-300 hover:bg-warmgray-700 rounded-2xl"
-                        :to="`/department?group=${department.slug}`"
+                        :to="`/department#courses?group=${department.slug}`"
                         :title="department.slug"
                     >
                         <img :src="department.icon" class="w-10 h-10 rounded-full object-cover" :alt="department.name" />
