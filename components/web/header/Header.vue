@@ -13,7 +13,7 @@ header {
 </style>
 
 <template>
-    <div class="fixed top-0 flex items-center justify-center py-2 w-screen shadow-xl z-20 bg-truegray-50">
+    <div class="fixed top-0 flex items-center justify-center py-2 lg:py-0 w-screen shadow-xl z-20 bg-truegray-50">
         <header class="flex items-center gap-4 lg:gap-2 py-2 lg:py-0 px-4 md:px-8 w-full max-w-screen-2xl">
             <button class="flex justify-center items-center p-2.5 rounded-xl bg-white shadow-lg lg:hidden" @click="toggleMenu()">
                 <Icon class="w-5 h-5 bg-gray-800" size="20px" folder="icons/new" name="Category" />

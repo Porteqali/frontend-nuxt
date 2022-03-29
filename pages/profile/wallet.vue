@@ -21,12 +21,18 @@
             <div class="flex flex-wrap md:flex-nowrap items-end gap-4 w-full">
                 <div class="flex flex-col gap-2 w-full">
                     <label class="">مبلغ مورد نظر برای شارژ</label>
-                    <div class="flex items-center justify-between gap-2 p-3 w-full rounded-xl shadow-xl bg-white">
-                        <input type="text" v-model="chargeAmount" v-money="moneyOptions" placeholder="مبلغ به تومان" class="w-full bg-transparent" />
+                    <div class="flex items-center justify-between gap-2 w-full rounded-xl">
+                        <input
+                            type="text"
+                            v-model="chargeAmount"
+                            v-money="moneyOptions"
+                            placeholder="مبلغ به تومان"
+                            class="p-3 w-full bg-warmgray-100 rounded-xl focus:shadow-xl"
+                        />
                         <span>تومان</span>
                     </div>
                 </div>
-                <button type="button" class="orange_gradient_h p-3 px-4 rounded-2xl shadow-md flex-shrink-0" @click="pay()">تایید و پرداخت</button>
+                <button type="button" class="orange_gradient_h p-3 px-4 rounded-2xl shadow-md flex-shrink-0" @click="pay()">تایید و شارژ کیف پول</button>
             </div>
             <hr class="w-full" />
             <ul class="flex flex-wrap items-center gap-4">

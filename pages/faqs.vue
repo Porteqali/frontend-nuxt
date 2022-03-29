@@ -17,7 +17,7 @@
 </style>
 
 <template>
-    <main role="main" class="relative flex flex-col items-center gap-16 max-w-screen-2xl w-full mt-24 md:mt-28 px-4 md:px-8 mb-16">
+    <main role="main" class="relative flex flex-col items-center gap-16 max-w-screen-2xl w-full mt-24 md:mt-24 px-4 md:px-8 mb-16">
         <img class="absolute -right-1/4 top-1/4 -z-1" src="/pages/faqs/bg.png" v-if="faqs.length != 0" />
         <img class="absolute -left-48 top-40 -z-1" src="/pages/faqs/hand.png" />
         <section class="relative flex flex-col items-center justify-center gap-8 w-full">

@@ -11,40 +11,40 @@
             <div class="flex flex-wrap md:flex-nowrap items-center gap-4 w-full">
                 <div class="flex flex-col gap-2 w-full">
                     <label class="">نام</label>
-                    <input type="text" v-model="name" dir="auto" class="p-3 w-full rounded-xl shadow-xl" />
+                    <input type="text" v-model="name" dir="auto" class="p-3 w-full bg-warmgray-100 rounded-xl focus:shadow-xl" />
                 </div>
                 <div class="flex flex-col gap-2 w-full">
                     <label class="">نام خانوادگی</label>
-                    <input type="text" v-model="family" dir="auto" class="p-3 w-full rounded-xl shadow-xl" />
+                    <input type="text" v-model="family" dir="auto" class="p-3 w-full bg-warmgray-100 rounded-xl focus:shadow-xl" />
                 </div>
             </div>
             <hr class="w-full" />
             <div class="flex flex-wrap md:flex-nowrap items-end gap-4 w-full">
                 <div class="flex flex-col gap-2 w-full">
                     <label class="">ایمیل</label>
-                    <input type="email" v-model="email" dir="auto" class="p-3 w-full rounded-xl shadow-xl" disabled />
+                    <input type="email" v-model="email" dir="auto" class="p-3 w-full bg-warmgray-100 rounded-xl focus:shadow-xl" disabled />
                 </div>
                 <button
                     type="button"
-                    class="gray_gradient flex items-center gap-1 p-3 px-4 rounded-2xl shadow-md flex-shrink-0"
+                    class="flex items-center gap-1 border-2 border-solid border-gray-300 hover:bg-warmgray-600 hover:text-white p-2.5 px-4 rounded-xl hover:shadow-lg flex-shrink-0"
                     @click="emailVerificationOpenState = true"
                 >
-                    <Icon class="w-6 h-6 bg-gray-100" size="24px" folder="icons/new" name="Edit" />
-                    <span>ویرایش و تایید ایمیل</span>
+                    <Icon class="w-6 h-6 bg-orange-400" size="24px" folder="icons/new" name="Edit" />
+                    <span class="text-sm">ویرایش و تایید ایمیل</span>
                 </button>
             </div>
             <div class="flex flex-wrap md:flex-nowrap items-end gap-4 w-full">
                 <div class="flex flex-col gap-2 w-full">
                     <label class="">شماره موبایل</label>
-                    <input type="email" v-model="mobile" dir="auto" class="p-3 w-full rounded-xl shadow-xl" disabled />
+                    <input type="email" v-model="mobile" dir="auto" class="p-3 w-full bg-warmgray-100 rounded-xl focus:shadow-xl" disabled />
                 </div>
                 <button
                     type="button"
-                    class="gray_gradient flex items-center gap-1 p-3 px-4 rounded-2xl shadow-md flex-shrink-0"
+                    class="flex items-center gap-1 border-2 border-solid border-gray-300 hover:bg-warmgray-600 hover:text-white p-2.5 px-4 rounded-xl hover:shadow-lg flex-shrink-0"
                     @click="mobileVerificationOpenState = true"
                 >
-                    <Icon class="w-6 h-6 bg-gray-100" size="24px" folder="icons/new" name="Edit" />
-                    <span>ویرایش و تایید شماره موبایل</span>
+                    <Icon class="w-6 h-6 bg-orange-400" size="24px" folder="icons/new" name="Edit" />
+                    <span class="text-sm">ویرایش و تایید شماره موبایل</span>
                 </button>
             </div>
             <hr class="w-full" />
@@ -55,7 +55,7 @@
             >
                 {{ message }}
             </span>
-            <button class="orange_gradient_h p-3 px-4 rounded-2xl shadow-md" :class="{ 'opacity-50 cursor-wait': saving }" type="submit">تایید و ثبت</button>
+            <button class="orange_gradient_h p-3 px-4 rounded-xl shadow-md" :class="{ 'opacity-50 cursor-wait': saving }" type="submit">تایید و ثبت</button>
         </form>
         <div class="flex flex-col items-center justify-center gap-4 p-6 w-full" v-if="loading">
             <span>در حال بارگذاری اطلاعات...</span>

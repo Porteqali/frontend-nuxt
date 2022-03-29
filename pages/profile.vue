@@ -9,7 +9,7 @@
 </style>
 
 <template>
-    <main role="main" class="flex flex-wrap lg:flex-nowrap items-start justify-center gap-8 max-w-screen-2xl w-full mt-24 md:mt-28 px-4 md:px-8">
+    <main role="main" class="flex flex-wrap lg:flex-nowrap items-start justify-center gap-8 max-w-screen-2xl w-full mt-24 md:mt-24 px-4 md:px-8">
         <nav class="relative flex flex-col gap-4 p-6 rounded-3xl shadow-xl bg-white w-full md:max-w-xs flex-grow z-10 overflow-hidden">
             <div class="flex items-center gap-2">
                 <img class="w-12 h-12 rounded-2xl object-cover" :src="user.info.image" :alt="`${user.info.name} ${user.info.family}`" />

@@ -6,7 +6,7 @@
 
 <template>
     <button
-        class="buy_btn orange_gradient_h flex items-center justify-center gap-2 w-full flex-grow md:text-xl shadow-lg hover:shadow-xl rounded-2xl p-6"
+        class="buy_btn orange_gradient_h flex items-center justify-center gap-2 w-full flex-grow md:text-xl shadow-lg hover:shadow-2xl rounded-2xl p-6"
         :class="{ 'opacity-60 cursor-wait': redirectingToGateway }"
         @click="buy()"
     >

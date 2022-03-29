@@ -6,9 +6,9 @@
             <div class="flex flex-wrap md:flex-nowrap items-end gap-4 w-full">
                 <div class="flex flex-col gap-2 w-full flex-grow">
                     <label class="">ایمیل</label>
-                    <input type="email" v-model="email" name="email" dir="auto" class="p-3 w-full rounded-xl shadow-xl" />
+                    <input type="email" v-model="email" name="email" dir="auto" class="p-3 w-full bg-warmgray-100 rounded-xl focus:shadow-xl" />
                 </div>
-                <button class="gray_gradient p-3 px-4 rounded-2xl shadow-md flex-shrink-0" @click="sendVerificationCode()" v-if="timeLeft <= 0">
+                <button class="bg-warmgray-200 p-3 px-4 rounded-2xl hover:shadow-lg flex-shrink-0" @click="sendVerificationCode()" v-if="timeLeft <= 0">
                     ارسال کد تایید
                 </button>
             </div>
@@ -114,6 +114,7 @@ export default {
             await axios
                 .post(`/api/users/verify`, { username: this.email, code: this.code, type: "email" })
                 .then(async (response) => {
+                    this.timeLeft = 0;
                     this.$store.dispatch("toast/makeToast", {
                         type: "success",
                         title: "",

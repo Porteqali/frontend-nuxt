@@ -7,7 +7,7 @@
 
 <template>
     <main role="main" class="flex flex-col items-center gap-16 w-full mb-16">
-        <div class="background relative flex shadow-xl w-full mt-16 md:mt-20 py-10">
+        <div class="background relative flex shadow-xl w-full mt-16 py-10">
             <img class="absolute left-28 top-0 h-full w-auto object-contain" src="/misc/start2.png" alt="where-to-start" />
             <img class="absolute right-40 -bottom-16" src="/misc/ship.png" alt="ship" />
             <section class="relative flex flex-col items-start gap-8 md:gap-16 w-full max-w-screen-xl px-4 md:px-8 mx-auto">

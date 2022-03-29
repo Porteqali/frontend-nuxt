@@ -10,7 +10,7 @@ textarea {
 </style>
 
 <template>
-    <main role="main" class="relative flex flex-col items-center gap-16 w-full max-w-screen-2xl mt-24 md:mt-28 px-4 md:px-8">
+    <main role="main" class="relative flex flex-col items-center gap-16 w-full max-w-screen-2xl mt-24 md:mt-24 px-4 md:px-8">
         <img class="absolute -left-1/4 top-40 -z-1" src="/pages/contact-us/path.svg" />
         <section class="flex flex-wrap items-center justify-evenly gap-8 w-full">
             <div class="flex flex-col gap-8">

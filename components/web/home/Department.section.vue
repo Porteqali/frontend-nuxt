@@ -2,7 +2,7 @@
 #department::before {
     content: "";
     width: 100%;
-    height: 65%;
+    height: 62%;
     position: absolute;
     top: -0.25rem;
     border-radius: 2rem;
@@ -28,6 +28,11 @@
 .course_tag {
     box-shadow: 0px 0px 10px rgba(255, 49, 49, 0.25);
 }
+
+.slider {
+    max-width: 1380px;
+}
+
 .view_topics {
     --color-bg: #fff;
     background: linear-gradient(var(--color-bg), var(--color-bg)) padding-box, linear-gradient(273.67deg, #ff8537 -20.26%, #ff51b1 114.54%) border-box;
@@ -65,25 +70,21 @@
                 >
                     پرفروش ترین
                 </button>
-                <button
-                    class="toggle_btn p-3 px-3 md:px-4 text-sm md:text-base rounded-2xl"
-                    :class="{ fill: order == 'newest' }"
-                    @click="orderChanged('newest')"
-                >
+                <button class="toggle_btn p-3 px-3 md:px-4 text-sm md:text-base rounded-2xl" :class="{ fill: order == 'newest' }" @click="orderChanged('newest')">
                     جدید ترین
                 </button>
             </div>
         </div>
-        <div class="relative flex items-center justify-between gap-8">
-            <button class="flex items-center justify-center p-2 bg-white shadow-xl rounded-xl swiper-prev">
+        <div class="relative flex items-center justify-between gap-8 xl:w-full xl:-my-6">
+            <button class="relative xl:top-64 xl:-right-4 flex items-center justify-center p-2 bg-white shadow-xl rounded-xl swiper-prev">
                 <img src="/icons/new/ArrowRight3.svg" width="24" />
             </button>
             <div class="flex justify-center gap-2 swiper-pagination2 swiper-pagination-bullets"></div>
-            <button class="flex items-center justify-center p-2 bg-white shadow-xl rounded-xl swiper-next">
+            <button class="relative xl:top-64 xl:-left-4 flex items-center justify-center p-2 bg-white shadow-xl rounded-xl swiper-next">
                 <img src="/icons/new/ArrowLeft3.svg" width="24" />
             </button>
         </div>
-        <div v-swiper="coursesSwiperOptions" class="w-full max-w-screen-2xl select-none overflow-hidden pb-8">
+        <div v-swiper="coursesSwiperOptions" class="slider w-full select-none overflow-hidden pb-8">
             <ul class="swiper-wrapper flex items-start">
                 <li
                     class="swiper-slide course_card shadow-lg flex flex-col items-center gap-3 rounded-2xl max-w-xs p-3 ml-8"

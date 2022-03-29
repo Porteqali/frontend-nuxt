@@ -5,8 +5,8 @@
         <div class="flex items-center gap-4">
             <img class="w-28 h-28 bg-gray-300 rounded-3xl object-cover" :src="user.info.image" />
             <div class="flex flex-col items-start gap-4">
-                <button class="orange_gradient_h p-2 px-4 rounded-2xl shadow-md" @click="$refs.fileInput.click()" :disabled="uploading">آپلود عکس جدید</button>
-                <button class="gray_gradient p-2 px-4 rounded-2xl shadow-md" @click="deleteImage()" :disabled="uploading">حذف</button>
+                <button class="orange_gradient_h p-2 px-4 rounded-xl shadow-md" @click="$refs.fileInput.click()" :disabled="uploading">آپلود عکس جدید</button>
+                <button class="bg-warmgray-200 p-2 px-4 rounded-xl" @click="deleteImage()" :disabled="uploading">حذف</button>
             </div>
             <input class="w-0 h-0 opacity-0" ref="fileInput" type="file" accept=".jpg,.jpeg,.png,.gif" @change="selectFile()" />
         </div>

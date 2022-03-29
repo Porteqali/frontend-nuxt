@@ -14,7 +14,7 @@ textarea {
 </style>
 
 <template>
-    <main role="main" class="flex flex-col items-center gap-16 w-full max-w-screen-2xl mt-24 md:mt-28 px-4 md:px-8">
+    <main role="main" class="flex flex-col items-center gap-16 w-full max-w-screen-2xl mt-24 md:mt-24 px-4 md:px-8">
         <section class="relative flex flex-wrap lg:flex-nowrap justify-center items-center">
             <div class="flex flex-col gap-10 text-bluegray-900">
                 <h1 class="title flex flex-col gap-4 kalameh_bold text-4xl lg:text-5xl w-max">همکاری با ما</h1>

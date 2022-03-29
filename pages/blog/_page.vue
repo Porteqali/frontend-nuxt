@@ -12,7 +12,7 @@
                 </Select>
             </div>
             <div class="flex items-center gap-1 w-full max-w-3xl">
-                <button class="flex items-center justify-center swiper-prev">
+                <button class="flex items-center justify-center swiper-prev-cat">
                     <img src="/icons/new/ArrowRight2.svg" width="24" />
                 </button>
                 <div v-swiper="categorySwiperOptions" class="w-full select-none overflow-hidden pb-4 -mb-4">
@@ -28,7 +28,7 @@
                         </li>
                     </ul>
                 </div>
-                <button class="flex items-center justify-center swiper-next">
+                <button class="flex items-center justify-center swiper-next-cat">
                     <img src="/icons/new/ArrowLeft2.svg" width="24" />
                 </button>
             </div>
@@ -159,8 +159,8 @@ export default {
                 autoplay: false,
                 slidesPerView: "auto",
                 initialSlide: 0,
-                prevButton: ".swiper-prev",
-                nextButton: ".swiper-next",
+                prevButton: ".swiper-prev-cat",
+                nextButton: ".swiper-next-cat",
                 loop: false,
                 freeMode: true,
             },

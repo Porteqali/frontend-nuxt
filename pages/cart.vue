@@ -17,7 +17,7 @@
 </style>
 
 <template>
-    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full px-4 md:px-8 mt-24 md:mt-28 mb-16">
+    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full px-4 md:px-8 mt-24 md:mt-24 mb-16">
         <img class="img absolute w-96 -z-1" src="/misc/path.svg" />
         <div class="flex flex-wrap md:flex-nowrap items-start justify-center gap-8 w-full" v-if="!loading">
             <section class="relative flex flex-col gap-8 w-full max-w-screen-lg flex-grow">

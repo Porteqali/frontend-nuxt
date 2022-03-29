@@ -7,7 +7,7 @@
 </style>
 
 <template>
-    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full px-4 md:px-8 mt-24 md:mt-28">
+    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full px-4 md:px-8 mt-24 md:mt-24">
         <img class="img absolute -z-1" src="/misc/path.svg" />
         <section class="relative flex flex-wrap justify-evenly gap-8 lg:gap-20">
             <div class="flex flex-col gap-2 text-bluegray-900">

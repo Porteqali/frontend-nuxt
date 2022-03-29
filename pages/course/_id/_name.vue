@@ -8,7 +8,7 @@
 }
 
 .discount_box {
-    box-shadow: 0px 0px 25px rgba(255, 48, 21, 20%);
+    box-shadow: 0px 0px 15px rgba(255, 12, 21, 40%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -68,7 +68,7 @@
                             />
                             <div class="flex flex-col">
                                 <span>{{ `${course.teacher.name} ${course.teacher.family}` }}</span>
-                                <small class="text-orange-400" v-if="course.teacher.groups && course.teacher.groups[0]">{{ course.teacher.groups[0].name }}</small>
+                                <nuxt-link class="text-indigo-400 text-xs underline" :to="`/teacher/${course.teacher._id}`">پروفایل استاد</nuxt-link>
                             </div>
                         </div>
                         <ul class="grid grid-cols-2 sm:flex flex-wrap items-center justify-between gap-4 md:gap-6 flex-grow max-w-xl">
@@ -104,14 +104,14 @@
                     </div>
                     <div class="flex flex-wrap items-center gap-4 w-full">
                         <div class="flex items-center gap-4 pl-4 border-l-2 border-solid border-gray-400">
-                            <div class="flex flex-col items-center justify-center gap-2 shadow-xl p-2 rounded-xl">
+                            <div class="flex flex-col items-center justify-center gap-2 p-2 rounded-xl bg-warmgray-100">
                                 <b class="text-sm">{{ topVotePercentage }}%</b>
                                 <p class="w-full text-xs text-center flex-grow">به دوره بالاترین نمره را داده اند</p>
                                 <div class="relative h-2 rounded-full bg-gray-400 bg-opacity-40 w-full">
                                     <span class="absolute bg-pink-500 rounded-full h-full" :style="`width: ${topVotePercentage}%`"></span>
                                 </div>
                             </div>
-                            <div class="flex flex-col items-center justify-center gap-2 shadow-xl p-2 rounded-xl">
+                            <div class="flex flex-col items-center justify-center gap-2 p-2 rounded-xl bg-warmgray-100">
                                 <b class="text-sm">{{ numberOfVotes }}</b>
                                 <p class="w-full text-xs text-center flex-grow">نفر به دوره رای داده اند</p>
                                 <div class="relative h-2 rounded-full bg-gray-400 bg-opacity-40 w-full">

@@ -31,6 +31,9 @@ body {
     display: flex; flex-direction: column;
     margin: 0 auto; padding: 0;
 }
+input:disabled, textarea:disabled{
+    opacity: .5;
+}
 
 .kalameh_black { font-family: "KalamehWebBlack" !important; word-spacing: 2px !important; }
 .kalameh_bold { font-family: "KalamehWebBold" !important; word-spacing: 2px !important; }
@@ -110,8 +113,8 @@ body {
 }
 
 .gray_gradient {
-    color: #fff;
-    background: linear-gradient(154.49deg, rgba(121, 117, 131, 0.2) 5.35%, rgba(54, 53, 103, 0.2) 83.85%), rgba(49, 48, 54, 0.3);
+    color: #333;
+    background: linear-gradient(154.49deg, rgb(215 215 215) 5.35%, rgb(231 229 228) 83.85%);
 }
 .redgray_background {
     background: #3F202080;

@@ -12,7 +12,7 @@
 </style>
 
 <template>
-    <main role="main" class="flex flex-col items-center gap-10 max-w-screen-2xl w-full mt-24 md:mt-28 px-4 md:px-8 mb-16">
+    <main role="main" class="flex flex-col items-center gap-10 max-w-screen-2xl w-full mt-24 md:mt-24 px-4 md:px-8 mb-16">
         <article class="flex flex-wrap-reverse justify-center items-start xl:gap-10 w-full">
             <div class="flex flex-col items-center gap-8 -mt-8 xl:-mt-0">
                 <div class="relative flex items-end">

@@ -21,9 +21,9 @@
 </style>
 
 <template>
-    <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full mt-28 md:mt-32 px-4 md:px-8">
-        <img class="absolute -z-1 -left-28 top-52 opacity-25" src="/misc/path.svg" alt="path" />
-        <section class="relative flex flex-col lg:flex-row justify-center items-center w-full">
+    <main role="main" class="flex flex-col items-center gap-12 max-w-screen-2xl w-full mt-28 md:mt-32 px-4 md:px-8">
+        <img class="absolute -z-1 -left-28 top-52" src="/misc/path.svg" alt="path" />
+        <!-- <section class="relative flex flex-col lg:flex-row justify-center items-center w-full">
             <div class="top_article flex flex-col md:flex-row gap-6 w-full" v-if="!topArticleLoading">
                 <img class="w-full max-w-lg rounded-3xl object-cover bg-warmgray-100 shadow-xl" :src="topArticle.image" :alt="topArticle.title" />
                 <div class="flex flex-col gap-6 flex-grow">
@@ -75,9 +75,9 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
 
-        <span class="spacer_v w-10/12 h-0.5 -my-6"></span>
+        <!-- <span class="spacer_v w-10/12 h-0.5 -my-6"></span> -->
 
         <section class="relative flex flex-col items-center justify-center gap-8 w-full" id="most-viewed-articles">
             <h2 class="kalameh_bold title2 text-2xl md:text-3xl w-max max-w-full">پربازدیدترین مطالب</h2>

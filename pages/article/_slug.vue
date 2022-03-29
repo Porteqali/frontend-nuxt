@@ -9,7 +9,7 @@
 </style>
 
 <template>
-    <section class="relative flex flex-col items-center gap-8 w-full max-w-screen-2xl px-4 md:px-8 mt-24 md:mt-28 mb-16" id="article">
+    <section class="relative flex flex-col items-center gap-8 w-full max-w-screen-2xl px-4 md:px-8 mt-24 md:mt-24 mb-16" id="article">
         <article class="flex flex-col gap-8 w-full max-w-screen-xl">
             <header class="relative flex flex-col gap-8 w-full" v-if="article">
                 <div class="flex flex-col gap-6 w-full" v-if="!loadingArticle">
