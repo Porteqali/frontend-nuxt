@@ -122,11 +122,13 @@
                         <div class="flex flex-wrap sm:flex-nowrap items-start justify-start gap-6 rounded-3xl flex-grow">
                             <div class="flex items-center rounded-2xl gap-4 p-2 md:px-4 bg-truegray-200 flex-shrink-0" v-if="!purchased">
                                 <span class="flex flex-col gap-2 flex-grow">
-                                    <small class="kalameh_bold line-through" v-if="course.price > 0 && !!discount">
-                                        {{ new Intl.NumberFormat("fa").format(course.price) }} تومان
-                                    </small>
+                                    <b class="kalameh_bold" v-if="course.price > 0 && !!discount">
+                                        <small class="text-base line-through">{{ new Intl.NumberFormat("fa").format(course.price) }}</small>
+                                        <small class="font-bold">تومان</small>
+                                    </b>
                                     <strong class="kalameh_bold font-normal text-3xl" :class="{ 'text-center': !discount }" v-if="course.price > 0">
                                         {{ new Intl.NumberFormat("fa").format(course.discountInfo.discountedPrice) }}
+                                        <small class="text-lg font-bold">تومان</small>
                                     </strong>
                                     <strong class="kalameh_bold font-normal text-3xl w-full text-center" v-else>رایگان</strong>
                                 </span>

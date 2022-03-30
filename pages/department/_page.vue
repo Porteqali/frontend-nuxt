@@ -9,6 +9,9 @@
     background: linear-gradient(273.67deg, #ff8537 -20.26%, #ff51b1 114.54%);
     color: #fff;
 }
+.course_tag {
+    box-shadow: 0px 0px 10px rgba(255, 49, 49, 0.25);
+}
 </style>
 
 <template>

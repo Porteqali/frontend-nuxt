@@ -84,7 +84,7 @@
                 <p class="text-sm">امکان تغییر قیمت دوره های داخل سبد خرید در هر زمان وجود دارد</p>
                 <div class="flex items-center gap-2">
                     <button
-                        class="orange_gradient_h flex items-center justify-center w-full p-4 rounded-xl shadow-lg"
+                        class="orange_gradient_h flex items-center justify-center w-full p-4 rounded-xl shadow-lg hover:shadow-xl"
                         :class="{ 'opacity-50 cursor-wait': redirectingToGateway }"
                         :disabled="redirectingToGateway"
                         @click="pay('zarinpal')"
@@ -92,7 +92,7 @@
                         <b class="kalameh_bold">تایید و پرداخت</b>
                     </button>
                     <button
-                        class="bg-warmgray-100 flex items-center justify-center gap-1 p-3 rounded-xl shadow-lg flex-shrink-0"
+                        class="bg-warmgray-100 flex items-center justify-center gap-1 p-3 rounded-xl shadow-lg hover:shadow-xl flex-shrink-0"
                         :class="{ 'opacity-50 cursor-wait': redirectingToGateway }"
                         :disabled="redirectingToGateway"
                         @click="pay('wallet')"

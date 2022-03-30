@@ -1,0 +1,251 @@
+<style scoped>
+.bundle_tag {
+    position: absolute;
+    top: -0.5rem;
+    right: -0.75rem;
+    transform: rotate(25deg);
+    box-shadow: 0px 0px 15px rgba(245, 15, 21, 40%);
+}
+
+.bundle_list_item {
+    max-width: 236px;
+}
+
+.dashed_line {
+    top: 6.6rem;
+}
+
+.course_tag {
+    box-shadow: 0px 0px 10px rgba(255, 49, 49, 0.25);
+}
+
+@media (min-width: 768px) {
+    .dashed_line {
+        top: 7.2rem;
+    }
+}
+</style>
+
+<template>
+    <main role="main" class="flex flex-col items-center gap-10 max-w-screen-2xl w-full mt-24 md:mt-24 px-4 md:px-8 mb-16">
+        <article class="relative flex flex-col md:flex-row items-start gap-6 w-full">
+            <div class="absolute -bottom-8 right-0 md:right-36 -z-1 w-64 h-36 bg-orange-200 rounded-2xl"></div>
+            <img class="w-64 h-64 object-contain md:-ml-24 flex-shrink-0 md:z-10" :src="major.image" :alt="major.title" />
+            <div class="relative flex flex-col gap-6 bg-white -mt-24 md:-mt-0 p-4 md:p-8 md:pr-32 shadow-xl rounded-2xl overflow-hidden flex-grow">
+                <div class="absolute -left-10 top-4 flex flex-col w-52">
+                    <img class="absolute -top-0 left-0 w-52 opacity-50" src="/misc/path.svg" alt="path" />
+                    <img class="absolute -top-6 left-2 w-52 opacity-50" src="/misc/path.svg" alt="path" />
+                    <img class="absolute -top-12 left-4 w-52 opacity-50" src="/misc/path.svg" alt="path" />
+                </div>
+                <h3 class="kalameh_bold title2 w-max max-w-full text-3xl md:text-4xl">{{ major.title }}</h3>
+                <h2 class="opacity-75">آشنایی با رشته {{ major.title }}</h2>
+                <p class="w-full">{{ major.text }}</p>
+            </div>
+        </article>
+
+        <section class="relative flex flex-col items-start gap-6 w-full max-w-screen-2xl mt-8">
+            <div class="flex items-center gap-2">
+                <Icon class="w-9 h-9 bg-gray-700" size="36px" folder="icons/new" name="Filter" />
+                <h1 class="kalameh_bold text-2xl md:text-3xl">زیر شاخه های رشته {{ major.title }}</h1>
+            </div>
+            <p class="opacity-75 w-full">
+                حالا که با رشته {{ major.title }} آشنا شدی اینجا میتونی زیرشاخ های این حوزه رو ببینی و شروع کنی به یادگیری... انتخاب با توئه
+            </p>
+            <ul class="flex flex-col gap-8 w-full text-white">
+                <li
+                    class="flex flex-col gap-6 border-8 border-solid border-gray-300 bg-warmgray-600 rounded-3xl w-full p-4 md:p-8"
+                    v-for="(courseBundle, i) in courseBundles"
+                    :key="i"
+                >
+                    <div class="flex flex-wrap items-center justify-between gap-4 w-full">
+                        <h4 class="kalameh_bold text-xl md:text-2xl w-max">{{ courseBundle.title }}</h4>
+                        <div class="flex flex-wrap items-center justify-between gap-4">
+                            <div class="relative flex items-center justify-center gap-1 bg-white rounded-xl p-1 px-4">
+                                <span
+                                    class="bundle_tag kalameh_bold bg-rose-500 text-white text-sm p-0.5 px-2 font-bold rounded-2xl"
+                                    v-if="courseBundle.discountPercent > 0"
+                                >
+                                    {{ courseBundle.discountPercent }}%
+                                </span>
+                                <b class="orange_text_gradient kalameh_black text-2xl">
+                                    {{ new Intl.NumberFormat("fa").format(courseBundle.discountedPrice) }}
+                                </b>
+                                <small class="text-gray-600 text-sm">تومان</small>
+                            </div>
+                            <button class="orange_gradient_h flex items-center gap-1 p-2 rounded-xl w-max flex-shrink-0">
+                                <span class="">خرید یکجا دوره ها</span>
+                                <Icon class="w-7 h-7 bg-gray-100" size="28px" folder="icons/new" name="Buy" />
+                            </button>
+                        </div>
+                    </div>
+                    <div v-swiper:d="courseBundleSwiperOptions" class="relative w-full select-none overflow-hidden">
+                        <hr class="dashed_line absolute border-0 border-b-4 border-dashed border-gray-300 w-full" />
+                        <ul class="swiper-wrapper relative flex items-start w-full h-full flex-grow text-gray-700">
+                            <li class="swiper-slide flex flex-col items-start md:items-center gap-1 mt-24 max-w-max flex-shrink-0 ml-2">
+                                <div class="w-6 md:w-10 h-6 md:h-10 rounded-full bg-gray-300"></div>
+                                <small class="text-orange-300">شروع</small>
+                            </li>
+                            <li
+                                class="bundle_list_item swiper-slide flex flex-col items-start gap-2 w-full bg-white rounded-2xl p-3 flex-shrink-0 ml-8"
+                                v-for="(course, j) in courseBundle.courses"
+                                :key="j"
+                            >
+                                <div class="flex flex-col w-full h-36">
+                                    <img class="w-full h-full object-cover rounded-xl flex-shrink-0" :src="course.image" :alt="course.title" />
+                                </div>
+                                <div class="flex flex-col gap-2 w-full">
+                                    <h4 class="kalameh_bold text-sm md:text-base w-full">{{ course.title }}</h4>
+                                    <div class="flex items-center gap-1">
+                                        <img
+                                            class="w-7 h-7 object-cover rounded-full"
+                                            :src="course.teacher.image"
+                                            :alt="`${course.teacher.name} ${course.teacher.family}`"
+                                        />
+                                        <small class="text-sm opacity-75">{{ `${course.teacher.name} ${course.teacher.family}` }}</small>
+                                    </div>
+                                </div>
+                                <div class="flex items-start justify-between gap-2 w-full">
+                                    <small
+                                        class="course_tag flex items-center gap-1 mt-1 p-1 px-2 bg-red-500 text-white rounded-full text-xs"
+                                        v-if="course.discountInfo && course.discountInfo.tag != 'رایگان' && course.price > 0"
+                                    >
+                                        <span class="kalameh_bold">{{ course.discountInfo.tag }}</span>
+                                        <span class="kalameh_bold" v-if="!!course.discountInfo.discountType">تخفیف</span>
+                                    </small>
+                                    <div class="flex items-end justify-center gap-4">
+                                        <div class="flex flex-col items-end" v-if="course.price">
+                                            <span class="flex items-center gap-1">
+                                                <b :class="[course.price != course.discountInfo.discountedPrice ? 'text-base line-through' : 'text-xl']">
+                                                    {{ new Intl.NumberFormat("fa").format(course.price) }}
+                                                </b>
+                                                <small>تومان</small>
+                                            </span>
+                                            <b class="text-2xl text-amber-500" v-if="course.price != course.discountInfo.discountedPrice">
+                                                {{ new Intl.NumberFormat("fa").format(course.discountInfo.discountedPrice) }}
+                                            </b>
+                                        </div>
+                                        <span class="text-xl font-bold" v-else>رایگان</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="swiper-slide flex flex-col items-start md:items-center gap-1 mt-24 max-w-max flex-shrink-0 -mr-6 ml-2">
+                                <div class="w-6 md:w-10 h-6 md:h-10 rounded-full bg-gray-300"></div>
+                                <small class="text-orange-300">پایان</small>
+                            </li>
+                        </ul>
+                    </div>
+                    <button
+                        class="flex items-center justify-center gap-1 border-2 border-solid border-white rounded-2xl p-2 px-4 w-max hover:bg-white hover:bg-opacity-10"
+                    >
+                        <Icon class="w-7 h-7 bg-gray-100" size="28px" folder="icons/new" name="Location" />
+                        <span>انتخاب و شروع نقشه راه</span>
+                    </button>
+                </li>
+            </ul>
+        </section>
+    </main>
+</template>
+
+<script>
+import axios from "axios";
+import Background from "~/components/web/Background";
+import Icon from "~/components/Icon.vue";
+import getMetadata from "~/mixins/getMetadata";
+
+export default {
+    // TODO
+    // metadata like article
+    // head() {
+    //     return { title: this.metadata.title, meta: [...this.metadata.meta], link: [...this.metadata.link] };
+    // },
+    // mixins: [getMetadata],
+    components: {
+        Background,
+        Icon,
+    },
+    data() {
+        return {
+            majorLoading: false,
+            major: this.major || {
+                image: "/pages/where-to-start/film.png",
+                text: "حالا که با رشته  آشنا شدی اینجا میتونی زیرشاخ های این حوزه رو ببینی و شروع کنی به یادگیری... انتخاب با توئه",
+                title: "طراحی و گرافیک",
+            },
+
+            courseBundlesLoading: false,
+            courseBundles: this.courseBundles || [
+                {
+                    _id: "",
+                    title: "نقشه راه فول استک MERN",
+                    price: "430000",
+                    discountPercent: "10",
+                    discountedPrice: "230000",
+                    courses: [
+                        {
+                            _id: "",
+                            image: "https://porteqali.com/img/courses/62.jpg",
+                            title: "شروع امنیت با Security Plus یک",
+                            teacher: { image: "https://porteqali.com/img/teachers/15.jpg", name: "عرفان", family: "محمدی" },
+                            price: "430000",
+                            discountInfo: {
+                                tag: "10",
+                                discountType: "percent",
+                                discountedPrice: "230000",
+                            },
+                        },
+                        {
+                            _id: "",
+                            image: "https://porteqali.com/img/courses/63.jpg",
+                            title: "شروع امنیت با Security Plus یک",
+                            teacher: { image: "https://porteqali.com/img/teachers/15.jpg", name: "عرفان", family: "محمدی" },
+                            price: "430000",
+                            discountInfo: {
+                                tag: "10",
+                                discountType: "percent",
+                                discountedPrice: "230000",
+                            },
+                        },
+                        {
+                            _id: "",
+                            image: "https://porteqali.com/img/courses/64.jpg",
+                            title: "شروع امنیت با Security Plus یک",
+                            teacher: { image: "https://porteqali.com/img/teachers/15.jpg", name: "عرفان", family: "محمدی" },
+                            price: "430000",
+                            discountInfo: {
+                                tag: "10",
+                                discountType: "percent",
+                                discountedPrice: "230000",
+                            },
+                        },
+                        {
+                            _id: "",
+                            image: "https://porteqali.com/img/courses/65.jpg",
+                            title: "شروع امنیت با Security Plus یک",
+                            teacher: { image: "https://porteqali.com/img/teachers/15.jpg", name: "عرفان", family: "محمدی" },
+                            price: "430000",
+                            discountInfo: {
+                                tag: "10",
+                                discountType: "percent",
+                                discountedPrice: "230000",
+                            },
+                        },
+                    ],
+                },
+            ],
+            courseBundleSwiperOptions: {
+                autoplay: false,
+                slidesPerView: "auto",
+                // spaceBetween: 32,
+                loop: false,
+            },
+        };
+    },
+    async fetch() {
+        let headers = {};
+        if (process.server) headers = this.$nuxt.context.req.headers;
+
+        await Promise.all([]);
+    },
+    methods: {},
+};
+</script>

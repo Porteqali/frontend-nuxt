@@ -26,7 +26,7 @@
         <section class="flex flex-col w-full max-w-screen-2xl px-4 md:px-8 mt-10">
             <ul class="flex flex-wrap items-center justify-center gap-16 w-full">
                 <li class="flex flex-col items-start gap-2 w-full max-w-xs" v-for="(major, i) in majors" :key="i">
-                    <img :src="major.image" :alt="major.title" />
+                    <img class="w-48 h-48 object-contain" :src="major.image" :alt="major.title" />
                     <h3 class="kalameh_bold text-xl md:text-2xl w-max">{{ major.title }}</h3>
                     <p class="text-sm">{{ major.short }}</p>
                     <nuxt-link

@@ -33,7 +33,7 @@
     <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full mt-24 md:mt-24 px-4 md:px-8 mb-16">
         <img class="absolute -left-16 top-52 opacity-65" src="/misc/path.svg" alt="path" />
 
-        <section class="relative flex flex-col items-center justify-center w-full" id="most-viewed-courses">
+        <!-- <section class="relative flex flex-col items-center justify-center w-full" id="most-viewed-courses">
             <div v-swiper="coursesSwiperOptions" class="slider w-full select-none overflow-hidden pb-6" v-if="!mostViewedCoursesLoading">
                 <ul class="swiper-wrapper flex w-full">
                     <li
@@ -91,6 +91,28 @@
                     <img src="/icons/new/ArrowLeft3.svg" width="24" />
                 </button>
             </div>
+        </section> -->
+
+        <section class="orange_gradient_v flex items-center justify-center rounded-3xl p-4 md:p-6 w-full max-w-screen-2xl shadow-2xl" id="where-to-start">
+            <div class="flex items-center justify-center w-full max-w-screen-xl">
+                <img class="absolute lg:relative flex-shrink-0 w-max opacity-50 lg:opacity-100" src="/pages/departments/img.png" alt="start" />
+                <div class="relative flex flex-col items-start gap-4 flex-grow">
+                    <h2 class="kalameh_bold text-white text-3xl md:text-4xl lg:-mr-8">نمیدونی از کجا باید شروع کنی؟</h2>
+                    <h4 class="kalameh_bold text-lg text-gray-600">دوست داری تو چه حوزه ای فعالیت کنی؟</h4>
+                    <p class="text-white font-bold w-full">
+                        اگر نمیدونی به چی علاقه داری، کافیه جواب سوالایی که براتون میفرستیم رو بدید تا ما بگیم به چی علاقه داری و نقشه راهی بدیم بهت که کارتو خیلی
+                        جلو میندازه
+                    </p>
+                    <div class="flex w-full mt-auto">
+                        <nuxt-link
+                            class="flex justify-center mr-auto border-4 border-solid border-white rounded-2xl font-bold p-4 w-full max-w-xs hover:bg-gray-100 hover:bg-opacity-20"
+                            to="/where-to-start"
+                        >
+                            شروع پرسش و پاسخ
+                        </nuxt-link>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section class="relative flex flex-col gap-4 w-full" id="course-bundles">
@@ -105,7 +127,7 @@
                     >
                         <h4 class="kalameh_bold text-xl md:text-2xl w-full">{{ courseBundle.title }}</h4>
                         <div class="flex flex-wrap items-center justify-between gap-4 w-full">
-                            <div class="relative flex items-center justify-center gap-1 bg-white rounded-2xl p-1 px-4 flex-grow">
+                            <div class="relative flex items-center justify-center gap-1 bg-white rounded-xl p-1 px-4 flex-grow">
                                 <span
                                     class="bundle_tag kalameh_bold bg-rose-500 text-white text-sm p-0.5 px-2 font-bold rounded-2xl"
                                     v-if="courseBundle.discountPercent > 0"
@@ -162,27 +184,7 @@
 
         <Nuxt nuxt-child-key="department" />
 
-        <span class="spacer_v w-full h-0.5 -my-4"></span>
-
-        <section class="orange_gradient_v flex items-center rounded-3xl p-4 md:p-6 w-full max-w-screen-xl shadow-2xl" id="where-to-start">
-            <img class="absolute lg:relative flex-shrink-0 w-max opacity-50 lg:opacity-100" src="/pages/departments/img.png" alt="start" />
-            <div class="relative flex flex-col items-start gap-4 flex-grow">
-                <h2 class="kalameh_bold text-white text-3xl lg:-mr-4">نمیدونی از کجا باید شروع کنی؟</h2>
-                <h4 class="kalameh_bold text-lg text-gray-600">دوست داری تو چه حوزه ای فعالیت کنی؟</h4>
-                <p class="text-white font-bold w-full">
-                    اگر نمیدونی به چی علاقه داری، کافیه جواب سوالایی که براتون میفرستیم رو بدید تا ما بگیم به چی علاقه داری و نقشه راهی بدیم بهت که کارتو خیلی جلو
-                    میندازه
-                </p>
-                <div class="flex w-full mt-auto">
-                    <nuxt-link
-                        class="flex justify-center mr-auto border-4 border-solid border-white rounded-2xl font-bold p-4 w-full max-w-xs hover:bg-gray-100 hover:bg-opacity-20"
-                        to="/where-to-start"
-                    >
-                        شروع پرسش و پاسخ
-                    </nuxt-link>
-                </div>
-            </div>
-        </section>
+        <!-- <span class="spacer_v w-full h-0.5 -my-4"></span> -->
     </main>
 </template>
 
@@ -435,7 +437,10 @@ export default {
         let headers = {};
         if (process.server) headers = this.$nuxt.context.req.headers;
 
-        await Promise.all([this.getMetadata("department"), this.getMostviewedCourses({ headers })]);
+        await Promise.all([
+            this.getMetadata("department"),
+            // this.getMostviewedCourses({ headers })
+        ]);
     },
     methods: {
         async getMostviewedCourses(data = {}) {
