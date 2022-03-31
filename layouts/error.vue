@@ -4,7 +4,7 @@
     <main role="main" class="flex flex-col items-center gap-16 max-w-screen-2xl w-full px-4 md:px-8 mt-24 md:mt-24" v-if="!loading">
         <pre class="text-6xl md:text-9xl font-bold text-pink-500">{{ error.statusCode }}</pre>
         <section class="relative flex flex-col justify-center items-center z-10">
-            <div class="flex flex-col items-center gap-10 mt-12">
+            <div class="flex flex-col items-center gap-10">
                 <h1 class="flex flex-col gap-4 text-5xl lg:text-7xl text-center text-bluegray-900">
                     <span class="kalameh_black font-bold text-gray-600">اشتباه اومدی مهندس!</span>
                 </h1>

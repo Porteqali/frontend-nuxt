@@ -15,9 +15,6 @@ h3::after {
     max-width: 210px;
     width: 500vw;
 }
-.card_bar {
-    backdrop-filter: blur(8px);
-}
 </style>
 
 <template>
@@ -43,7 +40,7 @@ h3::after {
                             loading="lazy"
                             alt=""
                         />
-                        <div class="card_bar absolute bottom-2 gray_gradient flex flex-col gap-2 p-2 rounded-2xl w-screen" style="max-width: 186px">
+                        <div class="absolute bottom-2 bg-gray-700 text-white flex flex-col gap-2 p-2 rounded-2xl w-screen" style="max-width: 186px">
                             <h5 class="w-full overflow-hidden whitespace-nowrap overflow-ellipsis text-sm" v-if="item.info">{{ item.info.name }}</h5>
                             <div class="flex items-center gap-1 w-full" v-if="item.info && item.info.teacher">
                                 <img

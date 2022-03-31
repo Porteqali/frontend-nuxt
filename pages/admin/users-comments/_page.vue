@@ -170,7 +170,7 @@ export default {
             statusFilter: this.statusFilter || [],
 
             search: this.search || "",
-            sort: this.sort || { col: "تاریخ ثبت", type: "asc" },
+            sort: this.sort || { col: "تاریخ ثبت", type: "desc" },
             page: this.page || 1,
             pp: this.pp || 25,
             total: this.total || 0,

@@ -152,7 +152,7 @@ export default {
             isDataLoading: false,
 
             search: this.search || "",
-            sort: this.sort || { col: "بازاریاب", type: "asc" },
+            sort: this.sort || { col: "بازاریاب", type: "desc" },
             page: this.page || 1,
             pp: this.pp || 25,
             total: this.total || 0,

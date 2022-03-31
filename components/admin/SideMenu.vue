@@ -164,6 +164,19 @@
                     </ul>
                 </transition>
 
+                <li class="flex justify-between items-center w-full gap-2" v-if="checkPermissions(['admin.bundles.view'], userPermissions)">
+                    <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/bundles">
+                        <img src="/icons/admin/Document.svg" class="menu_icon" width="24" />
+                        <span>باندل های نقشه راه</span>
+                    </nuxt-link>
+                </li>
+                <li class="flex justify-between items-center w-full gap-2" v-if="checkPermissions(['admin.majors.view'], userPermissions)">
+                    <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/majors">
+                        <img src="/icons/admin/Document.svg" class="menu_icon" width="24" />
+                        <span>تخصص ها</span>
+                    </nuxt-link>
+                </li>
+
                 <hr class="w-11/12 mx-auto my-1 border-gray-600" />
 
                 <li
