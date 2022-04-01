@@ -21,7 +21,7 @@
 
 *, html {
     font-family: "IranYekanWebRegular", "IranYekanWebRegularFaNum";
-    scroll-behavior: smooth;
+    scroll-behavior: smooth !important;
     transition: all 0.15s;
     outline: none;
 }

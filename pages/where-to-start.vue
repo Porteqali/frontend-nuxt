@@ -23,12 +23,12 @@
             </section>
         </div>
 
-        <section class="flex flex-col w-full max-w-screen-2xl px-4 md:px-8 mt-10">
+        <section class="flex flex-col items-center gap-8 w-full max-w-screen-2xl px-4 md:px-8 mt-10">
             <ul class="flex flex-wrap items-center justify-center gap-16 w-full">
                 <li class="flex flex-col items-start gap-2 w-full max-w-xs" v-for="(major, i) in majors" :key="i">
                     <img class="w-48 h-48 object-contain" :src="major.image" :alt="major.title" />
                     <h3 class="kalameh_bold text-xl md:text-2xl w-max">{{ major.title }}</h3>
-                    <p class="text-sm">{{ major.short }}</p>
+                    <p class="text-sm">{{ major.desc }}</p>
                     <nuxt-link
                         class="flex items-center gap-1 rounded-2xl p-2 px-4 w-max border-2 border-solid border-gray-700 bg-white hover:bg-amber-500 hover:text-white"
                         :to="`/major/${major.slug}`"
@@ -38,6 +38,13 @@
                     </nuxt-link>
                 </li>
             </ul>
+            <button
+                class="flex items-center gap-2 py-3 px-6 rounded-xl w-max bg-warmgray-200 hover:shadow-xl"
+                v-if="!majorsLoading && majorsPage <= majorsPageTotal"
+                @click="getMajors()"
+            >
+                <span>بارگذاری بیشتر</span>
+            </button>
         </section>
     </main>
 </template>
@@ -55,46 +62,23 @@ export default {
     components: { Icon },
     data() {
         return {
-            majors: this.majors || [
-                {
-                    image: "/pages/where-to-start/film.png",
-                    title: "فیلم و سینما",
-                    short: "اینجا میتونی حوزه ای که میخوای رو انتخاب کنی و ما زیرشاخه هاشو بهت نشون بدیم و تو مسیر یادگیریش همراهیت کنیم",
-                    slug: "film",
-                },
-                {
-                    image: "/pages/where-to-start/pc.png",
-                    title: "برنامه نویسی",
-                    short: "اینجا میتونی حوزه ای که میخوای رو انتخاب کنی و ما زیرشاخه هاشو بهت نشون بدیم و تو مسیر یادگیریش همراهیت کنیم",
-                    slug: "pc",
-                },
-                {
-                    image: "/pages/where-to-start/graphic.png",
-                    title: "طراحی و گرافیک",
-                    short: "اینجا میتونی حوزه ای که میخوای رو انتخاب کنی و ما زیرشاخه هاشو بهت نشون بدیم و تو مسیر یادگیریش همراهیت کنیم",
-                    slug: "graphic",
-                },
-                {
-                    image: "/pages/where-to-start/security.png",
-                    title: "امنیت و شبکه",
-                    short: "اینجا میتونی حوزه ای که میخوای رو انتخاب کنی و ما زیرشاخه هاشو بهت نشون بدیم و تو مسیر یادگیریش همراهیت کنیم",
-                    slug: "security",
-                },
-            ],
+            majors: this.majors || [],
+            majorsPage: 1,
+            majorsTotal: 0,
+            majorsPageTotal: 1,
+            majorsLoading: false,
+            majorsLoadingSkeleton: [0, 0, 0, 0],
         };
     },
     async fetch() {
         let headers = {};
         if (process.server) headers = this.$nuxt.context.req.headers;
 
-        await Promise.all([
-            this.getMetadata("where-to-start"),
-            // this.getMajors({ headers })
-        ]);
+        await Promise.all([this.getMetadata("where-to-start"), this.getMajors({ headers })]);
     },
     methods: {
         async getMajors(data = {}) {
-            if (this.majorsLoading) return;
+            if (this.majorsLoading || this.majorsPage > this.majorsPageTotal) return;
             this.majorsLoading = true;
 
             let url = `/api/majors`;
@@ -104,10 +88,16 @@ export default {
                 headers = data.headers ? data.headers : {};
             }
 
+            let params = [`page=${this.majorsPage}`];
+            url = `${url}?${params.join("&")}`;
+
             await axios
-                .get(url, { headers })
+                .get(encodeURI(url), { headers })
                 .then((results) => {
-                    this.majors = results.data.records;
+                    this.majors = [...this.majors, ...results.data.records];
+                    this.majorsPage = results.data.page + 1;
+                    this.majorsTotal = results.data.total;
+                    this.majorsPageTotal = results.data.pageTotal;
                 })
                 .catch((e) => {})
                 .finally(() => (this.majorsLoading = false));

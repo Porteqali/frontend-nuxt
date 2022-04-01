@@ -54,21 +54,21 @@
             <ul class="flex flex-col gap-8 w-full text-white">
                 <li
                     class="flex flex-col gap-6 border-8 border-solid border-gray-300 bg-warmgray-600 rounded-3xl w-full p-4 md:p-8"
-                    v-for="(courseBundle, i) in courseBundles"
+                    v-for="(bundle, i) in bundles"
                     :key="i"
                 >
                     <div class="flex flex-wrap items-center justify-between gap-4 w-full">
-                        <h4 class="kalameh_bold text-xl md:text-2xl w-max">{{ courseBundle.title }}</h4>
+                        <h4 class="kalameh_bold text-xl md:text-2xl w-max">{{ bundle.title }}</h4>
                         <div class="flex flex-wrap items-center justify-between gap-4">
                             <div class="relative flex items-center justify-center gap-1 bg-white rounded-xl p-1 px-4">
                                 <span
                                     class="bundle_tag kalameh_bold bg-rose-500 text-white text-sm p-0.5 px-2 font-bold rounded-2xl"
-                                    v-if="courseBundle.discountPercent > 0"
+                                    v-if="bundle.discountPercent > 0"
                                 >
-                                    {{ courseBundle.discountPercent }}%
+                                    {{ bundle.discountPercent }}%
                                 </span>
                                 <b class="orange_text_gradient kalameh_black text-2xl">
-                                    {{ new Intl.NumberFormat("fa").format(courseBundle.discountedPrice) }}
+                                    {{ new Intl.NumberFormat("fa").format(bundle.discountedPrice) }}
                                 </b>
                                 <small class="text-gray-600 text-sm">تومان</small>
                             </div>
@@ -78,7 +78,7 @@
                             </button>
                         </div>
                     </div>
-                    <div v-swiper:d="courseBundleSwiperOptions" class="relative w-full select-none overflow-hidden">
+                    <div v-swiper:d="bundleSwiperOptions" class="relative w-full select-none overflow-hidden">
                         <hr class="dashed_line absolute border-0 border-b-4 border-dashed border-gray-300 w-full" />
                         <ul class="swiper-wrapper relative flex items-start w-full h-full flex-grow text-gray-700">
                             <li class="swiper-slide flex flex-col items-start md:items-center gap-1 mt-24 max-w-max flex-shrink-0 ml-2">
@@ -87,41 +87,41 @@
                             </li>
                             <li
                                 class="bundle_list_item swiper-slide flex flex-col items-start gap-2 w-full bg-white rounded-2xl p-3 flex-shrink-0 ml-8"
-                                v-for="(course, j) in courseBundle.courses"
+                                v-for="(item, j) in bundle.courses"
                                 :key="j"
                             >
                                 <div class="flex flex-col w-full h-36">
-                                    <img class="w-full h-full object-cover rounded-xl flex-shrink-0" :src="course.image" :alt="course.title" />
+                                    <img class="w-full h-full object-cover rounded-xl flex-shrink-0" :src="item.course.image" :alt="item.course.name" />
                                 </div>
                                 <div class="flex flex-col gap-2 w-full">
-                                    <h4 class="kalameh_bold text-sm md:text-base w-full">{{ course.title }}</h4>
+                                    <h4 class="kalameh_bold text-sm md:text-base w-full">{{ item.course.name }}</h4>
                                     <div class="flex items-center gap-1">
                                         <img
                                             class="w-7 h-7 object-cover rounded-full"
-                                            :src="course.teacher.image"
-                                            :alt="`${course.teacher.name} ${course.teacher.family}`"
+                                            :src="item.course.teacher.image"
+                                            :alt="`${item.course.teacher.name} ${item.course.teacher.family}`"
                                         />
-                                        <small class="text-sm opacity-75">{{ `${course.teacher.name} ${course.teacher.family}` }}</small>
+                                        <small class="text-sm opacity-75">{{ `${item.course.teacher.name} ${item.course.teacher.family}` }}</small>
                                     </div>
                                 </div>
-                                <div class="flex items-start justify-between gap-2 w-full">
+                                <div class="flex items-start justify-between gap-2 w-full" v-if="item.course.discountInfo">
                                     <small
                                         class="course_tag flex items-center gap-1 mt-1 p-1 px-2 bg-red-500 text-white rounded-full text-xs"
-                                        v-if="course.discountInfo && course.discountInfo.tag != 'رایگان' && course.price > 0"
+                                        v-if="item.course.discountInfo && item.course.discountInfo.tag != 'رایگان' && item.course.price > 0"
                                     >
-                                        <span class="kalameh_bold">{{ course.discountInfo.tag }}</span>
-                                        <span class="kalameh_bold" v-if="!!course.discountInfo.discountType">تخفیف</span>
+                                        <span class="kalameh_bold">{{ item.course.discountInfo.tag }}</span>
+                                        <span class="kalameh_bold" v-if="!!item.course.discountInfo.discountType">تخفیف</span>
                                     </small>
                                     <div class="flex items-end justify-center gap-4">
-                                        <div class="flex flex-col items-end" v-if="course.price">
+                                        <div class="flex flex-col items-end" v-if="item.course.price">
                                             <span class="flex items-center gap-1">
-                                                <b :class="[course.price != course.discountInfo.discountedPrice ? 'text-base line-through' : 'text-xl']">
-                                                    {{ new Intl.NumberFormat("fa").format(course.price) }}
+                                                <b :class="[item.course.price != item.course.discountInfo.discountedPrice ? 'text-base line-through' : 'text-xl']">
+                                                    {{ new Intl.NumberFormat("fa").format(item.course.price) }}
                                                 </b>
                                                 <small>تومان</small>
                                             </span>
-                                            <b class="text-2xl text-amber-500" v-if="course.price != course.discountInfo.discountedPrice">
-                                                {{ new Intl.NumberFormat("fa").format(course.discountInfo.discountedPrice) }}
+                                            <b class="text-2xl text-amber-500" v-if="item.course.price != item.course.discountInfo.discountedPrice">
+                                                {{ new Intl.NumberFormat("fa").format(item.course.discountInfo.discountedPrice) }}
                                             </b>
                                         </div>
                                         <span class="text-xl font-bold" v-else>رایگان</span>
@@ -142,6 +142,13 @@
                     </button>
                 </li>
             </ul>
+            <button
+                class="flex items-center gap-2 py-3 px-6 rounded-xl w-max bg-warmgray-200 hover:shadow-xl"
+                v-if="!bundlesLoading && bundlesPage <= bundlesPageTotal"
+                @click="getBundles()"
+            >
+                <span>بارگذاری بیشتر</span>
+            </button>
         </section>
     </main>
 </template>
@@ -153,12 +160,37 @@ import Icon from "~/components/Icon.vue";
 import getMetadata from "~/mixins/getMetadata";
 
 export default {
-    // TODO
-    // metadata like article
-    // head() {
-    //     return { title: this.metadata.title, meta: [...this.metadata.meta], link: [...this.metadata.link] };
-    // },
-    // mixins: [getMetadata],
+    head() {
+        return {
+            title: `${this.major.title} - گروه آموزشی پرتقال`,
+            meta: [
+                { hid: "description", name: "description", content: this.major.metadata ? this.major.metadata.description : "" },
+                { hid: "language", name: "language", content: "fa" },
+                { hid: "author", name: "author", content: this.major.metadata ? this.major.metadata.author : "" },
+
+                { hid: "og:locale", name: "og:locale", content: "fa_IR" },
+                { hid: "og:title", name: "og:title", content: this.major.metadata ? this.major.metadata.title : "" },
+                { hid: "og:description", name: "og:description", content: this.major.metadata ? this.major.metadata.description : "" },
+                { hid: "og:url", name: "og:url", content: this.major.metadata ? this.major.metadata.url : "" },
+                { hid: "og:site_name", name: "og:site_name", content: this.major.metadata ? this.major.metadata.title : "" },
+                { hid: "og:image", name: "og:image", content: this.major.metadata ? this.major.metadata.thumbnail : "" },
+
+                { hid: "twitter:card", name: "twitter:card", content: "summary_large_image" },
+                { hid: "twitter:site", name: "twitter:site", content: this.major.metadata ? this.major.metadata.url : "" },
+                { hid: "twitter:description", name: "twitter:description", content: this.major.metadata ? this.major.metadata.description : "" },
+                { hid: "twitter:title", name: "twitter:title", content: this.major.metadata ? this.major.metadata.title : "" },
+                { hid: "twitter:image", name: "twitter:image", content: this.major.metadata ? this.major.metadata.thumbnail : "" },
+
+                { hid: "robots", name: "robots", content: "max-image-preview:large" },
+                { hid: "mobile-web-app-capable", name: "mobile-web-app-capable", content: "yes" },
+            ],
+            link: [
+                { rel: "canonical", href: this.major.metadata ? this.major.metadata.url : "" },
+                { rel: "apple-touch-icon", sizes: "180x180", href: "/favicon.ico" },
+                { rel: "shortcut icon", type: "image/x-icon", href: "/favicon.ico" },
+            ],
+        };
+    },
     components: {
         Background,
         Icon,
@@ -172,70 +204,15 @@ export default {
                 title: "طراحی و گرافیک",
             },
 
-            courseBundlesLoading: false,
-            courseBundles: this.courseBundles || [
-                {
-                    _id: "",
-                    title: "نقشه راه فول استک MERN",
-                    price: "430000",
-                    discountPercent: "10",
-                    discountedPrice: "230000",
-                    courses: [
-                        {
-                            _id: "",
-                            image: "https://porteqali.com/img/courses/62.jpg",
-                            title: "شروع امنیت با Security Plus یک",
-                            teacher: { image: "https://porteqali.com/img/teachers/15.jpg", name: "عرفان", family: "محمدی" },
-                            price: "430000",
-                            discountInfo: {
-                                tag: "10",
-                                discountType: "percent",
-                                discountedPrice: "230000",
-                            },
-                        },
-                        {
-                            _id: "",
-                            image: "https://porteqali.com/img/courses/63.jpg",
-                            title: "شروع امنیت با Security Plus یک",
-                            teacher: { image: "https://porteqali.com/img/teachers/15.jpg", name: "عرفان", family: "محمدی" },
-                            price: "430000",
-                            discountInfo: {
-                                tag: "10",
-                                discountType: "percent",
-                                discountedPrice: "230000",
-                            },
-                        },
-                        {
-                            _id: "",
-                            image: "https://porteqali.com/img/courses/64.jpg",
-                            title: "شروع امنیت با Security Plus یک",
-                            teacher: { image: "https://porteqali.com/img/teachers/15.jpg", name: "عرفان", family: "محمدی" },
-                            price: "430000",
-                            discountInfo: {
-                                tag: "10",
-                                discountType: "percent",
-                                discountedPrice: "230000",
-                            },
-                        },
-                        {
-                            _id: "",
-                            image: "https://porteqali.com/img/courses/65.jpg",
-                            title: "شروع امنیت با Security Plus یک",
-                            teacher: { image: "https://porteqali.com/img/teachers/15.jpg", name: "عرفان", family: "محمدی" },
-                            price: "430000",
-                            discountInfo: {
-                                tag: "10",
-                                discountType: "percent",
-                                discountedPrice: "230000",
-                            },
-                        },
-                    ],
-                },
-            ],
-            courseBundleSwiperOptions: {
+            bundles: this.bundles || [],
+            bundlesPage: 1,
+            bundlesTotal: 0,
+            bundlesPageTotal: 1,
+            bundlesLoading: false,
+
+            bundleSwiperOptions: {
                 autoplay: false,
                 slidesPerView: "auto",
-                // spaceBetween: 32,
                 loop: false,
             },
         };
@@ -244,8 +221,57 @@ export default {
         let headers = {};
         if (process.server) headers = this.$nuxt.context.req.headers;
 
-        await Promise.all([]);
+        const route = this.$nuxt.context.route;
+        // await Promise.all([]);
+
+        await this.getMajor({ headers }, route);
+        await this.getBundles({ headers });
     },
-    methods: {},
+    methods: {
+        async getMajor(data = {}, route) {
+            if (this.majorLoading) return;
+            this.majorLoading = true;
+            let url = `/api/majors/${route.params.slug}`;
+            let headers = {};
+            if (process.server) {
+                url = `${process.env.BASE_URL}${url}`;
+                headers = data.headers ? data.headers : {};
+            }
+            await axios
+                .get(url, { headers })
+                .then((results) => {
+                    this.major = results.data.major;
+                })
+                .catch((e) => {})
+                .finally(() => (this.majorLoading = false));
+        },
+
+        async getBundles(data = {}) {
+            if (this.bundlesLoading || this.bundlesPage > this.bundlesPageTotal) return;
+            this.bundlesLoading = true;
+
+            let url = `/api/majors/bundles/${this.major.slug}`;
+            let headers = {};
+            if (process.server) {
+                url = `${process.env.BASE_URL}${url}`;
+                headers = data.headers ? data.headers : {};
+            }
+
+            let params = [`page=${this.bundlesPage}`, `search=${this.searchQuery}`];
+            url = `${url}?${params.join("&")}`;
+
+            await axios
+                .get(encodeURI(url), { headers })
+                .then((results) => {
+                    console.log(results.data.records);
+                    this.bundles = [...this.bundles, ...results.data.records];
+                    this.bundlesPage = results.data.page + 1;
+                    this.bundlesTotal = results.data.total;
+                    this.bundlesPageTotal = results.data.pageTotal;
+                })
+                .catch((e) => {})
+                .finally(() => (this.bundlesLoading = false));
+        },
+    },
 };
 </script>

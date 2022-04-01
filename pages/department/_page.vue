@@ -35,7 +35,7 @@
                 <button class="flex items-center justify-center swiper-prev-cat">
                     <img src="/icons/new/ArrowRight2.svg" width="24" />
                 </button>
-                <div v-swiper="categorySwiperOptions" class="w-full select-none overflow-hidden pb-4 -mb-4">
+                <div v-swiper:categorySwiper="categorySwiperOptions" class="w-full select-none overflow-hidden pb-4 -mb-4">
                     <ul class="swiper-wrapper flex items-center">
                         <li
                             class="swiper-slide flex items-center gap-2 w-max max-w-max bg-white shadow-lg p-2 px-3 rounded-2xl ml-4 cursor-pointer flex-shrink-0"
@@ -200,13 +200,14 @@ export default {
             departments: this.departments || {},
 
             categorySwiperOptions: {
-                autoplay: false,
+                // autoplay: false,
                 slidesPerView: "auto",
-                initialSlide: 0,
+                // initialSlide: 0,
                 prevButton: ".swiper-prev-cat",
                 nextButton: ".swiper-next-cat",
                 loop: false,
                 freeMode: true,
+                observeParents: true,
             },
 
             orderOptions: [
@@ -262,14 +263,16 @@ export default {
             this.clearCourses();
             this.getCourses();
         },
-        groupChanged(group) {
+        async groupChanged(group) {
             if (this.coursesLoading) return;
 
             if (this.group._id === group) this.group = { name: "", slug: "" };
             else this.group = this.departments[group];
 
             this.clearCourses();
-            this.getCourses();
+            await this.getCourses();
+
+            this.categorySwiper.slideTo(Object.keys(this.departments).indexOf(group), 1000, false);
         },
 
         async getCourseGroups(data = {}) {
