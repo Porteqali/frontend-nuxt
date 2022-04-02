@@ -26,7 +26,8 @@ const actions = {
         }
 
         await axios
-            .post(url, { headers, timeout: 30 * 1000 })
+            // .post(url, { headers, timeout: 30 * 1000 })
+            .get(url, { headers, timeout: 30 * 1000 })
             .then((results) => {
                 commit("setInfo", results.data);
             })

@@ -72,7 +72,7 @@
                                 </b>
                                 <small class="text-gray-600 text-sm">تومان</small>
                             </div>
-                            <button class="orange_gradient_h flex items-center gap-1 p-2 rounded-xl w-max flex-shrink-0">
+                            <button class="orange_gradient_h flex items-center gap-1 p-2 rounded-xl w-max flex-shrink-0" @click="buy(bundle)">
                                 <span class="">خرید یکجا دوره ها</span>
                                 <Icon class="w-7 h-7 bg-gray-100" size="28px" folder="icons/new" name="Buy" />
                             </button>
@@ -136,6 +136,7 @@
                     </div>
                     <button
                         class="flex items-center justify-center gap-1 border-2 border-solid border-white rounded-2xl p-2 px-4 w-max hover:bg-white hover:bg-opacity-10"
+                        @click="startRoadMap(bundle._id)"
                     >
                         <Icon class="w-7 h-7 bg-gray-100" size="28px" folder="icons/new" name="Location" />
                         <span>انتخاب و شروع نقشه راه</span>
@@ -150,6 +151,8 @@
                 <span>بارگذاری بیشتر</span>
             </button>
         </section>
+
+        <BundlePurchaseDialog :open.sync="bundlePurchaseDialogState" :bundle="selectedBundle" />
     </main>
 </template>
 
@@ -157,7 +160,7 @@
 import axios from "axios";
 import Background from "~/components/web/Background";
 import Icon from "~/components/Icon.vue";
-import getMetadata from "~/mixins/getMetadata";
+import BundlePurchaseDialog from "~/components/web/depatment/BundlePurchaseDialog.vue";
 
 export default {
     head() {
@@ -194,6 +197,7 @@ export default {
     components: {
         Background,
         Icon,
+        BundlePurchaseDialog,
     },
     data() {
         return {
@@ -215,6 +219,11 @@ export default {
                 slidesPerView: "auto",
                 loop: false,
             },
+
+            bundlePurchaseDialogState: false,
+            selectedBundle: {},
+
+            selectingRoadmap: false,
         };
     },
     async fetch() {
@@ -226,6 +235,11 @@ export default {
 
         await this.getMajor({ headers }, route);
         await this.getBundles({ headers });
+    },
+    computed: {
+        user() {
+            return this.$store.state.user;
+        },
     },
     methods: {
         async getMajor(data = {}, route) {
@@ -263,7 +277,6 @@ export default {
             await axios
                 .get(encodeURI(url), { headers })
                 .then((results) => {
-                    console.log(results.data.records);
                     this.bundles = [...this.bundles, ...results.data.records];
                     this.bundlesPage = results.data.page + 1;
                     this.bundlesTotal = results.data.total;
@@ -271,6 +284,55 @@ export default {
                 })
                 .catch((e) => {})
                 .finally(() => (this.bundlesLoading = false));
+        },
+
+        async buy(courseBundle) {
+            // before redirecting to payment gateway check if user is logged in or not
+            if (!this.user.info.email && !this.user.info.mobile) {
+                this.$store.dispatch("toast/makeToast", {
+                    type: "error",
+                    title: "پرداخت و خرید",
+                    message: `برای انجام هرگونه عملیات خرید، ابتدا باید در سایت ثبتنام و وارد حساب کاربری خود شده باشید`,
+                });
+                return;
+            }
+
+            this.bundlePurchaseDialogState = true;
+            this.selectedBundle = courseBundle;
+        },
+
+        async startRoadMap(bundleId) {
+            // check if user logged in
+            if (!this.user.info.email && !this.user.info.mobile) {
+                this.$store.dispatch("toast/makeToast", {
+                    type: "error",
+                    title: "انتخاب نقشه راه",
+                    message: `برای شروع ابتدا باید ثبتنام کنید یا وارد حساب کاربری خود شوید`,
+                });
+                return;
+            }
+
+            // send request to back to activate this roadmap
+            if (this.selectingRoadmap) return;
+            this.selectingRoadmap = true;
+
+            await axios
+                .post(`/api/bundles/activate/${bundleId}`, {})
+                .then(() => {
+                    this.$store.dispatch("toast/makeToast", { type: "success", title: "انتخاب نقشه راه", message: `نقشه راه برای شما فعال شد!` });
+                    this.$router.push("/profile");
+                })
+                .catch((e) => {
+                    this.messageType = "error";
+                    if (typeof e.response !== "undefined" && e.response.data) {
+                        if (typeof e.response.data.message === "object") {
+                            this.$store.dispatch("toast/makeToast", { type: "error", title: "انتخاب نقشه راه", message: e.response.data.message[0].errors[0] });
+                        }
+                    }
+                })
+                .finally(() => {
+                    this.selectingRoadmap = false;
+                });
         },
     },
 };

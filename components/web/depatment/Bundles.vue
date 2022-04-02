@@ -19,7 +19,7 @@
 </style>
 
 <template>
-    <section class="relative flex flex-col gap-4 w-full" id="course-bundles">
+    <section class="relative flex flex-col gap-4 w-full" id="course-bundles" v-if="!!courseBundles.length">
         <h2 class="kalameh_bold title text-2xl md:text-3xl w-max">باندل های نقشه راه</h2>
         <p>بیشتر اوقات یادگیری یه دوره کافی نیست. اینجا ما دوره ها رو برات گروه بندی کردیم که خیلی راحت مجموعه مهارت های لازم تو یه حوزه رو یاد بگیری.</p>
         <div v-swiper:d="courseBundleSwiperOptions" class="bundle_slider w-full select-none overflow-hidden pb-8 mx-auto">
@@ -43,7 +43,7 @@
                             </b>
                             <small class="text-gray-600 text-sm">تومان</small>
                         </div>
-                        <button class="orange_gradient_h flex items-center gap-1 p-2 rounded-xl w-max flex-shrink-0">
+                        <button class="orange_gradient_h flex items-center gap-1 p-2 rounded-xl w-max flex-shrink-0" @click="buy(courseBundle)">
                             <span class="">خرید</span>
                             <Icon class="w-7 h-7 bg-gray-100" size="28px" folder="icons/new" name="Buy" />
                         </button>
@@ -66,6 +66,7 @@
                     </ul>
                     <button
                         class="flex items-center justify-center gap-1 border-2 border-solid border-white rounded-2xl p-2 w-full hover:bg-white hover:bg-opacity-10"
+                        @click="startRoadMap(courseBundle._id)"
                     >
                         <Icon class="w-7 h-7 bg-gray-100" size="28px" folder="icons/new" name="Location" />
                         <span>انتخاب و شروع نقشه راه</span>
@@ -82,44 +83,55 @@
                 <img src="/icons/new/ArrowLeft3.svg" width="24" />
             </button>
         </div>
+
+        <BundlePurchaseDialog :open.sync="bundlePurchaseDialogState" :bundle="selectedBundle" />
     </section>
 </template>
 
 <script>
 import axios from "axios";
+import BundlePurchaseDialog from "./BundlePurchaseDialog.vue";
+
 export default {
+    name: "Bundles",
+    components: { BundlePurchaseDialog },
     data() {
         return {
             bundlesLoading: false,
-
             courseBundles: this.courseBundles || [],
             courseBundleSwiperOptions: {
                 autoplay: false,
                 slidesPerView: "auto",
-                // loop: true,
                 prevButton: ".swiper-prev-bundle",
                 nextButton: ".swiper-next-bundle",
             },
+
+            bundlePurchaseDialogState: false,
+            selectedBundle: {},
+
+            selectingRoadmap: false,
         };
     },
     async fetch() {
         let headers = {};
         if (process.server) headers = this.$nuxt.context.req.headers;
-
         await Promise.all([this.getBundles({ headers })]);
+    },
+    computed: {
+        user() {
+            return this.$store.state.user;
+        },
     },
     methods: {
         async getBundles(data = {}) {
             if (this.bundlesLoading) return;
             this.bundlesLoading = true;
-
             let url = `/api/bundles`;
             let headers = {};
             if (process.server) {
                 url = `${process.env.BASE_URL}${url}`;
                 headers = data.headers ? data.headers : {};
             }
-
             await axios
                 .get(encodeURI(url), { headers })
                 .then((results) => {
@@ -127,6 +139,55 @@ export default {
                 })
                 .catch((e) => {})
                 .finally(() => (this.bundlesLoading = false));
+        },
+
+        async buy(courseBundle) {
+            // before redirecting to payment gateway check if user is logged in or not
+            if (!this.user.info.email && !this.user.info.mobile) {
+                this.$store.dispatch("toast/makeToast", {
+                    type: "error",
+                    title: "پرداخت و خرید",
+                    message: `برای انجام هرگونه عملیات خرید، ابتدا باید در سایت ثبتنام و وارد حساب کاربری خود شده باشید`,
+                });
+                return;
+            }
+
+            this.bundlePurchaseDialogState = true;
+            this.selectedBundle = courseBundle;
+        },
+
+        async startRoadMap(bundleId) {
+            // check if user logged in
+            if (!this.user.info.email && !this.user.info.mobile) {
+                this.$store.dispatch("toast/makeToast", {
+                    type: "error",
+                    title: "انتخاب نقشه راه",
+                    message: `برای شروع ابتدا باید ثبتنام کنید یا وارد حساب کاربری خود شوید`,
+                });
+                return;
+            }
+
+            // send request to back to activate this roadmap
+            if (this.selectingRoadmap) return;
+            this.selectingRoadmap = true;
+
+            await axios
+                .post(`/api/bundles/activate/${bundleId}`, {})
+                .then(() => {
+                    this.$store.dispatch("toast/makeToast", { type: "success", title: "انتخاب نقشه راه", message: `نقشه راه برای شما فعال شد!` });
+                    this.$router.push("/profile");
+                })
+                .catch((e) => {
+                    this.messageType = "error";
+                    if (typeof e.response !== "undefined" && e.response.data) {
+                        if (typeof e.response.data.message === "object") {
+                            this.$store.dispatch("toast/makeToast", { type: "error", title: "انتخاب نقشه راه", message: e.response.data.message[0].errors[0] });
+                        }
+                    }
+                })
+                .finally(() => {
+                    this.selectingRoadmap = false;
+                });
         },
     },
 };

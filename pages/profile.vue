@@ -32,7 +32,23 @@
             <ul class="flex flex-col gap-4 w-full">
                 <li class="w-full">
                     <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full hover:shadow-md" :class="{ active: $route.name == 'profile' }" to="/profile">
-                        <Icon class="w-6 h-6" :class="[$route.name == 'profile' ? 'bg-gray-100' : 'bg-gray-700']" size="24px" folder="icons/new" name="Profile" />
+                        <Icon class="w-6 h-6" :class="[$route.name == 'profile' ? 'bg-gray-100' : 'bg-gray-700']" size="24px" folder="icons/new" name="Home" />
+                        <span>داشبورد</span>
+                    </nuxt-link>
+                </li>
+                <li class="w-full">
+                    <nuxt-link
+                        class="flex items-center gap-2 p-2 rounded-xl w-full hover:shadow-md"
+                        :class="{ active: $route.name == 'profile-info' }"
+                        to="/profile/info"
+                    >
+                        <Icon
+                            class="w-6 h-6"
+                            :class="[$route.name == 'profile-info' ? 'bg-gray-100' : 'bg-gray-700']"
+                            size="24px"
+                            folder="icons/new"
+                            name="Profile"
+                        />
                         <span>اطلاعات حساب</span>
                     </nuxt-link>
                 </li>

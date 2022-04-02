@@ -208,6 +208,15 @@ export default {
                 return;
             }
 
+            if (this.payablePrice < 1000 && method != "wallet") {
+                this.$store.dispatch("toast/makeToast", {
+                    type: "error",
+                    title: "پرداخت و خرید",
+                    message: `مبالغ زیر 1000 تومان را با کیف پول پرداخت کنید`,
+                });
+                return;
+            }
+
             if (this.redirectingToGateway) return;
             this.redirectingToGateway = true;
 

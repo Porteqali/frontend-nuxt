@@ -5,9 +5,10 @@ const csrf = require("csurf")({ cookie: true });
 app.use(require("cookie-parser")());
 
 app.get("*", csrf, async (req, res, next) => {
-    res.cookie("XSRF-TOKEN", req.csrfToken(), { secure: true });
-
     const urlArray = req.url.split("/");
+
+    if (urlArray[1] != "api") res.cookie("XSRF-TOKEN", req.csrfToken(), { secure: true });
+
     if (urlArray.length === 2 && !!urlArray[1]) {
         if (await checkMarketingCode(req, res, urlArray[1])) return res.redirect("/");
     }
