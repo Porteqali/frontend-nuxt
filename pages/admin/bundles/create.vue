@@ -55,7 +55,7 @@
                         </label>
                         <div class="flex items-center gap-2 p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100">
                             <input type="text" v-model="giftCodePercent" v-money="{ decimal: '.', thousands: ',' }" dir="auto" class="w-full bg-transparent" />
-                            <small class="font-bold">تومان</small>
+                            <small class="font-bold">درصد</small>
                         </div>
                     </div>
                     <div class="flex flex-col gap-2 w-full">
@@ -63,7 +63,10 @@
                             <span>تاریخ اتمام بن تخفیف</span>
                             <b class="text-red-500">*</b>
                         </label>
-                        <input type="datetime-local" v-model="giftCodeDeadline" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
+                        <div class="flex items-center gap-2 p-3 w-max rounded-xl shadow-sm focus:shadow-md bg-coolgray-100">
+                            <input type="number" v-model="giftCodeDeadline" dir="ltr" class="w-32 bg-transparent" />
+                            <small class="font-bold">روز</small>
+                        </div>
                     </div>
                 </div>
 
@@ -96,7 +99,6 @@
 
 <script>
 import axios from "axios";
-import JDate from "jalali-moment";
 import Select from "~/components/forms/admin/Select.vue";
 
 export default {
@@ -145,7 +147,7 @@ export default {
             };
             if (this.giftCode) {
                 data.giftCodePercent = this.giftCodePercent;
-                data.giftCodeDeadline = JDate(this.giftCodeDeadline).toISOString();
+                data.giftCodeDeadline = this.giftCodeDeadline;
             }
 
             let url = encodeURI(`/api/admin/bundles`);

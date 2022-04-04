@@ -9,6 +9,7 @@
 
 .bundle_list_item {
     max-width: 236px;
+    height: auto;
 }
 
 .dashed_line {
@@ -80,7 +81,7 @@
                     </div>
                     <div v-swiper:d="bundleSwiperOptions" class="relative w-full select-none overflow-hidden">
                         <hr class="dashed_line absolute border-0 border-b-4 border-dashed border-gray-300 w-full" />
-                        <ul class="swiper-wrapper relative flex items-start w-full h-full flex-grow text-gray-700">
+                        <ul class="swiper-wrapper relative flex w-full h-full flex-grow text-gray-700">
                             <li class="swiper-slide flex flex-col items-start md:items-center gap-1 mt-24 max-w-max flex-shrink-0 ml-2">
                                 <div class="w-6 md:w-10 h-6 md:h-10 rounded-full bg-gray-300"></div>
                                 <small class="text-orange-300">شروع</small>
