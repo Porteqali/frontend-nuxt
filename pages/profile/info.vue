@@ -21,7 +21,11 @@
             <hr class="w-full" />
             <div class="flex flex-wrap md:flex-nowrap items-end gap-4 w-full">
                 <div class="flex flex-col gap-2 w-full">
-                    <label class="">ایمیل</label>
+                    <label class="flex items-center gap-2">
+                        <span>ایمیل</span>
+                        <small class="p-1 px-2 text-xs rounded-lg bg-lightblue-100 text-blue-600" v-if="emailVerified">تایید شده</small>
+                        <small class="p-1 px-2 text-xs rounded-lg bg-rose-100 text-rose-600" v-else>تایید نشده</small>
+                    </label>
                     <input type="email" v-model="email" dir="auto" class="p-3 w-full bg-warmgray-100 rounded-xl focus:shadow-xl" disabled />
                 </div>
                 <button
@@ -35,7 +39,11 @@
             </div>
             <div class="flex flex-wrap md:flex-nowrap items-end gap-4 w-full">
                 <div class="flex flex-col gap-2 w-full">
-                    <label class="">شماره موبایل</label>
+                    <label class="flex items-center gap-2">
+                        <span>شماره موبایل</span>
+                        <small class="p-1 px-2 text-xs rounded-lg bg-lightblue-100 text-blue-600" v-if="mobileVerified">تایید شده</small>
+                        <small class="p-1 px-2 text-xs rounded-lg bg-rose-100 text-rose-600" v-else>تایید نشده</small>
+                    </label>
                     <input type="email" v-model="mobile" dir="auto" class="p-3 w-full bg-warmgray-100 rounded-xl focus:shadow-xl" disabled />
                 </div>
                 <button
@@ -93,6 +101,9 @@ export default {
         return {
             loading: true,
 
+            emailVerified: false,
+            mobileVerified: false,
+
             name: "",
             family: "",
             email: "",
@@ -105,6 +116,12 @@ export default {
             emailVerificationOpenState: false,
             mobileVerificationOpenState: false,
         };
+    },
+    async fetch() {
+        let headers = {};
+        if (process.server) headers = this.$nuxt.context.req.headers;
+
+        await Promise.all([this.checkVerificationStatus({ headers })]);
     },
     mounted() {
         this.loading = false;
@@ -120,6 +137,23 @@ export default {
         },
     },
     methods: {
+        async checkVerificationStatus(data = {}) {
+            let url = `/api/users/check-verification`;
+            let headers = {};
+            if (process.server) {
+                url = `${process.env.BASE_URL}${url}`;
+                headers = data.headers ? data.headers : {};
+            }
+
+            await axios
+                .get(url, { headers })
+                .then((results) => {
+                    this.emailVerified = results.data.emailVerified;
+                    this.mobileVerified = results.data.mobileVerified;
+                })
+                .catch((e) => {});
+        },
+
         async save(e) {
             e.preventDefault();
             if (this.saving) return;

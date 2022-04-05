@@ -20,7 +20,11 @@
                 />
             </picture>
             <div class="flex flex-col gap-1">
-                <b class="text-sm" v-if="comment.author[0]">{{ `${comment.author[0].name} ${comment.author[0].family}` }}</b>
+                <b class="text-sm" v-if="comment.author[0]">
+                    <span v-if="comment.author[0].role=='admin'">ادمین</span>
+                    <span v-else-if="comment.author[0].role=='teacher'">استاد</span>
+                    <span v-else>{{ `${comment.author[0].name} ${comment.author[0].family}` }}</span>
+                </b>
                 <small class="opacity-75 text-xs">{{ comment.createdAt }}</small>
             </div>
         </div>

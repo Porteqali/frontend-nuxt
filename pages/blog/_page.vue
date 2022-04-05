@@ -223,7 +223,7 @@ export default {
                 headers = data.headers ? data.headers : {};
             }
 
-            let params = [`page=${this.articlesPages}`, `order=${this.selectedArticleOrder.value}`, `category=${this.selectedArticleCategory.value}`];
+            let params = [`page=${this.articlesPage}`, `order=${this.selectedArticleOrder.value}`, `category=${this.selectedArticleCategory.value}`];
             url = `${url}?${params.join("&")}`;
 
             await axios
@@ -241,12 +241,12 @@ export default {
 
         async categoryChanged(opt) {
             this.selectedArticleCategory = opt;
-            console.log(opt);
+            this.articlesPage = 1;
             await this.getArticles();
         },
 
         processRoute(route) {
-            if (route.params.page && !isNaN(parseInt(route.params.page))) this.articlesPages = parseInt(route.params.page);
+            if (route.params.page && !isNaN(parseInt(route.params.page))) this.articlesPage = parseInt(route.params.page);
             if (route.query.order && !!this.articleOrderOptions[route.query.order]) {
                 this.selectedArticleOrder = this.articleOrderOptions[route.query.order];
             }

@@ -117,6 +117,19 @@
                     class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100"
                 />
                 <hr class="w-full" />
+                <label for="">گروه مقاله</label>
+                <div class="flex items-center gap-2 p-2 rounded-xl shadow-md w-max" v-if="category.value">
+                    <span class="text-sm">{{ category.name }}</span>
+                    <button type="button" @click="unselectGroup()"><img src="/icons/Cancel.svg" width="20" /></button>
+                </div>
+                <div class="flex flex-col gap-2 w-full">
+                    <Select :selectedOption="{ name: '', value: '' }" @update:selectedOption="selectGroup" :options="groupsOptions" placeholder="انتخاب گروه">
+                        <template v-slot:option="{ option }">
+                            <span :value="option.value">{{ option.name }}</span>
+                        </template>
+                    </Select>
+                </div>
+                <hr class="w-full" />
                 <label for="">متادیتا</label>
                 <div class="flex flex-col gap-2 w-full">
                     <label class="text-sm">
@@ -183,6 +196,7 @@ export default {
         return {
             loading: false,
             saving: false,
+            groupsOptions: this.groupsOptions || {},
             statusOptions: {
                 published: { name: "منتشر شده", value: "published" },
                 pending: { name: "منتظر انتشار", value: "pending" },
@@ -195,6 +209,7 @@ export default {
             title: "",
             slug: "",
             publishedAt: "",
+            category: { name: "", value: "" },
             status: { name: "منتظر انتشار", value: "pending" },
             description: "",
             body: "",
@@ -212,6 +227,8 @@ export default {
     async fetch() {
         let headers = {};
         if (process.server) headers = this.$nuxt.context.req.headers;
+
+        await Promise.all([this.getArticleGroups({ headers })]);
     },
     mounted() {
         this.baseUrl = window.location.origin;
@@ -222,6 +239,25 @@ export default {
         },
     },
     methods: {
+        async getArticleGroups(data = {}) {
+            let url = `/api/admin/article-groups?pp=50`;
+            let headers = {};
+            if (process.server) {
+                url = `${process.env.BASE_URL}${url}`;
+                headers = data.headers ? data.headers : {};
+            }
+
+            url = encodeURI(url);
+            await axios
+                .get(url, { headers })
+                .then((response) => {
+                    response.data.records.forEach((record) => {
+                        this.groupsOptions[record._id] = { name: record.name, value: record._id, icon: record.icon };
+                    });
+                })
+                .catch((e) => {});
+        },
+
         async selectFile(vName) {
             this[vName] = this.$refs[`fileInput-${vName}`].files[0] ? URL.createObjectURL(this.$refs[`fileInput-${vName}`].files[0]) : "";
         },
@@ -244,6 +280,13 @@ export default {
             }
         },
 
+        selectGroup(group) {
+            this.category = { ...group };
+        },
+        unselectGroup() {
+            this.category = { name: "", value: "" };
+        },
+
         async save() {
             if (this.saving) return;
             this.saving = true;
@@ -260,6 +303,7 @@ export default {
             formData.append("description", this.description);
             formData.append("body", this.body);
             if (!!this.tags.length) formData.append("tags", JSON.stringify(this.tags));
+            if (!!this.category.value) formData.append("category", this.category.value);
             formData.append("metadataTitle", this.metadata.title);
             formData.append("metadataDescription", this.metadata.description);
             formData.append("inTextImageList", JSON.stringify(this.inTextImageList));

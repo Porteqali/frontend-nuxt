@@ -177,6 +177,34 @@
                     </nuxt-link>
                 </li>
 
+                <li
+                    class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-600"
+                    @click="openGroup('roadmap-questions')"
+                    v-if="checkPermissions(['admin.roadmap-questions.view', 'admin.roadmap-question-category.view'], userPermissions, 'OR')"
+                >
+                    <div class="flex items-center gap-2 w-full">
+                        <img src="/icons/admin/Question.svg" class="menu_icon" width="24" />
+                        <span>سوالات نقشه راه</span>
+                    </div>
+                    <img class="mr-auto" src="/icons/Arrow.white.svg" width="8" />
+                </li>
+                <transition name="accordiondown" appear>
+                    <ul class="submenu flex flex-col gap-1 py-1" v-show="openedGroup.includes('roadmap-questions')" name="roadmap-questions">
+                        <li class="" v-if="checkPermissions(['admin.roadmap-questions.view'], userPermissions)">
+                            <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/roadmap-questions">
+                                <img src="/icons/admin/List.svg" class="menu_icon" width="24" />
+                                <span>لیست سوالات</span>
+                            </nuxt-link>
+                        </li>
+                        <li class="" v-if="checkPermissions(['admin.roadmap-question-category.view'], userPermissions)">
+                            <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/roadmap-question-category">
+                                <img src="/icons/admin/WorkBag.svg" class="menu_icon" width="24" />
+                                <span>گروه سوالات</span>
+                            </nuxt-link>
+                        </li>
+                    </ul>
+                </transition>
+
                 <hr class="w-11/12 mx-auto my-1 border-gray-600" />
 
                 <li
@@ -266,12 +294,34 @@
 
                 <hr class="w-11/12 mx-auto my-1 border-gray-600" />
 
-                <li class="flex w-full" v-if="checkPermissions(['admin.articles.view'], userPermissions)">
-                    <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/articles">
+                <li
+                    class="flex w-full p-2 rounded-xl cursor-pointer hover:bg-gray-600"
+                    @click="openGroup('articles')"
+                    v-if="checkPermissions(['admin.articles.view', 'admin.article-groups.view'], userPermissions, 'OR')"
+                >
+                    <div class="flex items-center gap-2 w-full">
                         <img src="/icons/admin/Blog.svg" class="menu_icon" width="24" />
-                        <span>مقالات</span>
-                    </nuxt-link>
+                        <span>مدیریت مقالات</span>
+                    </div>
+                    <img class="mr-auto" src="/icons/Arrow.white.svg" width="8" />
                 </li>
+                <transition name="accordiondown" appear>
+                    <ul class="submenu flex flex-col gap-1 py-1" v-show="openedGroup.includes('articles')" name="articles">
+                        <li class="" v-if="checkPermissions(['admin.articles.view'], userPermissions)">
+                            <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/articles">
+                                <img src="/icons/admin/List.svg" class="menu_icon" width="24" />
+                                <span>لیست مقالات</span>
+                            </nuxt-link>
+                        </li>
+                        <li class="" v-if="checkPermissions(['admin.article-groups.view'], userPermissions)">
+                            <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/article-groups">
+                                <img src="/icons/admin/WorkBag.svg" class="menu_icon" width="24" />
+                                <span>گروه مقالات</span>
+                            </nuxt-link>
+                        </li>
+                    </ul>
+                </transition>
+
                 <li class="flex w-full" v-if="checkPermissions(['admin.faqs.view'], userPermissions)">
                     <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/admin/faqs">
                         <img src="/icons/admin/Question.svg" class="menu_icon" width="24" />
