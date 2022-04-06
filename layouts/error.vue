@@ -18,14 +18,11 @@
 
 <script>
 import axios from "axios";
-import Background from "~/components/web/Background.vue";
 
 export default {
     props: ["error"],
     // layout: "none",
-    components: {
-        Background,
-    },
+    components: {},
     data() {
         return {
             loading: true,

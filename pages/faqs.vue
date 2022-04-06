@@ -145,7 +145,7 @@ export default {
         let headers = {};
         if (process.server) headers = this.$nuxt.context.req.headers;
 
-        await Promise.all([await this.getMetadata("faqs"), this.getFaqs({ headers })]);
+        await Promise.all([this.getMetadata("faqs"), this.getFaqs({ headers })]);
     },
     methods: {
         async selectCategory(group) {

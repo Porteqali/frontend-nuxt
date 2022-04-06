@@ -24,7 +24,6 @@
 
 <script>
 import axios from "axios";
-import Background from "~/components/web/Background";
 import getMetadata from "~/mixins/getMetadata";
 
 export default {
@@ -32,9 +31,7 @@ export default {
         return { title: this.metadata.title, meta: [...this.metadata.meta], link: [...this.metadata.link] };
     },
     mixins: [getMetadata],
-    components: {
-        Background,
-    },
+    components: {},
     data() {
         return {
             loading: false,

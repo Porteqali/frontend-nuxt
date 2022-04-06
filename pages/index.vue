@@ -103,7 +103,6 @@
 <script>
 require("~/assets/css/swiper.min.css");
 import Icon from "~/components/Icon.vue";
-import Background from "~/components/web/Background.vue";
 import DepartmentSection from "~/components/web/home/Department.section";
 import MostViewedCoursesSection from "~/components/web/home/MostViewedCourses.section";
 import TestimonialSection from "~/components/web/home/Testimonial.section";
@@ -119,7 +118,6 @@ export default {
     mixins: [getMetadata],
     components: {
         Icon,
-        Background,
         DepartmentSection,
         MostViewedCoursesSection,
         TestimonialSection,
@@ -131,7 +129,7 @@ export default {
         let headers = {};
         if (process.server) headers = this.$nuxt.context.req.headers;
 
-        await Promise.all([await this.getMetadata("home")]);
+        await Promise.all([this.getMetadata("home")]);
     },
     data() {
         return {

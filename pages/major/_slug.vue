@@ -159,7 +159,6 @@
 
 <script>
 import axios from "axios";
-import Background from "~/components/web/Background";
 import Icon from "~/components/Icon.vue";
 import BundlePurchaseDialog from "~/components/web/depatment/BundlePurchaseDialog.vue";
 
@@ -196,7 +195,6 @@ export default {
         };
     },
     components: {
-        Background,
         Icon,
         BundlePurchaseDialog,
     },
@@ -246,6 +244,7 @@ export default {
         async getMajor(data = {}, route) {
             if (this.majorLoading) return;
             this.majorLoading = true;
+            
             let url = `/api/majors/${route.params.slug}`;
             let headers = {};
             if (process.server) {

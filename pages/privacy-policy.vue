@@ -25,7 +25,6 @@
 <script>
 import axios from "axios";
 import getMetadata from "~/mixins/getMetadata";
-import Background from "~/components/web/Background";
 
 export default {
     scrollToTop: true,
@@ -33,9 +32,7 @@ export default {
         return { title: this.metadata.title, meta: [...this.metadata.meta], link: [...this.metadata.link] };
     },
     mixins: [getMetadata],
-    components: {
-        Background,
-    },
+    components: {},
     data() {
         return {
             loading: false,

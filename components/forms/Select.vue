@@ -21,7 +21,6 @@
     align-items: center;
     gap: 0.5rem;
     z-index: 2;
-    border-radius: 1rem;
     background-color: var(--select-input-bg-color);
     border: 2px solid #555;
 }
@@ -76,7 +75,13 @@
 <template>
     <div class="t_select flex flex-col flex-grow" :class="{ open: open }">
         <div class="t_select_input" :class="inputClass">
-            <div class="box shadow-lg" :class="{ 'p-2 py-0': !!small, 'p-4': !small }" tabindex="0" @click="toggleMenu()" @blur="toggleMenu(false)">
+            <div
+                class="box shadow-lg"
+                :class="{ 'p-2 py-0 rounded-xl': !!small, 'p-4 rounded-2xl': !small }"
+                tabindex="0"
+                @click="toggleMenu()"
+                @blur="toggleMenu(false)"
+            >
                 <span name="placeholder" class="opacity-50 ml-4" v-if="placeholder && !selectedOption.value">{{ placeholder }}</span>
                 <span name="value text-sm" :class="{ 'ml-4': !small }" v-if="selectedOption.name && selectedOption.value">{{ selectedOption.name }}</span>
             </div>

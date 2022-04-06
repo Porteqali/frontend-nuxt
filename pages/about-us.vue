@@ -128,7 +128,6 @@
 
 <script>
 import axios from "axios";
-import Background from "~/components/web/Background";
 import Icon from "~/components/Icon.vue";
 import getMetadata from "~/mixins/getMetadata";
 
@@ -138,7 +137,6 @@ export default {
     },
     mixins: [getMetadata],
     components: {
-        Background,
         Icon,
     },
     data() {

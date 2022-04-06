@@ -132,7 +132,7 @@ export default {
         let headers = {};
         if (process.server) headers = this.$nuxt.context.req.headers;
 
-        await Promise.all([await this.getMetadata("teachers"), this.getTeachers({ headers })]);
+        await Promise.all([this.getMetadata("teachers"), this.getTeachers({ headers })]);
     },
     methods: {
         async getTeachers(data = {}) {
