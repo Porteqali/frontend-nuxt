@@ -145,11 +145,14 @@ export default {
         };
     },
     async mounted() {
+        await this.removePurchasedCourses();
+
         this.loading = false;
         await this.calcCartTotal();
     },
     watch: {
         cartList() {
+            // this.calcCartTotal();
             setTimeout(() => this.calcCartTotal(), 1000);
         },
     },
@@ -195,6 +198,23 @@ export default {
         async registerCouponCode(e) {
             e.preventDefault();
             await this.calcCartTotal();
+        },
+
+        async removePurchasedCourses() {
+            let url = `/api/cart-purchased-courses`;
+            const list = localStorage.getItem("cart");
+            if (!list) return;
+
+            await axios
+                .post(url, { list })
+                .then(async (results) => {
+                    for (let i = 0; i < results.data.coursesToRemove.length; i++) {
+                        const item = results.data.coursesToRemove[i];
+                        await this.$store.dispatch("cart/removeItemFromCart", { item });
+                    }
+                    localStorage.setItem("cart", JSON.stringify(this.cart.list));
+                })
+                .catch((e) => {});
         },
 
         async pay(method) {

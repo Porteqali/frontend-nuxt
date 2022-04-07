@@ -90,6 +90,7 @@ export default {
                 { name: "دیروز", value: "yesterday" },
                 { name: "در این ماه", value: "this-month" },
                 { name: "ماه پیش", value: "last-month" },
+                { name: "از ابتدا", value: "all-times" },
             ],
 
             coursesSwiperOptions: {
