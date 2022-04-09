@@ -31,6 +31,7 @@ export default {
         { src: "~/plugins/mask.client.js", mode: "client" },
         { src: "~/plugins/money.client.js", mode: "client" },
         { src: "~plugins/clickaway.client.js", mode: "client" },
+        { src: "~plugins/persianDatePicker.client.js", mode: "client" },
     ],
 
     // Auto import components: https://go.nuxtjs.dev/config-components
@@ -64,7 +65,7 @@ export default {
             lang: "fa",
             theme_color: "#ff7952",
             dir: "rtl",
-            display: "standalone",
+            display: "browser",
             crossorigin: "use-credentials",
             start_url: "/?source=pwa",
             scope: "/",
@@ -88,17 +89,15 @@ export default {
             nativeUI: true,
         },
         workbox: {
+            cleanupOutdatedCaches: true,
             runtimeCaching: [
                 {
-                    urlPattern: "/api/users/*",
-                    handler: 'NetworkOnly',
-                    // strategyOptions: { cacheName: "user-cache" },
-                    // strategyPlugins: [
-                    //     { use: "Expiration", config: { maxAgeSeconds: 30 } },
-                    //     { use: "CacheableResponse", config: { statuses: [200, 404, 401, 403] } },
-                    // ],
+                    urlPattern: "/api/*",
+                    handler: "networkOnly",
                 },
             ],
+            importScripts: ["custom-sw.js"],
+            routingExtensions: ["static/routing-sw.js"],
         },
     },
 

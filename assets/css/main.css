@@ -194,6 +194,15 @@ input:disabled, textarea:disabled{
     background-color: transparent;
 }
 
+.vpd-input-group input { background-color: transparent; border: 0 !important; }
+.vpd-icon-btn { border-radius: .5rem; padding: 0 7px !important; }
+.vpd-time .vpd-down-arrow-btn, .vpd-time .vpd-up-arrow-btn{
+    display: flex !important; align-items: center; justify-content: center;
+}
+.vpd-actions, .vpd-controls > button {
+    display: flex; align-items: center; justify-content: center;
+}
+
 .raychat_main_button.right { right: 1rem !important; }
 .raychat_main_button.left { left: 1rem !important; }
 .raychat_main_button.top { top: 1rem !important; }

@@ -2,7 +2,7 @@
 
 <template>
     <Dialog :open="open" @update:open="updateOpenState">
-        <div class="flex flex-col gap-4 w-full max-w-3xl">
+        <div class="flex flex-col gap-4 w-full max-w-xs md:max-w-3xl">
             <h4 class="kalameh_black title font-bold text-3xl w-max max-w-full overflow-hidden">حوزه مورد علاقه شما</h4>
             <p>با توجه به جواب هایی که دادی، ما فکر میکنیم تو این حوزه ها موفقتر باشی</p>
             <hr />

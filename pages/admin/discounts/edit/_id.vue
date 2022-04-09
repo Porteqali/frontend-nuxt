@@ -91,13 +91,27 @@
                         <label class="text-sm">
                             <span>از تاریخ</span>
                         </label>
-                        <input type="date" v-model="startDate" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
+                        <client-only placeholder="Loading...">
+                            <persian-date-picker
+                                v-model="startDate"
+                                type="date"
+                                class="p-2 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100"
+                            ></persian-date-picker>
+                        </client-only>
+                        <!-- <input type="date" v-model="startDate" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" /> -->
                     </div>
                     <div class="flex flex-col gap-2 w-full">
                         <label class="text-sm">
                             <span>تا تاریخ</span>
                         </label>
-                        <input type="date" v-model="endDate" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
+                        <client-only placeholder="Loading...">
+                            <persian-date-picker
+                                v-model="endDate"
+                                type="date"
+                                class="p-2 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100"
+                            ></persian-date-picker>
+                        </client-only>
+                        <!-- <input type="date" v-model="endDate" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" /> -->
                     </div>
                 </div>
                 <div class="flex flex-col gap-2 w-full">

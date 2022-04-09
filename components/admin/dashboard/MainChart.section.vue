@@ -25,11 +25,25 @@
         <div class="flex flex-wrap items-end gap-4">
             <div class="flex flex-col gap-2 w-64">
                 <label class="text-sm"><span>از تاریخ</span></label>
-                <input type="datetime-local" v-model="startDate" class="p-2 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
+                <client-only placeholder="Loading...">
+                    <persian-date-picker
+                        v-model="startDate"
+                        type="datetime"
+                        class="p-2 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100"
+                    ></persian-date-picker>
+                </client-only>
+                <!-- <input type="datetime-local" v-model="startDate" class="p-2 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" /> -->
             </div>
             <div class="flex flex-col gap-2 w-64">
                 <label class="text-sm"><span>تا تاریخ</span></label>
-                <input type="datetime-local" v-model="endDate" class="p-2 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
+                <client-only placeholder="Loading...">
+                    <persian-date-picker
+                        v-model="endDate"
+                        type="datetime"
+                        class="p-2 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100"
+                    ></persian-date-picker>
+                </client-only>
+                <!-- <input type="datetime-local" v-model="endDate" class="p-2 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" /> -->
             </div>
             <button class="flex items-center p-2.5 px-3 bg-gray-200 hover:shadow-md rounded-xl w-max text-sm" @click="getInfo()">به روز رسانی</button>
         </div>

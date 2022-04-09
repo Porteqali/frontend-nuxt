@@ -7,6 +7,7 @@
     "dev:host": "cross-env HOST=0.0.0.0 nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
+    "start:prod": "cross-env NODE_ENV=production nuxt start",
     "generate": "nuxt generate",
     "test": "jest"
   },
@@ -30,6 +31,7 @@
     "passport-google-oauth20": "^2.0.0",
     "v-money": "^0.8.1",
     "vue-awesome-swiper": "^2.6.7",
+    "vue-persian-datetime-picker": "^2.10.4",
     "vue-the-mask": "^0.11.1",
     "vue2-leaflet": "^2.7.1",
     "vuedraggable": "^2.24.3"

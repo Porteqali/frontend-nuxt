@@ -58,7 +58,14 @@
                             <span>تاریخ اتمام</span>
                             <b class="text-red-500">*</b>
                         </label>
-                        <input type="datetime-local" v-model="endDate" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
+                        <client-only placeholder="Loading...">
+                            <persian-date-picker
+                                v-model="endDate"
+                                type="datetime"
+                                class="p-2 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100"
+                            ></persian-date-picker>
+                        </client-only>
+                        <!-- <input type="datetime-local" v-model="endDate" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" /> -->
                     </div>
                     <div class="flex flex-col gap-2 w-full">
                         <label class="text-sm">
