@@ -17,7 +17,8 @@
 }
 
 li.active,
-nav li:hover {
+nav li:hover,
+.nuxt-link-active li {
     color: #fff;
     background-color: #625e59;
     box-shadow: 0px 10px 30px rgba(0, 0, 0, 20%);
@@ -54,13 +55,16 @@ nav li:hover {
                     <ul class="flex flex-wrap lg:flex-nowrap flex-col lg:flex-row lg:items-center gap-6 lg:gap-8">
                         <li
                             class="flex items-center gap-1 md:py-2 md:my-2 cursor-pointer rounded-xl"
-                            :class="{ active: departmentsDropdownOpenState, 'p-2 pl-4 m-2': departmentsDropdownOpenState }"
+                            :class="{
+                                active: departmentsDropdownOpenState || $nuxt.$route.matched[0].path == '/department',
+                                'p-2 pl-4 m-2': departmentsDropdownOpenState,
+                            }"
                             @mouseover="departmentsDropdownOpenState = true"
                             @mouseleave="departmentsDropdownOpenState = false"
                         >
                             <Icon
                                 class="w-6 h-6"
-                                :class="[departmentsDropdownOpenState ? 'bg-gray-100' : 'bg-gray-700']"
+                                :class="[departmentsDropdownOpenState || $nuxt.$route.matched[0].path == '/department' ? 'bg-gray-100' : 'bg-gray-700']"
                                 size="24px"
                                 folder="icons/new"
                                 name="ArrowDown2"
@@ -68,18 +72,18 @@ nav li:hover {
                             <span :class="{ 'text-white': departmentsDropdownOpenState }">دپارتمان ها</span>
                             <DepartmentDropdown class="z-10" :open.sync="departmentsDropdownOpenState" />
                         </li>
-                        <li class="flex items-center gap-1 md:py-2 md:my-2 rounded-xl" @click="toggleMenu(false)">
-                            <nuxt-link title="blog" to="/blog">وبلاگ</nuxt-link>
-                        </li>
-                        <li class="flex items-center gap-1 md:py-2 md:my-2 rounded-xl" @click="toggleMenu(false)">
-                            <nuxt-link title="contact-us" to="/contact-us">تماس با ما</nuxt-link>
-                        </li>
-                        <li class="flex items-center gap-1 md:py-2 md:my-2 rounded-xl" @click="toggleMenu(false)">
-                            <nuxt-link title="about-us" to="/about-us">درباره ما</nuxt-link>
-                        </li>
-                        <li class="flex items-center gap-1 md:py-2 md:my-2 rounded-xl" @click="toggleMenu(false)">
-                            <nuxt-link title="where-to-start" to="/where-to-start">از کجا شروع کنم؟</nuxt-link>
-                        </li>
+                        <nuxt-link title="blog" to="/blog" @click="toggleMenu(false)">
+                            <li class="flex items-center gap-1 md:py-2 md:my-2 rounded-xl">وبلاگ</li>
+                        </nuxt-link>
+                        <nuxt-link title="contact-us" to="/contact-us" @click="toggleMenu(false)">
+                            <li class="flex items-center gap-1 md:py-2 md:my-2 rounded-xl">تماس با ما</li>
+                        </nuxt-link>
+                        <nuxt-link title="about-us" to="/about-us" @click="toggleMenu(false)">
+                            <li class="flex items-center gap-1 md:py-2 md:my-2 rounded-xl">درباره ما</li>
+                        </nuxt-link>
+                        <nuxt-link title="where-to-start" to="/where-to-start" @click="toggleMenu(false)">
+                            <li class="flex items-center gap-1 md:py-2 md:my-2 rounded-xl">از کجا شروع کنم؟</li>
+                        </nuxt-link>
                     </ul>
                 </nav>
                 <hr class="w-full border-b-2 border-t-0 border-warmgray-500 opacity-50 flex lg:hidden" />

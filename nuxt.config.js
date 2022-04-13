@@ -65,7 +65,7 @@ export default {
             lang: "fa",
             theme_color: "#ff7952",
             dir: "rtl",
-            display: "browser",
+            display: "standalone",
             crossorigin: "use-credentials",
             start_url: "/?source=pwa",
             scope: "/",
@@ -89,6 +89,7 @@ export default {
             nativeUI: true,
         },
         workbox: {
+            // exclude: [/.*/],
             cleanupOutdatedCaches: true,
             runtimeCaching: [
                 {

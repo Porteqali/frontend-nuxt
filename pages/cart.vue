@@ -71,12 +71,28 @@
                         {{ new Intl.NumberFormat("fa").format(totalDiscount) }} تومان
                     </span>
                 </div>
+
                 <hr />
-                <form class="coupon_code_input flex items-center gap-2 p-1 w-full rounded-2xl" @submit="registerCouponCode($event)">
+                <form class="coupon_code_input flex items-center gap-2 p-1 w-full rounded-2xl" @submit="registerCouponCode($event)" v-if="!registeredCoupon.code">
                     <input class="w-full bg-transparent h-full px-2 text-sm" v-model="couponCode" type="text" placeholder="کد تخفیف" />
-                    <button class="bg-warmgray-700 text-white text-sm p-2 px-4 rounded-xl flex-shrink-0" type="submit">اعمال کد</button>
+                    <button class="bg-warmgray-700 text-white text-sm p-2 px-4 rounded-xl flex-shrink-0" type="submit" v-if="!checkingCouponCode">اعمال کد</button>
+                    <Loading class="w-8 h-8" v-else />
                 </form>
+                <div class="flex flex-col gap-1" v-else>
+                    <div class="coupon_code_input flex items-center gap-2 p-2 rounded-xl shadow-md w-max">
+                        <span class="text-lg">{{ registeredCoupon.code }}</span>
+                        <div class="flex items-center gap-1 rounded-full text-xs bg-rose-500 text-white p-2 py-1">
+                            <b class="text-xs" v-if="registeredCoupon.amountType == 'percent'">%</b>
+                            <b class="kalameh_bold text-sm">{{ registeredCoupon.amount }}</b>
+                            <b class="text-xs" v-if="registeredCoupon.amountType == 'number'">تومان</b>
+                        </div>
+                        <span class="cursor-pointer" @click="removeCouponCode()">
+                            <Icon class="w-6 h-6 bg-gray-800" folder="icons/new" name="Cancel" />
+                        </span>
+                    </div>
+                </div>
                 <hr />
+
                 <div class="flex flex-wrap items-center justify-between gap-4">
                     <b class="kalameh_bold">مبلغ قابل پرداخت</b>
                     <b class="text-xl text-orange-400">{{ new Intl.NumberFormat("fa").format(payablePrice) }} تومان</b>
@@ -134,8 +150,11 @@ export default {
         return {
             loading: true,
             cartTotalLoading: false,
+            checkingCouponCode: false,
 
+            registeredCoupon: this.registeredCoupon || { code: "", amount: "", amountType: "" },
             couponCode: "",
+
             totalPrice: 0,
             totalDiscount: 0,
             totalDiscountPercent: 0,
@@ -152,7 +171,6 @@ export default {
     },
     watch: {
         cartList() {
-            // this.calcCartTotal();
             setTimeout(() => this.calcCartTotal(), 1000);
         },
     },
@@ -182,7 +200,7 @@ export default {
             if (!list) return;
 
             await axios
-                .post(`/api/cart-total`, { list, couponCode: this.couponCode })
+                .post(`/api/cart-total`, { list, couponCode: this.registeredCoupon.code })
                 .then((result) => {
                     this.totalPrice = result.data.totalPrice;
                     this.totalDiscount = result.data.totalDiscount;
@@ -197,6 +215,28 @@ export default {
 
         async registerCouponCode(e) {
             e.preventDefault();
+
+            if (this.checkingCouponCode) return;
+            this.checkingCouponCode = true;
+
+            await axios
+                .post(`/api/check-coupon-code`, { couponCode: this.couponCode })
+                .then((result) => {
+                    this.registeredCoupon = result.data;
+                    this.calcCartTotal();
+                })
+                .catch((e) => {
+                    if (typeof e.response !== "undefined" && e.response.data) {
+                        if (typeof e.response.data.message === "object") {
+                            this.$store.dispatch("toast/makeToast", { type: "error", title: "کد تخفیف", message: e.response.data.message[0].errors[0] });
+                        }
+                    }
+                })
+                .finally(() => (this.checkingCouponCode = false));
+        },
+        async removeCouponCode() {
+            this.registeredCoupon = { code: "", amount: "", amountType: "" };
+            this.couponCode = "";
             await this.calcCartTotal();
         },
 
@@ -208,11 +248,13 @@ export default {
             await axios
                 .post(url, { list })
                 .then(async (results) => {
+                    const parsedList = JSON.parse(list);
                     for (let i = 0; i < results.data.coursesToRemove.length; i++) {
                         const item = results.data.coursesToRemove[i];
+                        delete parsedList[item._id];
                         await this.$store.dispatch("cart/removeItemFromCart", { item });
                     }
-                    localStorage.setItem("cart", JSON.stringify(this.cart.list));
+                    localStorage.setItem("cart", JSON.stringify(parsedList));
                 })
                 .catch((e) => {});
         },
@@ -232,7 +274,7 @@ export default {
                 this.$store.dispatch("toast/makeToast", {
                     type: "error",
                     title: "پرداخت و خرید",
-                    message: `مبالغ زیر 1000 تومان را با کیف پول پرداخت کنید`,
+                    message: `مبالغ 0 تا 1000 تومان را با کیف پول پرداخت کنید (حتی درصورت خال بودن کیف پول)`,
                 });
                 return;
             }

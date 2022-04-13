@@ -19,12 +19,6 @@
         <h2 class="kalameh_bold title text-3xl md:text-4xl w-max max-w-full">دوره های آموزشی</h2>
         <div class="flex flex-wrap justify-between gap-8 w-full">
             <div class="flex flex-wrap items-center gap-4">
-                <!-- <form class="search_box flex items-center gap-4 p-3 rounded-3xl shadow-lg" @submit="searchSubmit($event)">
-                    <input class="flex-grow outline-none bg-transparent w-64" v-model="search" type="text" placeholder="جستجو" />
-                    <button type="submit" class="flex-shrink-0 flex items-center justify-center">
-                        <img class="flex-shrink-0 inline-block" src="/icons/Search.purple.svg" width="24" height="24" alt="Search" />
-                    </button>
-                </form> -->
                 <Select :selectedOption.sync="selectedOrder" @update:selectedOption="orderChanged()" :options="orderOptions" placeholder="ترتیب نمایش">
                     <template v-slot:option="{ option }">
                         <span :value="option.value">{{ option.name }}</span>

@@ -27,6 +27,7 @@
             <div class="flex flex-col items-center justify-center gap-2 w-full" v-if="status == '200'">
                 <p class="kalameh_bold text-center">با تشکر از خرید شما</p>
                 <p class="text-center text-sm opacity-75">میتوانید با مراجعه به حساب کاربری خود دوره های خریداری شده را مشاهده کنید</p>
+                <nuxt-link class="orange_gradient_v p-4 mt-4 rounded-2xl px-6 hover:shadow-xl" to="/profile/courses">مشاهده دوره های خریداری شده</nuxt-link>
             </div>
             <div class="flex flex-col items-center justify-center gap-2 w-full" v-else-if="status == '201'">
                 <p class="kalameh_bold text-center">با تشکر از خرید شما</p>
