@@ -58,7 +58,7 @@
             <Icon class="w-6 h-6 bg-gray-700" size="24px" folder="icons/new" name="Play" v-if="!!data.canPlay" />
             <Icon class="w-6 h-6 bg-rose-800" size="24px" folder="icons/new" name="Lock" v-else />
         </span>
-        <div class="flex items-center md:flex-nowrap gap-2 p-3 w-full">
+        <div class="flex items-center md:flex-nowrap gap-2 p-3 w-full" :title="data.name">
             <div class="flex flex-col gap-1 flex-grow" @click="selectTopic(data)">
                 <h4 class="flex-grow cursor-pointer">{{ data.name }}</h4>
                 <div class="flex flex-wrap items-center gap-4">
@@ -73,7 +73,7 @@
                 </div>
             </div>
 
-            <a class="bg-white p-1 rounded-lg hover:shadow-md flex-shrink-0" :href="data.file" :download="data.name" v-if="data.canPlay">
+            <a class="bg-white p-1 rounded-lg hover:shadow-md flex-shrink-0" :href="data.file" :download="data.name" v-if="data.canPlay" :title="data.name">
                 <Icon class="w-6 h-6 bg-gray-700" size="24px" folder="icons/new" name="Download" />
             </a>
             <div class="bg-white p-1 rounded-lg opacity-30 cursor-not-allowed flex-shrink-0" v-else>

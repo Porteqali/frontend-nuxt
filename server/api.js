@@ -59,12 +59,11 @@ app.all("/api/*", multer().any(), async (req, res) => {
             resData = response.data;
         })
         .catch((error) => {
-            // TODO : remove else part in production
             if (typeof error.response !== "undefined") {
                 resStatus = error.response.status;
                 resData = error.response.data;
             } else {
-                console.log(error);
+                // console.log(error);
             }
         })
         .finally(() => {

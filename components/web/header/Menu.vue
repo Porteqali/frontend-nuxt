@@ -56,7 +56,7 @@ nav li:hover,
                         <li
                             class="flex items-center gap-1 md:py-2 md:my-2 cursor-pointer rounded-xl"
                             :class="{
-                                active: departmentsDropdownOpenState || $nuxt.$route.matched[0].path == '/department',
+                                active: departmentsDropdownOpenState || ($nuxt.$route.matched[0] && $nuxt.$route.matched[0].path == '/department'),
                                 'p-2 pl-4 m-2': departmentsDropdownOpenState,
                             }"
                             @mouseover="departmentsDropdownOpenState = true"
@@ -64,7 +64,11 @@ nav li:hover,
                         >
                             <Icon
                                 class="w-6 h-6"
-                                :class="[departmentsDropdownOpenState || $nuxt.$route.matched[0].path == '/department' ? 'bg-gray-100' : 'bg-gray-700']"
+                                :class="[
+                                    departmentsDropdownOpenState || ($nuxt.$route.matched[0] && $nuxt.$route.matched[0].path == '/department')
+                                        ? 'bg-gray-100'
+                                        : 'bg-gray-700',
+                                ]"
                                 size="24px"
                                 folder="icons/new"
                                 name="ArrowDown2"
@@ -91,7 +95,7 @@ nav li:hover,
                     <nuxt-link title="پرتقال" to="/" class="ml-auto flex lg:hidden">
                         <img class="h-8" src="/logo_mark.svg" alt="پرتقال" />
                     </nuxt-link>
-                    <li class="p-2 my-2 rounded-xl bg-warmgray-200 cursor-pointer hover:shadow-xl" @click="searchDropdownOpenState = true">
+                    <li class="p-2 my-2 rounded-xl bg-warmgray-200 cursor-pointer hover:shadow-xl" @click="searchDropdownOpenState = true" title="جستجو">
                         <Icon class="w-7 h-7 bg-gray-700" size="28px" folder="icons/new" name="Search" />
                     </li>
                     <li

@@ -127,7 +127,7 @@
         <ul class="flex flex-wrap items-center justify-center gap-8 w-full" v-else>
             <li class="flex flex-col items-start gap-3 rounded-2xl shadow-xl w-full max-w-xs p-3 flex-shrink-0" v-for="(course, i) in coursesSkeleton" :key="i">
                 <div class="skeleton w-full h-64 rounded-2xl"></div>
-                <h3 class="skeleton w-full h-8 rounded-lg">{{ course.name }}</h3>
+                <h3 class="skeleton w-full h-8 rounded-lg"></h3>
                 <div class="flex flex-col gap-2 w-full">
                     <span class="skeleton w-full h-2"></span>
                     <span class="skeleton w-full h-2"></span>

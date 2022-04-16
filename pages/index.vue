@@ -4,6 +4,10 @@
     border-radius: 2rem;
 }
 
+.top_img {
+    transform: rotateY(180deg);
+}
+
 .portal {
     filter: drop-shadow(0px 0px 105px rgba(30, 0, 30, 40%));
     min-width: 36rem;
@@ -26,6 +30,7 @@
 <template>
     <main role="main" class="flex flex-col items-center gap-16 lg:gap-24 max-w-screen-2xl w-full mt-24 md:mt-24">
         <section class="relative flex flex-wrap md:flex-nowrap items-start md:items-center justify-between gap-8 px-1 md:px-8 w-full">
+            <!-- <img class="top_img absolute -right-1/4 w-full max-w-7xl -z-1" src="/misc/path.svg" alt="path" /> -->
             <div class="board w-full max-w-screen-lg bg-warmgray-600 flex flex-col gap-6 md:gap-8 p-4 md:p-10 md:pl-52 flex-shrink-0">
                 <strong class="text-xs text-warmgray-50 font-normal -mb-8 md:-mb-12">حاضری برای خودت سرمایه گذاری کنی؟</strong>
                 <h1 class="flex flex-col gap-2 md:gap-4 text-warmgray-100 w-full max-w-screen-lg">

@@ -128,7 +128,7 @@ import Table from "~/components/admin/Table.vue";
 import DeleteDialog from "~/components/admin/DeleteDialog.vue";
 
 export default {
-    layout: "admin",
+    layout: "teacherPanel",
     head() {
         return { title: "نظرات کاربران - گروه آموزشی پرتقال" };
     },

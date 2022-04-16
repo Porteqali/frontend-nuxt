@@ -84,7 +84,8 @@
                 <img src="/icons/new/ArrowLeft3.svg" width="24" />
             </button>
         </div>
-        <div v-swiper="coursesSwiperOptions" class="slider w-full select-none overflow-hidden pb-8">
+
+        <div v-swiper:coursesSwiper="coursesSwiperOptions" class="slider w-full select-none overflow-hidden pb-8" v-if="courses.length > 0">
             <ul class="swiper-wrapper flex items-start">
                 <li
                     class="swiper-slide course_card shadow-lg flex flex-col items-center gap-3 rounded-2xl max-w-xs p-3 ml-8"
@@ -168,6 +169,30 @@
                 </li>
             </ul>
         </div>
+        <div class="slider flex w-full" v-if="!!coursesLoading">
+            <ul class="flex items-start w-full">
+                <li
+                    class="course_card shadow-lg flex flex-col items-center gap-3 rounded-2xl w-full max-w-xs p-3 ml-8"
+                    v-for="(courseS, i) in coursesSkeleton"
+                    :key="i"
+                >
+                    <div class="skeleton w-full h-64 rounded-2xl"></div>
+                    <h3 class="skeleton w-full h-8 rounded-lg"></h3>
+                    <div class="flex flex-col gap-2 w-full">
+                        <span class="skeleton w-full h-2"></span>
+                        <span class="skeleton w-full h-2"></span>
+                        <span class="skeleton w-full h-2"></span>
+                        <span class="skeleton w-4/12 h-2"></span>
+                    </div>
+                    <div class="flex items-start gap-2 w-full">
+                        <div class="skeleton rounded-full w-8 h-8"></div>
+                        <span class="skeleton w-8"></span>
+                    </div>
+                    <hr class="w-full border-t-2 border-b-0 border-gray-200" />
+                    <div class="skeleton w-full h-10 rounded-2xl"></div>
+                </li>
+            </ul>
+        </div>
     </section>
 </template>
 
@@ -189,13 +214,13 @@ export default {
             coursesTotal: this.coursesTotal || 0,
             coursesPageTotal: this.coursesPageTotal || 1,
             coursesLoading: false,
-            coursesSkeleton: [0, 0, 0, 0, 0, 0, 0, 0],
+            coursesSkeleton: [0, 0, 0, 0],
 
             coursesSwiperOptions: {
-                autoplay: false,
+                autoplay: 3000,
                 slidesPerView: "auto",
                 // initialSlide: 0,
-                loop: false,
+                loop: true,
                 // freeMode: true,
                 pagination: ".swiper-pagination2",
                 prevButton: ".swiper-prev",
@@ -228,7 +253,7 @@ export default {
                 headers = data.headers ? data.headers : {};
             }
 
-            let params = [`page=${this.coursesPages}`, `order=${this.order}`];
+            let params = [`page=${this.coursesPage}`, `order=${this.order}`];
             url = `${url}?${params.join("&")}`;
 
             await axios
@@ -240,7 +265,9 @@ export default {
                     this.coursesPageTotal = results.data.pageTotal;
                 })
                 .catch((e) => {})
-                .finally(() => (this.coursesLoading = false));
+                .finally(() => {
+                    this.coursesLoading = false;
+                });
         },
 
         clearCourses() {

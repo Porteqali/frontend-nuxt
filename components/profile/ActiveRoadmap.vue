@@ -182,7 +182,7 @@ export default {
                 .get(url, { headers })
                 .then((results) => {
                     this.roadmap = results.data;
-                    this.willOpenInFormated = duration(this.roadmap.willOpenIn).locale("fa").humanize();
+                    this.willOpenInFormated = this.roadmap.willOpenIn ? duration(this.roadmap.willOpenIn).locale("fa").humanize() : "؟ روز دیگر";
                     // find the index of current course and scroll to it
                     this.courseSwiper.slideTo(Object.keys(this.roadmap.bundle.courses).indexOf(this.roadmap.currentCourse._id), 1000, false);
                 })

@@ -12,6 +12,13 @@
 
         <section class="flex flex-col gap-4 bg-white rounded-2xl shadow-lg mx-auto w-full max-w-screen-lg flex-grow p-4">
             <form class="flex flex-col gap-4 flex-grow max-h-full overflow-auto">
+                <div class="flex items-center gap-2 cursor-pointer select-none" @click="withImage = !withImage">
+                    <transition name="check" mode="out-in" appear>
+                        <img src="/icons/admin/TickSquare.svg" width="20" v-if="!!withImage" />
+                        <img src="/icons/admin/TickSquareBox.svg" width="20" v-else />
+                    </transition>
+                    <span class="text-xs opacity-75">وضعیت نمایش عکس</span>
+                </div>
                 <div class="flex flex-col gap-4">
                     <img class="w-full h-16 bg-gray-300 rounded-2xl object-contain" :src="image" alt="" />
                     <div class="flex flex-wrap items-start gap-4">
@@ -24,6 +31,13 @@
                     <small class="opacity-75">ابعاد مناسب برای عکس 2800x100 پیکسل</small>
                 </div>
                 <hr class="w-full" />
+                <div class="flex items-center gap-2 cursor-pointer select-none" @click="withText = !withText">
+                    <transition name="check" mode="out-in" appear>
+                        <img src="/icons/admin/TickSquare.svg" width="20" v-if="!!withText" />
+                        <img src="/icons/admin/TickSquareBox.svg" width="20" v-else />
+                    </transition>
+                    <span class="text-xs opacity-75">وضعیت نمایش متن و تایمر</span>
+                </div>
                 <div class="flex flex-col gap-2 w-full">
                     <label class="text-sm">
                         <span>رنگ پس زمینه</span>
@@ -46,6 +60,7 @@
                         <input type="text" v-model="code" dir="auto" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
                     </div>
                 </div>
+                <hr class="w-full" />
                 <div class="flex flex-col gap-2 w-full">
                     <label class="text-sm">
                         <span>لینک</span>
@@ -118,6 +133,8 @@ export default {
                 deactive: { name: "غیرفعال", value: "deactive" },
             },
 
+            withImage: false,
+            withText: false,
             image: "",
             bgColor: "",
             text: "",
@@ -157,6 +174,8 @@ export default {
             await axios
                 .get(url, { headers })
                 .then((response) => {
+                    this.withImage = response.data.withImage;
+                    this.withText = response.data.withText;
                     this.image = response.data.bgImage;
                     this.bgColor = response.data.bgColor;
                     this.text = response.data.text;
@@ -196,6 +215,8 @@ export default {
             if (!!this.link) formData.append("link", this.link);
             formData.append("endDate", JDate(this.endDate).toISOString());
             formData.append("status", this.status.value);
+            formData.append("withImage", this.withImage);
+            formData.append("withText", this.withText);
 
             let url = encodeURI(`/api/admin/banner`);
             await axios

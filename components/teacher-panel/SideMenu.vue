@@ -88,6 +88,15 @@
                         <span>پرداختی کمیسیون ها</span>
                     </nuxt-link>
                 </li>
+
+                <hr class="w-11/12 mx-auto my-1 border-gray-600" />
+
+                <li class="flex w-full">
+                    <nuxt-link class="flex items-center gap-2 p-2 rounded-xl w-full" to="/teacher-panel/info">
+                        <img src="/icons/admin/Document.svg" class="menu_icon" width="24" />
+                        <span>اطلاعات تکمیلی</span>
+                    </nuxt-link>
+                </li>
             </ul>
             <div class="flex flex-col p-1">
                 <button class="flex items-center gap-2 p-2 w-full rounded-xl bg-rose-800" @click="$router.push('/')">

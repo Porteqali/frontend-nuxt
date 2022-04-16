@@ -179,13 +179,15 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="w-full p-3 md:p-6" name="files" v-show="tabPage == 'files'">
+                        <div class="flex flex-col gap-2 w-full p-3 md:p-6" name="files" v-show="tabPage == 'files'">
+                            <small v-if="course.exerciseFiles && course.exerciseFiles.length > 0">برای دریافت فایل ها باید دوره را خریداری کرده باشید</small>
                             <ul class="flex flex-col gap-4 w-full" v-if="course.exerciseFiles && course.exerciseFiles.length > 0">
                                 <li class="w-full" v-for="(exerciseFile, i) in course.exerciseFiles" :key="i">
                                     <a
                                         class="flex items-center gap-4 bg-warmgray-100 p-4 rounded-2xl w-full"
                                         :href="exerciseFile.file"
                                         :download="exerciseFile.name"
+                                        v-if="purchased"
                                     >
                                         <img class="flex-shrink-0" src="/icons/Folder.black.svg" width="24" height="24" alt="Folder" />
                                         <span class="flex-grow text-indigo-500">{{ exerciseFile.name }}</span>
@@ -193,6 +195,10 @@
                                             <Icon class="w-6 h-6 bg-gray-700" size="24px" folder="icons/new" name="Download" />
                                         </div>
                                     </a>
+                                    <span class="flex items-center gap-4 bg-warmgray-100 p-4 rounded-2xl w-full" v-else>
+                                        <img class="flex-shrink-0" src="/icons/Folder.black.svg" width="24" height="24" alt="Folder" />
+                                        <span class="flex-grow text-indigo-500">{{ exerciseFile.name }}</span>
+                                    </span>
                                 </li>
                             </ul>
                             <div class="text-red-400 w-full h-64 flex items-center justify-center" v-else>این دوره فایلی برای دانلود ندارد</div>
@@ -432,6 +438,8 @@ export default {
             if (topic.canPlay) {
                 this.selectedVideo = { src: topic.file, type: "video/mp4" };
                 this.selectedTopic = topic;
+            } else {
+                this.$store.dispatch("toast/makeToast", { type: "error", title: "خرید دوره", message: "برای مشاهده کامل سرفصل ها، ابتدا دوره را خریداری نمایید" });
             }
         },
 

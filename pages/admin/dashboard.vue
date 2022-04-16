@@ -10,7 +10,7 @@
 
 <template>
     <main class="dashboard_body flex flex-col gap-4 md:gap-6 md:p-2 md:py-1">
-        <div class="flex flex-wrap lg:flex-nowrap items-start gap-4 md:gap-6 w-full">
+        <div class="flex flex-wrap lg:flex-nowrap items-start gap-4 md:gap-6 w-full" v-if="checkPermissions(['admin.dashboard.view'], userPermissions)">
             <div class="flex flex-col gap-4 md:gap-6 w-full lg:w-7/12">
                 <GeneralDetailsSection />
                 <MainChartSection class="card" />
@@ -21,14 +21,13 @@
                 <DeviceChartSection class="card" />
             </div>
         </div>
-        <div class="flex flex-wrap-reverse items-end gap-4 md:gap-6 w-full">
+        <div class="flex flex-wrap-reverse items-end gap-4 md:gap-6 w-full" v-if="checkPermissions(['admin.dashboard.view'], userPermissions)">
             <RecentCommentsSection class="card w-full lg:w-6/12" style="width: 12px" />
             <div class="flex flex-col gap-4 md:gap-6 w-full lg:w-6/12">
                 <UsersLocationChartSection class="card" />
                 <RecentTransactionsSection class="card" />
             </div>
         </div>
-        <!-- // TODO : add permission for every group section of dashboard -->
     </main>
 </template>
 
@@ -42,6 +41,8 @@ import GeneralDetailsSection from "~/components/admin/dashboard/GeneralDetails.s
 import MainChartSection from "~/components/admin/dashboard/MainChart.section.vue";
 import DeviceChartSection from "~/components/admin/dashboard/DeviceChart.section.vue";
 
+import permissionCheck from "~/mixins/permissionCheck";
+
 export default {
     layout: "admin",
     components: {
@@ -53,6 +54,12 @@ export default {
         GeneralDetailsSection,
         MainChartSection,
         DeviceChartSection,
+    },
+    mixins: [permissionCheck],
+    computed: {
+        userPermissions() {
+            return this.$store.state.user.info.permissions;
+        },
     },
 };
 </script>

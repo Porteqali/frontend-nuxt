@@ -86,7 +86,7 @@ import axios from "axios";
 import Select from "~/components/forms/admin/Select.vue";
 
 export default {
-    layout: "admin",
+    layout: "teacherPanel",
     head() {
         return { title: "مشاهده نظر - گروه آموزشی پرتقال" };
     },
