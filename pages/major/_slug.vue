@@ -244,7 +244,7 @@ export default {
         async getMajor(data = {}, route) {
             if (this.majorLoading) return;
             this.majorLoading = true;
-            
+
             let url = `/api/majors/${route.params.slug}`;
             let headers = {};
             if (process.server) {
@@ -319,7 +319,11 @@ export default {
             await axios
                 .post(`/api/bundles/activate/${bundleId}`, {})
                 .then(() => {
-                    this.$store.dispatch("toast/makeToast", { type: "success", title: "انتخاب نقشه راه", message: `نقشه راه برای شما فعال شد!` });
+                    this.$store.dispatch("toast/makeToast", {
+                        type: "success",
+                        title: "انتخاب نقشه راه",
+                        message: `نقشه راه برای شما فعال شد! لطفا برای مشاهده دوره های باندل نقشه راه را خریداری نمایید.`,
+                    });
                     this.$router.push("/profile");
                 })
                 .catch((e) => {

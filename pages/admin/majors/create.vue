@@ -47,7 +47,7 @@
                         <input type="text" v-model="slug" dir="auto" class="w-full bg-transparent" />
                         <span class="opacity-75" dir="ltr">{{ `${baseUrl}/` }}</span>
                     </div>
-                    <small class="opacity-75">اسلاگ برای لینک مطلب استفاده میشود و باید یکتا باشد</small>
+                    <small class="opacity-75">اسلاگ برای لینک مطلب استفاده میشود و باید یکتا باشد(فقط از حروف انگیلیسی استفاده کنید)</small>
                 </div>
 
                 <hr class="w-full" />

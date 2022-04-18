@@ -50,7 +50,6 @@ export default {
                 .get(encodeURI(url), { headers })
                 .then((response) => {
                     this.code = response.data.code;
-                    console.log(response.data.code);
                 })
                 .catch((e) => {})
                 .finally(() => (this.isDataLoading = false));

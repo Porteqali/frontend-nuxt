@@ -28,7 +28,6 @@ const auth = async (req, res, url, redirect = false) => {
             return res.json(returnResponse);
         })
         .catch((e) => {
-            if (!e.response) console.log(e);
             if (redirect) return res.redirect("/");
             return res.status(e.response.status).json(e.response.data);
         });
@@ -51,7 +50,6 @@ app.post("/auth/register", async (req, res) => {
 app.get("/auth/login/google", passport.authenticate("googleLogin", { scope: ["profile", "email"] }));
 app.get("/auth/login/google/callback", async (req, res, next) => {
     await passport.authenticate("googleLogin", { failureRedirect: "/login" }, async (err, profile) => {
-        if (err) console.log(err);
         req.body.profile = profile;
         await auth(req, res, "/auth/continue-with-google", true);
     })(req, res, next);
@@ -72,7 +70,6 @@ app.post("/auth/forget-password/*", async (req, res) => {
         .post(`${process.env.API_BASE_URL}${req.url}`, { ...req.body }, { headers: { ...req.headers, serversecret: process.env.SERVER_SECRET, tt: Date.now() } })
         .then((results) => res.json({ ...results.data }))
         .catch((e) => {
-            if (!e.response) console.log(e);
             return res.status(e.response.status).json(e.response.data);
         });
 });

@@ -191,7 +191,14 @@ export default {
         },
 
         async activateNextCourse() {
-            if (!this.roadmap.canStartNextCourse) return;
+            if (!this.roadmap.canStartNextCourse) {
+                this.$store.dispatch("toast/makeToast", {
+                    type: "error",
+                    title: "نقشه راه",
+                    message: `حداقل زمان دوره کنونی شما به پایان نرسیده. پس از اتمام حداقل زمان امکان فعال سازی روره بعدی امکان پذیر است`,
+                });
+                return;
+            }
             if (this.activatingNextCourse) return;
             this.activatingNextCourse = true;
 
@@ -213,7 +220,14 @@ export default {
         },
 
         async finishRoadmap() {
-            if (!this.roadmap.canStartNextCourse) return;
+            if (!this.roadmap.canStartNextCourse) {
+                this.$store.dispatch("toast/makeToast", {
+                    type: "error",
+                    title: "نقشه راه",
+                    message: `حداقل زمان دوره کنونی شما به پایان نرسیده. پس از اتمام حداقل زمان امکان اتمام نقشه راه امکان پذیر است`,
+                });
+                return;
+            }
             if (this.finishingRoadmap) return;
             this.finishingRoadmap = true;
 

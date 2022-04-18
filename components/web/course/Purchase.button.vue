@@ -85,11 +85,9 @@ export default {
                     .post(`/api/course-payment`, { list: JSON.stringify(list) })
                     .then((response) => {
                         // then rediect to gateway
-                        console.log(response.data);
                         window.location.href = response.data.url;
                     })
                     .catch((e) => {
-                        console.log(e);
                         if (typeof e.response !== "undefined" && e.response.data) {
                             if (typeof e.response.data.message === "object") {
                                 this.$store.dispatch("toast/makeToast", {

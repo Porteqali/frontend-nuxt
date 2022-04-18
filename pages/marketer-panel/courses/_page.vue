@@ -66,6 +66,17 @@
                     <span class="p-1 px-2 text-xs rounded-md bg-rose-100 text-rose-700" v-if="record.status == 'deactive'">غیرفعال</span>
                 </td>
                 <td>{{ new Date(record.createdAt).toLocaleString("fa") }}</td>
+                <td>
+                    <div class="flex items-center gap-1">
+                        <router-link
+                            class="p-2 rounded-lg hover:bg-blue-200 flex-shrink-0"
+                            title="لینک بازاریابی"
+                            :to="`/course/${record.course[0]._id}/${record.course[0].name.replace(/ /g, '-')}/${record.code}`"
+                        >
+                            <img src="/icons/admin/Link.svg" width="24" />
+                        </router-link>
+                    </div>
+                </td>
             </template>
         </Table>
     </main>
@@ -103,6 +114,7 @@ export default {
                 کمیسیون: { sortable: true },
                 وضعیت: { sortable: true },
                 "تاریخ ثبت": { sortable: true },
+                عملیات: { sortable: false },
             },
             tableData: this.tableData || [],
             tableView: "list",

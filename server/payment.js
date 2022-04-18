@@ -21,8 +21,6 @@ const handlePayment = async (req, res, url) => {
             return res.json({ link: response.data.redirectUrl });
         })
         .catch((error) => {
-            console.log(error);
-            console.log(req.headers);
             return res.json({ link: "/purchase-result?errorCode=500&errorMessage=InternalServerError" });
         });
 };

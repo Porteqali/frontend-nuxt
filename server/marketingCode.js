@@ -7,6 +7,10 @@ app.use(require("cookie-parser")());
 app.use(csrf);
 
 app.post("/set-marketer-code/:code", async (req, res) => {
+    // TODO
+    // this is only for general codes
+    // course-specific code must be counted for in course single page
+
     delete req.headers["host"];
     let code = req.params.code;
     const strips = [

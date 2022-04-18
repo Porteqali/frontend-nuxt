@@ -32,9 +32,16 @@ h3::after {
                         <small v-if="record.commissionType == 'number'">تومان</small>
                     </div>
                 </div>
-                <div>
+                <div class="flex items-center gap-2">
                     <span class="p-1 px-2 text-xs rounded-md bg-emerald-100 text-emerald-700" v-if="record.status == 'active'">فعال</span>
                     <span class="p-1 px-2 text-xs rounded-md bg-rose-100 text-rose-700" v-if="record.status == 'deactive'">غیرفعال</span>
+                    <router-link
+                            class="p-2 rounded-lg hover:bg-blue-200 flex-shrink-0"
+                            title="لینک بازاریابی"
+                            :to="`/course/${record.course[0]._id}/${record.course[0].name.replace(/ /g, '-')}/${record.code}`"
+                        >
+                            <img src="/icons/admin/Link.svg" width="24" />
+                        </router-link>
                 </div>
             </li>
         </ul>

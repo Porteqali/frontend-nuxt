@@ -6,7 +6,7 @@
     position: absolute;
     top: -0.25rem;
     border-radius: 2rem;
-    background-color: #f5f5f4;
+    /* background-color: #f5f5f4; */
 }
 
 .toggle_btn {
@@ -74,15 +74,6 @@
                     جدید ترین
                 </button>
             </div>
-        </div>
-        <div class="relative flex items-center justify-between gap-8 xl:w-full xl:-my-6">
-            <button class="relative xl:top-64 xl:-right-4 flex items-center justify-center p-2 bg-white shadow-xl rounded-xl swiper-prev">
-                <img src="/icons/new/ArrowRight3.svg" width="24" />
-            </button>
-            <div class="flex justify-center gap-2 swiper-pagination2 swiper-pagination-bullets"></div>
-            <button class="relative xl:top-64 xl:-left-4 flex items-center justify-center p-2 bg-white shadow-xl rounded-xl swiper-next">
-                <img src="/icons/new/ArrowLeft3.svg" width="24" />
-            </button>
         </div>
 
         <div v-swiper:coursesSwiper="coursesSwiperOptions" class="slider w-full select-none overflow-hidden pb-8" v-if="courses.length > 0">
@@ -192,6 +183,16 @@
                     <div class="skeleton w-full h-10 rounded-2xl"></div>
                 </li>
             </ul>
+        </div>
+
+        <div class="relative flex items-center justify-between gap-8 xl:w-full xl:-mt-10">
+            <button class="relative xl:-top-72 xl:-right-4 flex items-center justify-center p-2 bg-white shadow-xl rounded-xl swiper-prev">
+                <img src="/icons/new/ArrowRight3.svg" width="24" />
+            </button>
+            <div class="flex justify-center gap-2 swiper-pagination2 swiper-pagination-bullets"></div>
+            <button class="relative xl:-top-72 xl:-left-4 flex items-center justify-center p-2 bg-white shadow-xl rounded-xl swiper-next">
+                <img src="/icons/new/ArrowLeft3.svg" width="24" />
+            </button>
         </div>
     </section>
 </template>

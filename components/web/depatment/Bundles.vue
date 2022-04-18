@@ -174,7 +174,11 @@ export default {
             await axios
                 .post(`/api/bundles/activate/${bundleId}`, {})
                 .then(() => {
-                    this.$store.dispatch("toast/makeToast", { type: "success", title: "انتخاب نقشه راه", message: `نقشه راه برای شما فعال شد!` });
+                    this.$store.dispatch("toast/makeToast", {
+                        type: "success",
+                        title: "انتخاب نقشه راه",
+                        message: `نقشه راه برای شما فعال شد! لطفا برای مشاهده دوره های باندل نقشه راه را خریداری نمایید.`,
+                    });
                     this.$router.push("/profile");
                 })
                 .catch((e) => {

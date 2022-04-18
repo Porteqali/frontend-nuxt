@@ -134,9 +134,9 @@
                 </div>
                 <ul class="flex flex-col gap-4 w-full p-1">
                     <li class="flex flex-wrap lg:flex-nowrap items-center gap-2 p-2 shadow-md rounded-xl w-full" v-for="(record, i) in courses" :key="i">
-                        <div class="flex items-center gap-2 p-2 rounded-xl shadow-md flex-shrink-0 w-max" v-if="!!record.course">
-                            <img class="w-20 h-16 shadow-md object-cover rounded-xl flex-shrink-0" :src="record.course[0].image" alt="" />
-                            <span class="flex text-sm w-screen max-w-screen-2xs" v-if="record.course[0].name">{{ record.course[0].name }}</span>
+                        <div class="flex items-center gap-2 p-2 rounded-xl shadow-md flex-shrink-0 w-max" v-if="!!record.course[0]">
+                            <img class="w-20 h-16 shadow-md object-cover rounded-xl flex-shrink-0" v-if="record.course[0]" :src="record.course[0].image" />
+                            <span class="flex text-sm w-screen max-w-screen-2xs" v-if="record.course[0]">{{ record.course[0].name }}</span>
                         </div>
                         <div class="flex flex-wrap md:flex-nowrap items-end gap-4 w-full">
                             <div class="flex flex-col gap-2 w-max flex-shrink-0">

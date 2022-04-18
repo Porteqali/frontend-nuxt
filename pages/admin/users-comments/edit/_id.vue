@@ -201,7 +201,6 @@ export default {
         },
 
         async loadReplies() {
-            console.log(1);
             if (this.loadingReplies || this.repliesPage > this.repliesPageTotal) return;
             this.loadingReplies = true;
 

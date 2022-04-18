@@ -38,13 +38,16 @@
                     </div>
                     <div class="flex flex-col gap-2 w-full">
                         <label class="">رمزعبور</label>
-                        <input
-                            type="password"
-                            v-model="password"
-                            name="password"
-                            class="p-3 w-full rounded-xl shadow-xl"
+                        <div
+                            class="flex items-center gap-2 w-full rounded-xl shadow-xl bg-white"
                             :class="{ 'border-2 border-solid border-rose-400': errorTag == 'password' }"
-                        />
+                        >
+                            <input :type="showPass ? 'text' : 'password'" v-model="password" name="password" class="w-full p-3 rounded-xl" />
+                            <div class="flex items-center p-3 cursor-pointer" @click="showPass = !showPass">
+                                <Icon class="w-6 h-6 bg-gray-700" size="24px" folder="icons/new" name="Hide" v-if="showPass" />
+                                <Icon class="w-6 h-6 bg-gray-700" size="24px" folder="icons/new" name="Show" v-else />
+                            </div>
+                        </div>
                     </div>
                     <p class="rounded-lg p-2 bg-rose-50 text-rose-900 text-sm" v-if="errorMsg">
                         {{ errorMsg }}
@@ -86,6 +89,7 @@ export default {
     data() {
         return {
             loading: false,
+            showPass: false,
 
             username: "",
             password: "",

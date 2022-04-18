@@ -39,7 +39,6 @@ app.all("/api/*", multer().any(), async (req, res) => {
             data = form;
             delete req.headers["content-length"];
         } catch (e) {
-            console.log(e);
             return res.status(500).end();
         }
     }
