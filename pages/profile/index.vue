@@ -39,7 +39,7 @@
             </div>
             <div v-swiper:couponsSwiper="couponsSwiperOptions" class="relative w-full select-none overflow-hidden">
                 <ul class="swiper-wrapper relative flex w-full h-full flex-grow">
-                    <li class="coupon swiper-slide flex flex-col items-center justify-center w-full" v-for="(coupon, i) in coupons" :key="i">
+                    <li class="coupon swiper-slide flex flex-col items-center justify-center w-full ml-6" v-for="(coupon, i) in coupons" :key="i">
                         <img class="porteqal w-28" src="/misc/half.png" alt="porteqal" />
                         <div class="absolute top-2 left-4 flex flex-col gap-2 items-end w-full">
                             <b class="discount_tag kalameh_black text-3xl p-2 bg-rose-600 text-amber-200">

@@ -27,6 +27,7 @@
     <section class="board flex flex-col gap-4 shadow-xl bg-warmgray-600 text-white w-full p-4 md:p-6 rounded-3xl" id="active-roadmap">
         <div class="flex flex-wrap items-start justify-between gap-2 w-full">
             <h2 class="kalameh_bold title text-2xl text-white w-max max-w-full">نقشه راه</h2>
+            <!-- TODO : make a cancel roadmap button that opens a dialog to confirm cancalation -->
             <div class="flex flex-col gap-1" v-if="roadmap.bundle.title && !loading">
                 <div v-if="roadmap.willOpenIn > 0">
                     <span class="kalameh_bold text-sm text-orange-400" v-if="!roadmap.userOnLastCourse">دوره بعدی:</span>

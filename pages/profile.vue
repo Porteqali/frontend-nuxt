@@ -55,6 +55,22 @@
                 <li class="w-full">
                     <nuxt-link
                         class="flex items-center gap-2 p-2 rounded-xl w-full hover:shadow-md"
+                        :class="{ active: $route.name == 'profile-roadmaps' }"
+                        to="/profile/roadmaps"
+                    >
+                        <Icon
+                            class="w-6 h-6"
+                            :class="[$route.name == 'profile-roadmaps' ? 'bg-gray-100' : 'bg-gray-700']"
+                            size="24px"
+                            folder="icons/new"
+                            name="Location"
+                        />
+                        <span>آرشیو نقشه های راه</span>
+                    </nuxt-link>
+                </li>
+                <li class="w-full">
+                    <nuxt-link
+                        class="flex items-center gap-2 p-2 rounded-xl w-full hover:shadow-md"
                         :class="{ active: $route.name == 'profile-courses' }"
                         to="/profile/courses"
                     >

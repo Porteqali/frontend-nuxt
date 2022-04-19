@@ -68,9 +68,9 @@ export default {
                 this.majors[majorId].percent = val[majorId].percent;
             }
 
-            for (var majorId in this.majors) {
-                this.majorsSorted.push(this.majors[majorId]);
-            }
+            this.majorsSorted = [];
+            for (var majorId in this.majors) this.majorsSorted.push(this.majors[majorId]);
+
             this.majorsSorted.sort((a, b) => (a.percent > b.percent ? -1 : b.percent > a.percent ? 1 : 0));
         },
     },

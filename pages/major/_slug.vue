@@ -252,7 +252,7 @@ export default {
                 headers = data.headers ? data.headers : {};
             }
             await axios
-                .get(url, { headers })
+                .get(encodeURI(url), { headers })
                 .then((results) => {
                     this.major = results.data.major;
                 })
