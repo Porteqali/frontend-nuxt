@@ -21,6 +21,12 @@
                     </label>
                     <input type="text" v-model="title" dir="auto" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" />
                 </div>
+                <div class="flex flex-col gap-2 w-full">
+                    <label class="text-sm">
+                        <span>توضیحات باندل</span>
+                    </label>
+                    <textarea v-model="desc" dir="auto" rows="4" class="p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100" ></textarea>
+                </div>
 
                 <hr class="w-full" />
 
@@ -115,6 +121,7 @@ export default {
             saving: false,
 
             title: "",
+            desc: "",
             discountPercent: "",
             giftCode: true,
             giftCodePercent: "",
@@ -143,6 +150,7 @@ export default {
 
             const data = {
                 title: this.title,
+                desc: this.desc,
                 discountPercent: this.discountPercent,
             };
             if (this.giftCode) {

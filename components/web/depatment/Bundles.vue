@@ -30,6 +30,7 @@
                     :key="i"
                 >
                     <h4 class="kalameh_bold text-xl md:text-2xl w-full">{{ courseBundle.title }}</h4>
+                    <small class="w-full" v-if="courseBundle.desc">{{ courseBundle.desc }}</small>
                     <div class="flex flex-wrap items-center justify-between gap-4 w-full">
                         <div class="relative flex items-center justify-center gap-1 bg-white rounded-xl p-1 px-4 flex-grow">
                             <span

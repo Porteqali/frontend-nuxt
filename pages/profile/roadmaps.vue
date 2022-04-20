@@ -14,9 +14,9 @@
             <img src="/icons/Location.gray.svg" width="32" height="32" alt="Play" />
             <h2 class="kalameh_bold title text-2xl">آرشیو نقشه های راه</h2>
         </div>
-        <ul class="flex flex-col gap-4 w-full">
+        <ul class="flex flex-wrap items-start gap-2 w-full">
             <li
-                class="flex flex-col gap-4 shadow-xl border-8 border-solid border-gray-300 bg-warmgray-600 rounded-3xl flex-shrink-0 w-full max-w-xs p-4 ml-7"
+                class="flex flex-col gap-4 shadow-xl border-8 border-solid border-gray-300 bg-warmgray-600 rounded-3xl flex-shrink-0 w-full max-w-xs p-4"
                 v-for="(roadmap, i) in roadmaps"
                 :key="i"
             >
@@ -27,7 +27,7 @@
                     <span class="kalameh_bold bg-rose-400 text-white p-1 px-2 font-bold rounded-xl" v-if="roadmap.status == 'canceled'">متوقف شده</span>
                     <button
                         class="flex items-center justify-center gap-1 border-2 border-solid border-white rounded-2xl p-2 hover:bg-white hover:bg-opacity-10 flex-grow"
-                        @click="startRoadMap(roadmap._id)"
+                        @click="startRoadMap(roadmap.bundle._id)"
                         v-if="roadmap.status == 'canceled'"
                     >
                         <span class="text-white">شروع ادامه نقشه راه</span>
@@ -75,6 +75,8 @@ export default {
     },
     data() {
         return {
+            selectingRoadmap: false,
+
             roadmaps: [],
             roadmapsPage: 1,
             roadmapsTotal: 0,
@@ -115,9 +117,30 @@ export default {
                 .finally(() => (this.roadmapsLoading = false));
         },
 
-        async startRoadMap(roadmapId) {
-            // TODO
-            // if user currently has no active roadmap activate this roadmap and re-calc the currentCourseStartDate
+        async startRoadMap(bundleId) {
+            // send request to back to activate this roadmap
+            if (this.selectingRoadmap) return;
+            this.selectingRoadmap = true;
+
+            await axios
+                .post(`/api/bundles/activate/${bundleId}`, {})
+                .then(() => {
+                    this.$store.dispatch("toast/makeToast", {
+                        type: "success",
+                        title: "انتخاب نقشه راه",
+                        message: `نقشه راه برای شما فعال شد! لطفا برای مشاهده دوره های باندل نقشه راه را خریداری نمایید.`,
+                    });
+                    this.$router.push("/profile");
+                })
+                .catch((e) => {
+                    this.messageType = "error";
+                    if (typeof e.response !== "undefined" && e.response.data) {
+                        if (typeof e.response.data.message === "object") {
+                            this.$store.dispatch("toast/makeToast", { type: "error", title: "انتخاب نقشه راه", message: e.response.data.message[0].errors[0] });
+                        }
+                    }
+                })
+                .finally(() => (this.selectingRoadmap = false));
         },
     },
 };

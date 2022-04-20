@@ -58,9 +58,12 @@
                     v-for="(bundle, i) in bundles"
                     :key="i"
                 >
-                    <div class="flex flex-wrap items-center justify-between gap-4 w-full">
-                        <h4 class="kalameh_bold text-xl md:text-2xl w-max">{{ bundle.title }}</h4>
-                        <div class="flex flex-wrap items-center justify-between gap-4">
+                    <div class="flex flex-wrap lg:flex-nowrap items-center justify-between gap-4 w-full">
+                        <div class="flex flex-col gap-2 flex-grow">
+                            <h4 class="kalameh_bold text-xl md:text-2xl w-max">{{ bundle.title }}</h4>
+                            <p class="w-full text-sm" v-if="bundle.desc">{{ bundle.desc }}</p>
+                        </div>
+                        <div class="flex flex-wrap lg:flex-nowrap items-center justify-between gap-4 flex-shrink-0">
                             <div class="relative flex items-center justify-center gap-1 bg-white rounded-xl p-1 px-4">
                                 <span
                                     class="bundle_tag kalameh_bold bg-rose-500 text-white text-sm p-0.5 px-2 font-bold rounded-2xl"

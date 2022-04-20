@@ -55,7 +55,15 @@
                 <Loading class="w-8 h-8" v-if="activatingNextCourse || finishingRoadmap" />
             </div>
         </div>
-        <small v-if="roadmap.bundle.title">{{ roadmap.bundle.title }}</small>
+        <div class="flex flex-wrap items-center justify-between gap-2" v-if="roadmap.bundle.title">
+            <small>{{ roadmap.bundle.title }}</small>
+            <button
+                class="text-sm border-2 border-solid border-red-400 rounded-lg p-2 py-1 bg-transparent text-gray-100 hover:bg-rose-600"
+                @click="cancelDialogState = true"
+            >
+                لغو نقشه راه
+            </button>
+        </div>
         <div class="relative orange_gradient_v flex items-center gap-2 rounded-2xl p-2 -mt-4" v-if="!roadmap.bundle.title && !loading">
             <img class="absolute lg:relative flex-shrink-0 w-full max-w-screen-2xs opacity-50 lg:opacity-100" src="/pages/departments/img.png" alt="start" />
             <div class="relative flex flex-col gap-2">
@@ -124,6 +132,25 @@
         <Loading class="w-10 h-10" v-if="loading" />
 
         <CouponDialog :open.sync="couponDialogState" :discountPercent="discountGift.percent" :code="discountGift.code" :expireDate="discountGift.expireDate" />
+
+        <Dialog :open.sync="cancelDialogState">
+            <div class="flex flex-col gap-2 w-full max-w-xs md:max-w-md">
+                <!-- <Icon class="w-32 h-32 bg-rose-500" size="120px" folder="icons/admin" name="Danger" /> -->
+                <span class="text-lg">
+                    آیا مطمئن به
+                    <b class="text-rose-600">لغو</b>
+                    این نقشه راه هستید؟
+                </span>
+                <small class="opacity-50">امکان فعال سازی و ادامه نقشه راه از لیست آرشیو نقشه های راه وجود دارد.</small>
+            </div>
+            <hr class="border-solid my-4" />
+            <div class="flex gap-2">
+                <button class="p-6 py-2 rounded-xl bg-rose-700 hover:bg-rose-800 text-white" :disabled="deletingRecord" @click="cancelRoadmap()">
+                    <span>لغو نقشه راه</span>
+                </button>
+                <button class="p-6 py-2 rounded-xl border-2 border-solid border-gray-400 hover:bg-gray-200" @click="cancelDialogState = false">بازگشت</button>
+            </div>
+        </Dialog>
     </section>
 </template>
 
@@ -154,6 +181,9 @@ export default {
 
             couponDialogState: false,
             discountGift: this.discountGift || { percent: "", code: "", expireDate: new Date(Date.now()) },
+
+            cancelDialogState: false,
+            cancelingRoadmap: false,
         };
     },
     async fetch() {
@@ -245,6 +275,27 @@ export default {
                 })
                 .catch((e) => {})
                 .finally(() => (this.finishingRoadmap = false));
+        },
+
+        async cancelRoadmap() {
+            if (this.cancelingRoadmap) return;
+            this.cancelingRoadmap = true;
+
+            let url = `/api/user-roadmap/cancel-roadmap`;
+
+            await axios
+                .post(url, {})
+                .then((results) => {
+                    this.roadmap = { bundle: {} };
+                    this.$store.dispatch("toast/makeToast", {
+                        type: "success",
+                        title: "نقشه راه",
+                        message: `نقشه راه شما متوقف شد. میتوانید از بخش ارشیو نقشه های راه دوباره این نقشه راه را فعال کنید`,
+                    });
+                    this.cancelDialogState = false;
+                })
+                .catch((e) => {})
+                .finally(() => (this.cancelingRoadmap = false));
         },
     },
 };
