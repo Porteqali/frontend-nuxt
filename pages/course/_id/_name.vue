@@ -365,6 +365,13 @@ export default {
 
         await Promise.all([this.getCourse({ headers }, route)]);
     },
+    async mounted() {
+        if (this.$route.params.code) {
+            await axios.post(`/set-marketer-code/${this.$route.params.code}`).catch((e) => {
+                console.log(e);
+            });
+        }
+    },
     // async beforeRouteUpdate(to, from, next) {
     //     if (to.params.id) this.$route.params.id = to.params.id;
     //     if (to.params.name) this.$route.params.name = to.params.name;

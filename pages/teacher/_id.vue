@@ -58,7 +58,12 @@
                 <p class="opacity-75 w-full break-words">{{ teacher.description }}</p>
                 <ul class="flex flex-wrap items-center gap-2">
                     <li v-for="(social, j) in teacher.socials" :key="j">
-                        <a :href="social.link" :title="social.name"><Icon class="w-8 h-8 bg-gray-400" folder="social" :name="social.name" /></a>
+                        <a :href="`tel:${social.link}`" :title="social.name" v-if="social.name == 'whatsapp'">
+                            <Icon class="w-5 h-5 bg-gray-400" folder="social" :name="social.name" />
+                        </a>
+                        <a :href="social.link" :title="social.name" v-else>
+                            <Icon class="w-5 h-5 bg-gray-400" folder="social" :name="social.name" />
+                        </a>
                     </li>
                 </ul>
             </div>

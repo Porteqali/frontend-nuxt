@@ -92,9 +92,14 @@ nav li:hover,
                 </nav>
                 <hr class="w-full border-b-2 border-t-0 border-warmgray-500 opacity-50 flex lg:hidden" />
                 <ul class="flex items-center gap-2 flex-shrink-0 mr-auto ml-0 w-full lg:w-auto">
-                    <nuxt-link title="پرتقال" to="/" class="ml-auto flex lg:hidden">
-                        <img class="h-8" src="/logo_mark.svg" alt="پرتقال" />
-                    </nuxt-link>
+                    <div class="flex items-center gap-2 lg:hidden ml-auto">
+                        <button class="flex justify-center items-center p-1.5 rounded-xl bg-white shadow-lg" @click="toggleMenu(false)">
+                            <Icon class="w-5 h-5 bg-gray-800" size="20px" folder="icons" name="Cancel" />
+                        </button>
+                        <nuxt-link title="پرتقال" to="/">
+                            <img class="h-8" src="/logo_mark.svg" alt="پرتقال" />
+                        </nuxt-link>
+                    </div>
                     <li class="p-2 my-2 rounded-xl bg-warmgray-200 cursor-pointer hover:shadow-xl" @click="searchDropdownOpenState = true" title="جستجو">
                         <Icon class="w-7 h-7 bg-gray-700" size="28px" folder="icons/new" name="Search" />
                     </li>

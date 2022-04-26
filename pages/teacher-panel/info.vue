@@ -15,7 +15,7 @@
                 <div class="flex flex-wrap md:flex-nowrap gap-4 w-full">
                     <div class="flex flex-col gap-4 w-full">
                         <div class="flex flex-col gap-2 w-full">
-                            <label class="text-sm">لینک تویتر</label>
+                            <label class="text-sm">لینک توییتر</label>
                             <div class="flex items-center gap-1 p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100">
                                 <Icon class="w-8 h-8 bg-lightblue-400" size="28px" folder="social" name="twitter" />
                                 <input type="text" v-model="socials.twitter.link" dir="auto" class="w-full bg-coolgray-100" />
@@ -29,10 +29,10 @@
                             </div>
                         </div>
                         <div class="flex flex-col gap-2 w-full">
-                            <label class="text-sm">لینک فیسبوک</label>
+                            <label class="text-sm">لینک واتساپ</label>
                             <div class="flex items-center gap-1 p-3 w-full rounded-xl shadow-sm focus:shadow-md bg-coolgray-100">
-                                <Icon class="w-8 h-8 bg-blue-600" size="28px" folder="social" name="facebook" />
-                                <input type="text" v-model="socials.facebook.link" dir="auto" class="w-full bg-coolgray-100" />
+                                <Icon class="w-8 h-8 bg-green-600" size="28px" folder="social" name="whatsapp" />
+                                <input type="text" v-model="socials.whatsapp.link" dir="auto" class="w-full bg-coolgray-100" />
                             </div>
                         </div>
                     </div>
@@ -99,7 +99,7 @@ export default {
             socials: this.socials || {
                 twitter: { name: "twitter", link: "" },
                 instagram: { name: "instagram", link: "" },
-                facebook: { name: "facebook", link: "" },
+                whatsapp: { name: "whatsapp", link: "" },
                 linkedin: { name: "linkedin", link: "" },
                 telegram: { name: "telegram", link: "" },
                 github: { name: "github", link: "" },
