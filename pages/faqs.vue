@@ -36,7 +36,7 @@
         <div class="flex flex-wrap md:flex-nowrap items-start gap-4 w-full max-w-screen-xl">
             <ul class="flex flex-row md:flex-col gap-4 w-full md:max-w-screen-2xs flex-shrink-0 bg-truegray-50 rounded-3xl">
                 <li
-                    class="flex flex-col md:flex-row items-center gap-2 p-2 rounded-2xl w-full"
+                    class="flex flex-col md:flex-row items-center gap-2 p-2 rounded-2xl w-full cursor-pointer"
                     :class="{ 'text-gray-100 bg-gray-700': selectedGroup == 'education' }"
                     @click="selectCategory('education')"
                 >
@@ -44,7 +44,7 @@
                     <strong class="font-bold whitespace-nowrap text-sm md:text-lg flex-shrink-0">آموزش</strong>
                 </li>
                 <li
-                    class="flex flex-col md:flex-row items-center gap-2 p-2 rounded-2xl w-full"
+                    class="flex flex-col md:flex-row items-center gap-2 p-2 rounded-2xl w-full cursor-pointer"
                     :class="{ 'text-gray-100 bg-gray-700': selectedGroup == 'support' }"
                     @click="selectCategory('support')"
                 >
@@ -52,7 +52,7 @@
                     <strong class="font-bold whitespace-nowrap text-sm md:text-lg flex-shrink-0">پشتیبانی</strong>
                 </li>
                 <li
-                    class="flex flex-col md:flex-row items-center gap-2 p-2 rounded-2xl w-full"
+                    class="flex flex-col md:flex-row items-center gap-2 p-2 rounded-2xl w-full cursor-pointer"
                     :class="{ 'text-gray-100 bg-gray-700': selectedGroup == 'collab' }"
                     @click="selectCategory('collab')"
                 >
@@ -60,7 +60,7 @@
                     <strong class="font-bold whitespace-nowrap text-sm md:text-lg flex-shrink-0">همکاری</strong>
                 </li>
                 <li
-                    class="flex flex-col md:flex-row items-center gap-2 p-2 rounded-2xl w-full"
+                    class="flex flex-col md:flex-row items-center gap-2 p-2 rounded-2xl w-full cursor-pointer"
                     :class="{ 'text-gray-100 bg-gray-700': selectedGroup == 'wallet' }"
                     @click="selectCategory('wallet')"
                 >

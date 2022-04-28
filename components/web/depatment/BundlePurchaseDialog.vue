@@ -17,7 +17,7 @@
 
 <template>
     <Dialog :open="open" @update:open="updateOpenState">
-        <div class="flex flex-col gap-4 w-full max-w-2xl">
+        <div class="flex flex-col gap-4 w-full max-w-xs md:max-w-2xl">
             <div class="flex flex-col gap-3 w-full overflow-hidden">
                 <h5 class="kalameh_bold title text-2xl md:text-3xl ml-8">خرید یکجای دوره های باندل {{ bundle.title }}</h5>
                 <small class="opacity-75 bg-amber-100 text-orange-700 p-1 px-2 rounded-full w-max" v-if="!!bundle.discountPercent">
@@ -26,6 +26,7 @@
                     تخفیف بیشتر استفاده کن
                 </small>
             </div>
+            <small class="w-full" v-if="bundle.desc">{{ bundle.desc }}</small>
             <span class="flex items-center gap-1 -mb-2">
                 <Icon class="w-6 h-6 bg-gray-700" size="24px" folder="icons/new" name="Play" />
                 دوره های داخل این باندل

@@ -98,6 +98,13 @@ textarea {
                     <p class="max-w-md text-xs text-center py-2">
                         توجه کنید که سابقه تدریس ویدئویی و ضبط فیلم بسیار مهم است، حتما در صورتی که تجربه ضبط آموزش و تجهیزات آن را دارید با ما در ارتباط باشید
                     </p>
+                    <div class="text-sm">
+                        <p>
+                            لطفا قبل از ارسال پیام،
+                            <nuxt-link title="سوالات متداول" to="/faqs" class="underline text-orange-700">سوالات متداول</nuxt-link>
+                            را مطالعه نمایید
+                        </p>
+                    </div>
                 </form>
                 <div class="background absolute sm:relative flex items-end justify-end w-full max-w-3xl rounded-2xl pt-16 -mr-96 -mb-6">
                     <img src="/pages/work-with-us/bg.png" alt="bg" />
