@@ -74,7 +74,8 @@
                         <ul class="grid grid-cols-2 sm:flex flex-wrap items-center justify-between gap-4 md:gap-6 flex-grow max-w-xl">
                             <li class="flex flex-col items-center gap-2">
                                 <h5 class="flex flex-col md:flex-row items-center gap-2">
-                                    <img src="/icons/Star.orange.svg" alt="Star" />
+                                    <!-- <img src="/icons/Star.orange.svg" alt="Star" /> -->
+                                    <Icon class="w-6 h-6 bg-orange-400" size="22px" folder="icons/stars" :name="`star${course.score.toFixed(0)}`" />
                                     <small>امتیاز دوره</small>
                                 </h5>
                                 <strong class="text-sm" v-if="course.score">{{ course.score.toFixed(1) }} از 8</strong>
@@ -367,9 +368,7 @@ export default {
     },
     async mounted() {
         if (this.$route.params.code) {
-            await axios.post(`/set-marketer-code/${this.$route.params.code}`).catch((e) => {
-                console.log(e);
-            });
+            await axios.post(`/set-marketer-code/${this.$route.params.code}`).catch((e) => {});
         }
     },
     // async beforeRouteUpdate(to, from, next) {

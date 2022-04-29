@@ -56,7 +56,7 @@
                     </li>
                 </ul>
                 <hr />
-                <div class="flex flex-col md:flex-row items-center gap-4">
+                <div class="flex flex-col md:flex-row items-center gap-4" v-if="bundleInfo.canBuy">
                     <div class="relative flex flex-col items-start">
                         <span class="bundle_tag kalameh_bold bg-rose-500 text-white text-sm p-0.5 px-2 font-bold rounded-2xl" v-if="bundleInfo.discountPercent > 0">
                             {{ bundleInfo.discountPercent }}%
