@@ -8,7 +8,10 @@
                 <img src="/icons/Arrow.svg" width="12" style="transform: rotate(90deg)" />
                 <h1 class="text-2xl"><b>مدیریت کاربران</b></h1>
             </div>
-            <nuxt-link to="/admin/users/export" class="gray_gradient rounded-xl p-2 px-4 w-max hover:shadow-md">دریافت خروجی</nuxt-link>
+            <div class="flex flex-wrap items-center gap-2">
+                <nuxt-link to="/admin/users/export" class="gray_gradient rounded-xl p-2 px-4 w-max hover:shadow-md">دریافت خروجی از کاربران</nuxt-link>
+                <NewsletterExport />
+            </div>
         </div>
 
         <hr class="w-full" />
@@ -126,6 +129,7 @@ import Icons from "~/components/Icon.vue";
 import Table from "~/components/admin/Table.vue";
 import DeleteDialog from "~/components/admin/DeleteDialog.vue";
 import ButtonList from "~/components/forms/admin/ButtonList.vue";
+import NewsletterExport from "~/components/admin/users/newsletterExport.vue";
 
 export default {
     layout: "admin",
@@ -138,6 +142,7 @@ export default {
         Table,
         DeleteDialog,
         ButtonList,
+        NewsletterExport,
     },
     data() {
         return {
