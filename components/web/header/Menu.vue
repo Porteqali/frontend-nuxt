@@ -79,8 +79,11 @@ nav li:hover,
                         <nuxt-link title="blog" to="/blog" @click="toggleMenu(false)">
                             <li class="flex items-center gap-1 md:py-2 md:my-2 rounded-xl">وبلاگ</li>
                         </nuxt-link>
-                        <nuxt-link title="contact-us" to="/contact-us" @click="toggleMenu(false)">
+                        <!-- <nuxt-link title="contact-us" to="/contact-us" @click="toggleMenu(false)">
                             <li class="flex items-center gap-1 md:py-2 md:my-2 rounded-xl">تماس با ما</li>
+                        </nuxt-link> -->
+                        <nuxt-link title="faqs" to="/faqs" @click="toggleMenu(false)">
+                            <li class="flex items-center gap-1 md:py-2 md:my-2 rounded-xl">سوالات متداول</li>
                         </nuxt-link>
                         <nuxt-link title="about-us" to="/about-us" @click="toggleMenu(false)">
                             <li class="flex items-center gap-1 md:py-2 md:my-2 rounded-xl">درباره ما</li>

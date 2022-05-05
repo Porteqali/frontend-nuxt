@@ -38,10 +38,10 @@
                         <span class="kalameh_black text-4xl lg:text-6xl font-bold">با</span>
                         <span class="orange_text_gradient kalameh_black text-5xl lg:text-7xl font-bold">پرتقال</span>
                     </div>
-                    <span class="kalameh_black text-4xl lg:text-6xl font-bold">آموزش خودت رو شروع کن!</span>
+                    <span class="kalameh_black text-4xl lg:text-6xl font-bold">لذت شیرین آموزش</span>
                 </h1>
                 <p class="kalameh_bold text-sm md:text-base text-warmgray-300">
-                    این روزها بازار آموزش های مجازی داغ است و همه از فرصت ایجاد شده نهایت استفاده را انجام می دهند و وقت را تلف نمی کنند.
+                    این روزها بازار آموزش های مجازی داغه و همه از فرصت ایجاد شده نهایت استفاده رو میبرن، بپا تو جانمونی!
                 </p>
                 <form class="flex items-center gap-4 p-1 md:p-2 rounded-2xl shadow-lg bg-white" @submit="goToSearchPage($event)">
                     <input class="flex-grow outline-none bg-transparent w-64 text-sm mr-2" v-model="search" type="text" placeholder="دوست داری چی یاد بگیری؟" />
@@ -86,8 +86,8 @@
                 <span class="kalameh_bold opacity-75 text-lg">دوست داری تو چه حوزه ای فعالیت کنی؟</span>
             </div>
             <p class="w-full max-w-screen-md text-center">
-                اگر نمیدونی به چی علاقه داری، کافیه جواب سوالایی که براتون میفرستیم رو بدید تا ما بگیم به چی علاقه داری و نقشه راهی بدیم بهت که کارتو خیلی جلو
-                میندازه!
+                اگر نمیدونی چه حوزه ای برات مناسبتره ، کافیه جواب سوالایی که براتون میفرستیم رو بدید تا ما بگیم تو چه حوزه ای کار کنی و نقشه راهی بدیم بهت که کارتو
+                خیلی جلو میندازه!
             </p>
             <nuxt-link class="orange_gradient_h p-4 px-8 rounded-xl text-sm md:text-lg shadow-lg" to="/where-to-start">شروع پرسش و پاسخ</nuxt-link>
             <img class="-mt-36" src="/misc/start.png" loading="lazy" alt="where-to-start" />

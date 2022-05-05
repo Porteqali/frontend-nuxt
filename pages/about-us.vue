@@ -9,6 +9,31 @@
 .swiper-slide {
     height: auto !important;
 }
+
+.teacher_slider {
+    max-width: 900px;
+}
+
+@media (min-width: 1370px) {
+    .teacher_slider {
+        max-width: 900px;
+    }
+}
+@media (min-width: 1440px) {
+    .teacher_slider {
+        max-width: 1054px;
+    }
+}
+@media (min-width: 1540px) {
+    .teacher_slider {
+        max-width: 1082px;
+    }
+}
+@media (min-width: 1600px) {
+    .teacher_slider {
+        max-width: 1152px;
+    }
+}
 </style>
 
 <template>
@@ -71,7 +96,7 @@
         </div>
         <section class="flex flex-wrap-reverse justify-evenly gap-24 md:gap-10 w-full max-w-screen-2xl" v-if="!groupsLoading">
             <div class="relative flex flex-col-reverse md:flex-col items-start w-full gap-4" v-for="(group, i) in groups" :key="i">
-                <div v-swiper:[departments[i].slug]="departments[i].swiperOptions" class="w-full max-w-6xl select-none overflow-hidden py-8 px-2 xl:mr-60">
+                <div v-swiper:[departments[i].slug]="departments[i].swiperOptions" class="teacher_slider w-full select-none overflow-hidden py-8 px-2 xl:mr-60">
                     <ul class="swiper-wrapper flex items-start w-full">
                         <li
                             class="swiper-slide flex flex-col items-start justify-start gap-4 p-4 md:p-6 mt-10 w-screen max-w-xs flex-shrink-0 rounded-3xl shadow-xl bg-white ml-6"

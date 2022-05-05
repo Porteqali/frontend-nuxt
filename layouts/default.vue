@@ -60,9 +60,8 @@ export default {
     mounted() {
         if (process.client && window) window.history.scrollRestoration = "auto";
 
-        // TODO : uncomment this
         // rayChat register
-        // this.raychatInit();
+        this.raychatInit();
     },
     methods: {
         async getBanner(data = {}) {
