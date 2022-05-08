@@ -50,7 +50,7 @@
                 <h1 class="kalameh_bold text-2xl md:text-3xl">زیر شاخه های رشته {{ major.title }}</h1>
             </div>
             <p class="opacity-75 w-full">
-                حالا که با رشته {{ major.title }} آشنا شدی اینجا میتونی زیرشاخ های این حوزه رو ببینی و شروع کنی به یادگیری... انتخاب با توئه
+                حالا که با رشته {{ major.title }} آشنا شدی اینجا میتونی زیرشاخه های این حوزه رو ببینی و شروع کنی به یادگیری... انتخاب با توئه
             </p>
             <ul class="flex flex-col gap-8 w-full text-white">
                 <li

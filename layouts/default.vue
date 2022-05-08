@@ -60,8 +60,8 @@ export default {
     mounted() {
         if (process.client && window) window.history.scrollRestoration = "auto";
 
-        // rayChat register
-        this.raychatInit();
+        // this.raychatInit(); // rayChat register
+        this.goftinoInit(); // goftino register
     },
     methods: {
         async getBanner(data = {}) {
@@ -95,6 +95,24 @@ export default {
                         a = window,
                         o = "87076991-6e3c-4d73-a795-ce9cab0a21b2";
                     "complete" == e.readyState ? t() : a.attachEvent ? a.attachEvent("onload", t) : a.addEventListener("load", t, !1);
+                })();
+            }
+        },
+
+        goftinoInit() {
+            if (typeof window !== "undefined") {
+                !(function () {
+                    var i = "fqST4e",
+                        a = window,
+                        d = document;
+                    function g() {
+                        var g = d.createElement("script"),
+                            s = "https://www.goftino.com/widget/" + i,
+                            l = localStorage.getItem("goftino_" + i);
+                        (g.async = !0), (g.src = l ? s + "?o=" + l : s);
+                        d.getElementsByTagName("head")[0].appendChild(g);
+                    }
+                    "complete" === d.readyState ? g() : a.attachEvent ? a.attachEvent("onload", g) : a.addEventListener("load", g, !1);
                 })();
             }
         },
