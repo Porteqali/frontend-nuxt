@@ -11,6 +11,7 @@ module.exports = {
                 "2sm": "480px",
                 "3xl": "1680px",
                 "4xl": "1920px",
+                xln: "1440px",
             },
         },
         colors: {

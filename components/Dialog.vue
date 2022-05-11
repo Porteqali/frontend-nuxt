@@ -23,9 +23,10 @@
 }
 .dialog > .box {
     min-width: 22rem;
-    margin: 0 1rem;
-    margin-top: 4rem;
-    max-height: calc(100% - 4rem);
+    /* margin: 0 1rem; */
+    /* margin-top: 4rem; */
+    margin-bottom: -4rem;
+    max-height: calc(100% - 5rem);
     z-index: 2;
     /* background-color: white; */
     /* background-color: var(--header-nav-container-bg-color); */

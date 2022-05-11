@@ -1,6 +1,6 @@
 <style scoped>
 .bundle_slider {
-    max-width: 1364px;
+    max-width: 1270px;
 }
 
 .bundle_list {
@@ -15,6 +15,12 @@
     right: -0.75rem;
     transform: rotate(25deg);
     box-shadow: 0px 0px 15px rgba(245, 15, 21, 40%);
+}
+
+@media (min-width: 1441px) {
+    .bundle_slider {
+        max-width: 1364px;
+    }
 }
 </style>
 
@@ -75,7 +81,7 @@
                 </li>
             </ul>
         </div>
-        <div class="relative xl:absolute xl:top-1/2 flex items-center justify-between gap-8 -mt-8 mx-auto w-max xl:w-full">
+        <div class="relative xl:absolute xln:top-1/2 flex items-center justify-between gap-8 -mt-8 mx-auto w-max xln:w-full">
             <div class="absolute -z-1 orange_gradient_v h-3 rounded-full w-full"></div>
             <button class="flex items-center justify-center p-2 bg-white shadow-xl rounded-xl swiper-prev-bundle">
                 <img src="/icons/new/ArrowRight3.svg" width="24" />
