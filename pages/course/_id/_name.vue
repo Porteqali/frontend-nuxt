@@ -75,7 +75,13 @@
                             <li class="flex flex-col items-center gap-2">
                                 <h5 class="flex flex-col md:flex-row items-center gap-2">
                                     <!-- <img src="/icons/Star.orange.svg" alt="Star" /> -->
-                                    <Icon class="w-6 h-6 bg-orange-400" size="22px" folder="icons/stars" :name="`star${course.score.toFixed(0)}`" />
+                                    <Icon
+                                        class="w-6 h-6 bg-orange-400"
+                                        size="22px"
+                                        folder="icons/stars"
+                                        v-if="course.score"
+                                        :name="`star${course.score.toFixed(0)}`"
+                                    />
                                     <small>امتیاز دوره</small>
                                 </h5>
                                 <strong class="text-sm" v-if="course.score">{{ course.score.toFixed(1) }} از 8</strong>
@@ -288,6 +294,7 @@ import CommentSection from "~/components/web/course/Comment.section.vue";
 import Topic from "~/components/web/course/Topic.vue";
 import Score from "~/components/web/course/Score.vue";
 import PurchaseButton from "~/components/web/course/Purchase.button.vue";
+import nl2br from "~/mixins/nl2br";
 
 export default {
     head() {
@@ -322,6 +329,7 @@ export default {
             ],
         };
     },
+    mixins: [nl2br],
     components: {
         CommentSection,
         VideoPlayer,
@@ -416,6 +424,7 @@ export default {
                             .join(" : "),
                         // totalTime: duration(seconds * 1000).locale("fa").humanize(),
                     };
+                    this.course.description = this.nl2br(this.course.description);
 
                     this.similarCourses = results.data.similarCourses.map((course) => {
                         let seconds = 0;

@@ -40,7 +40,7 @@
                 </div>
                 <h3 class="kalameh_bold title2 w-max max-w-full text-3xl md:text-4xl">{{ major.title }}</h3>
                 <h2 class="opacity-75">آشنایی با رشته {{ major.title }}</h2>
-                <p class="w-full">{{ major.text }}</p>
+                <p class="w-full" v-html="major.text"></p>
             </div>
         </article>
 
@@ -82,7 +82,7 @@
                             </button>
                         </div>
                     </div>
-                    <div v-swiper:d="bundleSwiperOptions" class="relative w-full select-none overflow-hidden">
+                    <div v-swiper:[i]="bundleSwiperOptions" class="relative w-full select-none overflow-hidden">
                         <hr class="dashed_line absolute border-0 border-b-4 border-dashed border-gray-300 w-full" />
                         <ul class="swiper-wrapper relative flex w-full h-full flex-grow text-gray-700">
                             <li class="swiper-slide flex flex-col items-start md:items-center gap-1 mt-24 max-w-max flex-shrink-0 ml-2">
@@ -164,6 +164,7 @@
 import axios from "axios";
 import Icon from "~/components/Icon.vue";
 import BundlePurchaseDialog from "~/components/web/depatment/BundlePurchaseDialog.vue";
+import nl2br from "~/mixins/nl2br";
 
 export default {
     head() {
@@ -197,6 +198,7 @@ export default {
             ],
         };
     },
+    mixins: [nl2br],
     components: {
         Icon,
         BundlePurchaseDialog,
@@ -258,6 +260,7 @@ export default {
                 .get(encodeURI(url), { headers })
                 .then((results) => {
                     this.major = results.data.major;
+                    this.major.text = this.nl2br(this.major.text);
                 })
                 .catch((e) => {})
                 .finally(() => (this.majorLoading = false));
