@@ -7,6 +7,7 @@
 }
 
 .background {
+    width: 110vw;
     /* background: linear-gradient(261.5deg, #ffa825 0%, rgba(255, 112, 215, 15%) 100%); */
     background-image: linear-gradient(261.5deg, #ffa825 0%, rgba(255, 112, 215, 15%) 100%), url("/pages/home/pattern.png");
     background-repeat: repeat;
@@ -56,7 +57,7 @@
                 </button>
             </div>
         </div>
-        <div class="background absolute right-0 flex items-center mt-32 w-screen h-72">
+        <div class="background absolute right-0 flex items-center mt-32 h-72">
             <img class="h-64" src="/pages/home/hand_write.png" alt="hand_write" />
         </div>
     </section>

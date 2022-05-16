@@ -18,8 +18,8 @@
 
 <template>
     <main role="main" class="relative flex flex-col items-center gap-16 max-w-screen-2xl w-full mt-24 md:mt-24 px-4 md:px-8 mb-16">
-        <img class="absolute -right-1/4 top-1/4 -z-1" src="/pages/faqs/bg.png" v-if="faqs.length != 0" />
-        <img class="absolute -left-48 top-40 -z-1" src="/pages/faqs/hand.png" />
+        <img class="absolute top-1/4 -z-1" src="/pages/faqs/bg.png" style="right: -17%" v-if="faqs.length != 0" />
+        <img class="absolute -left-64 top-40 -z-1" src="/pages/faqs/hand.png" />
         <section class="relative flex flex-col items-center justify-center gap-8 w-full">
             <div class="flex flex-col justify-center gap-2">
                 <h1 class="flex flex-col gap-4 kalameh_bold title text-3xl lg:text-4xl w-max">سوالی داری؟</h1>
