@@ -114,7 +114,16 @@
                                         v-if="item.course.discountInfo && item.course.discountInfo.tag != 'رایگان' && item.course.price > 0"
                                     >
                                         <span class="kalameh_bold">{{ item.course.discountInfo.tag }}</span>
-                                        <span class="kalameh_bold" v-if="!!item.course.discountInfo.discountType">تخفیف</span>
+                                        <span
+                                            class="kalameh_bold"
+                                            v-if="
+                                                !!item.course.discountInfo.discountType &&
+                                                item.course.discountInfo.tag != 'رایگان' &&
+                                                item.course.discountInfo.tag != 'جدید'
+                                            "
+                                        >
+                                            تخفیف
+                                        </span>
                                     </small>
                                     <div class="flex items-end justify-center gap-4">
                                         <div class="flex flex-col items-end" v-if="item.course.price">

@@ -120,7 +120,7 @@ export default {
         return {
             loading: false,
             saving: false,
-            permissionGroups: this.permissionGroups || [],
+            permissionGroups: this.permissionGroups || {},
             statusOptions: {
                 active: { name: "فعال", value: "active" },
                 deactive: { name: "غیرفعال", value: "deactive" },

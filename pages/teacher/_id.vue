@@ -131,7 +131,12 @@
                             v-if="course.discountInfo && course.discountInfo.tag != 'رایگان' && course.price > 0"
                         >
                             <span class="kalameh_bold">{{ course.discountInfo.tag }}</span>
-                            <span class="kalameh_bold" v-if="!!course.discountInfo.discountType">تخفیف</span>
+                            <span
+                                class="kalameh_bold"
+                                v-if="!!course.discountInfo.discountType && course.discountInfo.tag != 'رایگان' && course.discountInfo.tag != 'جدید'"
+                            >
+                                تخفیف
+                            </span>
                         </small>
                     </div>
                     <hr class="w-full border-t-2 border-b-0 border-gray-200" />
