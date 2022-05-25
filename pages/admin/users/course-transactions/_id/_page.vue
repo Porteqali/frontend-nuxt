@@ -55,13 +55,13 @@
             <template v-slot:tbody="{ record, index }">
                 <td>
                     <div class="flex items-center gap-2">
-                        <img class="w-8 h-8 rounded-full object-cover" :src="record.info[0].user[0].image" v-if="record.info[0].user[0].image" alt="" />
-                        <span>{{ record.info[0].fullname }}</span>
+                        <img class="w-8 h-8 rounded-full object-cover" :src="record.info[0].userImage" v-if="record.info[0].userImage" alt="" />
+                        <span>{{ record.info[0].userFullname }}</span>
                     </div>
                 </td>
                 <td>
                     <div class="flex flex-col items-center gap-2">
-                        <span class="bg-bluegray-100 p-1 text-xs rounded-lg shadow-sm" v-for="(item, i) in record.info" :key="i">{{ item.course[0].name }}</span>
+                        <span class="bg-bluegray-100 p-1 text-xs rounded-lg shadow-sm" v-for="(item, i) in record.info" :key="i">{{ item.courseName }}</span>
                     </div>
                 </td>
                 <td>

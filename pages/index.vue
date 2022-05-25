@@ -35,7 +35,6 @@
                 <strong class="text-xs text-warmgray-50 font-normal -mb-8 md:-mb-12">حاضری برای خودت سرمایه گذاری کنی؟</strong>
                 <h1 class="flex flex-col gap-2 md:gap-4 text-warmgray-100 w-full max-w-screen-lg">
                     <div class="flex items-center gap-4">
-                        <span class="kalameh_black text-4xl lg:text-6xl font-bold">با</span>
                         <span class="orange_text_gradient kalameh_black text-5xl lg:text-7xl font-bold">پرتقال</span>
                     </div>
                     <span class="kalameh_black text-4xl lg:text-6xl font-bold">لذت شیرین آموزش</span>
@@ -86,7 +85,7 @@
                 <span class="kalameh_bold opacity-75 text-lg">دوست داری تو چه حوزه ای فعالیت کنی؟</span>
             </div>
             <p class="w-full max-w-screen-md text-center">
-                اگر نمیدونی چه حوزه ای برات مناسبتره ، کافیه جواب سوالایی که براتون میفرستیم رو بدید تا ما بگیم تو چه حوزه ای کار کنی و نقشه راهی بدیم بهت که کارتو
+                اگر نمیدونی چه حوزه ای برات مناسب تره ، کافیه جواب سوالایی که برات میفرستیم رو بدی تا ما بهت یه نقشه راه بدیم و بگیم تو چه حوزه ای کار کنی که کارتو
                 خیلی جلو میندازه!
             </p>
             <nuxt-link class="orange_gradient_h p-4 px-8 rounded-xl text-sm md:text-lg shadow-lg" to="/where-to-start">شروع پرسش و پاسخ</nuxt-link>
