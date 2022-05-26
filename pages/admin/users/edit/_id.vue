@@ -236,7 +236,7 @@ export default {
             formData.append("family", this.family);
             formData.append("email", this.email);
             formData.append("emailVerified", this.emailVerified);
-            formData.append("mobile", this.mobile.replaceAll("-", "").replaceAll(" ", ""));
+            formData.append("mobile", this.mobile ? this.mobile.replaceAll("-", "").replaceAll(" ", "") : "");
             formData.append("mobileVerified", this.mobileVerified);
             formData.append("status", this.status.value);
             if (!!this.password) formData.append("password", this.password);
