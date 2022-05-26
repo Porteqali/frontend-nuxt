@@ -118,7 +118,7 @@ export default {
             this.errorMsg = this.errorTag = "";
 
             await axios
-                .post(`/auth/login`, { username: this.username, password: this.password })
+                .post(`/auth/login`, { username: this.username.toLowerCase(), password: this.password })
                 .then(async () => {
                     await this.$store.dispatch("user/refresh");
                     // await this.$store.dispatch("user/getUserInfo");

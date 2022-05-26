@@ -238,7 +238,7 @@ export default {
             this.errorMsg = this.errorTag = "";
 
             await axios
-                .post(`/auth/send-code`, { username: this.username })
+                .post(`/auth/send-code`, { username: this.username.toLowerCase() })
                 .then((response) => {
                     this.page = "stage2";
                     this.timeLeft = response.data.expireIn;
@@ -261,7 +261,7 @@ export default {
             this.errorMsg = this.errorTag = "";
 
             await axios
-                .post(`/auth/verify`, { username: this.username, code: this.code })
+                .post(`/auth/verify`, { username: this.username.toLowerCase(), code: this.code })
                 .then(async (response) => {
                     if (response.data.register) {
                         this.page = "stage3";
@@ -292,7 +292,7 @@ export default {
 
             await axios
                 .post(`/auth/register`, {
-                    username: this.username,
+                    username: this.username.toLowerCase(),
                     code: this.code,
                     name: this.name,
                     family: this.family,

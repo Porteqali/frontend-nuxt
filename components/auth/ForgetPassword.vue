@@ -206,7 +206,7 @@ export default {
             this.errorMsg = this.errorTag = "";
 
             await axios
-                .post(`/auth/forget-password/send-code`, { username: this.username })
+                .post(`/auth/forget-password/send-code`, { username: this.username.toLowerCase() })
                 .then((response) => {
                     this.page = "stage2";
                     this.timeLeft = response.data.expireIn;
@@ -229,7 +229,7 @@ export default {
             this.errorMsg = this.errorTag = "";
 
             await axios
-                .post(`/auth/forget-password/verify`, { username: this.username, code: this.code })
+                .post(`/auth/forget-password/verify`, { username: this.username.toLowerCase(), code: this.code })
                 .then(async (response) => {
                     this.page = "stage3";
                     this.timeLeft = 0;
@@ -254,7 +254,7 @@ export default {
 
             await axios
                 .post(`/auth/forget-password/change-password`, {
-                    username: this.username,
+                    username: this.username.toLowerCase(),
                     code: this.code,
                     password: this.password,
                     passwordConfirmation: this.passwordConfirmation,
