@@ -62,6 +62,7 @@ export default {
 
         // this.raychatInit(); // rayChat register
         this.goftinoInit(); // goftino register
+        this.yektanet(); // yektanet script
     },
     methods: {
         async getBanner(data = {}) {
@@ -114,6 +115,29 @@ export default {
                     }
                     "complete" === d.readyState ? g() : a.attachEvent ? a.attachEvent("onload", g) : a.addEventListener("load", g, !1);
                 })();
+            }
+        },
+
+        yektanet() {
+            if (typeof window !== "undefined") {
+                !(function (t, e, n) {
+                    (t.yektanetAnalyticsObject = n),
+                        (t[n] =
+                            t[n] ||
+                            function () {
+                                t[n].q.push(arguments);
+                            }),
+                        (t[n].q = t[n].q || []);
+                    var a = new Date(),
+                        r = a.getFullYear().toString() + "0" + a.getMonth() + "0" + a.getDate() + "0" + a.getHours(),
+                        c = e.getElementsByTagName("script")[0],
+                        s = e.createElement("script");
+                    s.id = "ua-script-QMZzq9IG";
+                    s.dataset.analyticsobject = n;
+                    s.async = 1;
+                    s.type = "text/javascript";
+                    (s.src = "https://cdn.yektanet.com/rg_woebegone/scripts_v3/QMZzq9IG/rg.complete.js?v=" + r), c.parentNode.insertBefore(s, c);
+                })(window, document, "yektanet");
             }
         },
     },
