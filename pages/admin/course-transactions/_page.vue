@@ -101,7 +101,10 @@
                             class="p-2 rounded-lg hover:bg-emerald-200 flex-shrink-0"
                             title="تکمیل فرایند پرداخت"
                             @click="askToComplete(record._id, ``, index)"
-                            v-if="record.info[0].status == 'waiting_for_payment' && checkPermissions(['admin.course-transactions.complete'], userPermissions)"
+                            v-if="
+                                (record.info[0].status == 'waiting_for_payment' || record.info[0].status == 'cancel' || record.info[0].status == 'error') &&
+                                checkPermissions(['admin.course-transactions.complete'], userPermissions)
+                            "
                         >
                             <img src="/icons/admin/Payment.svg" width="24" />
                         </button>
