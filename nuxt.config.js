@@ -39,6 +39,7 @@ export default {
 
     // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
     buildModules: [
+        "@nuxtjs/google-analytics",
         "@nuxtjs/pwa",
         // https://go.nuxtjs.dev/tailwindcss
         "@nuxtjs/tailwindcss",
@@ -99,6 +100,10 @@ export default {
             importScripts: ["custom-sw.js"],
             routingExtensions: ["static/routing-sw.js"],
         },
+    },
+
+    googleAnalytics: {
+        id: "UA-156421609-1",
     },
 
     // Build Configuration: https://go.nuxtjs.dev/config-build
