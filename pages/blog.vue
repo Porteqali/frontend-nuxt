@@ -128,11 +128,11 @@
         <section class="relative flex flex-col items-center justify-center gap-8 w-full">
             <h4 class="kalameh_bold text-xl opacity-65">مطالب ما رو تو شبکه های اجتماعی دنبال کنید</h4>
             <div class="flex flex-wrap items-center justify-center gap-8 w-full max-w-screen-xl">
-                <div class="orange_gradient_v flex items-center gap-4 w-full max-w-lg rounded-3xl p-4" v-if="contact_info.socials && contact_info.socials.telegram">
+                <div class="orange_gradient_v flex items-center gap-4 w-full max-w-lg rounded-3xl p-4" v-if="contact_info.socials && contact_info.socials.instagram">
                     <img class="w-16 h-16" src="/social/instagram.png" alt="instagram" />
                     <span class="kalameh_bold text-xl md:text-2xl">پرتقال در اینستاگرام</span>
                     <a
-                        :href="contact_info.socials.telegram"
+                        :href="contact_info.socials.instagram"
                         class="border-2 border-solid border-white rounded-2xl p-3 px-5 text-sm mr-auto"
                         title="پرتقال در اینستاگرام"
                     >
@@ -141,12 +141,12 @@
                 </div>
                 <div
                     class="bg-lightblue-400 text-white flex items-center gap-4 w-full max-w-lg rounded-3xl p-4"
-                    v-if="contact_info.socials && contact_info.socials.instagram"
+                    v-if="contact_info.socials && contact_info.socials.telegram"
                 >
                     <img class="w-16 h-16" src="/social/telegram.png" alt="telegram" />
                     <span class="kalameh_bold text-xl md:text-2xl">پرتقال در تلگرام</span>
                     <a
-                        :href="contact_info.socials.instagram"
+                        :href="contact_info.socials.telegram"
                         class="border-2 border-solid border-white rounded-2xl p-3 px-5 text-sm mr-auto"
                         title="پرتقال در تلگرام"
                     >
