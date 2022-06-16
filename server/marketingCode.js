@@ -53,7 +53,10 @@ app.post("/set-marketer-code/:code", async (req, res) => {
         .post(`${process.env.API_BASE_URL}/marketers/check-code/${code}`, data, {
             headers: { ...req.headers, serversecret: process.env.SERVER_SECRET, tt: Date.now() },
         })
-        .then((results) => (marketerExists = true))
+        .then((results) => {
+            marketerExists = true;
+            code = results.data.code;
+        })
         .catch((e) => {});
 
     if (marketerExists) {
