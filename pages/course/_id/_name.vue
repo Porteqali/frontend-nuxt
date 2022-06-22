@@ -112,7 +112,7 @@
                     <div class="flex flex-wrap items-center gap-4 w-full">
                         <div class="flex items-center gap-4 pl-4 border-l-2 border-solid border-gray-400">
                             <div class="flex flex-col items-center justify-center gap-2 p-2 rounded-xl bg-warmgray-100">
-                                <b class="text-sm">{{ topVotePercentage }}%</b>
+                                <b class="text-sm">{{ topVotePercentage.toFixed(2) }}%</b>
                                 <p class="w-full text-xs text-center flex-grow">به دوره بالاترین نمره را داده اند</p>
                                 <div class="relative h-2 rounded-full bg-gray-400 bg-opacity-40 w-full">
                                     <span class="absolute bg-pink-500 rounded-full h-full" :style="`width: ${topVotePercentage}%`"></span>
