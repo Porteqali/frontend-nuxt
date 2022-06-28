@@ -14,7 +14,7 @@ const checkIfRole = async (req, res, role) => {
     
     await post(`${process.env.API_BASE_URL}/auth/check-if-role/${role}`, null, {
         timeout: 30 * 1000,
-        headers: { ...req.headers, "x-forwarded-for": ip, serversecret: process.env.SERVER_SECRET, tt: Date.now() },
+        headers: { ...req.headers, ipaddr: ip, serversecret: process.env.SERVER_SECRET, tt: Date.now() },
     })
         .then((results) => (isRole = true))
         .catch((e) => {});

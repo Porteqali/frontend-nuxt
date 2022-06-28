@@ -49,7 +49,7 @@ app.all("/api/*", multer().any(), async (req, res) => {
             url: `${process.env.API_BASE_URL}${req.url}`.replace("/api/", "/"),
             data: data,
             timeout: 30 * 1000,
-            headers: { ...req.headers, ...formdataHeaders, "x-forwarded-for": ip, serversecret: process.env.SERVER_SECRET, tt: Date.now() },
+            headers: { ...req.headers, ...formdataHeaders, ipaddr: ip, serversecret: process.env.SERVER_SECRET, tt: Date.now() },
             maxBodyLength: Infinity,
             // maxContentLength: Infinity,
         })
@@ -82,12 +82,12 @@ app.all("/api/*", multer().any(), async (req, res) => {
 app.get("/file/*", async (req, res) => {
     const baseUrl = process.env.API_BASE_URL;
     const protocol = baseUrl.includes("https://") ? https : http;
-    const x_forwarded_for = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
+    const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
     delete req.headers["host"];
 
     protocol.get(
         `${baseUrl}${req.url}`,
-        { headers: { ...req.headers, "x-forwarded-for": x_forwarded_for, serversecret: process.env.SERVER_SECRET, tt: Date.now() } },
+        { headers: { ...req.headers, ipaddr: ip, serversecret: process.env.SERVER_SECRET, tt: Date.now() } },
         (response) => {
             if (response.statusCode >= 200 && response.statusCode < 400) {
                 try {
