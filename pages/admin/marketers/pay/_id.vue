@@ -82,7 +82,7 @@ import Select from "~/components/forms/admin/Select.vue";
 export default {
     layout: "admin",
     head() {
-        return { title: "پردخت کمیسیون - گروه آموزشی پرتقال" };
+        return { title: "پرداخت کمیسیون - گروه آموزشی پرتقال" };
     },
     components: {
         Select,
@@ -163,7 +163,7 @@ export default {
             this.errorMsg = this.errorTag = "";
 
             const data = {};
-            data.amount = this.amount.replace(",", "");
+            data.amount = this.amount.replaceAll(",", "");
             if (!!this.cardNumber) data.cardNumber = this.cardNumber;
             if (!!this.bank) data.bank = this.bank;
 
