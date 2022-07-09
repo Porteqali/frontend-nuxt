@@ -24,7 +24,7 @@ h3::after {
                     {{ `${((item.count / total) * 100).toFixed(0)}%` }}
                 </p>
                 <b class="w-6 rounded-full" :style="`height: ${((item.count / total) * 100).toFixed(0)}%; background-color: ${item.color};`"></b>
-                <small class="text-xs w-12 h-12 overflow-hidden text-center">{{ item.location }}</small>
+                <small class="text-xs w-auto h-12 overflow-hidden text-center">{{ item.location }}</small>
             </span>
         </div>
     </section>

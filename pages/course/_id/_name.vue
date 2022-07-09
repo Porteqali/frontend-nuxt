@@ -454,7 +454,7 @@ export default {
                 this.selectedVideo = { src: topic.file, type: "video/mp4" };
                 this.selectedTopic = topic;
             } else {
-                this.$store.dispatch("toast/makeToast", { type: "error", title: "خرید دوره", message: "برای مشاهده کامل سرفصل ها، ابتدا دوره را خریداری نمایید" });
+                this.$store.dispatch("toast/makeToast", { type: "error", title: "خرید دوره", message: "برای مشاهده کامل سرفصل ها، ابتدا دوره را خریداری نمایید. اگر از قبل دوره را خریداری کرده اید لطفا وارد حساب کاربری خود شوید" });
             }
         },
 

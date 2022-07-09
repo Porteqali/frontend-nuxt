@@ -233,6 +233,13 @@ export default {
         },
         addCourses() {
             if (!!this.selectedSearchItem.name) {
+                for (let i = 0; i < this.courses.length; i++) {
+                    if (this.courses[i].course._id == this.selectedSearchItem._id) {
+                        this.$store.dispatch("toast/makeToast", { type: "error", title: "", message: "دوره در باندل وجود دارد" });
+                        return;
+                    }
+                }
+
                 this.courses.unshift({
                     order: 0,
                     course: this.selectedSearchItem,

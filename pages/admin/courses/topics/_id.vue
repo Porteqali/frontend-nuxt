@@ -33,9 +33,6 @@
 
                 <div class="flex flex-wrap items-center justify-between gap-2">
                     <label for="">سرفصل های دوره</label>
-                    <button type="button" class="border-2 border-solid border-emerald-400 hover:bg-emerald-50 text-xs p-1 px-2 rounded-lg" @click="addTopic()">
-                        سرفصل جدید
-                    </button>
                 </div>
                 <ul class="flex flex-col gap-4">
                     <Draggable class="flex flex-col gap-4" ghost-class="bg-gray-200" v-model="topics" handle=".grab_area" @start="drag = true" @end="drag = false">
@@ -129,6 +126,9 @@
                         </li>
                     </Draggable>
                 </ul>
+                <button type="button" class="w-max border-2 border-solid border-emerald-400 hover:bg-emerald-50 text-xs p-1 px-2 rounded-lg" @click="addTopic()">
+                    سرفصل جدید
+                </button>
             </form>
             <hr class="w-full" />
             <small class="flex items-center gap-2 bg-rose-100 text-red-800 text-sm p-2 rounded-lg w-max" v-if="errorMsg">
@@ -232,7 +232,7 @@ export default {
             this.topics.splice(index, 1);
         },
         addTopic() {
-            this.topics.unshift({
+            this.topics.push({
                 order: 0,
                 name: "",
                 time: { hours: "", minutes: "", seconds: "" },

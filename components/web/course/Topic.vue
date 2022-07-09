@@ -68,7 +68,7 @@
                     </small>
                     <small class="flex items-center gap-1 opacity-75 text-xs" v-if="!!data.isFreeForUsers">
                         <div class="w-2 h-2 rounded-full bg-gray-400"></div>
-                        <span>رایگان برا اعضا</span>
+                        <span>رایگان برای اعضا</span>
                     </small>
                 </div>
             </div>
