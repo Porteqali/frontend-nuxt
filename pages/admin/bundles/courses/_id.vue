@@ -242,7 +242,11 @@ export default {
 
                 this.courses.unshift({
                     order: 0,
-                    course: this.selectedSearchItem,
+                    course: {
+                        _id: this.selectedSearchItem._id,
+                        name: this.selectedSearchItem.name,
+                        image: this.selectedSearchItem.image,
+                    },
                     minimumTimeNeeded: this.minimumTimeNeeded,
                 });
             }

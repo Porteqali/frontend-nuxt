@@ -8,7 +8,12 @@ var http = require("http");
 var https = require("https");
 const csrf = require("csurf")({ cookie: true });
 
-app.use(require("express").json());
+app.use(
+    require("express").json({
+        limit: "50mb",
+        extended: true,
+    }),
+);
 app.use(require("cookie-parser")());
 app.use(csrf);
 
@@ -51,7 +56,7 @@ app.all("/api/*", multer().any(), async (req, res) => {
             timeout: 30 * 1000,
             headers: { ...req.headers, ...formdataHeaders, ipaddr: ip, serversecret: process.env.SERVER_SECRET, tt: Date.now() },
             maxBodyLength: Infinity,
-            // maxContentLength: Infinity,
+            maxContentLength: Infinity,
         })
         .then((response) => {
             resStatus = 200;
@@ -85,20 +90,16 @@ app.get("/file/*", async (req, res) => {
     const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
     delete req.headers["host"];
 
-    protocol.get(
-        `${baseUrl}${req.url}`,
-        { headers: { ...req.headers, ipaddr: ip, serversecret: process.env.SERVER_SECRET, tt: Date.now() } },
-        (response) => {
-            if (response.statusCode >= 200 && response.statusCode < 400) {
-                try {
-                    res.writeHead(response.statusCode, { ...response.headers });
-                    response.pipe(res);
-                } catch (e) {}
-            } else {
-                return res.status(404).end();
-            }
-        },
-    );
+    protocol.get(`${baseUrl}${req.url}`, { headers: { ...req.headers, ipaddr: ip, serversecret: process.env.SERVER_SECRET, tt: Date.now() } }, (response) => {
+        if (response.statusCode >= 200 && response.statusCode < 400) {
+            try {
+                res.writeHead(response.statusCode, { ...response.headers });
+                response.pipe(res);
+            } catch (e) {}
+        } else {
+            return res.status(404).end();
+        }
+    });
 });
 
 module.exports = app;
